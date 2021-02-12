@@ -4,15 +4,9 @@ using UnityEngine;
 
 public class MediaPlayer : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public void PlayMedia(string mediaName, System.Action callback)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        Debug.Log($"Play Media called with media name: {mediaName}\nExecuting callback\n\n\n");
+        callback.Invoke();
     }
 }

@@ -39,7 +39,7 @@ namespace Tests
             //Arrange
             FieldInfo answerIDFieldInfo = answer.GetType().GetField("answerID", BindingFlags.NonPublic | BindingFlags.Instance);
             //Action
-            answer.Initialize(answerIndex, null, null);
+            answer.Initialize("", answerIndex, null, null);
             //Assert
             Assert.AreEqual(answerIndex, answerIDFieldInfo.GetValue(answer));
         }
@@ -56,7 +56,7 @@ namespace Tests
             //Reflection to access private field
             FieldInfo questionManagerFieldInfo = answer.GetType().GetField("manager", BindingFlags.NonPublic | BindingFlags.Instance);
             //Action
-            answer.Initialize(0, null, null);
+            answer.Initialize("", 0, null, null);
             //Assert
             Assert.AreEqual(questionManager, questionManagerFieldInfo.GetValue(answer));
         }
@@ -68,7 +68,7 @@ namespace Tests
             answer.gameObject.AddComponent<Toggle>().group = null;
             ToggleGroup newToggleGroup = answer.gameObject.AddComponent<ToggleGroup>();
             //Action
-            answer.Initialize(0, null, newToggleGroup);
+            answer.Initialize("", 0, null, newToggleGroup);
             //Assert
             Assert.AreEqual(newToggleGroup, answer.GetComponent<Toggle>().group);
         }
@@ -80,7 +80,7 @@ namespace Tests
             //Arrange
             bool selected = true;
             MCQ.IMCQManager qmMock = Substitute.For<MCQ.IMCQManager>();
-            answer.Initialize(answerIndex, qmMock, null);
+            answer.Initialize("", answerIndex, qmMock, null);
             //Action
             qmMock.ClearReceivedCalls();
             answer.OnSelectChange(selected);
@@ -95,7 +95,7 @@ namespace Tests
             //Arrange
             bool selected = false;
             MCQ.IMCQManager qmMock = Substitute.For<MCQ.IMCQManager>();
-            answer.Initialize(answerIndex, qmMock, null);
+            answer.Initialize("", answerIndex, qmMock, null);
             //Action
             qmMock.ClearReceivedCalls();
             answer.OnSelectChange(selected);

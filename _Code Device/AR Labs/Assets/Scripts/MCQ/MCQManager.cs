@@ -13,52 +13,165 @@ namespace MCQ
     public class MCQManager : MonoBehaviour, IMCQManager
     {
         #region Variables
+        //[SerializeField]
+        private MCExerciseData exerciseData;        //Conatians answer choices, correct answers, and question text
         [SerializeField]
-        private MCQ.MCExerciseData exerciseData;
+        private GameObject answerPrefab = null;     //Prefab for an answer option
         [SerializeField]
-        private GameObject answerPrefab = null;           //Prefab for an answer option
+        private Button submitButton = null;         //Button that submits the currently selected answer
         [SerializeField]
-        private Button submitButton = null;
+        private Button continueButton = null;       //Button that moves to the next question
         [SerializeField]
-        private Button continueButton = null;
+        private GameObject answers = null;          //Gameobject that holds all the answers as child objects
         [SerializeField]
-        private GameObject answers = null;
-        [SerializeField]
-        private Text questionText = null;
+        private Text questionText = null;           //Title of the question, what is being asked
 
-        private int currentQuestionIndex;
-        private MCQData currentQuestionData;
-        private List<bool> correctOptions;
-        private List<bool> selectedOptions;
+        private int currentQuestionIndex;           //Keeps track of what question from the exerciseData we are on
+        private MCQData currentQuestionData;        //Has all the data needed for the current question
+        private string[] currentAnswerPool;         //Answer pool for current exercise, can be null
+        private List<bool> correctOptions;          //Flag for each answer choice, if it is correct or not
+        private List<bool> selectedOptions;         //Flag for each answer choice, if it is selected or not
 
-        //Dummy class, just to illustrate dependency
-        private MediaPlayer  mediaPlayer = null;        
+        private MediaPlayer  mediaPlayer = null;    //Dummy class, just to illustrate dependency
         #endregion //Variables
 
-
+        #region Public Functions
+        /// <summary>
+        /// Sets up the MCQ exercise, checks references, and begins the questions
+        /// </summary>
+        /// <param name="initData">The data object containing all the information for the exercise</param>
+        /// <param name="mPlayer">Reference to the media player that will play media for the question</param>
         public void Initialize(MCExerciseData initData, MediaPlayer mPlayer)
         {
+            Debug.Log("Initialize called on the MCQManager");
+            //Set necessary references
             exerciseData = initData;
             mediaPlayer = mPlayer;
-            //Null reference checks
 
-            //if (answerPrefab == null)
-            //{
-            //    LogU.RNFI("answerPrefab");
-            //    answerPrefab = (GameObject)Resources.Load("Answer");
-            //    Assert.IsNotNull(answerPrefab);
-            //}
+            //Initilize some internal state
+            currentQuestionIndex = 0;
+            currentQuestionData = exerciseData.questions[currentQuestionIndex];
+            currentAnswerPool = exerciseData.answerPool;
+
+            //Fail fast assertions
+            Assert.IsNotNull(exerciseData);
             Assert.IsNotNull(answerPrefab);
+            Assert.IsNotNull(submitButton);
+            Assert.IsNotNull(continueButton);
+            Assert.IsNotNull(answers);
+            Assert.IsNotNull(questionText);
+
+            //Set state of some dependencies.
+            submitButton.gameObject.SetActive(false);
+            continueButton.gameObject.SetActive(false);
+            questionText.text = "";
+
+            //Start exercise, play intro media if there is any
+            if (exerciseData.introMediaNames[0] != "")
+            {
+                Debug.Log("Display media called");
+                DisplayMedia(exerciseData.introMediaNames[0], OnIntroMediaPlaybackComplete);
+            }
+            else //No intro media
+            {
+                Debug.Log("Starting question setup");
+                SetupNextQuestion(currentQuestionData, currentAnswerPool);
+            }
+        }
+
+        /// <summary>
+        /// Handles calling all the functions needed to remove the last question
+        /// and setup the next, including playing reference media is there is any.
+        /// </summary>
+        /// <param name="questionData">Question Data object to display</param>
+        /// <param name="answerPool">array of possible extra options</param>
+        public void SetupNextQuestion(MCQData questionData, string[] answerPool)
+        {
+            //Remove last question only if not the first question
+            if(currentQuestionIndex != 0)
+            {
+                ClearOptions();
+                questionText.text = "";
+            }
+
+            //Reset answer tracking for new question
+            Debug.Log($"Total num options is: {questionData.TotalNumOptions}");
+            selectedOptions = Enumerable.Repeat<bool>(false, questionData.TotalNumOptions).ToList();
+            Debug.Log($"selectedOptions initialized, length is : {selectedOptions.Count}");
+            correctOptions = Enumerable.Repeat<bool>(false, questionData.TotalNumOptions).ToList();
+
+            //Generate answer options
+            List<string> answers = new List<string>();
+            if (questionData.numberOfOptionsFromPool > 0)
+            {
+                //Create list with answer options + extra options from pool
+                answers.AddRange(AddOptionsFromPool(answerPool, questionData.answerOptions, questionData.numberOfOptionsFromPool));
+            }
+            else //No extra choices from the answer pool
+            {
+                answers.AddRange(questionData.answerOptions);
+            }
+
+            //Randomize option order
+            List<int> correctIndices = new List<int>();
+            if(questionData.randomizeOrder)
+            {
+                //Convert list to array
+                string[] answerArray = answers.ToArray();
+                //Pass the array to be shuffled, collect indices of correct answers
+                correctIndices.AddRange(RandomizeOptionOrder(answerArray, questionData.correctOptionsIndices));
+                //Collect the shuffled answers back into the original list
+                answers.Clear();
+                answers.AddRange(answerArray);
+            }
+            else //Do not randomize the order
+            {
+                correctIndices.AddRange(questionData.correctOptionsIndices);
+            }
+
+            //Setup array that tracks correct answers
+            foreach (int index in correctIndices)
+            {
+                correctOptions[index] = true;
+            }
+
+            //Play reference media if there is any (limited to 1 currently)
+            if (questionData.referenceMediaNames[0] != "")
+            {
+                DisplayMedia(questionData.referenceMediaNames[0], () => OnRefMediaPlaybackComplete(answers.ToArray()));
+            }
+            else //No reference media to play
+            {
+                DisplayNextQuestion(questionData, currentAnswerPool);
+            }
+        }
+        #endregion //Public Functions
+
+        #region Event Handlers
+        public void OnIntroMediaPlaybackComplete()
+        {
+            SetupNextQuestion(exerciseData.questions[0], currentAnswerPool);
+        }
+
+        public void OnRefMediaPlaybackComplete(string[] answers)
+        {
+            DisplayNextQuestion(currentQuestionData, answers);
+        }
+
+        public void OnFeedbackMediaPlaybackComplete()
+        {
+            continueButton.gameObject.SetActive(true);
         }
 
         /// <summary>
         /// Handles an answer being selected. Sets index to true in selectedOptions
         /// </summary>
-        /// <param name="answerID">index of the answer option</param>
-        public void OnAnswerSelected(int answerID)
+        /// <param name="answerIndex">index of the answer option</param>
+        public void OnAnswerSelected(int answerIndex)
         {
-            selectedOptions[answerID] = true;
-            submitButton.enabled = true;
+            Debug.Log($"OnAnswerSelected called, index = {answerIndex}, List Length: {selectedOptions.Count}");
+            selectedOptions[answerIndex] = true;
+            submitButton.gameObject.SetActive(true);
         }
 
         /// <summary>
@@ -68,10 +181,10 @@ namespace MCQ
         public void OnAnswerDeselected(int answerID)
         {
             selectedOptions[answerID] = false;
-            //If all elements of the list are false, then:
+            //If all elements of the list are false, then no options are selected
             if (selectedOptions.TrueForAll(x => !x))
             {
-                submitButton.enabled = false;
+                submitButton.gameObject.SetActive(false);
             }
         }
 
@@ -83,9 +196,9 @@ namespace MCQ
         {
             //Check answer
             bool correct = true;
-            for(int i = 0; i < correctOptions.Count; i++)
+            for (int i = 0; i < correctOptions.Count; i++)
             {
-                if(selectedOptions[i] != correctOptions[i])
+                if (selectedOptions[i] != correctOptions[i])
                 {
                     correct = false;
                 }
@@ -94,10 +207,10 @@ namespace MCQ
             if (correct)
             {
                 //They selected correctly
-                if(currentQuestionData.answerCorrectMediaNames[0] != "")
+                if (currentQuestionData.answerCorrectMediaNames[0] != "")
                 {
                     //If there is media to play on a correct answer, play it and wait for the callback
-                    MediaPlayer.PlayMedia(currentQuestionData.answerCorrectMediaNames, OnMediaPlaybackComplete);
+                    mediaPlayer.PlayMedia(currentQuestionData.answerCorrectMediaNames[0], OnFeedbackMediaPlaybackComplete);  //WILL BE UPDATED
 
                     //Maybe add other feedback initiated here
                 }
@@ -109,94 +222,62 @@ namespace MCQ
             else
             {
                 //They selected incorrectly
-                if(currentQuestionData.answerIncorrectMediaNames[0] != "")
+                if (currentQuestionData.answerIncorrectMediaNames[0] != "")
                 {
                     //If there is media to play on an incorrect answer, then play it and wait for the callback
-                    MediaPlayer.PlayMedia(currentQuestionData.answerIncorrectMediaNames, OnMediaPlaybackComplete);
-                    
+                    mediaPlayer.PlayMedia(currentQuestionData.answerIncorrectMediaNames[0], OnFeedbackMediaPlaybackComplete);  //WILL BE UPDATED
+
                     //Maybe add other feedback initiated here
                 }
                 else
                 {
-                    continueButton.enabled = true;
+                    continueButton.gameObject.SetActive(true);
                 }
             }
-        }
-
-        public void OnContinuePressed()
-        {
-            DisplayNextQuestion(exerciseData.questions[currentQuestionIndex + 1]);
-        }
-
-        public void DisplayNextQuestion(MCQData questionData)
-        {
-            ClearOptions();
-             
-            currentQuestionIndex++;
-            currentQuestionData = exerciseData.questions[currentQuestionIndex];
-            selectedOptions = new List<bool>(currentQuestionData.TotalNumOptions);
-            correctOptions = new List<bool>(currentQuestionData.TotalNumOptions);
-            for(int i = 0; i < currentQuestionData.TotalNumOptions; i++)
-            {
-                selectedOptions[i] = false;
-                correctOptions
-            }
-            for(int j = 0; j < )
-        }
-
-        private void DisplayMedia()
-        {
-            ;
-        }
-
-        public void OnMediaPlaybackComplete()
-        {
-            ;
         }
 
         /// <summary>
-        /// Tests if two lists have the same elements regardless of order
-        /// copied from the top answer at:
-        /// https://answers.unity.com/questions/1307074/how-do-i-compare-two-lists-for-equality-not-caring.html
+        /// Callback for the continue button.
         /// </summary>
-        /// <typeparam name="T">type of list</typeparam>
-        /// <param name="aListA"></param>
-        /// <param name="aListB"></param>
-        /// <returns>true if they have the same elements, false otherwise.</returns>
-        private bool CompareLists<T>(List<T> aListA, List<T> aListB)
+        public void OnContinuePressed()
         {
-            if (aListA == null || aListB == null || aListA.Count != aListB.Count)
-                return false;
-            if (aListA.Count == 0)
-                return true;
-            Dictionary<T, int> lookUp = new Dictionary<T, int>();
-            // create index for the first list
-            for (int i = 0; i < aListA.Count; i++)
-            {
-                int count = 0;
-                if (!lookUp.TryGetValue(aListA[i], out count))
-                {
-                    lookUp.Add(aListA[i], 1);
-                    continue;
-                }
-                lookUp[aListA[i]] = count + 1;
-            }
-            for (int i = 0; i < aListB.Count; i++)
-            {
-                int count = 0;
-                if (!lookUp.TryGetValue(aListB[i], out count))
-                {
-                    // early exit as the current value in B doesn't exist in the lookUp (and not in ListA)
-                    return false;
-                }
-                count--;
-                if (count <= 0)
-                    lookUp.Remove(aListB[i]);
-                else
-                    lookUp[aListB[i]] = count;
-            }
-            // if there are remaining elements in the lookUp, that means ListA contains elements that do not exist in ListB
-            return lookUp.Count == 0;
+            //Disable continue button
+            continueButton.gameObject.SetActive(false);
+
+            //Increment forward a question internally
+            currentQuestionIndex++;
+            currentQuestionData = exerciseData.questions[currentQuestionIndex];
+
+            //Start displaying the next question
+            SetupNextQuestion(currentQuestionData, currentAnswerPool);
+        }
+        #endregion //Event Handlers
+
+        #region Private Methods
+        /// <summary>
+        /// Generates and displays the answer text and answer options
+        /// </summary>
+        /// <param name="questionData">Question data object to display</param>
+        /// <param name="answers">Array of answer options to dispaly</param>
+        private void DisplayNextQuestion(MCQData questionData, string[] answers)
+        {
+            //Display question text
+            questionText.text = questionData.question;
+
+            //Display answers
+            DisplayOptions(answers);
+        }
+
+        /// <summary>
+        /// Gets the media player to play something, passes a callback
+        /// </summary>
+        /// <param name="mediaName">String name of the media asset to play</param>
+        /// <param name="callback">Function the media player should call when the media finished playing</param>
+        private void DisplayMedia(string mediaName, Action callback)
+        {
+            mediaPlayer.PlayMedia(mediaName, callback);
+            //Call to the media player, as well as passing a callback;
+            //Dummy Function for now
         }
 
         /// <summary>
@@ -208,7 +289,7 @@ namespace MCQ
             //Delete extra objects, down to 4
             if (answers.transform.childCount > 4)
             {
-                for(int i = answers.transform.childCount; i > 4; i--)
+                for (int i = answers.transform.childCount; i > 4; i--)
                 {
                     //Destroy the first child object
                     GameObject.Destroy(answers.transform.GetChild(0).gameObject);
@@ -216,8 +297,12 @@ namespace MCQ
             }
 
             //Disable the remaining objects
-            foreach(Transform answer in answers.transform)
+            foreach (Transform answer in answers.transform)
             {
+                if(answer.GetComponent<Toggle>().isOn)
+                {
+                    answer.GetComponent<Toggle>().SetIsOnWithoutNotify(false);
+                }
                 answer.gameObject.SetActive(false);
             }
 
@@ -238,22 +323,32 @@ namespace MCQ
         /// <summary>
         /// Adds random options from a pool to an array
         /// </summary>
-        /// <param name="data">MCQExercise object with the pool</param>
-        /// <param name="options">all answer options</param>
+        /// <param name="answerPool">Answer Pool array to add options from</param>
+        /// <param name="options">existing array of options to add to</param>
         /// <param name="numberOfOptionsToAdd">How many options to add. If this
         ///                                    exceeds the number of options
-        ///                                    available in the pool, answers
-        ///                                    will be duplicated.</param>
+        ///                                    available in the pool, then less 
+        ///                                    will be added.</param>
         /// <returns>New array with random options from the pool
         ///          at the end.</returns>
         private string[] AddOptionsFromPool(
-            MCExerciseData data,
+            String[] answerPool,
             string[] options,
             int numberOfOptionsToAdd)
         {
             //Create temporary lists for easier modification
             List<string> outOptions = new List<string>(options);
-            List<string> tmpPool = new List<string>(data.answerPool);
+            List<string> tmpPool = new List<string>(answerPool);
+
+            //If some options from the pool are already present, remove them from the pool
+            foreach (string option in outOptions)
+            {
+                if (tmpPool.Contains(option))
+                {
+                    tmpPool.Remove(option);
+                }
+            }
+
             //Create Random number stream
             System.Random rng = new System.Random();
 
@@ -264,10 +359,10 @@ namespace MCQ
                 outOptions.Add(tmpPool[randIndex]);
                 tmpPool.RemoveAt(randIndex);
 
-                //If we use all the options from the pool, start duplicating
-                if(tmpPool.Count == 0)
+                //If we use all the options from the pool, stop adding
+                if (tmpPool.Count == 0)
                 {
-                    tmpPool.AddRange(data.answerPool);
+                    break;
                 }
             }
 
@@ -276,29 +371,40 @@ namespace MCQ
 
         /// <summary>
         /// Randomizes the order of the passed array, and returns the index
-        /// of the correct answer in the returned array
+        /// of the correct answer in the shuffled array
         /// </summary>
         /// <param name="options">Answer options, including correct</param>
-        /// <param name="correctAnswer">The correct answer, must
-        ///                             match one string in options</param>
-        /// <returns>int index of correct answer in new array</returns>
-        private int RandomizeOptionOrder(
+        /// <param name="correctAnswerIndices">Correct answers, must match
+        ///                                    one string in options</param>
+        /// <returns>int array of correct answer indices in new array</returns>
+        private int[] RandomizeOptionOrder(
             string[] options,
-            string correctAnswer)
+            int[] correctAnswerIndices)
         {
+            //Get correct answers before shuffle
+            List<string> correctAnswers = new List<string>(correctAnswerIndices.Length);
+            for (int i = 0; i < correctAnswers.Count; i++)
+            {
+                correctAnswers[i] = options[correctAnswerIndices[i]];
+            }
+
+            //Do the shuffle, done by reference
             System.Random rng = new System.Random();
             options = options.OrderBy(x => rng.Next()).ToArray();
-            int indexOfCorrectAnswer = -1;
-            for(int i = 0; i < options.Length; i++)
+
+            //Generate the new array of correct answer indices
+            List<int> newCorrectIndices = new List<int>(correctAnswerIndices.Length);
+            for (int j = 0; j < correctAnswers.Count; j++)
             {
-                if (options[i] == correctAnswer)
-                    indexOfCorrectAnswer = i;
+                //Get the new indices of a correct answer in the shuffled list
+                newCorrectIndices[j] = Array.IndexOf(options, correctAnswers[j]);
             }
-            return indexOfCorrectAnswer;
+
+            return newCorrectIndices.ToArray();
         }
 
         /// <summary>
-        /// Displays answer options by enabling or instantiating anser prefabs
+        /// Displays answer options by enabling or instantiating answer prefabs
         /// and setting the text to match a string from the argument
         /// </summary>
         /// <param name="options">Array of answer options to display</param>
@@ -318,11 +424,10 @@ namespace MCQ
             answersContainerRectT.sizeDelta = new Vector2(answerRectT.rect.width, heightDelta);
 
             //Enable options, set text, instantiate more if necessary
-            for(int i = 0; i < options.Length; i++)
+            for (int i = 0; i < options.Length; i++)
             {
                 GameObject answerOption;
-                //4, because ClearOptions() leaves 4 disabled options as an
-                //answer pool.
+                //4, because ClearOptions() leaves 4 disabled options as an answer prefab pool.
                 if (i < 4)
                 {
                     //If we have fewer options than disabled answer objects, just
@@ -335,9 +440,10 @@ namespace MCQ
                     //If we need more options than are disabled, instantiate more.
                     answerOption = Instantiate(answerPrefab, answers.transform);
                 }
-                //Set the answer text with the array
-                answerOption.GetComponentInChildren<Text>().text = options[i];
+                //Initialize the answer option
+                answerOption.GetComponent<AnswerChoice>().Initialize(options[i], i, this, answers.GetComponent<ToggleGroup>());
             }
         }
+        #endregion //Private Methods
     }
 }

@@ -23,10 +23,12 @@ namespace MCQ
             answerId = answerIndex;
             manager = passedManager;
             GetComponent<Toggle>().group = tg;
+            GetComponentInChildren<Text>().text = optionText;
             if (answerIndex == -1 || manager == null || GetComponent<Toggle>()?.group == null)
             {
-                Debug.LogWarning("Could some values on an answer choice were not set correctly");
+                Debug.LogWarning("Some values on an answer choice were not set correctly");
             }
+            Debug.Log($"initialize called, answer ID is : {answerId}");
         }
 
         public void OnSelectChange(bool selected)

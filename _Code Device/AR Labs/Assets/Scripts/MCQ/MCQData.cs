@@ -14,15 +14,15 @@ namespace MCQ
 
         public string question;                //Question to display
 
-        public bool allowMultiSelection;       //Whether to allow multiple choices to be selected
         public bool randomizeOrder;            //Whether to randomize the order of the options
+        public bool allowMultiSelect;          //Whether to allow multiple choices to be selected
 
         public int numberOfOptionsFromPool;    //How many options to add from the pool
 
         public string[] answerOptions;         //Answer options
-        public int[] correctOptionsIndex;      //index of the correct answer options
+        public int[] correctOptionsIndices;      //index of the correct answer options
 
+        //Returns the total number of answer options for this question
         public int TotalNumOptions { get => answerOptions.Length + numberOfOptionsFromPool; }
-        //make multiselect a derived flag from the number of correct answer indices
     }
 }
