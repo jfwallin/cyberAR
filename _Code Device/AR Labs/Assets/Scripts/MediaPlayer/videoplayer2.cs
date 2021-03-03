@@ -9,7 +9,7 @@ public class videoplayer2 : MonoBehaviour
     public string VideoName { set; get; }
     public int Flag { set; get; }
     //public UnityEngine.Video.VideoPlayer videoPlayer;
-   public VideoPlayer myVideoPlayer { set; get; }
+    public VideoPlayer myVideoPlayer { set; get; }
     public VideoClip myclip { set; get; }
     // get video name from control switch
     public void StartV(string VideoName)

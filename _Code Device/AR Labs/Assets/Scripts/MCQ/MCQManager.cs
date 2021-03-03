@@ -13,6 +13,7 @@ namespace MCQ
     public class MCQManager : MonoBehaviour, IMCQManager
     {
         #region Variables
+        public AudioPlayer aPlayer = null;
         //[SerializeField]
         private MCExerciseData exerciseData;        //Conatians answer choices, correct answers, and question text
         [SerializeField]
@@ -118,11 +119,12 @@ namespace MCQ
             {
                 //Convert list to array
                 string[] answerArray = answers.ToArray();
+                string[] shuffledArray;
                 //Pass the array to be shuffled, collect indices of correct answers
-                correctIndices.AddRange(RandomizeOptionOrder(answerArray, questionData.correctOptionsIndices));
+                correctIndices.AddRange(RandomizeOptionOrder(answerArray, out shuffledArray, questionData.correctOptionsIndices));
                 //Collect the shuffled answers back into the original list
                 answers.Clear();
-                answers.AddRange(answerArray);
+                answers.AddRange(shuffledArray);
             }
             else //Do not randomize the order
             {
@@ -210,7 +212,10 @@ namespace MCQ
                 if (currentQuestionData.answerCorrectMediaNames[0] != "")
                 {
                     //If there is media to play on a correct answer, play it and wait for the callback
-                    mediaPlayer.PlayMedia(currentQuestionData.answerCorrectMediaNames[0], OnFeedbackMediaPlaybackComplete);  //WILL BE UPDATED
+                    //mediaPlayer.PlayMedia(currentQuestionData.answerCorrectMediaNames[0], OnFeedbackMediaPlaybackComplete);  //WILL BE UPDATED
+
+                    //Call audio player
+                    aP("55");
 
                     //Maybe add other feedback initiated here
                 }
@@ -225,7 +230,7 @@ namespace MCQ
                 if (currentQuestionData.answerIncorrectMediaNames[0] != "")
                 {
                     //If there is media to play on an incorrect answer, then play it and wait for the callback
-                    mediaPlayer.PlayMedia(currentQuestionData.answerIncorrectMediaNames[0], OnFeedbackMediaPlaybackComplete);  //WILL BE UPDATED
+                    //mediaPlayer.PlayMedia(currentQuestionData.answerIncorrectMediaNames[0], OnFeedbackMediaPlaybackComplete);  //WILL BE UPDATED
 
                     //Maybe add other feedback initiated here
                 }
@@ -275,7 +280,7 @@ namespace MCQ
         /// <param name="callback">Function the media player should call when the media finished playing</param>
         private void DisplayMedia(string mediaName, Action callback)
         {
-            mediaPlayer.PlayMedia(mediaName, callback);
+            //mediaPlayer.PlayMedia(mediaName, callback);
             //Call to the media player, as well as passing a callback;
             //Dummy Function for now
         }
@@ -379,25 +384,26 @@ namespace MCQ
         /// <returns>int array of correct answer indices in new array</returns>
         private int[] RandomizeOptionOrder(
             string[] options,
+            out string[] outOptions,
             int[] correctAnswerIndices)
         {
             //Get correct answers before shuffle
-            List<string> correctAnswers = new List<string>(correctAnswerIndices.Length);
-            for (int i = 0; i < correctAnswers.Count; i++)
+            List<string> correctAnswers = new List<string>();
+            for (int i = 0; i < correctAnswerIndices.Length; i++)
             {
-                correctAnswers[i] = options[correctAnswerIndices[i]];
+                correctAnswers.Add(options[correctAnswerIndices[i]]);
             }
 
             //Do the shuffle, done by reference
             System.Random rng = new System.Random();
-            options = options.OrderBy(x => rng.Next()).ToArray();
+            outOptions = options.OrderBy(x => rng.Next()).ToArray();
 
             //Generate the new array of correct answer indices
-            List<int> newCorrectIndices = new List<int>(correctAnswerIndices.Length);
+            List<int> newCorrectIndices = new List<int>(correctAnswerIndices.Length);// Not correct init *************
             for (int j = 0; j < correctAnswers.Count; j++)
             {
                 //Get the new indices of a correct answer in the shuffled list
-                newCorrectIndices[j] = Array.IndexOf(options, correctAnswers[j]);
+                newCorrectIndices.Add(Array.IndexOf(outOptions, correctAnswers[j]));
             }
 
             return newCorrectIndices.ToArray();

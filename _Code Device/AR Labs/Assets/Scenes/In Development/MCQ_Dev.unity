@@ -220,6 +220,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   manager: {fileID: 1926997153}
   mPlayer: {fileID: 112648457}
+  aPlayer: {fileID: 551814370}
   data:
     name: Moon Lab Exercise 1
     questions:
@@ -657,6 +658,77 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 508347901}
   m_CullTransparentMesh: 0
+--- !u!1 &551814369
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 551814372}
+  - component: {fileID: 551814371}
+  - component: {fileID: 551814370}
+  m_Layer: 0
+  m_Name: AudioPlayer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &551814370
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551814369}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 587c3c62f9c0fda4089b90f54b1c29bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  allAudios: []
+--- !u!1773428102 &551814371
+ParentConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551814369}
+  m_Enabled: 1
+  m_Weight: 1
+  m_TranslationAtRest: {x: 0, y: 0, z: 0}
+  m_RotationAtRest: {x: 0, y: 0, z: 0}
+  m_TranslationOffsets:
+  - {x: 0, y: 0, z: 0}
+  m_RotationOffsets:
+  - {x: 0, y: 0, z: 0}
+  m_AffectTranslationX: 1
+  m_AffectTranslationY: 1
+  m_AffectTranslationZ: 1
+  m_AffectRotationX: 1
+  m_AffectRotationY: 1
+  m_AffectRotationZ: 1
+  m_IsContraintActive: 1
+  m_IsLocked: 1
+  m_Sources:
+  - sourceTransform: {fileID: 1394572727}
+    weight: 1
+--- !u!4 &551814372
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551814369}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &689489122
 GameObject:
   m_ObjectHideFlags: 0
@@ -1688,6 +1760,12 @@ Camera:
     type: 3}
   m_PrefabInstance: {fileID: 1394572725}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &1394572727 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4214550324010282, guid: 24158fb1437dc8e418d893939758764d,
+    type: 3}
+  m_PrefabInstance: {fileID: 1394572725}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1457035166
 GameObject:
   m_ObjectHideFlags: 0
@@ -2364,6 +2442,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee9cd2bfbd5314245860be0ffd679061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  aPlayer: {fileID: 0}
   answerPrefab: {fileID: 6459619092733853206, guid: f2f5e20181bc6f44ea2e0373a61ae9dc,
     type: 3}
   submitButton: {fileID: 1760136119}

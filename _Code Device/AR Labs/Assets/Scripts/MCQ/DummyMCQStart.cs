@@ -15,6 +15,8 @@ namespace MCQ
         [SerializeField]
         private MediaPlayer mPlayer = null;
         [SerializeField]
+        private AudioPlayer aPlayer = null;
+        [SerializeField]
         private MCExerciseData data = null;
 
         private void Awake()
@@ -34,6 +36,7 @@ namespace MCQ
         public void OnStartClicked()
         {
             Debug.Log("OnStartClicked called");
+            manager.aPlayer = aPlayer;
             manager.Initialize(data, mPlayer);
         }
     }
