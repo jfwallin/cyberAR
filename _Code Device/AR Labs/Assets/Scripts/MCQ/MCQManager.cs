@@ -215,7 +215,7 @@ namespace MCQ
                     //mediaPlayer.PlayMedia(currentQuestionData.answerCorrectMediaNames[0], OnFeedbackMediaPlaybackComplete);  //WILL BE UPDATED
 
                     //Call audio player
-                    aP("55");
+                    aPlayer.getNum("55");
 
                     //Maybe add other feedback initiated here
                 }

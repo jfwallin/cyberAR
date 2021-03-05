@@ -10,6 +10,12 @@ public class MediaPlayer : MonoBehaviour
 
     System.Action mediaCompleteCallback; //A function to be called when the media is done playing
 
+    MediaManager mediaManager = null;
+
+    public void Initialize(MediaManager initManager)
+    {
+        mediaManager = initManager;
+    }
 
     public void PlayMedia(string mediaName, MCQ.MediaType mediaType, System.Action callback)
     {
@@ -26,7 +32,12 @@ public class MediaPlayer : MonoBehaviour
             case MCQ.MediaType.Image:
                 break;
             case MCQ.MediaType.Video:
+                //Get clip from resources
                 VideoClip video = (VideoClip)Resources.Load("Video/" + mediaName);
+                //or get the clip from the mediaManager
+                VideoClip video1 = mediaManager.GetVideoClip(mediaName);
+
+
                 //Assign the new video clip
                 vPlayer.clip = video;
 
