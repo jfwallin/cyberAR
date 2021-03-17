@@ -48,6 +48,7 @@ public class videoplayer2 : MonoBehaviour
     {
 
         //Stop all audio sources before start the video
+
         AudioSource[] allAudios = Camera.main.gameObject.GetComponents<AudioSource>();
         foreach (AudioSource audioS in allAudios)
         {

@@ -8,7 +8,9 @@ public class ImageButton2 : MonoBehaviour
     public void HandleOnClickEvent()
     {
 
-        gameObject.SendMessage("ImageSwitch", "card_waxing_gibbous_image");
+        //gameObject.SendMessage("ImageSwitch", "card_waxing_gibbous_image");
+        string[] AudioT = { "card_waxing_gibbous_image", "2" };
+        gameObject.SendMessage("MediaManager", AudioT);
 
     }
 }
