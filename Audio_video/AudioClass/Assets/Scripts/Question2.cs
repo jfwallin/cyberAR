@@ -8,7 +8,11 @@ public class Question2 : MonoBehaviour
     {
         // myaudio.Num = 1;
         //AudioPlayer myaudio = new AudioPlayer("1");
-        gameObject.SendMessage("getNum", "22");
-        gameObject.SendMessage("Pause", 1);
+       // System.Action myCall;
+        string[] AudioT = { "new_moon_incorrect", "0" };
+        gameObject.SendMessage("MediaManager", AudioT, (SendMessageOptions)2);
+      //  gameObject.SendMessage("Pause", 1);
+       // string[] arr = { "1", "Wrong", MCQ.Image.ToString()};
+        //gameObject.SendMessage("WriteString", arr, (SendMessageOptions)2);
     }
 }

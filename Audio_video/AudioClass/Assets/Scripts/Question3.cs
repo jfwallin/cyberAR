@@ -9,7 +9,10 @@ public class Question3 : MonoBehaviour
         // myaudio.Num = 1;
         //AudioPlayer myaudio = new AudioPlayer("1");
         //gameObject.SendMessage("startV", "moonphase-intro.mp4");
-       gameObject.SendMessage("StartV", "moonphase-final");
-        gameObject.SendMessage("Pause", 1);
+        string[] AudioT = { "moonphase-final", "1" };
+        
+        gameObject.SendMessage("MediaManager", AudioT, (SendMessageOptions.DontRequireReceiver));
+        //gameObject.SendMessage("StartV", "moonphase-final");
+       // gameObject.SendMessage("Pause", 1);
     }
 }

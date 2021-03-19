@@ -127,7 +127,9 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleVersion: 1.0
-  preloadedAssets: []
+  preloadedAssets:
+  - {fileID: 166561073140203582, guid: 6dbd843e1ef79c94ea338b53990526d6, type: 2}
+  - {fileID: 11400000, guid: 2ecbf483dfe820243af58d98fa71b8e6, type: 2}
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -627,7 +629,7 @@ PlayerSettings:
     m_ModelFolderPath: 
     m_PortalFolderPath: 
   luminCert:
-    m_CertPath: 
+    m_CertPath: C:/AR_group/MagicKey/arlab.cert
     m_SignPackage: 1
   luminIsChannelApp: 0
   luminVersion:

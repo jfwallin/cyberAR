@@ -9,7 +9,7 @@ public class Orbit : MonoBehaviour
     
 
     //Public Variable
-    private string center; //This is what the orbit is centered on.
+    public string center; //This is what the orbit is centered on.
     public float rotateDegree; //Treat as const
     
     //Private Variable
