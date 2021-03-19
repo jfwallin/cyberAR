@@ -1,32 +1,110 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System;
+using UnityEngine.Video;
 using UnityEngine;
+using UnityEngine.UI;
 //Audio Player 
 // Recieve inputs as a string fro audio wave that reside in 
 // Audio file in Assets/Resources file 
+public enum MediaType { Audio, Video, Image }
 public class AudioPlayer : MonoBehaviour
 {
+    //Componenet References
+    [SerializeField]
+    private VideoPlayer vPlayer;
+    [SerializeField]
+    private AudioSource aSource;
+    [SerializeField]
+    private Image imageDisplay;
+    public MediaManager media = null;
+
+   
     public string Num { get; set; }
     public int PAUSE { get; set; }
     public int STOP { get; set; }
-    public AudioSource[] allAudios;
+    public int NUM { set; get; }
+    public System.Action localCallBack;
+    // private float Beg { set; get; }
+    //  public AudioSource[] allAudios;
+    private Sprite img1;
+    public VideoPlayer myVideoPlayer { set; get; }
+    
+    private AudioClip myAudioClip;
     public AudioPlayer(string playMe)
     {
         Num = (playMe);
     }
-    // This will get a number should change to get the file name
-    public void getNum (string number)
+    // This will get a item should change to get the file name
+    public void MediaManager (string[] item, System.Action CallBack)
     {
-        Num = number;
-       
-       //This will stop all audio before starting other audio
-        AudioSource[] allAudios = Camera.main.gameObject.GetComponents<AudioSource>();
-        foreach (AudioSource audioS in allAudios)
+        //AudioSource audio = GetComponent<AudioSource>();
+        //myVideoPlayer = GetComponent<VideoPlayer>();
+        //Use the assigned values.
+        AudioSource audio = aSource;
+        myVideoPlayer = vPlayer;
+
+        localCallBack = CallBack;
+       // audio.Stop();
+        string MediaName = item[0];
+        NUM = Convert.ToInt32(item[1]);
+       // print(item[1]);
+        MediaType TYPE =(MediaType) NUM ;//  int.Parse(item[1]);
+     //   print(NUM);
+        switch (TYPE)
         {
-            audioS.Stop();
+            case MediaType.Audio:
+                if (myVideoPlayer.isPlaying == false && audio.isPlaying == false)
+                {
+                    vPlayer.gameObject.SetActive(false);
+                    vPlayer.enabled = false;
+                    aSource.gameObject.SetActive(true);
+                    aSource.enabled = true;
+
+                    //myAudioClip = ((AudioClip)Resources.Load("Audio/" + MediaName));
+                    myAudioClip = media.GetAudioClip(MediaName);
+                    audio.clip = myAudioClip;
+                   
+                    audio.Play();
+                    print($"audio length {audio.clip.length}");
+                    StartCoroutine(waitAudio(audio.clip.length));
+                    // new WaitForSeconds(audio.clip.length);
+
+
+                }
+                break;
+            case MediaType.Video:
+                vPlayer.gameObject.SetActive(true);
+                vPlayer.enabled = true;
+                aSource.gameObject.SetActive(false);
+                aSource.enabled = false;
+
+                audio.Stop();
+                myVideoPlayer.Stop();
+                //myVideoPlayer.clip = Resources.Load<VideoClip>("Video/" + MediaName);
+                myVideoPlayer.clip = media.GetVideoClip(MediaName);
+               // Beg = Time.time;
+                myVideoPlayer.Play();
+                myVideoPlayer.loopPointReached += EndReached;
+              
+
+                break;
+            case MediaType.Image:
+                img1 = Resources.Load<Sprite>("Image/" + MediaName);
+                //display image to the component "UI image"  that connect to this script
+                //GetComponent<Image>().sprite = img1;
+
+                //Get the texture, construct the sprite.
+                Texture2D tex = media.GetImage(MediaName);
+                img1 = Sprite.Create(tex, new Rect(0f, 0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100);
+                imageDisplay.sprite = img1;
+                break;
+
+
         }
-        // cal the audio player method
-        FileAudioPlayer();
+        
+
+
     }
     public void StopAudio(int STOPme)
     {
@@ -40,76 +118,105 @@ public class AudioPlayer : MonoBehaviour
                 audioS.Stop();
             }
         }
-       
+
 
     }
-    // This method used to puse and unpause the audio 
-    public void Pause(int number)
+
+    //This function will be used to send a message after audio clip is finished
+    private IEnumerator waitAudio(float T)
     {
-        // -1 for pause and -2 for un pause
-        PAUSE = number;
-        AudioSource[] allAudios = Camera.main.gameObject.GetComponents<AudioSource>();
-        if (PAUSE == -1)
-        {
-            foreach (AudioSource audioS in allAudios)
-            {
-                audioS.Pause();
-            }
-        }
-        else
-        {
-           
-            foreach (AudioSource audioS in allAudios)
-            {
-                audioS.UnPause();
-            }
-        }
-
-
+        yield return new WaitForSeconds(T);
+        print("end of sound");
+        localCallBack.Invoke();
+        // gameObject.SendMessage("MethodNameToRecieveMessage", "TypeofMessage" );
     }
 
     
-   //Audio player method
-    public void FileAudioPlayer()
+    //This will send meesage after the Video playe stop
+    void EndReached(UnityEngine.Video.VideoPlayer vp)
     {
-        //create audioSource game object
-        AudioSource audio = gameObject.AddComponent<AudioSource>();
-        // use switch statment to paly different video
-        // This need to be change to recieve the name of the audio
-        switch (Num)
-        {
-
-            case ("55"):
-                
-                  
-                    audio.PlayOneShot((AudioClip)Resources.Load("Audio/new_moon_correct"));
-                   // audio.PlayOneShot((AudioClip)Resources.Load("Audio/"+Num)); // Num could be the name of the Audio
-
-
-                break;
-            case ("22"):
-                
-                    audio.PlayOneShot((AudioClip)Resources.Load("Audio/new_moon_incorrect"));
-                break;
-            case ("2"):
-               
-                    audio.PlayOneShot((AudioClip)Resources.Load("Audio/new_moon_correct"));
-                break;
-            case ("5"):
-                
-                    audio.PlayOneShot((AudioClip)Resources.Load("Audio/Test55"));
-                break;
-            case ("-1"):// This used to stop all audio
-                AudioSource[] allAudios = Camera.main.gameObject.GetComponents<AudioSource>();
-                foreach (AudioSource audioS in allAudios)
-                {
-                    audioS.Stop();
-                }
-                break;
-
-        }
-      
+        vp.loopPointReached -= EndReached;
+        //vp.playbackSpeed = vp.playbackSpeed / 10.0F;
+        //myVideoPlayer.loopPointReached
+        myVideoPlayer.Stop();
+       // myVideoPlayer.Prepare();
+        myVideoPlayer.skipOnDrop = false;
+        print($"I reached the end {myVideoPlayer.length}");
+        print($"video frame is {myVideoPlayer.frame}");
+        localCallBack.Invoke();
+        //gameObject.SendMessage("MethodNameToRecieveMessage", "TypeofMessage" );
     }
 
-   
+// This method used to puse and unpause the audio 
+public void Pause(int number)
+    {
+        // -1 for pause and -2 for un pause
+        //PAUSE = number;
+        //AudioSource[] allAudios = Camera.main.gameObject.GetComponents<AudioSource>();
+        //if (PAUSE == -1)
+        //{
+        //    foreach (AudioSource audioS in allAudios)
+        //    {
+        //        audioS.Pause();
+        //    }
+        //}
+        //else
+        //{
+
+        //    foreach (AudioSource audioS in allAudios)
+        //    {
+        //        audioS.UnPause();
+        //    }
+        //}
+
+        if(aSource.enabled)
+        {
+            aSource.Pause();
+        }
+        else if(vPlayer.enabled)
+        {
+            vPlayer.Pause();
+        }
+
+        //if(aSource.isPlaying)
+        //{
+        //    aSource.Pause();
+        //}
+        //else //Is paused or stopped
+        //{
+        //    aSource.Play();
+        //}
+    }
+
+    public void Play()
+    {
+        if (aSource.enabled)
+        {
+            aSource.Play();
+        }
+        else if (vPlayer.enabled)
+        {
+            vPlayer.Play();
+        }
+    }
+
+
+    //This will stop all audio before starting other audio
+    // AudioSource audio = GetComponent<AudioSource>();
+    // audio.Stop();
+    //AudioSource[] allAudios = Camera.main.gameObject.GetComponents<AudioSource>();
+    //foreach (AudioSource audioS in allAudios)
+    //{
+    //    audioS.Stop();
+    //}
+    // cal the audio player method
+    //myVideoPlayer = GetComponent<VideoPlayer>();
+    //    //myVideoPlayer.clip = Resources.Load<VideoClip>("Video/" + VideoName);
+
+    //    //When first video stop if you hit play vidoe it will start the new video
+    //    if ((myVideoPlayer.isPlaying == false))
+    //    {
+    //        //FileAudioPlayer();
+    //    }
+
 }

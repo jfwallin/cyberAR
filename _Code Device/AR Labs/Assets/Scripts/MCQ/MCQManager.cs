@@ -13,7 +13,7 @@ namespace MCQ
     public class MCQManager : MonoBehaviour, IMCQManager
     {
         #region Variables
-        public AudioPlayer aPlayer = null;
+        private AudioPlayer aPlayer = null;
         //[SerializeField]
         private MCExerciseData exerciseData;        //Conatians answer choices, correct answers, and question text
         [SerializeField]
@@ -42,12 +42,12 @@ namespace MCQ
         /// </summary>
         /// <param name="initData">The data object containing all the information for the exercise</param>
         /// <param name="mPlayer">Reference to the media player that will play media for the question</param>
-        public void Initialize(MCExerciseData initData, MediaPlayer mPlayer)
+        public void Initialize(MCExerciseData initData, AudioPlayer player)
         {
             Debug.Log("Initialize called on the MCQManager");
             //Set necessary references
             exerciseData = initData;
-            mediaPlayer = mPlayer;
+            aPlayer = player;
 
             //Initilize some internal state
             currentQuestionIndex = 0;
@@ -71,7 +71,10 @@ namespace MCQ
             if (exerciseData.introMediaNames[0] != "")
             {
                 Debug.Log("Display media called");
-                DisplayMedia(exerciseData.introMediaNames[0], OnIntroMediaPlaybackComplete);
+                //Set up the data for the media manager call
+                string[] mediaCallInfo = new string[] { exerciseData.introMediaNames[0], MediaType.Video.ToString() };
+                //Pass data, pass lambda expression for the callback
+                aPlayer.MediaManager(mediaCallInfo, OnIntroMediaPlaybackComplete);
             }
             else //No intro media
             {
@@ -140,7 +143,10 @@ namespace MCQ
             //Play reference media if there is any (limited to 1 currently)
             if (questionData.referenceMediaNames[0] != "")
             {
-                DisplayMedia(questionData.referenceMediaNames[0], () => OnRefMediaPlaybackComplete(answers.ToArray()));
+                //Set up the data for the media manager call
+                string[] mediaCallInfo = new string[] { currentQuestionData.referenceMediaNames[0], MediaType.Image.ToString() };
+                //Pass data, pass lambda expression for the callback
+                aPlayer.MediaManager(mediaCallInfo, () => OnRefMediaPlaybackComplete(questionData.answerOptions));
             }
             else //No reference media to play
             {
@@ -215,7 +221,9 @@ namespace MCQ
                     //mediaPlayer.PlayMedia(currentQuestionData.answerCorrectMediaNames[0], OnFeedbackMediaPlaybackComplete);  //WILL BE UPDATED
 
                     //Call audio player
-                    aPlayer.getNum("55");
+                    //aPlayer.getNum("55");
+                    string[] mediaCallInfo = new string[] { currentQuestionData.answerCorrectMediaNames[0], "0" };
+                    aPlayer.MediaManager(mediaCallInfo, OnFeedbackMediaPlaybackComplete);
 
                     //Maybe add other feedback initiated here
                 }
@@ -231,6 +239,8 @@ namespace MCQ
                 {
                     //If there is media to play on an incorrect answer, then play it and wait for the callback
                     //mediaPlayer.PlayMedia(currentQuestionData.answerIncorrectMediaNames[0], OnFeedbackMediaPlaybackComplete);  //WILL BE UPDATED
+                    string[] mediaCallInfo = new string[] { currentQuestionData.answerCorrectMediaNames[0], "0" };
+                    aPlayer.MediaManager(mediaCallInfo, OnFeedbackMediaPlaybackComplete);
 
                     //Maybe add other feedback initiated here
                 }
@@ -271,18 +281,6 @@ namespace MCQ
 
             //Display answers
             DisplayOptions(answers);
-        }
-
-        /// <summary>
-        /// Gets the media player to play something, passes a callback
-        /// </summary>
-        /// <param name="mediaName">String name of the media asset to play</param>
-        /// <param name="callback">Function the media player should call when the media finished playing</param>
-        private void DisplayMedia(string mediaName, Action callback)
-        {
-            //mediaPlayer.PlayMedia(mediaName, callback);
-            //Call to the media player, as well as passing a callback;
-            //Dummy Function for now
         }
 
         /// <summary>

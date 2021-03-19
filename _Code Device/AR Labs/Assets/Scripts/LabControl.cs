@@ -13,7 +13,7 @@ public class LabControl : MonoBehaviour
     private Button labStartButton = null;
     [SerializeField]
     private GameObject mediaPlayerPrefab = null;
-    private MediaPlayer mPlayer = null;
+    private AudioPlayer aPlayer = null;
     [SerializeField]
     private GameObject mcqPrefab = null;
     private MCQ.MCQManager mcqManager = null;
@@ -32,13 +32,14 @@ public class LabControl : MonoBehaviour
     {
         //Place the media player in front of the camera, hopefully this is a good position for now.
         //also get a reference to the media player
-        mPlayer = Instantiate(mediaPlayerPrefab, mainCam.transform.position + Vector3.forward, Quaternion.identity).GetComponent<MediaPlayer>();
+        aPlayer = Instantiate(mediaPlayerPrefab, mainCam.transform.position + Vector3.forward, Quaternion.identity).GetComponent<AudioPlayer>();
 
         //Show beginning of lab splash screen
-        mPlayer.PlayMedia("_welcome", MCQ.MediaType.Image, IntroMediaComplete);
+        string[] mediaCallInfo = new string[] { "_welcome", MediaType.Image.ToString() };
+        aPlayer.MediaManager(mediaCallInfo, IntroMediaComplete);
 
         //Add start button
-        Button labStartButton = Instantiate(labStartButtonPrefab, mPlayer.transform.position + Vector3.down * 0.5f, Quaternion.identity).GetComponent<Button>();
+        Button labStartButton = Instantiate(labStartButtonPrefab, aPlayer.transform.position + Vector3.down * 0.5f, Quaternion.identity).GetComponent<Button>();
         labStartButton.onClick.AddListener(StartLab);
     }
 
@@ -49,8 +50,8 @@ public class LabControl : MonoBehaviour
 
     public void IntroMediaComplete()
     {
-        mcqManager = Instantiate(mcqPrefab, mPlayer.transform.position + Vector3.right, Quaternion.identity).GetComponent<MCQ.MCQManager>();
+        mcqManager = Instantiate(mcqPrefab, aPlayer.transform.position + Vector3.right, Quaternion.identity).GetComponent<MCQ.MCQManager>();
         MCQ.MCExerciseData initData = new MCQ.MCExerciseData(); //This will be a JSON deserialization.
-        mcqManager.Initialize(initData, mPlayer);
+        mcqManager.Initialize(initData, aPlayer);
     }
 }

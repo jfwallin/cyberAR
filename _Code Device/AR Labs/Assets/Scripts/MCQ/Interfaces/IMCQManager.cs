@@ -2,7 +2,7 @@
 {
     public interface IMCQManager
     {
-        void Initialize(MCExerciseData initData, MediaPlayer mediaPlayer);
+        void Initialize(MCExerciseData initData, AudioPlayer player);
         void OnAnswerDeselected(int answerID);
         void OnAnswerSelected(int answerID);
     }

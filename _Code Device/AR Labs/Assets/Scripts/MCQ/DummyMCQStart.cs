@@ -13,8 +13,6 @@ namespace MCQ
         [SerializeField]
         private MCQManager manager = null;
         [SerializeField]
-        private MediaPlayer mPlayer = null;
-        [SerializeField]
         private AudioPlayer aPlayer = null;
         [SerializeField]
         private MCExerciseData data = null;
@@ -23,7 +21,7 @@ namespace MCQ
         {
             //Fail fast assertions
             Assert.IsNotNull(manager);
-            Assert.IsNotNull(mPlayer);
+            Assert.IsNotNull(aPlayer);
             Assert.IsNotNull(data);
         }
 
@@ -36,8 +34,7 @@ namespace MCQ
         public void OnStartClicked()
         {
             Debug.Log("OnStartClicked called");
-            manager.aPlayer = aPlayer;
-            manager.Initialize(data, mPlayer);
+            manager.Initialize(data, aPlayer);
         }
     }
 }
