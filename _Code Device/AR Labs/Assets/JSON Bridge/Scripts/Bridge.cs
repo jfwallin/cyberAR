@@ -50,7 +50,11 @@ public class Bridge
     private void makeObject(ObjectInfo obj)
     {
         GameObject myObject;
-        GameObject parent = GameObject.Find(obj.parentName);
+        GameObject parent = null;
+        if (obj.parentName != "")
+        {
+            parent = GameObject.Find(obj.parentName);
+        }
 
         myObject = dealWithType(obj.type); //possibly fixed
         myObject.name = obj.name;
@@ -74,7 +78,10 @@ public class Bridge
 
         myObject.transform.position = obj.position;
         myObject.transform.localScale = obj.scale;
-        myObject.transform.parent = parent.transform;
+        if (obj.parentName != "")
+        {
+            myObject.transform.parent = parent.transform;
+        }
 
         //This block is removed in Isaac's code and dealt with in the stringJson
         //I can't quite get that working though
@@ -92,7 +99,11 @@ public class Bridge
         {
             TransmissionObject myTransObject;
             GameObject myObject;
-            GameObject parent = GameObject.Find(obj.parentName);
+            GameObject parent = null;
+            if (obj.parentName != "")
+            {
+                parent = GameObject.Find(obj.parentName);
+            }
 
             myTransObject = Transmission.Spawn(obj.type, obj.position, Quaternion.Euler(0, 0, 0), obj.scale);
             myTransObject.name = obj.name;
@@ -118,7 +129,11 @@ public class Bridge
 
             //myObject.transform.position = obj.position;
             //myObject.transform.localScale = obj.scale;
-            myObject.transform.parent = parent.transform;
+            if (obj.parentName != "")
+            {
+                myObject.transform.parent = parent.transform;
+            }
+            
 
             //This block is removed in Isaac's code and dealt with in the stringJson
             //I can't quite get that working though
