@@ -154,6 +154,9 @@ public class Bridge
         GameObject myObject;
 
         switch (type){
+            case "":
+                myObject = new GameObject();
+                break;
             case "empty":
                 myObject = new GameObject();
                 break;
@@ -173,8 +176,6 @@ public class Bridge
                 myObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                 break;
             default:
-                //myObject = new GameObject(); //This line is for if you want the default to be an empty game object
-
                 myObject = GameObject.Instantiate(Resources.Load(type)) as GameObject; //This line is for if you want the default to be loading a prefab
                 //Note that the above line requires your prefab to be located in a resources folder.
                 break;
