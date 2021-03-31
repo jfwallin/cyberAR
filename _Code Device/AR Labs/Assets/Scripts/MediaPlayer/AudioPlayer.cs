@@ -12,7 +12,9 @@ public class AudioPlayer : MonoBehaviour
 {
     //Componenet References
     [SerializeField]
-    private VideoPlayer vPlayer;
+    private VideoPlayer vPlayer = null;
+    [SerializeField]
+    private Slider slider;
     [SerializeField]
     private AudioSource aSource;
     [SerializeField]
@@ -35,6 +37,20 @@ public class AudioPlayer : MonoBehaviour
     {
         Num = (playMe);
     }
+
+    void Update()
+    {
+        //Update the slider position if media is playing.
+        if(vPlayer.enabled && vPlayer.isPlaying)
+        {
+            slider.SetValueWithoutNotify((float)vPlayer.time / (float)vPlayer.clip.length);
+        }
+        else if (aSource.enabled && aSource.isPlaying)
+        {
+            slider.SetValueWithoutNotify(aSource.time / aSource.clip.length);
+        }
+    }
+
     // This will get a item should change to get the file name
     public void MediaManager (string[] item, System.Action CallBack)
     {
@@ -56,9 +72,10 @@ public class AudioPlayer : MonoBehaviour
             case MediaType.Audio:
                 if (myVideoPlayer.isPlaying == false && audio.isPlaying == false)
                 {
-                    vPlayer.gameObject.SetActive(false);
+                    vPlayer.GetComponent<MeshRenderer>().enabled = false;
                     vPlayer.enabled = false;
-                    aSource.gameObject.SetActive(true);
+                    //imageDisplay.gameObject.SetActive(false);
+                    //imageDisplay.enabled = false;
                     aSource.enabled = true;
 
                     //myAudioClip = ((AudioClip)Resources.Load("Audio/" + MediaName));
@@ -69,14 +86,13 @@ public class AudioPlayer : MonoBehaviour
                     print($"audio length {audio.clip.length}");
                     StartCoroutine(waitAudio(audio.clip.length));
                     // new WaitForSeconds(audio.clip.length);
-
-
                 }
                 break;
             case MediaType.Video:
-                vPlayer.gameObject.SetActive(true);
+                vPlayer.GetComponent<MeshRenderer>().enabled = true;
                 vPlayer.enabled = true;
-                aSource.gameObject.SetActive(false);
+                imageDisplay.gameObject.SetActive(false);
+                imageDisplay.enabled = false;
                 aSource.enabled = false;
 
                 audio.Stop();
@@ -90,6 +106,12 @@ public class AudioPlayer : MonoBehaviour
 
                 break;
             case MediaType.Image:
+                vPlayer.GetComponent<MeshRenderer>().enabled = false;
+                vPlayer.enabled = false;
+                imageDisplay.gameObject.SetActive(true);
+                imageDisplay.enabled = true;
+                aSource.enabled = false;
+
                 img1 = Resources.Load<Sprite>("Image/" + MediaName);
                 //display image to the component "UI image"  that connect to this script
                 //GetComponent<Image>().sprite = img1;
@@ -200,6 +222,11 @@ public void Pause(int number)
         }
     }
 
+    public void handleOnSliderValueChanged(float value)
+    {
+        if (vPlayer.enabled)
+            vPlayer.frame = (long)Math.Floor(vPlayer.clip.frameCount * value);
+    }
 
     //This will stop all audio before starting other audio
     // AudioSource audio = GetComponent<AudioSource>();

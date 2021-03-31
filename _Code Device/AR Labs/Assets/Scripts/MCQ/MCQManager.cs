@@ -68,7 +68,7 @@ namespace MCQ
             questionText.text = "";
 
             //Start exercise, play intro media if there is any
-            if (exerciseData.introMediaNames[0] != "")
+            if (exerciseData.introMediaNames.Length > 0 && exerciseData.introMediaNames[0] != "")
             {
                 Debug.Log("Display media called");
                 //Set up the data for the media manager call
@@ -144,13 +144,17 @@ namespace MCQ
             if (questionData.referenceMediaNames[0] != "")
             {
                 //Set up the data for the media manager call
-                string[] mediaCallInfo = new string[] { currentQuestionData.referenceMediaNames[0], MediaType.Image.ToString() };
+                //Display the image
+                string[] mediaCallInfo = new string[] { currentQuestionData.referenceMediaNames[1], 2.ToString()/*MediaType.Image.ToString()*/ };
+                aPlayer.MediaManager(mediaCallInfo, () => { });
                 //Pass data, pass lambda expression for the callback
-                aPlayer.MediaManager(mediaCallInfo, () => OnRefMediaPlaybackComplete(questionData.answerOptions));
+                //Start audio
+                mediaCallInfo = new string[] { currentQuestionData.referenceMediaNames[0], 0.ToString() };
+                aPlayer.MediaManager(mediaCallInfo, () => OnRefMediaPlaybackComplete(answers.ToArray()));
             }
             else //No reference media to play
             {
-                DisplayNextQuestion(questionData, currentAnswerPool);
+                DisplayNextQuestion(questionData, answers.ToArray());
             }
         }
         #endregion //Public Functions
@@ -239,7 +243,7 @@ namespace MCQ
                 {
                     //If there is media to play on an incorrect answer, then play it and wait for the callback
                     //mediaPlayer.PlayMedia(currentQuestionData.answerIncorrectMediaNames[0], OnFeedbackMediaPlaybackComplete);  //WILL BE UPDATED
-                    string[] mediaCallInfo = new string[] { currentQuestionData.answerCorrectMediaNames[0], "0" };
+                    string[] mediaCallInfo = new string[] { currentQuestionData.answerIncorrectMediaNames[0], "0" };
                     aPlayer.MediaManager(mediaCallInfo, OnFeedbackMediaPlaybackComplete);
 
                     //Maybe add other feedback initiated here

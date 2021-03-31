@@ -15,7 +15,7 @@ namespace MCQ
         [SerializeField]
         private AudioPlayer aPlayer = null;
         [SerializeField]
-        private MCExerciseData data = null;
+        public MCExerciseData data = null;
 
         private void Awake()
         {

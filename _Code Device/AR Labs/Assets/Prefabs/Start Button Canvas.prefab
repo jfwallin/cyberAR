@@ -1,91 +1,5 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2435622986408133790
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6579380440887466479}
-  - component: {fileID: 3194692599157666846}
-  - component: {fileID: 937122852403657578}
-  - component: {fileID: 7684073050254994100}
-  m_Layer: 0
-  m_Name: StartButtonEventManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6579380440887466479
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2435622986408133790}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1102, y: 84.49988, z: 0}
-  m_LocalScale: {x: 1000, y: 1000, z: 1}
-  m_Children: []
-  m_Father: {fileID: 4111747828832146003}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3194692599157666846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2435622986408133790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 10
---- !u!114 &937122852403657578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2435622986408133790}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
---- !u!114 &7684073050254994100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2435622986408133790}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 12c0ffe7b5b6b484cae96ea8ed89bc3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _mainCanvas: {fileID: 4111747828832146002}
-  _pointerInput: 2
-  _buttonClick: 0
-  _scrollSpeed: 5
-  _triggerClickSpeed: 3
-  _triggerDownThreshold: 0.25
-  _dragThreshold: 0.025
 --- !u!1 &4111747828708603868
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,7 +12,7 @@ GameObject:
   - component: {fileID: 4111747828708603857}
   - component: {fileID: 4111747828708603856}
   - component: {fileID: 4111747828708603871}
-  - component: {fileID: 4111747828708603870}
+  - component: {fileID: 77900785}
   m_Layer: 5
   m_Name: Start Button
   m_TagString: Untagged
@@ -185,7 +99,7 @@ MonoBehaviour:
   m_Transition: 1
   m_Colors:
     m_NormalColor: {r: 1, g: 1, b: 1, a: 1}
-    m_HighlightedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
+    m_HighlightedColor: {r: 0.051886797, g: 1, b: 0.65549684, a: 1}
     m_PressedColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 1}
     m_SelectedColor: {r: 0.9607843, g: 0.9607843, b: 0.9607843, a: 1}
     m_DisabledColor: {r: 0.78431374, g: 0.78431374, b: 0.78431374, a: 0.5019608}
@@ -206,167 +120,20 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 4111747828708603856}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4111747828708603870}
-        m_TargetAssemblyTypeName: MCQ.DummyMCQStart, Scripts
-        m_MethodName: OnStartClicked
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
---- !u!114 &4111747828708603870
-MonoBehaviour:
+      m_Calls: []
+--- !u!65 &77900785
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4111747828708603868}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d66ed302328c6f14286401090f317f18, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  manager: {fileID: 0}
-  aPlayer: {fileID: 0}
-  data:
-    name: Moon Lab Exercise 1
-    questions:
-    - referenceMediaType: 3
-      referenceMediaNames:
-      - full_moon_queation
-      - full_moon_unlabeled
-      answerCorrectMediaNames:
-      - full_moon_correct
-      answerIncorrectMediaNames:
-      - full_moon_incorrect
-      question: What is the name of this phase of the moon?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - Full Moon
-      correctOptionsIndices: 00000000
-    - referenceMediaType: 3
-      referenceMediaNames:
-      - waning_gibbous_question
-      - waning_gibbous_unlabeled
-      answerCorrectMediaNames:
-      - waning_gibbous_correct
-      answerIncorrectMediaNames:
-      - waning_gibbous_incorrect
-      question: What is the name of this phase of the moon?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - Waning Gibbous
-      correctOptionsIndices: 00000000
-    - referenceMediaType: 3
-      referenceMediaNames:
-      - third_quarter_question
-      - third_quarter_unlabeled
-      answerCorrectMediaNames:
-      - third_quarter_correct
-      answerIncorrectMediaNames:
-      - third_quarter_incorrect
-      question: What is the name of this phase of the moon?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - Third Quarter
-      correctOptionsIndices: 00000000
-    - referenceMediaType: 3
-      referenceMediaNames:
-      - waning_crescent_question
-      - waning_crescent_unlabeled
-      answerCorrectMediaNames:
-      - waning_crescent_correct
-      answerIncorrectMediaNames:
-      - waning_crescent_incorrect
-      question: What is the name of this phase of the moon?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - Waning Crescent
-      correctOptionsIndices: 00000000
-    - referenceMediaType: 3
-      referenceMediaNames:
-      - new_moon_question
-      - new_moon_unlabeled
-      answerCorrectMediaNames:
-      - new_moon_correct
-      answerIncorrectMediaNames:
-      - new_moon_incorrect
-      question: What is the name of this phase of the moon?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - New Moon
-      correctOptionsIndices: 00000000
-    - referenceMediaType: 3
-      referenceMediaNames:
-      - waxing_crescent_question
-      - waxing_crescent_unlabeled
-      answerCorrectMediaNames:
-      - waxing_crescent_correct
-      answerIncorrectMediaNames:
-      - waxing_crescent_incorrect
-      question: What is the name of this phase of the moon?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - Waxing Crescent
-      correctOptionsIndices: 00000000
-    - referenceMediaType: 3
-      referenceMediaNames:
-      - first_quarter_question
-      - first_quarter_unlabeled
-      answerCorrectMediaNames:
-      - first_quarter_correct
-      answerIncorrectMediaNames:
-      - first_quarter_incorrect
-      question: What is the name of this phase of the moon?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - First Quarter
-      correctOptionsIndices: 00000000
-    - referenceMediaType: 3
-      referenceMediaNames:
-      - waxing_gibbous
-      - waxing_gibbous_unlabeled
-      answerCorrectMediaNames:
-      - waxing_gibbous_correct
-      answerIncorrectMediaNames:
-      - waxing_gibbous_incorrect
-      question: What is the name of this moon phase?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - Waxing Gibbous
-      correctOptionsIndices: 00000000
-    introMediaType: 1
-    introMediaNames: []
-    answerPool:
-    - New Moon
-    - Waxing Crescent
-    - First Quarter
-    - Waxing Gibbous
-    - Full Moon
-    - Waning Gibbous
-    - Third Quarter
-    - Waning Crescent
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 0
+  serializedVersion: 2
+  m_Size: {x: 800, y: 300, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &4111747828832146015
 GameObject:
   m_ObjectHideFlags: 0
@@ -395,17 +162,16 @@ RectTransform:
   m_GameObject: {fileID: 4111747828832146015}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 0.001, y: 0.001, z: 1}
+  m_LocalScale: {x: 0.001, y: 0.001, z: 0.001}
   m_Children:
   - {fileID: 4111747828708603869}
-  - {fileID: 6579380440887466479}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: -1.102, y: -0.068}
-  m_SizeDelta: {x: 500, y: 100}
+  m_AnchoredPosition: {x: -1.1019897, y: -0.067993164}
+  m_SizeDelta: {x: 800, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &4111747828832146002
 Canvas:
@@ -534,11 +300,11 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 8401b9c91b47d6449a4be596c8138a90, type: 3}
-    m_FontSize: 60
+    m_FontSize: 140
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
-    m_MaxSize: 60
+    m_MaxSize: 140
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1

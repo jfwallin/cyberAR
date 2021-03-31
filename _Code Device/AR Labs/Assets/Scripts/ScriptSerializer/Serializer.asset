@@ -12,4 +12,156 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfe592c831882b04a94886383d9cc628, type: 3}
   m_Name: Serializer
   m_EditorClassIdentifier: 
-  serializedScript: 
+  data:
+    name: Moon Lab Exercise 1
+    questions:
+    - referenceMediaType: 3
+      referenceMediaNames:
+      - full_moon_question
+      - full_moon_unlabeled
+      answerCorrectMediaNames:
+      - full_moon_correct
+      answerIncorrectMediaNames:
+      - full_moon_incorrect
+      question: What is the name of this phase of the moon?
+      randomizeOrder: 1
+      allowMultiSelect: 0
+      numberOfOptionsFromPool: 3
+      answerOptions:
+      - Full Moon
+      correctOptionsIndices: 00000000
+    - referenceMediaType: 3
+      referenceMediaNames:
+      - waning_gibbous_question
+      - waning_gibbous_unlabeled
+      answerCorrectMediaNames:
+      - waning_gibbous_correct
+      answerIncorrectMediaNames:
+      - waning_gibbous_incorrect
+      question: What is the name of this phase of the moon?
+      randomizeOrder: 1
+      allowMultiSelect: 0
+      numberOfOptionsFromPool: 3
+      answerOptions:
+      - Waning Gibbous
+      correctOptionsIndices: 00000000
+    - referenceMediaType: 3
+      referenceMediaNames:
+      - third_quarter_question
+      - third_quarter_unlabeled
+      answerCorrectMediaNames:
+      - third_quarter_correct
+      answerIncorrectMediaNames:
+      - third_quarter_incorrect
+      question: What is the name of this phase of the moon?
+      randomizeOrder: 1
+      allowMultiSelect: 0
+      numberOfOptionsFromPool: 3
+      answerOptions:
+      - Third Quarter
+      correctOptionsIndices: 00000000
+    - referenceMediaType: 3
+      referenceMediaNames:
+      - waning_crescent_question
+      - waning_crescent_unlabeled
+      answerCorrectMediaNames:
+      - waning_crescent_correct
+      answerIncorrectMediaNames:
+      - waning_crescent_incorrect
+      question: What is the name of this phase of the moon?
+      randomizeOrder: 1
+      allowMultiSelect: 0
+      numberOfOptionsFromPool: 3
+      answerOptions:
+      - Waning Crescent
+      correctOptionsIndices: 00000000
+    - referenceMediaType: 3
+      referenceMediaNames:
+      - new_moon_question
+      - new_moon_unlabeled
+      answerCorrectMediaNames:
+      - new_moon_correct
+      answerIncorrectMediaNames:
+      - new_moon_incorrect
+      question: What is the name of this phase of the moon?
+      randomizeOrder: 1
+      allowMultiSelect: 0
+      numberOfOptionsFromPool: 3
+      answerOptions:
+      - New Moon
+      correctOptionsIndices: 00000000
+    - referenceMediaType: 3
+      referenceMediaNames:
+      - waxing_crescent_question
+      - waxing_crescent_unlabeled
+      answerCorrectMediaNames:
+      - waxing_crescent_correct
+      answerIncorrectMediaNames:
+      - waxing_crescent_incorrect
+      question: What is the name of this phase of the moon?
+      randomizeOrder: 1
+      allowMultiSelect: 0
+      numberOfOptionsFromPool: 3
+      answerOptions:
+      - Waxing Crescent
+      correctOptionsIndices: 00000000
+    - referenceMediaType: 3
+      referenceMediaNames:
+      - first_quarter_question
+      - first_quarter_unlabeled
+      answerCorrectMediaNames:
+      - first_quarter_correct
+      answerIncorrectMediaNames:
+      - first_quarter_incorrect
+      question: What is the name of this phase of the moon?
+      randomizeOrder: 1
+      allowMultiSelect: 0
+      numberOfOptionsFromPool: 3
+      answerOptions:
+      - First Quarter
+      correctOptionsIndices: 00000000
+    - referenceMediaType: 3
+      referenceMediaNames:
+      - waxing_gibbous
+      - waxing_gibbous_unlabeled
+      answerCorrectMediaNames:
+      - waxing_gibbous_correct
+      answerIncorrectMediaNames:
+      - waxing_gibbous_incorrect
+      question: What is the name of this phase of the moon?
+      randomizeOrder: 1
+      allowMultiSelect: 0
+      numberOfOptionsFromPool: 3
+      answerOptions:
+      - Waxing Gibbous
+      correctOptionsIndices: 00000000
+    introMediaType: 0
+    introMediaNames: []
+    answerPool:
+    - New Moon
+    - Waxing Crescent
+    - First Quarter
+    - Waxing Gibbous
+    - Full Moon
+    - Waning Gibbous
+    - Third Quarter
+    - Waning Crescent
+  serializedScript: '{"name":"Moon Lab Exercise 1","questions":[{"referenceMediaType":3,"referenceMediaNames":["full_moon_question","full_moon_unlabeled"],"answerCorrectMediaNames":["full_moon_correct"],"answerIncorrectMediaNames":["full_moon_incorrect"],"question":"What
+    is the name of this phase of the moon?","randomizeOrder":true,"allowMultiSelect":false,"numberOfOptionsFromPool":3,"answerOptions":["Full
+    Moon"],"correctOptionsIndices":[0]},{"referenceMediaType":3,"referenceMediaNames":["waning_gibbous_question","waning_gibbous_unlabeled"],"answerCorrectMediaNames":["waning_gibbous_correct"],"answerIncorrectMediaNames":["waning_gibbous_incorrect"],"question":"What
+    is the name of this phase of the moon?","randomizeOrder":true,"allowMultiSelect":false,"numberOfOptionsFromPool":3,"answerOptions":["Waning
+    Gibbous"],"correctOptionsIndices":[0]},{"referenceMediaType":3,"referenceMediaNames":["third_quarter_question","third_quarter_unlabeled"],"answerCorrectMediaNames":["third_quarter_correct"],"answerIncorrectMediaNames":["third_quarter_incorrect"],"question":"What
+    is the name of this phase of the moon?","randomizeOrder":true,"allowMultiSelect":false,"numberOfOptionsFromPool":3,"answerOptions":["Third
+    Quarter"],"correctOptionsIndices":[0]},{"referenceMediaType":3,"referenceMediaNames":["waning_crescent_question","waning_crescent_unlabeled"],"answerCorrectMediaNames":["waning_crescent_correct"],"answerIncorrectMediaNames":["waning_crescent_incorrect"],"question":"What
+    is the name of this phase of the moon?","randomizeOrder":true,"allowMultiSelect":false,"numberOfOptionsFromPool":3,"answerOptions":["Waning
+    Crescent"],"correctOptionsIndices":[0]},{"referenceMediaType":3,"referenceMediaNames":["new_moon_question","new_moon_unlabeled"],"answerCorrectMediaNames":["new_moon_correct"],"answerIncorrectMediaNames":["new_moon_incorrect"],"question":"What
+    is the name of this phase of the moon?","randomizeOrder":true,"allowMultiSelect":false,"numberOfOptionsFromPool":3,"answerOptions":["New
+    Moon"],"correctOptionsIndices":[0]},{"referenceMediaType":3,"referenceMediaNames":["waxing_crescent_question","waxing_crescent_unlabeled"],"answerCorrectMediaNames":["waxing_crescent_correct"],"answerIncorrectMediaNames":["waxing_crescent_incorrect"],"question":"What
+    is the name of this phase of the moon?","randomizeOrder":true,"allowMultiSelect":false,"numberOfOptionsFromPool":3,"answerOptions":["Waxing
+    Crescent"],"correctOptionsIndices":[0]},{"referenceMediaType":3,"referenceMediaNames":["first_quarter_question","first_quarter_unlabeled"],"answerCorrectMediaNames":["first_quarter_correct"],"answerIncorrectMediaNames":["first_quarter_incorrect"],"question":"What
+    is the name of this phase of the moon?","randomizeOrder":true,"allowMultiSelect":false,"numberOfOptionsFromPool":3,"answerOptions":["First
+    Quarter"],"correctOptionsIndices":[0]},{"referenceMediaType":3,"referenceMediaNames":["waxing_gibbous","waxing_gibbous_unlabeled"],"answerCorrectMediaNames":["waxing_gibbous_correct"],"answerIncorrectMediaNames":["waxing_gibbous_incorrect"],"question":"What
+    is the name of this phase of the moon?","randomizeOrder":true,"allowMultiSelect":false,"numberOfOptionsFromPool":3,"answerOptions":["Waxing
+    Gibbous"],"correctOptionsIndices":[0]}],"introMediaType":0,"introMediaNames":[],"answerPool":["New
+    Moon","Waxing Crescent","First Quarter","Waxing Gibbous","Full Moon","Waning
+    Gibbous","Third Quarter","Waning Crescent"]}'
