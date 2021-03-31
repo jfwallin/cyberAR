@@ -96,6 +96,7 @@ namespace MCQ
             {
                 ClearOptions();
                 questionText.text = "";
+                submitButton.gameObject.SetActive(false);
             }
 
             //Reset answer tracking for new question
@@ -143,6 +144,9 @@ namespace MCQ
             //Play reference media if there is any (limited to 1 currently)
             if (questionData.referenceMediaNames[0] != "")
             {
+                //Indicate that the user should look at the Media Player
+                questionText.text = "The question will be displayed after the media finishes playing.";
+
                 //Set up the data for the media manager call
                 //Display the image
                 string[] mediaCallInfo = new string[] { currentQuestionData.referenceMediaNames[1], 2.ToString()/*MediaType.Image.ToString()*/ };
@@ -206,6 +210,9 @@ namespace MCQ
         /// </summary>
         public void OnSubmitPressed()
         {
+            //Disable the submit button
+            submitButton.gameObject.SetActive(false);
+
             //Check answer
             bool correct = true;
             for (int i = 0; i < correctOptions.Count; i++)
@@ -282,6 +289,8 @@ namespace MCQ
         {
             //Display question text
             questionText.text = questionData.question;
+
+            //  submitButton.gameObject.SetActive(true);
 
             //Display answers
             DisplayOptions(answers);

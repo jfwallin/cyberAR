@@ -4,6 +4,7 @@ using System;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
+using UnityEngine.XR.MagicLeap;
 
 public class LabControl : MonoBehaviour
 {
@@ -43,9 +44,9 @@ public class LabControl : MonoBehaviour
     public void Start()
     {
         Debug.Log("Spawning Media Player, setting it to the welcome image");
-        //Place the media player in front of the camera, hopefully this is a good position for now.
+        //Place the media player centered in the root canvas. The root is following the headpose curently.
         //also get a reference to the media player
-        aPlayer = Instantiate(mediaPlayerPrefab, rootUITransform.InverseTransformPoint(mainCam.transform.position + Vector3.forward), Quaternion.identity, rootUITransform).GetComponentInChildren<AudioPlayer>();
+        aPlayer = Instantiate(mediaPlayerPrefab, Vector3.zero, Quaternion.identity, rootUITransform).GetComponentInChildren<AudioPlayer>();
 
         //Show beginning of lab splash screen
         string[] mediaCallInfo = new string[] { "_welcome", 2.ToString() /*MediaType.Image.ToString()*/ };
@@ -57,6 +58,7 @@ public class LabControl : MonoBehaviour
         GameObject button = GameObject.Instantiate(labStartButtonPrefab, rootUITransform.InverseTransformPoint(aPlayer.transform.position + Vector3.back * 0.2f), Quaternion.identity, rootUITransform);
         labStartButton = button.GetComponentInChildren<Button>();
         labStartButton.onClick.AddListener(()=> StartLab(labStartButton));
+        labStartButton.onClick.AddListener(() => rootUITransform.GetComponent<HeadposeCanvas>().enabled = false);
     }
 
     public void StartLab(Button labStartButton)
@@ -75,7 +77,7 @@ public class LabControl : MonoBehaviour
     public void IntroMediaComplete()
     {
         Debug.Log("Intro media done playing, spawning and initializing the MCQ manager");
-        mcqManager = Instantiate(mcqPrefab, rootUITransform.InverseTransformPoint(aPlayer.transform.position + Vector3.right*2.5f), Quaternion.identity, rootUITransform).GetComponent<MCQ.MCQManager>();
+        mcqManager = Instantiate(mcqPrefab, aPlayer.transform.position + aPlayer.transform.right*1.7f, aPlayer.transform.rotation, rootUITransform).GetComponent<MCQ.MCQManager>();
         mcqManager.Initialize(initData, aPlayer);
     }
 }
