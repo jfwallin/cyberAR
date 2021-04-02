@@ -23,6 +23,8 @@ namespace MCQ
         [SerializeField]
         private Button continueButton = null;       //Button that moves to the next question
         [SerializeField]
+        private Button finishButton = null;
+        [SerializeField]
         private GameObject answers = null;          //Gameobject that holds all the answers as child objects
         [SerializeField]
         private Text questionText = null;           //Title of the question, what is being asked
@@ -59,12 +61,14 @@ namespace MCQ
             Assert.IsNotNull(answerPrefab);
             Assert.IsNotNull(submitButton);
             Assert.IsNotNull(continueButton);
+            Assert.IsNotNull(finishButton);
             Assert.IsNotNull(answers);
             Assert.IsNotNull(questionText);
 
             //Set state of some dependencies.
             submitButton.gameObject.SetActive(false);
             continueButton.gameObject.SetActive(false);
+            finishButton.gameObject.SetActive(false);
             questionText.text = "";
 
             //Start exercise, play intro media if there is any
@@ -96,7 +100,7 @@ namespace MCQ
             {
                 ClearOptions();
                 questionText.text = "";
-                submitButton.gameObject.SetActive(false);
+                //submitButton.gameObject.SetActive(false);
             }
 
             //Reset answer tracking for new question
@@ -270,12 +274,28 @@ namespace MCQ
             //Disable continue button
             continueButton.gameObject.SetActive(false);
 
-            //Increment forward a question internally
             currentQuestionIndex++;
-            currentQuestionData = exerciseData.questions[currentQuestionIndex];
+            Debug.Log($"CurrentQuestionindex: {currentQuestionIndex}, questions.Length: {exerciseData.questions.Length}");
+            if(currentQuestionIndex < exerciseData.questions.Length)
+            {
+                Debug.Log("Continuing to next question");
+                //Increment forward a question internally
+                currentQuestionData = exerciseData.questions[currentQuestionIndex];
 
-            //Start displaying the next question
-            SetupNextQuestion(currentQuestionData, currentAnswerPool);
+                //Start displaying the next question
+                SetupNextQuestion(currentQuestionData, currentAnswerPool);
+            }
+            else //No more questions to show
+            {
+                Debug.Log("Ending MCQ");
+                //Clear questions and show finished text
+                ShowFinishedScreen();
+            }
+        }
+
+        public void OnFinishButtonPressed()
+        {
+            Application.Quit();
         }
         #endregion //Event Handlers
 
@@ -460,6 +480,16 @@ namespace MCQ
                 //Initialize the answer option
                 answerOption.GetComponent<AnswerChoice>().Initialize(options[i], i, this, answers.GetComponent<ToggleGroup>());
             }
+        }
+
+        private void ShowFinishedScreen()
+        {
+            //Clear the answer options
+            ClearOptions();
+
+            //Show temporary final text and enable the finishButton
+            questionText.text = "You have completed the all questions. Press finish to Exit.";
+            finishButton.gameObject.SetActive(true);
         }
         #endregion //Private Methods
     }

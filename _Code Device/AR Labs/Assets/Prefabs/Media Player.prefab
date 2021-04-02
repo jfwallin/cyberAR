@@ -109,11 +109,11 @@ VideoPlayer:
   m_TargetCameraAlpha: 1
   m_TargetCamera3DLayout: 0
   m_TargetCamera: {fileID: 0}
-  m_TargetTexture: {fileID: 0}
+  m_TargetTexture: {fileID: 8400000, guid: 0111aae85abcd5942b9b656e4ebcc068, type: 2}
   m_TimeReference: 0
   m_TargetMaterialRenderer: {fileID: 0}
   m_TargetMaterialProperty: _MainTex
-  m_RenderMode: 3
+  m_RenderMode: 2
   m_AspectRatio: 2
   m_DataSource: 0
   m_PlaybackSpeed: 1
@@ -1307,7 +1307,7 @@ RectTransform:
   m_GameObject: {fileID: 7024130859894721509}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1.5}
-  m_LocalScale: {x: 0.001, y: 0.001, z: 0.001}
+  m_LocalScale: {x: 0.00075, y: 0.00075, z: 0.001}
   m_Children:
   - {fileID: 7024130859405516479}
   m_Father: {fileID: 0}
@@ -1385,14 +1385,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7024130859894721509}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 587c3c62f9c0fda4089b90f54b1c29bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   vPlayer: {fileID: 169109386}
   slider: {fileID: 5826999687559646811}
-  aSource: {fileID: 3570530707360075661}
+  aSource: {fileID: 0}
   imageDisplay: {fileID: 5785056439548183694}
   media: {fileID: 11400000, guid: da05113085514bd489fa01bef9ad9932, type: 2}
 --- !u!1 &7184199276077403729

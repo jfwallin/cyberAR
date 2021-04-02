@@ -77,7 +77,7 @@ public class LabControl : MonoBehaviour
     public void IntroMediaComplete()
     {
         Debug.Log("Intro media done playing, spawning and initializing the MCQ manager");
-        mcqManager = Instantiate(mcqPrefab, aPlayer.transform.position + aPlayer.transform.right*1.7f, aPlayer.transform.rotation, rootUITransform).GetComponent<MCQ.MCQManager>();
+        mcqManager = Instantiate(mcqPrefab, aPlayer.transform.position + aPlayer.transform.right*1.5f, aPlayer.transform.rotation, rootUITransform).GetComponent<MCQ.MCQManager>();
         mcqManager.Initialize(initData, aPlayer);
     }
 }

@@ -127,9 +127,7 @@ PlayerSettings:
     16:9: 1
     Others: 1
   bundleVersion: 0.0.1
-  preloadedAssets:
-  - {fileID: -6602195166426926598, guid: 2ba4dbd235ed941bb8fdb5a40ab00f22, type: 2}
-  - {fileID: 11400000, guid: b531aef8ec13abd4d8974d0084a6ad5b, type: 2}
+  preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -699,7 +697,7 @@ PlayerSettings:
     m_ModelFolderPath: 
     m_PortalFolderPath: 
   luminCert:
-    m_CertPath: C:/Users/ishum/Documents/Work/keys/privatekey/ardev.cert
+    m_CertPath: C:/Users/irs2e/Documents/Work/Keys/privatekey/librarydev.cert
     m_SignPackage: 1
   luminIsChannelApp: 0
   luminVersion:

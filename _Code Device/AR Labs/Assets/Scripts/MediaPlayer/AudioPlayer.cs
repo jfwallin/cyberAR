@@ -16,7 +16,7 @@ public class AudioPlayer : MonoBehaviour
     [SerializeField]
     private Slider slider;
     [SerializeField]
-    private AudioSource aSource;
+    private AudioSource aSource = null;
     [SerializeField]
     private Image imageDisplay;
     public MediaManager media = null;
@@ -36,6 +36,16 @@ public class AudioPlayer : MonoBehaviour
     public AudioPlayer(string playMe)
     {
         Num = (playMe);
+    }
+
+    private void Awake()
+    {
+        //Use an audio source on the main camera to ensure the best chance  of users being able to hear
+        aSource = Camera.main.GetComponent<AudioSource>();
+        if (!aSource)
+        {
+            Debug.LogWarning("Could not find AudioSource for the mediaPlayer.");
+        }
     }
 
     void Update()
@@ -226,6 +236,13 @@ public void Pause(int number)
     {
         if (vPlayer.enabled)
             vPlayer.frame = (long)Math.Floor(vPlayer.clip.frameCount * value);
+        /*
+        else if(aSource.enabled)
+        {
+            aSource.time = aSource.clip.length * value;
+            aSource.Play();
+        }
+        */
     }
 
     //This will stop all audio before starting other audio
