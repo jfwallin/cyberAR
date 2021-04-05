@@ -295,7 +295,10 @@ namespace MCQ
 
         public void OnFinishButtonPressed()
         {
-            Application.Quit();
+            Debug.Log("MC finished!");
+            GameObject go = GameObject.Find("Lab Control");
+            go.GetComponent<LabControl>().MCCompleted();
+            //Application.Quit();
         }
         #endregion //Event Handlers
 

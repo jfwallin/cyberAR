@@ -698,7 +698,7 @@ PlayerSettings:
     m_PortalFolderPath: 
   luminCert:
     m_CertPath: C:/Users/irs2e/Documents/Work/Keys/privatekey/librarydev.cert
-    m_SignPackage: 1
+    m_SignPackage: 0
   luminIsChannelApp: 0
   luminVersion:
     m_VersionCode: 1

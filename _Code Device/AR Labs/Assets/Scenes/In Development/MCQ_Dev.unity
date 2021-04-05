@@ -786,6 +786,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: ControlPointer
       objectReference: {fileID: 0}
+    - target: {fileID: 7235541112672725370, guid: 222bd9546a0294a4186782eaa063a280,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 222bd9546a0294a4186782eaa063a280, type: 3}
 --- !u!4 &1179949274 stripped
@@ -804,6 +809,10 @@ PrefabInstance:
     - target: {fileID: 1011244501761250, guid: 24158fb1437dc8e418d893939758764d, type: 3}
       propertyPath: m_Name
       value: Main Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 1011244501761250, guid: 24158fb1437dc8e418d893939758764d, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4214550324010282, guid: 24158fb1437dc8e418d893939758764d, type: 3}
       propertyPath: m_RootOrder
@@ -1024,7 +1033,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -1136,6 +1145,10 @@ MonoBehaviour:
   mediaPlayerPrefab: {fileID: 7024130859894721509, guid: e1ca46bbc8f8a2344a97449c4d1b3b9e,
     type: 3}
   mcqPrefab: {fileID: 2603711696372166789, guid: 22d60afb65147d14d976a3b1ce80bb0d,
+    type: 3}
+  sortPrefab: {fileID: 1085787409513080279, guid: 359f9fe910d1de243ac2d90ae39d4a90,
+    type: 3}
+  demoPrefab: {fileID: 7623918466506580603, guid: 2cfa7319a6fde034cbe67971fab09a8f,
     type: 3}
   rootUITransform: {fileID: 2123419363}
   initDataString: '{"name":"Moon Lab Exercise 1","questions":[{"referenceMediaType":3,"referenceMediaNames":["full_moon_question","full_moon_unlabeled"],"answerCorrectMediaNames":["full_moon_correct"],"answerIncorrectMediaNames":["full_moon_incorrect"],"question":"What

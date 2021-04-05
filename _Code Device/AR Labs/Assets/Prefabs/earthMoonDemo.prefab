@@ -1,0 +1,258 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &7623918466506580603
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7623918466506580601}
+  - component: {fileID: 7623918466506580606}
+  - component: {fileID: 7612266455507364901}
+  m_Layer: 0
+  m_Name: earthMoonDemo
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7623918466506580601
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7623918466506580603}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1.894412, y: 0.42756367, z: 0.25846732}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 4412728951197059685}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &7623918466506580606
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7623918466506580603}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+--- !u!114 &7612266455507364901
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7623918466506580603}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 350eeae915527bf41abe9ad992c40cd7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  earthPosition: {x: 0, y: 0, z: 0}
+  orbitalDistance: 1
+  orbitalPeriod: 10
+  timeRate: 1
+  rotationTime: 0.4
+  myPrefab: {fileID: 5852801425856087294, guid: 79cb8d8784cc80a4985dddd8e9fd2233,
+    type: 3}
+  mscale: 0.1
+  theMoon: {fileID: 0}
+  theEarth: {fileID: 0}
+  earthTexture: {fileID: 2800000, guid: 1aa29d3d882dddb4292e6f40432020ac, type: 3}
+  moonTexture: {fileID: 2800000, guid: cc0e172c2f5d52d46aeea82c23637bb4, type: 3}
+  earthScale: 0.2
+  moonScale: 0.05
+  earthMoonEnabled: 0
+  theBigRedButton: {fileID: 5024464371543484937, guid: 1ce5050c72c0d3e4dbf53c13ae2a10bc,
+    type: 3}
+  systemScale: 0
+  oldModulePhase: 0
+  modulePhase: -1
+  ballTexture: {fileID: 2800000, guid: 4ba1cbd10f82395408bbc1a19ffe471a, type: 3}
+  ballPrefab: {fileID: 5852801425856087294, guid: 79cb8d8784cc80a4985dddd8e9fd2233,
+    type: 3}
+  ballSize: 0.5
+  theBall: {fileID: 0}
+  instructionPrefab: {fileID: 2366808887159404212, guid: e61e784b675cf9246baf21e5a1c6b4e3,
+    type: 3}
+  instructionCanvas: {fileID: 0}
+  instructionHolder: {fileID: 0}
+  aud: {fileID: 0}
+  startSimulationAudio: {fileID: 8300000, guid: 0737df061b545464582625ae977a8f93,
+    type: 3}
+  startBasketballAudio: {fileID: 8300000, guid: 41689d588aed31a44bc44f105633bea3,
+    type: 3}
+  basketballAudio: {fileID: 8300000, guid: 0f9c7647f71a23640b6b5414e7950ea0, type: 3}
+  startTinyEarthMoonAudio: {fileID: 8300000, guid: c6c1c95cdc3dd30418aeb31fd63849c8,
+    type: 3}
+  tinyEarthMoonAudio: {fileID: 8300000, guid: 83a17857209d26847b639f54fffdbb9e, type: 3}
+  bigEarthMoonAudio: {fileID: 8300000, guid: 04ec723ca7f34b0449e7df649439f6ee, type: 3}
+--- !u!1001 &5682429992597492351
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 7623918466506580601}
+    m_Modifications:
+    - target: {fileID: 5024464371543484937, guid: 1ce5050c72c0d3e4dbf53c13ae2a10bc,
+        type: 3}
+      propertyPath: m_Name
+      value: ArcadeButton Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349992985401907226, guid: 1ce5050c72c0d3e4dbf53c13ae2a10bc,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349992985401907226, guid: 1ce5050c72c0d3e4dbf53c13ae2a10bc,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349992985401907226, guid: 1ce5050c72c0d3e4dbf53c13ae2a10bc,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349992985401907226, guid: 1ce5050c72c0d3e4dbf53c13ae2a10bc,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349992985401907226, guid: 1ce5050c72c0d3e4dbf53c13ae2a10bc,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349992985401907226, guid: 1ce5050c72c0d3e4dbf53c13ae2a10bc,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349992985401907226, guid: 1ce5050c72c0d3e4dbf53c13ae2a10bc,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349992985401907226, guid: 1ce5050c72c0d3e4dbf53c13ae2a10bc,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349992985401907226, guid: 1ce5050c72c0d3e4dbf53c13ae2a10bc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -90
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349992985401907226, guid: 1ce5050c72c0d3e4dbf53c13ae2a10bc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8349992985401907226, guid: 1ce5050c72c0d3e4dbf53c13ae2a10bc,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 9186787541050638306, guid: 1ce5050c72c0d3e4dbf53c13ae2a10bc, type: 3}
+  m_SourcePrefab: {fileID: 100100000, guid: 1ce5050c72c0d3e4dbf53c13ae2a10bc, type: 3}
+--- !u!4 &4412728951197059685 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8349992985401907226, guid: 1ce5050c72c0d3e4dbf53c13ae2a10bc,
+    type: 3}
+  m_PrefabInstance: {fileID: 5682429992597492351}
+  m_PrefabAsset: {fileID: 0}
