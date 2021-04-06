@@ -37,6 +37,7 @@ public class LabControl : MonoBehaviour
     private string initDataString = null;
     private MCQ.MCExerciseData initData = null;
 
+    private enum labsStage { intro, mc, demo, sorter};
     //private LabData labData = null;
 
     public void Awake()
@@ -51,66 +52,85 @@ public class LabControl : MonoBehaviour
 
     public void Start()
     {
+        
+        spawnStartLab();
         //spawnMedia();
         //spawnSorting();
-        spawnDemo();
-
-        
-    }
-
-    public void spawnDemo()
-    {
-        demoObject = Instantiate(demoPrefab, Vector3.zero, Quaternion.identity);  //, rootUITransform);
-
+        //spawnDemo();
     }
 
 
-    public void spawnMedia()
+
+    public void spawnStartLab()
     {
+        //spawnMedia();
+
         Debug.Log("Spawning Media Player, setting it to the welcome image");
         //Place the media player centered in the root canvas. The root is following the headpose curently.
         //also get a reference to the media player
         aPlayer = Instantiate(mediaPlayerPrefab, Vector3.zero, Quaternion.identity, rootUITransform).GetComponentInChildren<AudioPlayer>();
         aPlayer.name = "MP"; // added a name so it can be located more easily
 
-        //Show beginning of lab splash screen
-        string[] mediaCallInfo = new string[] { "_welcome", 2.ToString() /*MediaType.Image.ToString()*/ };
-        //Call the media player, do nothing when the image "finishes" displaying
-        aPlayer.MediaManager(mediaCallInfo, () => { });
-
-        Debug.Log("Spawning StartButton, waiting for user press");
         //Add start button
-        GameObject button = GameObject.Instantiate(labStartButtonPrefab, rootUITransform.InverseTransformPoint(aPlayer.transform.position + Vector3.back * 0.2f), Quaternion.identity, rootUITransform);
+        Debug.Log("Spawning StartButton, waiting for user press");
+        GameObject button = GameObject.Instantiate(labStartButtonPrefab, rootUITransform.InverseTransformPoint(aPlayer.transform.position + Vector3.back * 0.2f + Vector3.down *0.2f), Quaternion.identity, rootUITransform);
+        
         labStartButton = button.GetComponentInChildren<Button>();
-        labStartButton.onClick.AddListener(() => StartLab(labStartButton));
+        labStartButton.transform.localScale= new Vector3(0.5f, 0.5f, 0.5f);
+        labStartButton.onClick.AddListener(() => startLabDone(labStartButton));
         labStartButton.onClick.AddListener(() => rootUITransform.GetComponent<HeadposeCanvas>().enabled = false);
     }
 
+  
 
-
-    public void StartLab(Button labStartButton)
+    public void startLabDone(Button labStartButton)
     {
         Debug.Log("Start Lab Button pressed, playing intro video and removing the start button");
         labStartButton.onClick.RemoveAllListeners();
+        //Remove the start button
+        GameObject.Destroy(labStartButton.transform.parent.gameObject);
 
         //Play intro video
         string[] mediaCallInfo = new string[] { "moonphase-intro", 1.ToString() /*MediaType.Video.ToString()*/ };
-        //        aPlayer.MediaManager(mediaCallInfo, IntroMediaComplete);
-        //aPlayer.MediaManager(mediaCallInfo, spawnSorting);
         aPlayer.MediaManager(mediaCallInfo, spawnMC);
 
-
-        //Remove the start button
-        GameObject.Destroy(labStartButton.transform.parent.gameObject);
     }
 
+
+    public void spawnMC()
+    {
+        Debug.Log("Intro media done playing, spawning and initializing the MCQ manager");
+        mcqManager = Instantiate(mcqPrefab, aPlayer.transform.position + aPlayer.transform.right * 1.5f, aPlayer.transform.rotation, rootUITransform).GetComponent<MCQ.MCQManager>();
+        mcqManager.Initialize(initData, aPlayer);
+    }
+
+    public void MCCompleted()
+    {
+        GameObject.Find("MP").SetActive(false);
+        GameObject.Find("Root Main Canvas").SetActive(false);
+        Debug.Log("back to lab control");
+        spawnDemo();
+    }
+
+        public void spawnDemo()
+    {
+        demoObject = Instantiate(demoPrefab, Vector3.zero, Quaternion.identity);  //, rootUITransform);
+    }
+
+    public void demoCompleted()
+    {
+        spawnSorting();
+    }
 
     public void spawnSorting()
     {
         //aPlayer.SetActive(false);
-        GameObject go = GameObject.Find("MP");
+        GameObject theLight = GameObject.Find("Directional Light");
+        Light sceneLight = theLight.GetComponent<Light>();
+        sceneLight.color = Color.white;
+
+
         //go.transform.position = new Vector3(1000f, 1000f, 1000f);
-        go.SetActive(false);
         Debug.Log("starting the sort");
         sortManager = GameObject.Instantiate(sortPrefab, Vector3.zero, Quaternion.identity);
         
@@ -119,30 +139,15 @@ public class LabControl : MonoBehaviour
 
     public void sortingDone()
     {
-        //aPlayer.SetActive(false);
-        //GameObject go = GameObject.Find("MP");
-        //go.transform.position = new Vector3(1.0f, 1.0f, 1.5f);
-        //go.SetActive(true);
-        spawnMC();
+
+        GameObject.Find("Root Main Canvas").SetActive(true);
+
+        // SHOULD PUT A MEDIA CLIP HERE OF THE END OF THE LAB
         Application.Quit();
-        //
+        
     }
 
 
-
-
-    public void spawnMC()
-    {
-
-        Debug.Log("Intro media done playing, spawning and initializing the MCQ manager");
-        mcqManager = Instantiate(mcqPrefab, aPlayer.transform.position + aPlayer.transform.right*1.5f, aPlayer.transform.rotation, rootUITransform).GetComponent<MCQ.MCQManager>();
-        mcqManager.Initialize(initData, aPlayer);
-    }
-
-    public void MCCompleted()
-    {
-        Debug.Log("back to lab control");
-        spawnSorting();
-
-    }
 }
+
+

@@ -154,11 +154,10 @@ public class sortingData : MonoBehaviour
         // this sets the intial position to the current position of the objects
         // and sets the time limits so nothing actually moves
         initializePath();
-        Debug.Log("quack duck quack");
         //
         gameObject.name = "sortingManager";
-        myButton = Instantiate(theButton, new Vector3(0.0f, 0.6f, 1.5f), Quaternion.Euler(90f, 180f, 0f) );
-       
+        myButton = Instantiate(theButton, new Vector3(0.0f, -0.5f, 2.2f), Quaternion.Euler(90f, 180f, 0f) );
+        GameObject.Find("button").GetComponent<Renderer>().material.color = Color.red;
 
 
         // this moves the objects to a scrambled locationo
@@ -209,19 +208,19 @@ public class sortingData : MonoBehaviour
 
     public void taskCompleted()
     {
-        GameObject jj = GameObject.Find("Lab Control");
-        jj.GetComponent<LabControl>().spawnMedia();
 
-        Debug.Log("we be done!");
+        Debug.Log("sorting is done!");
         for (int i = 0; i < nObjects; i++)
         {
             Destroy(sortData[i].theObject);
             Destroy(markers[i]);
-
         }
         Destroy(myButton);
+       
 
-        Destroy(this);
+        GameObject jj = GameObject.Find("Lab Control");
+        jj.GetComponent<LabControl>().sortingDone();
+
 
     }
 

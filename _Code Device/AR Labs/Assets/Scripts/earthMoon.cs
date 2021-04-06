@@ -190,7 +190,10 @@ public class earthMoon : MonoBehaviour
 
         theBigRedButton = GameObject.Find("ArcadeButton Variant");
         theBigRedButton.AddComponent<earthCallback>();
-    
+        theBigRedButton.transform.localPosition = new Vector3(0.5f, -0.3f, 1.0f);
+        theBigRedButton.transform.localRotation= Quaternion.Euler(-90f, 20f, 0.0f);
+
+
         theBigRedButton.GetComponent<earthCallback>().callbackObject = gameObject;
         theBigRedButton.GetComponent<Renderer>().material.color = Color.red;
         GameObject.Find("button").GetComponent<Renderer>().material.color = Color.red;
@@ -200,7 +203,6 @@ public class earthMoon : MonoBehaviour
 
         oldModulePhase = -1;
         modulePhase = startSimulation;
-        modulePhase = startTinyEarthMoon;
         moduleSequenceManager();
 
     }
@@ -211,12 +213,14 @@ public class earthMoon : MonoBehaviour
         Destroy(instructionCanvas);
         Destroy(theEarth);
         Destroy(theMoon);
-        Destroy(theBigRedButton);      
+        Destroy(theBigRedButton);
+        aud.Stop();
+        GameObject.Find("Lab Control").GetComponent<LabControl>().demoCompleted();
     }
 
     void createInstructions()
     {
-        instructionHolder = Instantiate(instructionPrefab, new Vector3(0.3f, 0.0f, 1.0f), Quaternion.Euler(0.0f, 180.0f, 0.0f));
+        instructionHolder = Instantiate(instructionPrefab, new Vector3(0.3f, -0.2f, 1.0f), Quaternion.Euler(0.0f, 180.0f, 0.0f));
         instructionCanvas = GameObject.Find("MainInstructions");
         instructionCanvas.GetComponent<Text>().text = "";
     }
@@ -305,8 +309,8 @@ public class earthMoon : MonoBehaviour
                 break;
 
             case (endSimulation):
-                instructionCanvas.GetComponent<Text>().text =
-                    "That's all folks!";
+                //instructionCanvas.GetComponent<Text>().text =
+                //    "That's all folks!";
 
                 break;
         }
@@ -316,7 +320,7 @@ public class earthMoon : MonoBehaviour
 
     void createBall()
     {
-        theBall = Instantiate(ballPrefab, new Vector3(0.0f, 0.0f, 1.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
+        theBall = Instantiate(ballPrefab, new Vector3(0.0f, -0.2f, 1.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
         theBall.GetComponent<Renderer>().material.color = new Color(1.0f, 1.0f, 1.0f, 1.0f);
         theBall.GetComponent<Renderer>().material.mainTexture = ballTexture;
         theBall.transform.localScale = new Vector3(ballSize, ballSize, ballSize);
@@ -412,7 +416,7 @@ public class earthMoon : MonoBehaviour
                 createEarthMoon();
                 systemScale = 0.1f;
                 enableEarthMoon();
-                theEarth.transform.position = new Vector3(0.0f, 0.0f, 1.0f);
+                theEarth.transform.position = new Vector3(-0.50f, -0.3f, 1.5f);
                 setInstructions(startTinyEarthMoon);
                 break;
 
@@ -422,8 +426,8 @@ public class earthMoon : MonoBehaviour
 
             case bigEarthMoon:
                 systemScale = 0.8f;
-                theEarth.transform.position = new Vector3(0.0f, 0.0f, 1.5f);
-                timeRate = 0.5f;
+                theEarth.transform.position = new Vector3(-0.50f, -0.3f, 2.0f);
+                timeRate = 0.25f;
                 setInstructions(bigEarthMoon);
 
                 break;
@@ -431,6 +435,7 @@ public class earthMoon : MonoBehaviour
             case endSimulation:
                 disableEarthMoon();
                 setInstructions(endSimulation);
+                simulationDone();
 
                 break;
         }

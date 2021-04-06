@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 8246507793885869149}
   - component: {fileID: 8246507793885869148}
   - component: {fileID: 8246507793885869121}
+  - component: {fileID: 4973648799243335705}
   m_Layer: 0
   m_Name: jw Plane
   m_TagString: Untagged
@@ -423,12 +424,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   targetRenderer: {fileID: 8246507793885869144}
-  targetedColor: {r: 0.572166, g: 0.8962264, b: 0.41147497, a: 1}
-  selectedColor: {r: 1, g: 1, b: 1, a: 1}
+  targetedColor: {r: 0.038625762, g: 0.8491856, b: 0.8773585, a: 1}
+  selectedColor: {r: 0.580426, g: 0.8584906, b: 0.5870512, a: 1}
   draggedColor: {r: 1, g: 0, b: 1, a: 1}
-  targetBeginSound: {fileID: 0}
-  targetEndSound: {fileID: 0}
-  selectedSound: {fileID: 0}
-  dragStartSound: {fileID: 8300000, guid: 1494113c756ab6a4083872c12355d4c3, type: 3}
-  dragStopSound: {fileID: 8300000, guid: 564ee0a0e2cd8ba41a9b3857f1f0edb8, type: 3}
+  targetBeginSound: {fileID: 8300000, guid: b9d4ddc293530574084791c4d1f1c149, type: 3}
+  targetEndSound: {fileID: 8300000, guid: fac5f8b87bd0acb4b8dc6e427b626223, type: 3}
+  selectedSound: {fileID: 8300000, guid: 7cbcdc2d3ae068b40a0e41c7f93abfc5, type: 3}
+  dragStartSound: {fileID: 8300000, guid: 2e26e513dfc57104da6a50f52f29e005, type: 3}
+  dragStopSound: {fileID: 8300000, guid: a24a1d9aada0457459c1d65470fa76d6, type: 3}
   collisionSound: {fileID: 0}
+--- !u!222 &4973648799243335705
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8246507793885869146}
+  m_CullTransparentMesh: 0
