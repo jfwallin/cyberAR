@@ -180,6 +180,7 @@ MonoBehaviour:
     type: 3}
   tinyEarthMoonAudio: {fileID: 8300000, guid: 83a17857209d26847b639f54fffdbb9e, type: 3}
   bigEarthMoonAudio: {fileID: 8300000, guid: 04ec723ca7f34b0449e7df649439f6ee, type: 3}
+  pauseEarthMoonAudio: {fileID: 8300000, guid: 43cb4ef4f82d29f488cec4e3b6301e56, type: 3}
 --- !u!1001 &5682429992597492351
 PrefabInstance:
   m_ObjectHideFlags: 0

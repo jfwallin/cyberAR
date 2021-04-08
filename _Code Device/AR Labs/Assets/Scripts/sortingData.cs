@@ -157,6 +157,7 @@ public class sortingData : MonoBehaviour
         //
         gameObject.name = "sortingManager";
         myButton = Instantiate(theButton, new Vector3(0.0f, -0.5f, 2.2f), Quaternion.Euler(90f, 180f, 0f) );
+        myButton.GetComponent<Renderer>().material.color = Color.red;
         GameObject.Find("button").GetComponent<Renderer>().material.color = Color.red;
 
 

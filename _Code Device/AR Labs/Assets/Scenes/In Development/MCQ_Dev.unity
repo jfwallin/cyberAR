@@ -1150,6 +1150,8 @@ MonoBehaviour:
     type: 3}
   demoPrefab: {fileID: 7623918466506580603, guid: 2cfa7319a6fde034cbe67971fab09a8f,
     type: 3}
+  finalScreenPrefab: {fileID: 3333332131206147784, guid: 4ebf4466e7c2c104ea4376f0261610a3,
+    type: 3}
   rootUITransform: {fileID: 2123419363}
   initDataString: '{"name":"Moon Lab Exercise 1","questions":[{"referenceMediaType":3,"referenceMediaNames":["full_moon_question","full_moon_unlabeled"],"answerCorrectMediaNames":["full_moon_correct"],"answerIncorrectMediaNames":["full_moon_incorrect"],"question":"What
     is the name of this phase of the moon?","randomizeOrder":true,"allowMultiSelect":false,"numberOfOptionsFromPool":3,"answerOptions":["Full

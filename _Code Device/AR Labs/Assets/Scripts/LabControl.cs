@@ -27,6 +27,10 @@ public class LabControl : MonoBehaviour
     private GameObject demoPrefab = null;
     private GameObject demoObject = null;
 
+    [SerializeField]
+    private GameObject finalScreenPrefab = null;
+    private GameObject finalScreen = null;
+
     [Header("Scene References")]
     [SerializeField]
     private Transform rootUITransform = null;
@@ -52,11 +56,14 @@ public class LabControl : MonoBehaviour
 
     public void Start()
     {
-        
+
         spawnStartLab();
         //spawnMedia();
-        //spawnSorting();
+
         //spawnDemo();
+        //spawnSorting();
+        //spawnFinalie();
+
     }
 
 
@@ -140,11 +147,24 @@ public class LabControl : MonoBehaviour
     public void sortingDone()
     {
 
-        GameObject.Find("Root Main Canvas").SetActive(true);
+        //GameObject.Find("Root Main Canvas").SetActive(true);
+        spawnFinalie();
 
+        
+    }
+
+    public void spawnFinalie()
+    {
+        //finalScreen = GameObject.Instantiate(finalScreenPrefab, Vector3.zero, Quaternion.identity);
+
+        //GameObject simple = Instantiate( )
+        finalieDone();
+
+    }
+    public void finalieDone()
+    {
         // SHOULD PUT A MEDIA CLIP HERE OF THE END OF THE LAB
         Application.Quit();
-        
     }
 
 

@@ -137,7 +137,8 @@ public class earthMoon : MonoBehaviour
     const int startTinyEarthMoon = 3;
     const int tinyEarthMoon = 4;
     const int bigEarthMoon = 5;
-    const int endSimulation  = 6;
+    const int pauseEarthMoon = 6;
+    const int endSimulation  = 7;
 
     public int oldModulePhase = 0;
     public int modulePhase = -1;
@@ -159,7 +160,7 @@ public class earthMoon : MonoBehaviour
     public AudioClip startTinyEarthMoonAudio;
     public AudioClip tinyEarthMoonAudio;
     public AudioClip bigEarthMoonAudio;
-    
+    public AudioClip pauseEarthMoonAudio;
 
     public void HandleOnClick(string source)
     {
@@ -308,6 +309,19 @@ public class earthMoon : MonoBehaviour
                 aud.Play();
                 break;
 
+            case (pauseEarthMoon):
+                instructionCanvas.GetComponent<Text>().text =
+                "Move around the simulation to notice two\n"
+                + "Important things: \n"
+                + "1) At any given time, the moon is only visible from half\n"
+                + "   of the Earth's surface. \n"
+                + "2) Everyone on Earth who can see the moon sees the same\n"
+                + "   Moon phase.\n\n"
+                 + "- Click on the red button when you are done exploring.";
+                aud.clip = pauseEarthMoonAudio;
+                aud.Play();
+                break;
+
             case (endSimulation):
                 //instructionCanvas.GetComponent<Text>().text =
                 //    "That's all folks!";
@@ -430,6 +444,11 @@ public class earthMoon : MonoBehaviour
                 timeRate = 0.25f;
                 setInstructions(bigEarthMoon);
 
+                break;
+
+            case pauseEarthMoon:
+                setInstructions(pauseEarthMoon);
+                timeRate = 0.0f;
                 break;
 
             case endSimulation:
