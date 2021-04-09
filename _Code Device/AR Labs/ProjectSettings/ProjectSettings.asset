@@ -697,7 +697,7 @@ PlayerSettings:
     m_ModelFolderPath: 
     m_PortalFolderPath: 
   luminCert:
-    m_CertPath: C:/Users/jwallin/Documents/magicLeapCertificates/moonlabwallin.cert
+    m_CertPath: C:/Users/irs2e/Documents/Work/Keys/privatekey/librarydev.cert
     m_SignPackage: 1
   luminIsChannelApp: 0
   luminVersion:

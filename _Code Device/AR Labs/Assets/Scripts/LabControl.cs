@@ -100,6 +100,8 @@ public class LabControl : MonoBehaviour
         //Play intro video
         string[] mediaCallInfo = new string[] { "moonphase-intro", 1.ToString() /*MediaType.Video.ToString()*/ };
         aPlayer.MediaManager(mediaCallInfo, spawnMC);
+        //aPlayer.MediaManager(mediaCallInfo, spawnDemo); //TEMPORARY
+
         //aPlayer.MediaManager(mediaCallInfo, MCCompleted);
     }
 

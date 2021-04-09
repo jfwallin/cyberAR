@@ -1274,10 +1274,10 @@ BoxCollider:
   m_GameObject: {fileID: 7024130859405516478}
   m_Material: {fileID: 0}
   m_IsTrigger: 0
-  m_Enabled: 0
+  m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 2000, y: 1500, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Center: {x: 0, y: 0, z: 0.6}
 --- !u!1 &7024130859894721509
 GameObject:
   m_ObjectHideFlags: 0
@@ -1385,14 +1385,14 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7024130859894721509}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 587c3c62f9c0fda4089b90f54b1c29bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   vPlayer: {fileID: 169109386}
   slider: {fileID: 5826999687559646811}
-  aSource: {fileID: 0}
+  aSource: {fileID: 3570530707360075661}
   imageDisplay: {fileID: 5785056439548183694}
   media: {fileID: 11400000, guid: da05113085514bd489fa01bef9ad9932, type: 2}
 --- !u!1 &7184199276077403729
