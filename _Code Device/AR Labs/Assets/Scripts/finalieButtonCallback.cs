@@ -23,7 +23,7 @@ public class finalieButtonCallback : MonoBehaviour
 
         //if (enableDragEnd)
         _inputReceiver.OnDragEnd.AddListener(HandleOnClick);
-
+        Debug.Log("anbled");
     }
 
     private void OnDisable()
@@ -35,8 +35,9 @@ public class finalieButtonCallback : MonoBehaviour
 
     private void HandleOnClick(GameObject sender)
     {
-
+        Debug.Log("cluclsrtfew");
         GameObject labmanager = GameObject.Find("Lab Control");
+
         if (labmanager != null)
         {
             labmanager.GetComponent<LabControl>().finalieDone();

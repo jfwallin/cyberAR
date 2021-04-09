@@ -100,7 +100,7 @@ public class LabControl : MonoBehaviour
         //Play intro video
         string[] mediaCallInfo = new string[] { "moonphase-intro", 1.ToString() /*MediaType.Video.ToString()*/ };
         aPlayer.MediaManager(mediaCallInfo, spawnMC);
-
+        //aPlayer.MediaManager(mediaCallInfo, MCCompleted);
     }
 
 
@@ -115,7 +115,6 @@ public class LabControl : MonoBehaviour
     {
         GameObject.Find("MP").SetActive(false);
         GameObject.Find("Root Main Canvas").SetActive(false);
-        Debug.Log("back to lab control");
         spawnDemo();
     }
 
@@ -126,6 +125,7 @@ public class LabControl : MonoBehaviour
 
     public void demoCompleted()
     {
+        Destroy(demoObject);
         spawnSorting();
     }
 
@@ -135,35 +135,29 @@ public class LabControl : MonoBehaviour
         GameObject theLight = GameObject.Find("Directional Light");
         Light sceneLight = theLight.GetComponent<Light>();
         sceneLight.color = Color.white;
-
-
-        //go.transform.position = new Vector3(1000f, 1000f, 1000f);
-        Debug.Log("starting the sort");
         sortManager = GameObject.Instantiate(sortPrefab, Vector3.zero, Quaternion.identity);
         
-
     }
 
     public void sortingDone()
     {
-
-        //GameObject.Find("Root Main Canvas").SetActive(true);
+        Destroy(sortManager);
         spawnFinalie();
-
-        
     }
 
     public void spawnFinalie()
     {
-        //finalScreen = GameObject.Instantiate(finalScreenPrefab, Vector3.zero, Quaternion.identity);
-
-        //GameObject simple = Instantiate( )
-        finalieDone();
+        
+        float oscale = 0.08f;
+        finalScreen = GameObject.Instantiate(finalScreenPrefab, Vector3.zero + Vector3.forward * 2.0f, Quaternion.identity);
+        finalScreen.transform.eulerAngles = new Vector3(90.0f, 180.0f, 0.0f);
+        finalScreen.transform.localScale = new Vector3(2.0f * oscale, 1.0f * oscale, 1.0f * oscale);
 
     }
     public void finalieDone()
     {
-        // SHOULD PUT A MEDIA CLIP HERE OF THE END OF THE LAB
+        Debug.Log("@34532453");
+        //Destroy(finalScreen);
         Application.Quit();
     }
 

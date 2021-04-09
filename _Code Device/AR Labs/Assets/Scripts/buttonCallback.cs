@@ -25,7 +25,7 @@ public class buttonCallback : MonoBehaviour
         _inputReceiver.OnDragEnd.AddListener(HandleOnClick);
 
         GameObject sorter = GameObject.Find("sortingManager");
-        sorter.GetComponent<sortingData>().hhh();
+        //sorter.GetComponent<sortingData>().hhh();
     }
 
     private void OnDisable()
@@ -37,11 +37,12 @@ public class buttonCallback : MonoBehaviour
 
     private void HandleOnClick(GameObject sender)
     {
-
+        Debug.Log("clock");
         GameObject sorter = GameObject.Find("sortingManager");
         if (sorter != null)
         {
-            sorter.GetComponent<sortingData>().feedbackOnOrder();
+            if (enableOnClick)
+                sorter.GetComponent<sortingData>().feedbackOnOrder();
         }
         else
             Debug.Log("no sorting object");

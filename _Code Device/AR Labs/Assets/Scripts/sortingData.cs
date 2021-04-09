@@ -77,26 +77,22 @@ public class sortingData : MonoBehaviour
     public int wrongAnswerCount = 0;
     public int totalWrongAnswer = 0;
 
-    public GameObject theButton;
+    //public GameObject theButton;
     public GameObject myButton;
+    
+    private bool feedbackEnabled = true;
 
-    public void hhh()
-    {
-        Debug.Log("gray duck");
-    }
 
     // Start is called before the first frame update
     void Start()
     {
 
-      
         AudioSource aud = GetComponent<AudioSource>();
         //yield return new WaitForSeconds(audio.clip.length);
         aud.clip = audioInstructions;
         aud.Play();
 
         // create data
-
         // find all the game objects to be sorted
         //gameObjects = GameObject.FindGameObjectsWithTag("sortable");
         //nObjects = gameObjects.Length;
@@ -156,74 +152,98 @@ public class sortingData : MonoBehaviour
         initializePath();
         //
         gameObject.name = "sortingManager";
-        myButton = Instantiate(theButton, new Vector3(0.0f, -0.5f, 2.2f), Quaternion.Euler(90f, 180f, 0f) );
+
+        myButton =  GameObject.Find("sortbutton");
+        myButton.AddComponent<buttonCallback>();
+        myButton.transform.localPosition = new Vector3(0.0f, -0.3f, 2.0f);
+        myButton.transform.localRotation = Quaternion.Euler(-90f, 0f, 0.0f);
         myButton.GetComponent<Renderer>().material.color = Color.red;
-        GameObject.Find("button").GetComponent<Renderer>().material.color = Color.red;
+        GameObject.Find("sbutton").GetComponent<Renderer>().material.color = Color.red;
 
 
-        // this moves the objects to a scrambled locationo
+        // this moves the objects to a scrambled location
         scrambleProjectedPosition();
         resetPositions(); //, orderList);
 
+    }
+
+
+    IEnumerator buttonWait(float dTime)
+    {
+        // this routine disables the click interaction so the move routine
+        // doesn't get suck in the middle of a resort
+
+        feedbackEnabled = false;
+        yield return new WaitForSeconds(dTime);
+        feedbackEnabled = true;
     }
 
     public void feedbackOnOrder()
     {
         IEnumerator coroutine;
 
-        checkOrder();
-
-        AudioSource aud = GetComponent<AudioSource>();
-        if (isSorted)
+        // we can disable the feedback loop so clicks don't affect the system 
+        // during a sort
+        if (feedbackEnabled)
         {
-            aud.clip = correctOrder;
-            setOrderLights();
-            pretty = 1;
-            coroutine = clearOrderLights();
-            aud.Play();
+            checkOrder();
+            AudioSource aud = GetComponent<AudioSource>();
+            if (isSorted)
+            {
+                aud.clip = correctOrder;
+                setOrderLights();
+                pretty = 1;
 
-            taskCompleted();
+                aud.Play();
+                coroutine = taskCompleted();
+                StartCoroutine(coroutine);
+                //taskCompleted();
 
+            }
+            else
+            {
+                // this moves the objects to a scrambled location
+                setOrderLights();
+                scrambleProjectedPosition();
+                tdelay = 5.0f;
+                tmove = 3.0f;
+                pretty = 1;
+                resetPositions(); //, orderList);
+                coroutine = clearOrderLights();
+                StartCoroutine(coroutine);
+
+                //yield return new WaitForSeconds(audio.clip.length);
+                aud.clip = wrongOrder[wrongAnswerCount];
+
+                if (wrongAnswerCount + 1 < totalWrongAnswer)
+                    wrongAnswerCount = wrongAnswerCount + 1;
+                aud.Play();
+            }
         }
-        else
-        {
-            // this moves the objects to a scrambled location
-            setOrderLights();
-            scrambleProjectedPosition();
-            tdelay = 5.0f;
-            tmove = 3.0f;
-            pretty = 1;
-            resetPositions(); //, orderList);
-            coroutine = clearOrderLights();
-            StartCoroutine(coroutine);
-
-            //yield return new WaitForSeconds(audio.clip.length);
-            aud.clip = wrongOrder[wrongAnswerCount];
-
-            if (wrongAnswerCount + 1 < totalWrongAnswer)
-                wrongAnswerCount = wrongAnswerCount + 1;
-            aud.Play();
-        }
-
     }
 
-    public void taskCompleted()
+    IEnumerator taskCompleted()
     {
 
-        Debug.Log("sorting is done!");
+        float dtime;
+
+        dtime = 5.0f;
+        yield return new WaitForSeconds(dtime);
+        //Debug.Log("sorting is done!");
         for (int i = 0; i < nObjects; i++)
         {
             Destroy(sortData[i].theObject);
             Destroy(markers[i]);
         }
         Destroy(myButton);
-       
 
         GameObject jj = GameObject.Find("Lab Control");
         jj.GetComponent<LabControl>().sortingDone();
 
-
     }
+
+
+
 
     public void resort()
     {
@@ -234,12 +254,7 @@ public class sortingData : MonoBehaviour
         pretty = 0;
         tdelay = 0.10f;
         tmove = 1.0f;
-
-        // move them to the reference line
         resetPositions();
-        //checkOrder();
-        //setOrderLights();
-
     }
 
     IEnumerator clearOrderLights()
@@ -287,7 +302,6 @@ public class sortingData : MonoBehaviour
 
     }
 
-
     void setSortedLocations(float distance = 3.0f, float angle = 0.0f, float height = 0.0f, float width = 5.0f, float xoffset = 0.0f, float zoffset = 0.0f)
     {
 
@@ -332,8 +346,6 @@ public class sortingData : MonoBehaviour
         }
     }
 
-
-
     void checkOrder()
     {
         isSorted = true;
@@ -351,13 +363,11 @@ public class sortingData : MonoBehaviour
         }
     }
 
-
     void scrambleProjectedPosition()
     {
         for (int i = 0; i < nObjects; i++)
             sortData[i].fractionalDistance = UnityEngine.Random.value;
     }
-
 
     void setProjectedLocation()
     {
@@ -378,12 +388,13 @@ public class sortingData : MonoBehaviour
     }
 
 
-
     void resetPositions()
     {
         float myTime;
         myTime = Time.time;
         float a1, a2, a3;
+
+
 
         // sort by the projected fractional order
         Array.Sort(sortData, delegate (sortInfo s1, sortInfo s2) {
@@ -436,7 +447,8 @@ public class sortingData : MonoBehaviour
             sortData[i].theObject.GetComponent<moveObjects>().initializePath();
 
         }
-
+        IEnumerator pausePointer = buttonWait(tdelay + tmove);
+        StartCoroutine(pausePointer);
     }
 
 
