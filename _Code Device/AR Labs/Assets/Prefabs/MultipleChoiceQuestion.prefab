@@ -302,6 +302,7 @@ GameObject:
   - component: {fileID: 2603711696266271468}
   - component: {fileID: 2603711696266271469}
   - component: {fileID: 2603711696266271466}
+  - component: {fileID: 8384127238260267991}
   m_Layer: 5
   m_Name: Question Background
   m_TagString: Untagged
@@ -395,6 +396,19 @@ MonoBehaviour:
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
   m_ReverseArrangement: 0
+--- !u!65 &8384127238260267991
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2603711696266271464}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1250, y: 700, z: 1}
+  m_Center: {x: 0, y: 0, z: 1}
 --- !u!1 &2603711696372166789
 GameObject:
   m_ObjectHideFlags: 0
@@ -424,7 +438,7 @@ RectTransform:
   m_GameObject: {fileID: 2603711696372166789}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 1}
-  m_LocalScale: {x: 0.001, y: 0.001, z: 1}
+  m_LocalScale: {x: 0.001, y: 0.001, z: 0.001}
   m_Children:
   - {fileID: 2603711696266271467}
   m_Father: {fileID: 0}

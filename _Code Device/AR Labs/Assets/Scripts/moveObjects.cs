@@ -159,11 +159,13 @@ public class moveObjects : MonoBehaviour
 
         float dy, dx, slope, intercept;
 
+        x[0] = 0.0f;
+        x[1] = timeRange[1] - timeRange[0];
+        dx = x[1];
 
-        x[0] = timeRange[0];
-        x[1] = timeRange[1];
-        dx = x[1] - x[0];
-
+        //x[0] = timeRange[0];
+        //x[1] = timeRange[1];
+        //dx = timeRange[1] - timeRange[0];
 
         for (int k = 0; k < ndim; k++)
         {
@@ -200,10 +202,13 @@ public class moveObjects : MonoBehaviour
         float[,] matinv = new float[ndim, ndim];
         float[,] parabolaCoeffients = new float[ndim, ndim];
 
-        x[0] = timeRange[0];
-        x[1] = 0.5f * (timeRange[0] + timeRange[1]);
-        x[2] = timeRange[1];
+        x[0] = 0.0f;
+        x[1] = 0.5f * (timeRange[1] - timeRange[0]);
+        x[2] = 2 * x[1];
 
+        //x[0] = timeRange[0];
+        //x[1] = 0.5f * (timeRange[0] + timeRange[1]);
+        //x[2] = timeRange[1];
 
         for (int k = 0; k < ndim; k++)
         {
@@ -273,7 +278,8 @@ public class moveObjects : MonoBehaviour
         if (Time.time > timeRange[0] && Time.time < timeRange[1])
         {
 
-            myTime = Time.time;
+            myTime = Time.time - timeRange[0];
+            //myTime = Time.time;
 
             transform.localPosition = calcLocation(positionCoefficients, myTime);
             angles = calcLocation(angleCoefficients, myTime);

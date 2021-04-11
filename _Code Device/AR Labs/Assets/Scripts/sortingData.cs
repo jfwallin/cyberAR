@@ -252,8 +252,8 @@ public class sortingData : MonoBehaviour
         setProjectedLocation();
 
         pretty = 0;
-        tdelay = 0.10f;
-        tmove = 1.0f;
+        tdelay = 0.50f;
+        tmove = 1.5f;
         resetPositions();
     }
 

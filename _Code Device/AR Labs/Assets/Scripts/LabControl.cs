@@ -80,10 +80,10 @@ public class LabControl : MonoBehaviour
 
         //Add start button
         Debug.Log("Spawning StartButton, waiting for user press");
-        GameObject button = GameObject.Instantiate(labStartButtonPrefab, rootUITransform.InverseTransformPoint(aPlayer.transform.position + Vector3.back * 0.2f + Vector3.down *0.2f), Quaternion.identity, rootUITransform);
-        
+        GameObject button = GameObject.Instantiate(labStartButtonPrefab, rootUITransform.InverseTransformPoint(aPlayer.transform.position + Vector3.back * 0.2f + Vector3.down * 0.2f), Quaternion.identity, rootUITransform);
+
         labStartButton = button.GetComponentInChildren<Button>();
-        labStartButton.transform.localScale= new Vector3(0.5f, 0.5f, 0.5f);
+        labStartButton.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
         labStartButton.onClick.AddListener(() => startLabDone(labStartButton));
         labStartButton.onClick.AddListener(() => rootUITransform.GetComponent<HeadposeCanvas>().enabled = false);
     }
@@ -100,11 +100,10 @@ public class LabControl : MonoBehaviour
         //Play intro video
         string[] mediaCallInfo = new string[] { "moonphase-intro", 1.ToString() /*MediaType.Video.ToString()*/ };
         aPlayer.MediaManager(mediaCallInfo, spawnMC);
-        //aPlayer.MediaManager(mediaCallInfo, spawnDemo); //TEMPORARY
+        //aPlayer.MediaManager(mediaCallInfo, spawnSorting); //TEMPORARY
 
         //aPlayer.MediaManager(mediaCallInfo, MCCompleted);
     }
-
 
     public void spawnMC()
     {
