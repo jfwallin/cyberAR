@@ -31,8 +31,16 @@ public class MakeObjectInfo : MonoBehaviour
         //writer.Close();
 
         //bridge.ParseJsonFromPath(path);
-        bridge.ParseJsonFromString(json);
+
+        StartCoroutine(ExampleCoroutine(json));
     }
 
-    
+    IEnumerator ExampleCoroutine(string json)
+    {
+        bridge.ParseJsonFromString(json);
+
+        yield return new WaitForSeconds(15);
+        bridge.CleanUp(json);
+
+    }
 }

@@ -14,11 +14,13 @@ using System.Runtime.InteropServices;
 public class Bridge 
 {
     //ParseJson can be called from outside the class to trigger the methods included here
+    //This should be deleted. Info can be turned to string outside the bridge.
     public void ParseJsonFromPath(string path)
     {
         makeScene(getInfo(path));
     }
 
+    //I think this should be the only one
     public void ParseJsonFromString(string data)
     {
         makeScene(JsonUtility.FromJson<ObjectInfoCollection>(data));
@@ -35,9 +37,11 @@ public class Bridge
         info = JsonUtility.FromJson<ObjectInfoCollection>(line);
         return info;
     }
+    //This could be moved outside the bridge to get rid of ParseJSONFromPath
 
     private void makeScene(ObjectInfoCollection info)
     {
+        //In the event that transmission obects need to be created this will send each to thier apropriet category
         foreach (ObjectInfo obj in info.objects)
         {
             if (obj.transmittable == false) makeObject(obj);
@@ -184,6 +188,16 @@ public class Bridge
         return myObject;
     }
     //This whole method will likely have to change slightly when we start dealing with Transmission.
+
+    //a cleanup meathod....hmmm
+    public void CleanUp(string data) {
+        //parse string
+        ObjectInfoCollection info = JsonUtility.FromJson<ObjectInfoCollection>(data);
+
+        foreach (ObjectInfo obj in info.objects) {
+            GameObject.Destroy(GameObject.Find(obj.name));
+        }
+    }
 
 
 }
