@@ -11,20 +11,22 @@ public class MakeObjectInfo : MonoBehaviour
     private Bridge bridge = new Bridge();
 
     public string name;
-    //public string path; //Where is/will your json be located?
+    public string[] paths;
+    
     //public ObjectInfo info;
-    public ObjectInfoCollection info;
+    //public ObjectInfoCollection info;
 
     // Start is called before the first frame update
     void Start()
     {
-        string json;
+        string[] json = new string[paths.Length];
+        int i = 0;
         //path = path + name+ ".json";
 
         //StreamWriter writer = new StreamWriter(path);
         
-        json = JsonUtility.ToJson(info, true);
-        Debug.Log("json file is: " + json);
+        //json = JsonUtility.ToJson(info, true);
+        //Debug.Log("json file is: " + json);
 
         //writer.WriteLine(json);
 
@@ -32,15 +34,36 @@ public class MakeObjectInfo : MonoBehaviour
 
         //bridge.ParseJsonFromPath(path);
 
-        StartCoroutine(ExampleCoroutine(json));
+
+        foreach(string path in paths)
+        {
+            json[i] = fromPathToString(path);
+            Debug.Log("json file is: " + json[i]);
+            i++;
+        }
+
+        if (json[0] != null) StartCoroutine(ExampleCoroutine(json));
     }
 
-    IEnumerator ExampleCoroutine(string json)
+    IEnumerator ExampleCoroutine(string[] json)
     {
-        bridge.ParseJsonFromString(json);
 
-        yield return new WaitForSeconds(15);
-        bridge.CleanUp(json);
+        foreach (string obj in json)
+        {
+            Debug.Log("obj is = " + obj);
+            bridge.ParseJsonFromString(obj);
 
+            yield return new WaitForSeconds(15);
+            bridge.CleanUp(obj);
+        }
+    }
+
+    private string fromPathToString(string path)
+    {
+        StreamReader reader = new StreamReader(path);
+        string line;
+
+        line = reader.ReadToEnd();
+        return line;
     }
 }

@@ -167,55 +167,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: SolarSystemExample
-  info:
-    objects:
-    - name: LogicFromJson
-      parentName: '[SCENE_MANAGEMENT]'
-      type: empty
-      position: {x: 0, y: 0, z: 0}
-      scale: {x: 0, y: 0, z: 0}
-      material: 
-      transmittable: 0
-      componentsToAdd:
-      - '{"name":"SolarSystemLogic"}'
-    - name: System
-      parentName: '[_DYNAMIC]'
-      type: empty
-      position: {x: 0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-      material: 
-      transmittable: 0
-      componentsToAdd: []
-    - name: Sun
-      parentName: System
-      type: sphere
-      position: {x: 0, y: 0, z: 0}
-      scale: {x: 1, y: 1, z: 1}
-      material: Sun
-      transmittable: 0
-      componentsToAdd:
-      - '{"name":"Orbit","center":"","rotateDegree":0.0}'
-      - '{"name":"Rotate","rotationAngle":{"x":0.0,"y":2.942379,"z":0.0}}'
-    - name: Earth
-      parentName: System
-      type: sphere
-      position: {x: 0, y: 0, z: -2}
-      scale: {x: 0.25, y: 0.25, z: 0.25}
-      material: Earth
-      transmittable: 0
-      componentsToAdd:
-      - '{"name":"Orbit","center":"Sun","rotateDegree":0.1971199}'
-      - '{"name":"Rotate","rotationAngle":{"x":0.0,"y":72.0,"z":0.0}}'
-    - name: Moon
-      parentName: System
-      type: sphere
-      position: {x: 0, y: 0, z: -1.75}
-      scale: {x: 0.06798, y: 0.06798, z: 0.06798}
-      material: Moon
-      transmittable: 0
-      componentsToAdd:
-      - '{"name":"Orbit","center":"Earth","rotateDegree":2.66667}'
-      - '{"name":"Rotate","rotationAngle":{"x":0.0,"y":2.44898,"z":0.0}}'
+  paths:
+  - Assets/JSON Bridge/Examples/Solar System Example/SolarSystemExample.json
 --- !u!1001 &241266520
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -460,12 +413,12 @@ PrefabInstance:
     - target: {fileID: 5619764785477124592, guid: 4b83d5952ef78964a987c932f7375418,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5619764785477124592, guid: 4b83d5952ef78964a987c932f7375418,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5619764785477124592, guid: 4b83d5952ef78964a987c932f7375418,
         type: 3}
@@ -475,12 +428,12 @@ PrefabInstance:
     - target: {fileID: 5619764785477124592, guid: 4b83d5952ef78964a987c932f7375418,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 155
       objectReference: {fileID: 0}
     - target: {fileID: 5619764785477124592, guid: 4b83d5952ef78964a987c932f7375418,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b83d5952ef78964a987c932f7375418, type: 3}
