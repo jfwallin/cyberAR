@@ -18,15 +18,12 @@ public class LabControl : MonoBehaviour
     [SerializeField]
     private GameObject mcqPrefab = null;
     private MCQ.MCQManager mcqManager = null;
-
     [SerializeField]
     private GameObject sortPrefab = null;
     private GameObject sortManager = null;
-
     [SerializeField]
     private GameObject demoPrefab = null;
     private GameObject demoObject = null;
-
     [SerializeField]
     private GameObject finalScreenPrefab = null;
     private GameObject finalScreen = null;
@@ -34,7 +31,6 @@ public class LabControl : MonoBehaviour
     [Header("Scene References")]
     [SerializeField]
     private Transform rootUITransform = null;
-
     private Camera mainCam = null;
 
     [SerializeField]
@@ -42,7 +38,6 @@ public class LabControl : MonoBehaviour
     private MCQ.MCExerciseData initData = null;
 
     private enum labsStage { intro, mc, demo, sorter};
-    //private LabData labData = null;
 
     public void Awake()
     {
@@ -56,22 +51,11 @@ public class LabControl : MonoBehaviour
 
     public void Start()
     {
-
         spawnStartLab();
-        //spawnMedia();
-
-        //spawnDemo();
-        //spawnSorting();
-        //spawnFinalie();
-
     }
-
-
 
     public void spawnStartLab()
     {
-        //spawnMedia();
-
         Debug.Log("Spawning Media Player, setting it to the welcome image");
         //Place the media player centered in the root canvas. The root is following the headpose curently.
         //also get a reference to the media player
@@ -88,8 +72,6 @@ public class LabControl : MonoBehaviour
         labStartButton.onClick.AddListener(() => rootUITransform.GetComponent<HeadposeCanvas>().enabled = false);
     }
 
-  
-
     public void startLabDone(Button labStartButton)
     {
         Debug.Log("Start Lab Button pressed, playing intro video and removing the start button");
@@ -100,9 +82,6 @@ public class LabControl : MonoBehaviour
         //Play intro video
         string[] mediaCallInfo = new string[] { "moonphase-intro", 1.ToString() /*MediaType.Video.ToString()*/ };
         aPlayer.MediaManager(mediaCallInfo, spawnMC);
-        //aPlayer.MediaManager(mediaCallInfo, spawnSorting); //TEMPORARY
-
-        //aPlayer.MediaManager(mediaCallInfo, MCCompleted);
     }
 
     public void spawnMC()
@@ -119,7 +98,7 @@ public class LabControl : MonoBehaviour
         spawnDemo();
     }
 
-        public void spawnDemo()
+    public void spawnDemo()
     {
         demoObject = Instantiate(demoPrefab, Vector3.zero, Quaternion.identity);  //, rootUITransform);
     }
@@ -132,12 +111,10 @@ public class LabControl : MonoBehaviour
 
     public void spawnSorting()
     {
-        //aPlayer.SetActive(false);
         GameObject theLight = GameObject.Find("Directional Light");
         Light sceneLight = theLight.GetComponent<Light>();
         sceneLight.color = Color.white;
         sortManager = GameObject.Instantiate(sortPrefab, Vector3.zero, Quaternion.identity);
-        
     }
 
     public void sortingDone()
@@ -148,21 +125,14 @@ public class LabControl : MonoBehaviour
 
     public void spawnFinalie()
     {
-        
         float oscale = 0.08f;
         finalScreen = GameObject.Instantiate(finalScreenPrefab, Vector3.zero + Vector3.forward * 2.0f, Quaternion.identity);
         finalScreen.transform.eulerAngles = new Vector3(90.0f, 180.0f, 0.0f);
         finalScreen.transform.localScale = new Vector3(2.0f * oscale, 1.0f * oscale, 1.0f * oscale);
-
     }
     public void finalieDone()
     {
         Debug.Log("@34532453");
-        //Destroy(finalScreen);
         Application.Quit();
     }
-
-
 }
-
-

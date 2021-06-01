@@ -3,6 +3,12 @@ using UnityEngine.UI;
 
 namespace MCQ
 {
+    /// <summary>
+    /// Class that exists soley to report to the MCQManager when an
+    /// answer option has been selected or deselected. The MCQManager
+    /// uses that information to grade the question when the answer
+    /// is submitted.
+    /// </summary>
     public class AnswerChoice : MonoBehaviour
     {
         #region Variables
@@ -31,6 +37,11 @@ namespace MCQ
             Debug.Log($"initialize called, answer ID is : {answerId}");
         }
 
+        /// <summary>
+        /// Notifies the MCQManager when the answer choice is 
+        /// selected or deselected.
+        /// </summary>
+        /// <param name="selected">True if the choice is selected, passed from UI toggle</param>
         public void OnSelectChange(bool selected)
         {
             if (selected)

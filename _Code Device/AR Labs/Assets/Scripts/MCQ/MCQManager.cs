@@ -10,10 +10,18 @@ namespace MCQ
 {
     public enum MediaType { Video, Audio, Image, AudioAndImage, None }
 
+    /// <summary>
+    /// The MCQManager is the tope level controller of the MCQ module
+    /// It is responsible for managing all of the UI elements for the 
+    /// question. It creates answer options, randomizes them, displays them,
+    /// and monitors their selection states. It also manages requesting
+    /// media playback from the media player. Lastly, It manages question
+    /// grading and answer feedback.
+    /// </summary>
     public class MCQManager : MonoBehaviour, IMCQManager
     {
         #region Variables
-        private AudioPlayer aPlayer = null;
+        private AudioPlayer aPlayer = null;         //Reference to the object that plays all media
         //[SerializeField]
         private MCExerciseData exerciseData;        //Conatians answer choices, correct answers, and question text
         [SerializeField]
@@ -23,7 +31,7 @@ namespace MCQ
         [SerializeField]
         private Button continueButton = null;       //Button that moves to the next question
         [SerializeField]
-        private Button finishButton = null;
+        private Button finishButton = null;         //Reference to the button pressed to conclude the module
         [SerializeField]
         private GameObject answers = null;          //Gameobject that holds all the answers as child objects
         [SerializeField]
@@ -34,8 +42,6 @@ namespace MCQ
         private string[] currentAnswerPool;         //Answer pool for current exercise, can be null
         private List<bool> correctOptions;          //Flag for each answer choice, if it is correct or not
         private List<bool> selectedOptions;         //Flag for each answer choice, if it is selected or not
-
-        private MediaPlayer  mediaPlayer = null;    //Dummy class, just to illustrate dependency
         #endregion //Variables
 
         #region Public Functions
@@ -88,7 +94,7 @@ namespace MCQ
         }
 
         /// <summary>
-        /// Handles calling all the functions needed to remove the last question
+        /// Handles calling all the functions needed to remove the last question from the UI
         /// and setup the next, including playing reference media is there is any.
         /// </summary>
         /// <param name="questionData">Question Data object to display</param>
@@ -100,7 +106,6 @@ namespace MCQ
             {
                 ClearOptions();
                 questionText.text = "";
-                //submitButton.gameObject.SetActive(false);
             }
 
             //Reset answer tracking for new question
@@ -152,10 +157,11 @@ namespace MCQ
                 questionText.text = "The question will be displayed after the media finishes playing.";
 
                 //Set up the data for the media manager call
-                //Display the image
+                //Create data to tell the media player to show an image
                 string[] mediaCallInfo = new string[] { currentQuestionData.referenceMediaNames[1], 2.ToString()/*MediaType.Image.ToString()*/ };
+                //Pass data, pass empty lambda expression for the callback so it does nothing on completion
                 aPlayer.MediaManager(mediaCallInfo, () => { });
-                //Pass data, pass lambda expression for the callback
+
                 //Start audio
                 mediaCallInfo = new string[] { currentQuestionData.referenceMediaNames[0], 0.ToString() };
                 aPlayer.MediaManager(mediaCallInfo, () => OnRefMediaPlaybackComplete(answers.ToArray()));
@@ -233,16 +239,10 @@ namespace MCQ
                 if (currentQuestionData.answerCorrectMediaNames[0] != "")
                 {
                     //If there is media to play on a correct answer, play it and wait for the callback
-                    //mediaPlayer.PlayMedia(currentQuestionData.answerCorrectMediaNames[0], OnFeedbackMediaPlaybackComplete);  //WILL BE UPDATED
-
-                    //Call audio player
-                    //aPlayer.getNum("55");
                     string[] mediaCallInfo = new string[] { currentQuestionData.answerCorrectMediaNames[0], "0" };
                     aPlayer.MediaManager(mediaCallInfo, OnFeedbackMediaPlaybackComplete);
-
-                    //Maybe add other feedback initiated here
                 }
-                else
+                else //No feedback media to play, simply let them continue
                 {
                     continueButton.enabled = true;
                 }
@@ -253,13 +253,10 @@ namespace MCQ
                 if (currentQuestionData.answerIncorrectMediaNames[0] != "")
                 {
                     //If there is media to play on an incorrect answer, then play it and wait for the callback
-                    //mediaPlayer.PlayMedia(currentQuestionData.answerIncorrectMediaNames[0], OnFeedbackMediaPlaybackComplete);  //WILL BE UPDATED
                     string[] mediaCallInfo = new string[] { currentQuestionData.answerIncorrectMediaNames[0], "0" };
                     aPlayer.MediaManager(mediaCallInfo, OnFeedbackMediaPlaybackComplete);
-
-                    //Maybe add other feedback initiated here
                 }
-                else
+                else //No Feedback media to play, simply let them continue
                 {
                     continueButton.gameObject.SetActive(true);
                 }
@@ -293,12 +290,14 @@ namespace MCQ
             }
         }
 
+        /// <summary>
+        /// Notifies the lab manager that the MCQ module has completed executing
+        /// </summary>
         public void OnFinishButtonPressed()
         {
             Debug.Log("MC finished!");
             GameObject go = GameObject.Find("Lab Control");
             go.GetComponent<LabControl>().MCCompleted();
-            //Application.Quit();
         }
         #endregion //Event Handlers
 
@@ -312,8 +311,6 @@ namespace MCQ
         {
             //Display question text
             questionText.text = questionData.question;
-
-            //  submitButton.gameObject.SetActive(true);
 
             //Display answers
             DisplayOptions(answers);
