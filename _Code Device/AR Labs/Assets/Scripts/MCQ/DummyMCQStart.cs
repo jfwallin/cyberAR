@@ -13,7 +13,7 @@ namespace MCQ
         [SerializeField]
         private MCQManager manager = null;
         [SerializeField]
-        private AudioPlayer aPlayer = null;
+        private MediaPlayer aPlayer = null;
         [SerializeField]
         public MCExerciseData data = null;
 

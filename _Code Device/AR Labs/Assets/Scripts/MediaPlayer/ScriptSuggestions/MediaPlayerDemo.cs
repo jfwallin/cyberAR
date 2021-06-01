@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Video; //Must include this
 
-public class MediaPlayer : MonoBehaviour
+public class MediaPlayerDemo : MonoBehaviour
 {
     [SerializeField]
     private VideoPlayer vPlayer = null; //Reference to the video player

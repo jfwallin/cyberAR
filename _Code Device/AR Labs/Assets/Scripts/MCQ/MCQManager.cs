@@ -21,7 +21,7 @@ namespace MCQ
     public class MCQManager : MonoBehaviour, IMCQManager
     {
         #region Variables
-        private AudioPlayer aPlayer = null;         //Reference to the object that plays all media
+        private MediaPlayer aPlayer = null;         //Reference to the object that plays all media
         //[SerializeField]
         private MCExerciseData exerciseData;        //Conatians answer choices, correct answers, and question text
         [SerializeField]
@@ -50,7 +50,7 @@ namespace MCQ
         /// </summary>
         /// <param name="initData">The data object containing all the information for the exercise</param>
         /// <param name="mPlayer">Reference to the media player that will play media for the question</param>
-        public void Initialize(MCExerciseData initData, AudioPlayer player)
+        public void Initialize(MCExerciseData initData, MediaPlayer player)
         {
             Debug.Log("Initialize called on the MCQManager");
             //Set necessary references
@@ -84,7 +84,7 @@ namespace MCQ
                 //Set up the data for the media manager call
                 string[] mediaCallInfo = new string[] { exerciseData.introMediaNames[0], MediaType.Video.ToString() };
                 //Pass data, pass lambda expression for the callback
-                aPlayer.MediaManager(mediaCallInfo, OnIntroMediaPlaybackComplete);
+                aPlayer.PlayMedia(mediaCallInfo, OnIntroMediaPlaybackComplete);
             }
             else //No intro media
             {
@@ -160,11 +160,11 @@ namespace MCQ
                 //Create data to tell the media player to show an image
                 string[] mediaCallInfo = new string[] { currentQuestionData.referenceMediaNames[1], 2.ToString()/*MediaType.Image.ToString()*/ };
                 //Pass data, pass empty lambda expression for the callback so it does nothing on completion
-                aPlayer.MediaManager(mediaCallInfo, () => { });
+                aPlayer.PlayMedia(mediaCallInfo, () => { });
 
                 //Start audio
                 mediaCallInfo = new string[] { currentQuestionData.referenceMediaNames[0], 0.ToString() };
-                aPlayer.MediaManager(mediaCallInfo, () => OnRefMediaPlaybackComplete(answers.ToArray()));
+                aPlayer.PlayMedia(mediaCallInfo, () => OnRefMediaPlaybackComplete(answers.ToArray()));
             }
             else //No reference media to play
             {
@@ -240,7 +240,7 @@ namespace MCQ
                 {
                     //If there is media to play on a correct answer, play it and wait for the callback
                     string[] mediaCallInfo = new string[] { currentQuestionData.answerCorrectMediaNames[0], "0" };
-                    aPlayer.MediaManager(mediaCallInfo, OnFeedbackMediaPlaybackComplete);
+                    aPlayer.PlayMedia(mediaCallInfo, OnFeedbackMediaPlaybackComplete);
                 }
                 else //No feedback media to play, simply let them continue
                 {
@@ -254,7 +254,7 @@ namespace MCQ
                 {
                     //If there is media to play on an incorrect answer, then play it and wait for the callback
                     string[] mediaCallInfo = new string[] { currentQuestionData.answerIncorrectMediaNames[0], "0" };
-                    aPlayer.MediaManager(mediaCallInfo, OnFeedbackMediaPlaybackComplete);
+                    aPlayer.PlayMedia(mediaCallInfo, OnFeedbackMediaPlaybackComplete);
                 }
                 else //No Feedback media to play, simply let them continue
                 {

@@ -14,7 +14,7 @@ public class LabControl : MonoBehaviour
     private Button labStartButton = null;
     [SerializeField]
     private GameObject mediaPlayerPrefab = null;
-    private AudioPlayer aPlayer = null;
+    private MediaPlayer aPlayer = null;
     [SerializeField]
     private GameObject mcqPrefab = null;
     private MCQ.MCQManager mcqManager = null;
@@ -59,7 +59,7 @@ public class LabControl : MonoBehaviour
         Debug.Log("Spawning Media Player, setting it to the welcome image");
         //Place the media player centered in the root canvas. The root is following the headpose curently.
         //also get a reference to the media player
-        aPlayer = Instantiate(mediaPlayerPrefab, Vector3.zero, Quaternion.identity, rootUITransform).GetComponentInChildren<AudioPlayer>();
+        aPlayer = Instantiate(mediaPlayerPrefab, Vector3.zero, Quaternion.identity, rootUITransform).GetComponentInChildren<MediaPlayer>();
         aPlayer.name = "MP"; // added a name so it can be located more easily
 
         //Add start button
@@ -81,7 +81,7 @@ public class LabControl : MonoBehaviour
 
         //Play intro video
         string[] mediaCallInfo = new string[] { "moonphase-intro", 1.ToString() /*MediaType.Video.ToString()*/ };
-        aPlayer.MediaManager(mediaCallInfo, spawnMC);
+        aPlayer.PlayMedia(mediaCallInfo, spawnMC);
     }
 
     public void spawnMC()
