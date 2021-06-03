@@ -18,7 +18,7 @@ namespace MCQ
     /// media playback from the media player. Lastly, It manages question
     /// grading and answer feedback.
     /// </summary>
-    public class MCQManager : MonoBehaviour, IMCQManager
+    public class MCQManager : MonoBehaviour
     {
         #region Variables
         private MediaPlayer aPlayer = null;         //Reference to the object that plays all media

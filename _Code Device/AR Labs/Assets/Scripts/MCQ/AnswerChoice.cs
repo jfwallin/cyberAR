@@ -13,7 +13,7 @@ namespace MCQ
     {
         #region Variables
         private int answerId = -1;          //Unique answer choice id, made from its index in the array of possible answers.
-        private IMCQManager manager = null; //Reference to pass id to when selected/unselected.
+        private MCQManager manager = null; //Reference to pass id to when selected/unselected.
         #endregion //Variables
 
         #region Public Functions
@@ -24,7 +24,7 @@ namespace MCQ
         /// <param name="passedManager"></param>
         /// <param name="tg"></param>
         /// <returns></returns>
-        public void Initialize(string optionText, int answerIndex, IMCQManager passedManager, ToggleGroup tg)
+        public void Initialize(string optionText, int answerIndex, MCQManager passedManager, ToggleGroup tg)
         {
             answerId = answerIndex;
             manager = passedManager;

@@ -5,7 +5,7 @@ using UnityEngine.Video;
 using UnityEditor;
 
 [CreateAssetMenu(fileName = "MediaManager", menuName = "ScriptableObjects/MediaManager", order = 1)]
-public class MediaManager : ScriptableObject
+public class MediaManager : SingletonScriptableObject<MediaManager>
 {
     public List<AudioClip> audioClips = new List<AudioClip>();
     public List<VideoClip> videoClips = new List<VideoClip>();

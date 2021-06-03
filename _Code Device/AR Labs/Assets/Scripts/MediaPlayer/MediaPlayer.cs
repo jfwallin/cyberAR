@@ -139,24 +139,26 @@ public class MediaPlayer : MonoBehaviour
                 break;
         }
     }
+    #endregion Public Functions
 
+    #region Event Handlers
     /// <summary>
-    /// Pauses audio or video sources
+    /// Pauses audio or video sources, Pause button handler
     /// </summary>
     public void Pause()
     {
-        if(audioSource.enabled)
+        if (audioSource.enabled)
         {
             audioSource.Pause();
         }
-        else if(videoPlayer.enabled)
+        if (videoPlayer.enabled)
         {
             videoPlayer.Pause();
         }
     }
 
     /// <summary>
-    /// Plays audio or video sources
+    /// Plays audio or video sources, Play button handler
     /// </summary>
     public void Play()
     {
@@ -164,14 +166,45 @@ public class MediaPlayer : MonoBehaviour
         {
             audioSource.Play();
         }
-        else if (videoPlayer.enabled)
+        if (videoPlayer.enabled)
         {
             videoPlayer.Play();
         }
     }
-    #endregion Public Functions
 
-    #region Event Handlers
+    /// <summary>
+    /// Skip forward button handler
+    /// </summary>
+    public void SkipForward()
+    {
+        Skip(5);
+    }
+
+    /// <summary>
+    /// Skip back button handler
+    /// </summary>
+    public void SkipBackward()
+    {
+        Skip(-5);
+    }
+
+    /// <summary>
+    /// Restart button handler, sets playback time to 0
+    /// </summary>
+    public void Restart()
+    {
+        if (audioSource.enabled)
+        {
+            audioSource.time = 0;
+            audioSource.Play();
+        }
+        if (videoPlayer.enabled)
+        {
+            videoPlayer.time = 0;
+            videoPlayer.Play();
+        }
+    }
+
     /// <summary>
     /// Scrubs through media in response to slider value
     /// </summary>
@@ -200,4 +233,25 @@ public class MediaPlayer : MonoBehaviour
         localCallBack.Invoke();
     }
     #endregion Event Handlers
+
+    #region Private Methods
+    /// <summary>
+    /// Handles skipping through media, is the backend for
+    /// both skip button handlers
+    /// </summary>
+    /// <param name="delta">time in seconds to skip. (+/-) is forward/backward</param>
+    private void Skip(int delta)
+    {
+        if (audioSource.enabled)
+        {
+            audioSource.time = Mathf.Clamp(audioSource.time + delta, 0, audioSource.clip.length);
+            audioSource.Play();
+        }
+        if (videoPlayer.enabled)
+        {
+            videoPlayer.time = Mathf.Clamp((float)(videoPlayer.time + delta), 0, (float)videoPlayer.length);
+            videoPlayer.Play();
+        }
+    }
+    #endregion Private Methods
 }
