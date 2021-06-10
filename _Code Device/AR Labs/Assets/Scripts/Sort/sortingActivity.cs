@@ -15,7 +15,7 @@ Touchpad Forcepress = Reset
 Reach out to extend pointer.
  */
 
-public class sortingData : MonoBehaviour
+public class sortingActivity: MonoBehaviour
 {
 
     public class sortInfo

@@ -51,7 +51,8 @@ public class LabControl : MonoBehaviour
 
     public void Start()
     {
-        spawnStartLab();
+        //spawnStartLab();
+        spawnSorting();
     }
 
     public void spawnStartLab()

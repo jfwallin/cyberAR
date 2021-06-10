@@ -42,7 +42,7 @@ public class buttonCallback : MonoBehaviour
         if (sorter != null)
         {
             if (enableOnClick)
-                sorter.GetComponent<sortingData>().feedbackOnOrder();
+                sorter.GetComponent<sortingActivity>().feedbackOnOrder();
         }
         else
             Debug.Log("no sorting object");

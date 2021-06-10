@@ -142,7 +142,7 @@ public class moveObjects : MonoBehaviour
         GameObject sorter = GameObject.Find("sortingManager");
 
         if (sorter != null)
-            sorter.GetComponent<sortingData>().resort();
+            sorter.GetComponent<sortingActivity>().resort();
 
     }
 
