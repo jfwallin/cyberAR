@@ -8,7 +8,8 @@ using System.CodeDom;
 using System;
 using System.Collections.Specialized;
 using System.Runtime.Versioning;
-using System.Security.Policy;
+//using System.Security.Policy;
+using System.Security;
 using System.Runtime.InteropServices;
 
 public class Bridge 

@@ -1390,11 +1390,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 587c3c62f9c0fda4089b90f54b1c29bb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vPlayer: {fileID: 169109386}
-  slider: {fileID: 5826999687559646811}
-  aSource: {fileID: 3570530707360075661}
-  imageDisplay: {fileID: 5785056439548183694}
   media: {fileID: 11400000, guid: da05113085514bd489fa01bef9ad9932, type: 2}
+  videoPlayer: {fileID: 169109386}
+  audioSource: {fileID: 0}
+  imageDisplay: {fileID: 5785056439548183694}
+  slider: {fileID: 5826999687559646811}
 --- !u!1 &7184199276077403729
 GameObject:
   m_ObjectHideFlags: 0

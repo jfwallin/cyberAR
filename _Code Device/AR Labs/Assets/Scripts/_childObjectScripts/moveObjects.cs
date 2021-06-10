@@ -6,7 +6,34 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// moves a letter from an initial location, size and oriention to its final locaiton, size and orientation
+// moves a gameObject from an initial location, size and oriention to its final locaiton, size and orientation
+// written by J. Wallin 2021
+
+/*
+
+Example use:
+
+            // set the positions for the move
+            sortData[i].theObject.GetComponent<moveObjects>().StartPos = sortData[i].theObject.transform.position;
+            sortData[i].theObject.GetComponent<moveObjects>().MidPos = new Vector3(0.001f, 0.001f, 0.001f);
+            sortData[i].theObject.GetComponent<moveObjects>().FinalPos = new Vector3(0.001f, 0.001f, 0.001f);
+
+            // set the sizes
+            sortData[i].theObject.GetComponent<moveObjects>().StartSize = sortData[i].theObject.transform.localScale;
+            sortData[i].theObject.GetComponent<moveObjects>().FinalSize = sortData[i].theObject.transform.localScale;
+
+            // set the angles
+            sortData[i].theObject.GetComponent<moveObjects>().StartAngle = sortData[i].theObject.transform.eulerAngles;
+            sortData[i].theObject.GetComponent<moveObjects>().FinalAngle = sortData[i].theObject.transform.eulerAngles;
+
+            // set the time range - starts at game time 20 and ends at game time 25
+            sortData[i].theObject.GetComponent<moveObjects>().TimeRange = new Vector2(20.0f,  25.0f);
+
+            // this would disable the move since the times are before the game started
+            // sortData[i].theObject.GetComponent<moveObjects>().TimeRange = new Vector2(-100.0f, -90.0f);
+ 
+*/
+
 public class moveObjects : MonoBehaviour
 {
 
@@ -16,7 +43,7 @@ public class moveObjects : MonoBehaviour
     private float timeEnd;
     */
 
-
+    #region Properties 
     public Vector3 startPos = new Vector3(-5.0f, -10.0f, -10.0f);
     public Vector3 StartPos
     {
@@ -73,10 +100,10 @@ public class moveObjects : MonoBehaviour
         set { timeRange = value; }
     }
 
+    #endregion // Properties 
+
+    #region Variables
     private static int ndim = 3;
-
-
-
     public float[,] positionCoefficients = new float[ndim, ndim];
     public float[,] sizeCoefficients = new float[ndim, ndim];
     public float[,] angleCoefficients = new float[ndim, ndim];
@@ -84,6 +111,9 @@ public class moveObjects : MonoBehaviour
     private MagicLeapTools.InputReceiver _inputReceiver;
     public bool enableHandleDrag = true;
 
+    #endregion // Variables
+
+    #region Private Methods
     private void Awake()
     {
         _inputReceiver = GetComponent<MagicLeapTools.InputReceiver>();
@@ -117,9 +147,12 @@ public class moveObjects : MonoBehaviour
     }
 
 
+    #endregion // private functions
 
 
 
+
+    #region Public Functions
     // Use this for initialization
     void Start()
     {
@@ -288,4 +321,6 @@ public class moveObjects : MonoBehaviour
         }
 
     }
+
+    #endregion // Public Functions
 }

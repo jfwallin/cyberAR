@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 1416243364540221456}
   - component: {fileID: 1416243364540221459}
   m_Layer: 0
-  m_Name: jw Cube 1
+  m_Name: moveableCube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
