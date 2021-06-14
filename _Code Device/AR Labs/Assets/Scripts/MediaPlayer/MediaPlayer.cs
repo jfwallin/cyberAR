@@ -16,6 +16,21 @@ public enum MediaType { Audio, Video, Image }
 public class MediaPlayer : MonoBehaviour
 {
     #region Variables
+    //Instance field
+    private static MediaPlayer _instance;
+    public static MediaPlayer Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.FindObjectOfType<MediaPlayer>();
+            }
+
+            return _instance;
+        }
+    }
+
     //Helper class
     public MediaManager media = null;
 
@@ -35,6 +50,15 @@ public class MediaPlayer : MonoBehaviour
     #region Unity Functions
     private void Awake()
     {
+        //Singleton Management, delete self if another media player exists.
+        if(_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else
+        {
+            _instance = this;
+        }
+
         //Use an audio source on the main camera to ensure the best chance  of users being able to hear
         audioSource = Camera.main.GetComponent<AudioSource>();
         if (!audioSource)

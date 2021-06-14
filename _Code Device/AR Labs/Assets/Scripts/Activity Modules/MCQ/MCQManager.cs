@@ -18,10 +18,10 @@ namespace MCQ
     /// media playback from the media player. Lastly, It manages question
     /// grading and answer feedback.
     /// </summary>
-    public class MCQManager : MonoBehaviour
+    public class MCQManager : ActivityModule
     {
         #region Variables
-        private MediaPlayer aPlayer = null;         //Reference to the object that plays all media
+        private MediaPlayer mPlayer = null;         //Reference to the object that plays all media
         //[SerializeField]
         private MCExerciseData exerciseData;        //Conatians answer choices, correct answers, and question text
         [SerializeField]
@@ -50,12 +50,18 @@ namespace MCQ
         /// </summary>
         /// <param name="initData">The data object containing all the information for the exercise</param>
         /// <param name="mPlayer">Reference to the media player that will play media for the question</param>
-        public void Initialize(MCExerciseData initData, MediaPlayer player)
+        public override void Initialize(ActivityModuleData initData)
         {
             Debug.Log("Initialize called on the MCQManager");
             //Set necessary references
-            exerciseData = initData;
-            aPlayer = player;
+            if (initData is MCExerciseData)
+                exerciseData = (MCExerciseData)initData;
+            else
+            {
+                Debug.LogError("Could not cast ActivityModuleData into MCExerciseData, disabling script");
+                enabled = false;
+            }
+            mPlayer = MediaPlayer.Instance;
 
             //Initilize some internal state
             currentQuestionIndex = 0;
@@ -78,13 +84,13 @@ namespace MCQ
             questionText.text = "";
 
             //Start exercise, play intro media if there is any
-            if (exerciseData.introMediaNames.Length > 0 && exerciseData.introMediaNames[0] != "")
+            if (exerciseData.introMediaIDs.Length > 0 && exerciseData.introMediaIDs[0] != "")
             {
                 Debug.Log("Display media called");
                 //Set up the data for the media manager call
-                string[] mediaCallInfo = new string[] { exerciseData.introMediaNames[0], MediaType.Video.ToString() };
+                string[] mediaCallInfo = new string[] { exerciseData.introMediaIDs[0], MediaType.Video.ToString() };
                 //Pass data, pass lambda expression for the callback
-                aPlayer.PlayMedia(mediaCallInfo, OnIntroMediaPlaybackComplete);
+                mPlayer.PlayMedia(mediaCallInfo, OnIntroMediaPlaybackComplete);
             }
             else //No intro media
             {
@@ -160,16 +166,28 @@ namespace MCQ
                 //Create data to tell the media player to show an image
                 string[] mediaCallInfo = new string[] { currentQuestionData.referenceMediaNames[1], 2.ToString()/*MediaType.Image.ToString()*/ };
                 //Pass data, pass empty lambda expression for the callback so it does nothing on completion
-                aPlayer.PlayMedia(mediaCallInfo, () => { });
+                mPlayer.PlayMedia(mediaCallInfo, () => { });
 
                 //Start audio
                 mediaCallInfo = new string[] { currentQuestionData.referenceMediaNames[0], 0.ToString() };
-                aPlayer.PlayMedia(mediaCallInfo, () => OnRefMediaPlaybackComplete(answers.ToArray()));
+                mPlayer.PlayMedia(mediaCallInfo, () => OnRefMediaPlaybackComplete(answers.ToArray()));
             }
             else //No reference media to play
             {
                 DisplayNextQuestion(questionData, answers.ToArray());
             }
+        }
+
+        public override void EndOfModule()
+        {
+            Debug.Log("MC finished!");
+            GameObject go = GameObject.Find("Lab Control");
+            go.GetComponent<LabControl>().MCCompleted();
+        }
+
+        public override ActivityModuleData SaveState()
+        {
+            return exerciseData;
         }
         #endregion //Public Functions
 
@@ -240,7 +258,7 @@ namespace MCQ
                 {
                     //If there is media to play on a correct answer, play it and wait for the callback
                     string[] mediaCallInfo = new string[] { currentQuestionData.answerCorrectMediaNames[0], "0" };
-                    aPlayer.PlayMedia(mediaCallInfo, OnFeedbackMediaPlaybackComplete);
+                    mPlayer.PlayMedia(mediaCallInfo, OnFeedbackMediaPlaybackComplete);
                 }
                 else //No feedback media to play, simply let them continue
                 {
@@ -254,7 +272,7 @@ namespace MCQ
                 {
                     //If there is media to play on an incorrect answer, then play it and wait for the callback
                     string[] mediaCallInfo = new string[] { currentQuestionData.answerIncorrectMediaNames[0], "0" };
-                    aPlayer.PlayMedia(mediaCallInfo, OnFeedbackMediaPlaybackComplete);
+                    mPlayer.PlayMedia(mediaCallInfo, OnFeedbackMediaPlaybackComplete);
                 }
                 else //No Feedback media to play, simply let them continue
                 {
@@ -288,16 +306,6 @@ namespace MCQ
                 //Clear questions and show finished text
                 ShowFinishedScreen();
             }
-        }
-
-        /// <summary>
-        /// Notifies the lab manager that the MCQ module has completed executing
-        /// </summary>
-        public void OnFinishButtonPressed()
-        {
-            Debug.Log("MC finished!");
-            GameObject go = GameObject.Find("Lab Control");
-            go.GetComponent<LabControl>().MCCompleted();
         }
         #endregion //Event Handlers
 

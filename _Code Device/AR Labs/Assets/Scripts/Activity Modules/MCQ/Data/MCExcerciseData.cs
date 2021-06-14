@@ -9,13 +9,9 @@ namespace MCQ
     /// MCQ exercise. 
     /// </summary>
     [System.Serializable]
-    public class MCExerciseData
+    public class MCExerciseData : ActivityModuleData
     {
-        public string name;               //Name of this exercise
         public MCQData[] questions;       //List of data objects describing each question
-
-        public MediaType introMediaType;  //Video, audio, image, etc
-        public string[] introMediaNames;  //Filename of the intro media to be played
 
         public string[] answerPool;       //List of predefined options to use as wrong answers for questions
     }
