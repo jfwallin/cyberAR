@@ -51,7 +51,7 @@ public class MakeObjectInfo : MonoBehaviour
         foreach (string obj in json)
         {
             Debug.Log("obj is = " + obj);
-            bridge.ParseJsonFromString(obj);
+            bridge.ParseJson(obj);
 
             yield return new WaitForSeconds(15);
             bridge.CleanUp(obj);

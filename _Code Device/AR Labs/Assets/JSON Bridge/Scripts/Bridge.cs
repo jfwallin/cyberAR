@@ -14,30 +14,11 @@ using System.Runtime.InteropServices;
 public class Bridge 
 {
     //ParseJson can be called from outside the class to trigger the methods included here
-    //This should be deleted. Info can be turned to string outside the bridge.
-    public void ParseJsonFromPath(string path)
-    {
-        makeScene(getInfo(path));
-    }
-
-    //I think this should be the only one
-    public void ParseJsonFromString(string data)
+    public void ParseJson(string data)
     {
         makeScene(JsonUtility.FromJson<ObjectInfoCollection>(data));
     }
 
-    //getInfo serializes an ObjectInfo object from a json at a path
-    private ObjectInfoCollection getInfo(string path)
-    {
-        StreamReader reader = new StreamReader(path);  
-        string line;
-        ObjectInfoCollection info = new ObjectInfoCollection();
-
-        line = reader.ReadToEnd();
-        info = JsonUtility.FromJson<ObjectInfoCollection>(line);
-        return info;
-    }
-    //This could be moved outside the bridge to get rid of ParseJSONFromPath
 
     private void makeScene(ObjectInfoCollection info)
     {
