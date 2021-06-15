@@ -119,3 +119,4 @@ Material:
     - _SpecColor: {r: 0.19999996, g: 0.19999996, b: 0.19999996, a: 1}
     - _Specular: {r: 0, g: 0, b: 0, a: 0}
     - _TintColor: {r: 0, g: 0.39215687, b: 1, a: 0.29411766}
+  m_BuildTextureStacks: []
