@@ -84,13 +84,11 @@ namespace MCQ
             questionText.text = "";
 
             //Start exercise, play intro media if there is any
-            if (exerciseData.introMediaIDs.Length > 0 && exerciseData.introMediaIDs[0] != "")
+            if (exerciseData.introMediaIDs.Length > 0 && exerciseData.introMediaIDs[0] != null)
             {
                 Debug.Log("Display media called");
-                //Set up the data for the media manager call
-                string[] mediaCallInfo = new string[] { exerciseData.introMediaIDs[0], MediaType.Video.ToString() };
-                //Pass data, pass lambda expression for the callback
-                mPlayer.PlayMedia(mediaCallInfo, OnIntroMediaPlaybackComplete);
+                //Pass data, pass the callback
+                mPlayer.PlayMedia(exerciseData.introMediaIDs[0], OnIntroMediaPlaybackComplete);
             }
             else //No intro media
             {
@@ -157,20 +155,16 @@ namespace MCQ
             }
 
             //Play reference media if there is any (limited to 1 currently)
-            if (questionData.referenceMediaNames[0] != "")
+            if (questionData.referenceMedia[0] != null)
             {
                 //Indicate that the user should look at the Media Player
                 questionText.text = "The question will be displayed after the media finishes playing.";
 
-                //Set up the data for the media manager call
-                //Create data to tell the media player to show an image
-                string[] mediaCallInfo = new string[] { currentQuestionData.referenceMediaNames[1], 2.ToString()/*MediaType.Image.ToString()*/ };
                 //Pass data, pass empty lambda expression for the callback so it does nothing on completion
-                mPlayer.PlayMedia(mediaCallInfo, () => { });
+                mPlayer.PlayMedia(currentQuestionData.referenceMedia[1], () => { }); //show image
 
                 //Start audio
-                mediaCallInfo = new string[] { currentQuestionData.referenceMediaNames[0], 0.ToString() };
-                mPlayer.PlayMedia(mediaCallInfo, () => OnRefMediaPlaybackComplete(answers.ToArray()));
+                mPlayer.PlayMedia(currentQuestionData.referenceMedia[0], () => OnRefMediaPlaybackComplete(answers.ToArray()));
             }
             else //No reference media to play
             {
@@ -254,11 +248,10 @@ namespace MCQ
             if (correct)
             {
                 //They selected correctly
-                if (currentQuestionData.answerCorrectMediaNames[0] != "")
+                if (currentQuestionData.answerCorrectMedia.Length > 0 && currentQuestionData.answerCorrectMedia[0] != null)
                 {
                     //If there is media to play on a correct answer, play it and wait for the callback
-                    string[] mediaCallInfo = new string[] { currentQuestionData.answerCorrectMediaNames[0], "0" };
-                    mPlayer.PlayMedia(mediaCallInfo, OnFeedbackMediaPlaybackComplete);
+                    mPlayer.PlayMedia(currentQuestionData.answerCorrectMedia[0], OnFeedbackMediaPlaybackComplete);
                 }
                 else //No feedback media to play, simply let them continue
                 {
@@ -268,11 +261,10 @@ namespace MCQ
             else
             {
                 //They selected incorrectly
-                if (currentQuestionData.answerIncorrectMediaNames[0] != "")
+                if (currentQuestionData.answerCorrectMedia.Length > 0 && currentQuestionData.answerIncorrectMedia[0] != null)
                 {
                     //If there is media to play on an incorrect answer, then play it and wait for the callback
-                    string[] mediaCallInfo = new string[] { currentQuestionData.answerIncorrectMediaNames[0], "0" };
-                    mPlayer.PlayMedia(mediaCallInfo, OnFeedbackMediaPlaybackComplete);
+                    mPlayer.PlayMedia(currentQuestionData.answerIncorrectMedia[0], OnFeedbackMediaPlaybackComplete);
                 }
                 else //No Feedback media to play, simply let them continue
                 {

@@ -14,8 +14,8 @@ public class ActivityModuleData
     public string[] prerequisiteActivities;
     public string[] educationalObjectives;
     public string[] instructions;
-    public string[] introMediaIDs;
-    public string[] outroMediaIDs;
+    public MediaInfo[] introMediaIDs;
+    public MediaInfo[] outroMediaIDs;
     public int numRepeatsAllowed;
     public int numGradableRepeatsAllowed;
     public string gradingCriteria;

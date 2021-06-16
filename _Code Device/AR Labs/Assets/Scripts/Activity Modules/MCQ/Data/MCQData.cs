@@ -7,10 +7,9 @@ namespace MCQ
     public class MCQData
     {
         //Media dependency information
-        public MediaType referenceMediaType;
-        public string[] referenceMediaNames;
-        public string[] answerCorrectMediaNames;
-        public string[] answerIncorrectMediaNames;
+        public MediaInfo[] referenceMedia;
+        public MediaInfo[] answerCorrectMedia;
+        public MediaInfo[] answerIncorrectMedia;
 
         public string question;                //Question to display
 
