@@ -34,7 +34,7 @@ namespace MCQ
         public void OnStartClicked()
         {
             Debug.Log("OnStartClicked called");
-            manager.Initialize(data, aPlayer);
+            manager.Initialize(data);
         }
     }
 }
