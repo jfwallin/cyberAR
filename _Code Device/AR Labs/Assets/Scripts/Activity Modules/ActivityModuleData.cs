@@ -11,6 +11,7 @@ public class ActivityModuleData
 {
     public string moduleName;
     public string specificName;
+    public string prefabName;
     public string[] prerequisiteActivities;
     public string[] educationalObjectives;
     public string[] instructions;
