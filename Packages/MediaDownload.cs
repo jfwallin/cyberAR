@@ -53,6 +53,21 @@ public class MediaDownload : MonoBehaviour
     //Class to hold a dictionary of LabMedia objects
     public class MediaCatalogue
     {
+        //Singleton access
+        private static MediaCatalogue _instance;
+        public static MediaCatalogue Instance
+        {
+            get
+            {
+                if (_instance == null)
+                {
+                    _instance = new MediaCatalogue();
+                }
+
+                return _instance;
+            }
+        }
+
         public Dictionary<int, LabMedia> downloadedLabs = new Dictionary<int, LabMedia>();
 
         //Retrieve a Texture2D asset for a lab
