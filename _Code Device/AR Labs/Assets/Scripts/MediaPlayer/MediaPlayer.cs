@@ -5,8 +5,6 @@ using UnityEngine.Video;
 using UnityEngine;
 using UnityEngine.UI;
 
-public enum MediaType { Audio, Video, Image }
-
 /// <summary>
 /// Handles media playback of files retrieved from the media manager,
 /// responds to function calls passing the name of the file to be 
@@ -16,8 +14,24 @@ public enum MediaType { Audio, Video, Image }
 public class MediaPlayer : MonoBehaviour
 {
     #region Variables
+    //Instance field
+    private static MediaPlayer _instance;
+    public static MediaPlayer Instance
+    {
+        get
+        {
+            if (_instance == null)
+            {
+                _instance = GameObject.FindObjectOfType<MediaPlayer>();
+            }
+
+            return _instance;
+        }
+    }
+
     //Helper class
-    public MediaManager media = null;
+    public MediaManager media = null; //THIS WILL BE REPLACED WITH A NEW CLASS
+    //public MediaCatalogue media = null;
 
     //Componenet References
     [SerializeField]
@@ -35,11 +49,29 @@ public class MediaPlayer : MonoBehaviour
     #region Unity Functions
     private void Awake()
     {
+        //Singleton Management, delete self if another media player exists.
+        if(_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else
+        {
+            _instance = this;
+        }
+
         //Use an audio source on the main camera to ensure the best chance  of users being able to hear
         audioSource = Camera.main.GetComponent<AudioSource>();
         if (!audioSource)
         {
             Debug.LogWarning("Could not find AudioSource for the mediaPlayer.");
+        }
+
+        //VideoPlayer setup
+        videoPlayer.source = VideoSource.Url;
+
+        //TO BE UPDATED WHEN LINKED TO NEW MEDIA MANAGER
+        if (media == null)
+        {
+            //media = MediaCatalogue.Instance;
         }
     }
 
@@ -69,17 +101,12 @@ public class MediaPlayer : MonoBehaviour
     /// </summary>
     /// <param name="item">size 2 array, first item is the file name, second item is an integer corresponding to an ENUM filetype</param>
     /// <param name="CallBack">Function to call once the media finishes playing</param>
-    public void PlayMedia (string[] item, System.Action CallBack)
+    public void PlayMedia (MediaInfo item, System.Action CallBack)
     {
         //Store callback reference for later
         localCallBack = CallBack;
-
-        //Get needed info from string array
-        string MediaName = item[0]; //Filename
-        MediaType TYPE =(MediaType) Convert.ToInt32(item[1]); //Filetype
-
         //Display the media, different depending on filetype
-        switch (TYPE)
+        switch (item.mediaType)
         {
             case MediaType.Audio:
                 //Don't play new audio if something else is already playing
@@ -93,7 +120,9 @@ public class MediaPlayer : MonoBehaviour
                     audioSource.enabled = true;
 
                     //Get and set audio clip
-                    audioSource.clip = media.GetAudioClip(MediaName);
+                    //audioSource.clip = media.GetAudioClip(MediaName); DEPRECATED
+
+                    //audioSource.clip = media.GetLabAudioClip(item.id); WILL BE USED WITH NEW CLASS
                     audioSource.Play();
 
                     //Callback invocation condition is checked in the update loop
@@ -113,7 +142,9 @@ public class MediaPlayer : MonoBehaviour
                     videoPlayer.enabled = true;
 
                     //Get and set video clip
-                    videoPlayer.clip = media.GetVideoClip(MediaName);
+                    //videoPlayer.clip = media.GetVideoClip(MediaName); DEPRECATED
+
+                    //videoPlayer.url = media.GetLabVideoURL(item.id); WILL BE USED WITH NEW CLASS
                     videoPlayer.Play();
 
                     //Subscribe handler function to respond to when the end of the video is reached.
@@ -131,8 +162,10 @@ public class MediaPlayer : MonoBehaviour
                 imageDisplay.enabled = true;
 
                 //Get the texture, construct the sprite.
-                Texture2D tex = media.GetImage(MediaName);
-                imageDisplay.sprite = Sprite.Create(tex, new Rect(0f, 0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100);
+                //Texture2D tex = media.GetImage(MediaName); DEPRECATED
+
+                //Texture2D tex = media.GetLabTexture(item.id); WILL BE USED WITH NEW CLASS
+                //imageDisplay.sprite = Sprite.Create(tex, new Rect(0f, 0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100);
 
                 //Immediately invoke callback
                 localCallBack.Invoke();

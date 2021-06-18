@@ -14,30 +14,15 @@ using System.Runtime.InteropServices;
 public class Bridge 
 {
     //ParseJson can be called from outside the class to trigger the methods included here
-    public void ParseJsonFromPath(string path)
-    {
-        makeScene(getInfo(path));
-    }
-
-    public void ParseJsonFromString(string data)
+    public void ParseJson(string data)
     {
         makeScene(JsonUtility.FromJson<ObjectInfoCollection>(data));
     }
 
-    //getInfo serializes an ObjectInfo object from a json at a path
-    private ObjectInfoCollection getInfo(string path)
-    {
-        StreamReader reader = new StreamReader(path);  
-        string line;
-        ObjectInfoCollection info = new ObjectInfoCollection();
-
-        line = reader.ReadToEnd();
-        info = JsonUtility.FromJson<ObjectInfoCollection>(line);
-        return info;
-    }
 
     private void makeScene(ObjectInfoCollection info)
     {
+        //In the event that transmission obects need to be created this will send each to thier apropriet category
         foreach (ObjectInfo obj in info.objects)
         {
             if (obj.transmittable == false) makeObject(obj);
@@ -184,6 +169,16 @@ public class Bridge
         return myObject;
     }
     //This whole method will likely have to change slightly when we start dealing with Transmission.
+
+    //a cleanup meathod....hmmm
+    public void CleanUp(string data) {
+        //parse string
+        ObjectInfoCollection info = JsonUtility.FromJson<ObjectInfoCollection>(data);
+
+        foreach (ObjectInfo obj in info.objects) {
+            GameObject.Destroy(GameObject.Find(obj.name));
+        }
+    }
 
 
 }

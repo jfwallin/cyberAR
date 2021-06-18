@@ -8,11 +8,12 @@ using System;
 public class placeObjects 
 {
     public Vector3[] ptLocation;
-    private int maxObjects;
     public float distanceBetweenObjects;
     public int nObjects;
+    public float height, width;
+
+    private int maxObjects;
     private int nx, ny;
-    private float height, width;
    
     public placeObjects(int k, float h, float w)
     {
@@ -43,12 +44,31 @@ public class placeObjects
         Debug.Log("check " + a.ToString() + "   " + b.ToString());
     }
 
+    public void createLine()
+    {
+
+        float x;
+        float dx;
+        
+        // we divide by nObjects + 1 to give an extra 1/2 space
+        // on the left and right sides of the distribution
+        dx = width / (nObjects + 1);
+
+        // loop over the objects
+        for (int j = 0; j < nObjects; j++)
+        {
+            x = width/ 2.0f + dx / 2.0f + j  * dx;
+            ptLocation[j] = new Vector3(x, 0.0f, 0.0f);
+        }
+
+    }
+
     public Tuple <int,float> nearestObject(Vector3 pos)
     {
         int nearest;
         float distance;
         nearest = -1;
-        distance = 1e10;
+        distance = 1e10f;
         float currentDistance;
 
         for(int i = 0; i < nObjects; i++ )
