@@ -206,7 +206,6 @@ public class MediaDownload : MonoBehaviour
                             StartCoroutine(DownloadTexture(endpoint, media.labTextures, resourceKey));
                         break;
                     case "audio":
-                        //Add code to determine audio type later on
                         if (media.labAudio.ContainsKey(resourceKey) == false)
                         {
                             //Determine the audio file format
