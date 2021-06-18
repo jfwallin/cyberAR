@@ -41,19 +41,19 @@ public class MediaDownload : MonoBehaviour
     };
 
     //Contains the media assets for an individual lab
-    private class LabMedia
+    public class LabMedia
     {
-        Dictionary<Tuple<int, int>, Texture2D> labTextures = new Dictionary<Tuple<int, int>, Texture2D>(); //Stores lab texture assets
-        Dictionary<Tuple<int, int>, AudioClip> labAudio = new Dictionary<Tuple<int, int>, AudioClip>();    //Stores lab audio assets
-        Dictionary<Tuple<int, int>, string> labVideos = new Dictionary<Tuple<int, int>, string>();         //Stores lab video url for streaming
-        int lab_id;  //Will be used as the key for the downloadedLabs dictionary in the MediaCatalogue object
-        string lab_description;
+        public Dictionary<Tuple<int, int>, Texture2D> labTextures = new Dictionary<Tuple<int, int>, Texture2D>(); //Stores lab texture assets
+        public Dictionary<Tuple<int, int>, AudioClip> labAudio = new Dictionary<Tuple<int, int>, AudioClip>();    //Stores lab audio assets
+        public Dictionary<Tuple<int, int>, string> labVideos = new Dictionary<Tuple<int, int>, string>();         //Stores lab video url for streaming
+        public int lab_id;  //Will be used as the key for the downloadedLabs dictionary in the MediaCatalogue object
+        public string lab_description;
     };
 
     //Class to hold a dictionary of LabMedia objects
-    private class MediaCatalogue
+    public class MediaCatalogue
     {
-        Dictionary<int, LabMedia> downloadedLabs = new Dictionary<int, LabMedia>();
+        public Dictionary<int, LabMedia> downloadedLabs = new Dictionary<int, LabMedia>();
 
         //Retrieve a Texture2D asset for a lab
         //Tuple is lab ID number and resource ID number
@@ -84,7 +84,7 @@ public class MediaDownload : MonoBehaviour
         {
             LabMedia retrievedLab = null;
             AudioClip retrievedAudioClip = null;
-            if downloadedLabs.ContainsKey(Tuple<int, int> audioKey)
+            if downloadedLabs.ContainsKey(audioKey.Item1)
             {
                 retrievedLab = downloadedLabs[audioKey.Item1];
                 if (retrievedLab.labAudio.ContainsKey(audioKey))
@@ -147,7 +147,7 @@ public class MediaDownload : MonoBehaviour
     void Start()
     {
         //Dictionary to hold all LabMedia objects (key: lab_id, value: LabMedia object)
-        MediaCatalogue catalogue; //Holds all of the LabMedia objects
+        MediaCatalogue catalogue = new MediaCatalogue(); //Holds all of the LabMedia objects
 
         //Download labs manifest file and serialize into LabsManifest object
         string json = null; 
