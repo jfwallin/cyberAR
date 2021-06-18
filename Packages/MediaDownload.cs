@@ -209,9 +209,11 @@ public class MediaDownload : MonoBehaviour
                         //Add code to determine audio type later on
                         if (media.labAudio.ContainsKey(resourceKey) == false)
                         {
-                            //Add dictionary for audiotype lookup
+                            //Determine the audio file format
                             string extension = fileName.Substring(fileName.Length - 3);
                             AudioType audioFileType = AudioType.UNKNOWN;
+                            //Determine if the audio file format is currently supported
+                            //If it's not supported the AudioType remains UNKNOWN (may cause issues)
                             if (supportedAudio.ContainsKey(extension) == true)
                                 audioFileType = supportedAudio[extension];
                             StartCoroutine(DownloadAudio(endpoint, media.labAudio, resourceKey, audioFileType));
@@ -219,7 +221,7 @@ public class MediaDownload : MonoBehaviour
                         break;
                     case "video":
                         if(media.labVideos.ContainsKey(resourceKey) == false)
-                            media.labVideos.Add(resourceKey, endpoint); //Nothing to download, just add the endpoint to the dictionary
+                            media.labVideos.Add(resourceKey, endpoint); //Nothing to download, just add the resource's full url to the dictionary
                         break;
                 }
             }
