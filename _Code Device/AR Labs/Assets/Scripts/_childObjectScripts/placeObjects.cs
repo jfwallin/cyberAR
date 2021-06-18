@@ -48,7 +48,7 @@ public class placeObjects
         int nearest;
         float distance;
         nearest = -1;
-        distance = 1e10;
+        distance = (float)1e10;
         float currentDistance;
 
         for(int i = 0; i < nObjects; i++ )
