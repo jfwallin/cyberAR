@@ -50,17 +50,12 @@ namespace MCQ
         /// </summary>
         /// <param name="initData">The data object containing all the information for the exercise</param>
         /// <param name="mPlayer">Reference to the media player that will play media for the question</param>
-        public override void Initialize(ActivityModuleData initData)
+        public override void Initialize(string initData)
         {
             Debug.Log("Initialize called on the MCQManager");
             //Set necessary references
-            if (initData is MCExerciseData)
-                exerciseData = (MCExerciseData)initData;
-            else
-            {
-                Debug.LogError("Could not cast ActivityModuleData into MCExerciseData, disabling script");
-                enabled = false;
-            }
+            exerciseData = new MCExerciseData();
+            JsonUtility.FromJsonOverwrite(initData, exerciseData);
             mPlayer = MediaPlayer.Instance;
 
             //Initilize some internal state
@@ -175,13 +170,12 @@ namespace MCQ
         public override void EndOfModule()
         {
             Debug.Log("MC finished!");
-            GameObject go = GameObject.Find("Lab Control");
-            go.GetComponent<LabControl>().MCCompleted();
+            FindObjectOfType<LabManager>().ModuleComplete();
         }
 
-        public override ActivityModuleData SaveState()
+        public override string SaveState()
         {
-            return exerciseData;
+            return JsonUtility.ToJson(exerciseData);
         }
         #endregion //Public Functions
 
