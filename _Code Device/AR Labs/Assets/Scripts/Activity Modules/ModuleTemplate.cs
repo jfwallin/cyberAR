@@ -61,14 +61,14 @@ public class ModuleTemplate : ActivityModule
         //GameObject.FindObjectOfType<LabControl>().SomeFunction()
     }
 
-    public override ActivityModuleData SaveState()
+    public override string SaveState()
     {
         //Perform any tasks needed and update the data object
 
 
         //
         //Return the updated data object
-        return moduleData;
+        return (string) JsonUtility.ToJson(moduleData);
     }
     #endregion Public Functions
 }

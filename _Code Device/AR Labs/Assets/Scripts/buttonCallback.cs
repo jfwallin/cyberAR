@@ -2,56 +2,59 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class buttonCallback : MonoBehaviour
+namespace sorting
 {
-
-    private MagicLeapTools.InputReceiver _inputReceiver;
-    public bool enableOnClick = true;
-
-    private void Awake()
+    public class buttonCallback : MonoBehaviour
     {
-        _inputReceiver = GetComponent<MagicLeapTools.InputReceiver>();
-        if (_inputReceiver == null)
-            Debug.Log("input receiver not found");
 
-    }
+        private MagicLeapTools.InputReceiver _inputReceiver;
+        public bool enableOnClick = true;
 
-    private void OnEnable()
-    {
-        if (enableOnClick)
-            _inputReceiver.OnSelected.AddListener(HandleOnClick);
+        private void Awake()
+        {
+            _inputReceiver = GetComponent<MagicLeapTools.InputReceiver>();
+            if (_inputReceiver == null)
+                Debug.Log("input receiver not found");
 
-        //if (enableDragEnd)
-        _inputReceiver.OnDragEnd.AddListener(HandleOnClick);
+        }
 
-        GameObject sorter = GameObject.Find("sortingManager");
-        //sorter.GetComponent<sortingData>().hhh();
-    }
-
-    private void OnDisable()
-    {
-        if (enableOnClick)
-            _inputReceiver.OnSelected.RemoveListener(HandleOnClick);
-        _inputReceiver.OnDragEnd.RemoveListener(HandleOnClick);
-    }
-
-    private void HandleOnClick(GameObject sender)
-    {
-        Debug.Log("clock");
-        GameObject sorter = GameObject.Find("sortingManager");
-        if (sorter != null)
+        private void OnEnable()
         {
             if (enableOnClick)
-                sorter.GetComponent<sortingActivity>().feedbackOnOrder();
-            /*
-             * string typeString = "sortingActivity";
-        System.Type type = System.Type.GetType(typeString);
-        FindObjectOfType(type).onFeedback();
-             */
+                _inputReceiver.OnSelected.AddListener(HandleOnClick);
+
+            //if (enableDragEnd)
+            _inputReceiver.OnDragEnd.AddListener(HandleOnClick);
+
+            GameObject sorter = GameObject.Find("sortingManager");
+            //sorter.GetComponent<sortingData>().hhh();
         }
-        else
-            Debug.Log("no sorting object");
+
+        private void OnDisable()
+        {
+            if (enableOnClick)
+                _inputReceiver.OnSelected.RemoveListener(HandleOnClick);
+            _inputReceiver.OnDragEnd.RemoveListener(HandleOnClick);
+        }
+
+        private void HandleOnClick(GameObject sender)
+        {
+            Debug.Log("clock");
+            GameObject sorter = GameObject.Find("sortingManager");
+            if (sorter != null)
+            {
+                if (enableOnClick)
+                    sorter.GetComponent<sortingManager>().feedbackOnOrder();
+                /*
+                 * string typeString = "sortingActivity";
+            System.Type type = System.Type.GetType(typeString);
+            FindObjectOfType(type).onFeedback();
+                 */
+            }
+            else
+                Debug.Log("no sorting object");
+        }
+
+
     }
-
-
 }

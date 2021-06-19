@@ -10,14 +10,35 @@ public class LabManager : MonoBehaviour
     private GameObject currentModuleObject;
     private ActivityModule currentModuleScript;
 
+
+
+    [SerializeField]
+    private GameObject demoPrefab = null;
+    private GameObject demoObject = null;
+
+
     public void Initialize(string[] moduleData)
     {
         //Initialize data
         modules = moduleData;
 
         //Start Lab
-        SpawnModule();
+        //        SpawnModule();
+        spawnDemo();
     }
+
+
+    public void spawnDemo()
+    {
+        demoObject = Instantiate(demoPrefab, Vector3.zero, Quaternion.identity);  //, rootUITransform);
+    }
+
+    public void demoCompleted()
+    {
+        Destroy(demoObject);
+    }
+
+
 
     private void SpawnModule()
     {

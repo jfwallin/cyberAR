@@ -23,72 +23,7 @@ Reach out to extend pointer.
 
 public class earthMoon : MonoBehaviour
 {
-    public class lightControl
-    {
-        public GameObject theLight;
-        public Light sceneLight;
-
-        public Vector3 position;
-        public Quaternion angle;
-        public Vector3 scale;
-
-        public float intensity;
-        public float bounceIntensity;
-        public LightShadows shadows;
-        LightType lightType;
-        Color sceneColor;
-
-        public void init()
-        {
-            theLight = GameObject.Find("Directional Light");
-            sceneLight = theLight.GetComponent<Light>();
-            saveLights();
-
-        }
-
-        public void saveLights()
-        {
-            //sceneLight.color = Color.white;
-            position = theLight.transform.position;
-            angle = theLight.transform.rotation;
-            scale = theLight.transform.localScale;
-
-            intensity = sceneLight.intensity;
-            bounceIntensity = sceneLight.bounceIntensity;
-            shadows = sceneLight.shadows;
-            lightType = sceneLight.type;
-            sceneColor = sceneLight.color;
-
-        }
-
-        public void restoreLights()
-        {
-            theLight.transform.position = position;
-            theLight.transform.rotation = angle;
-            theLight.transform.localScale = scale;
-
-            sceneLight.intensity = intensity;
-            sceneLight.shadows = shadows;
-            sceneLight.type = lightType;
-            sceneLight.color = sceneColor;
-
-        }
-
-        public void sunlight()
-        {
-            theLight.transform.position = new Vector3(100.0f, 0.0f, 0.0f);
-            theLight.transform.rotation = Quaternion.Euler(0.0f, 90.0f, 0.0f);
-            theLight.transform.localScale = new Vector3(3.0f, 3.0f, 3.0f);
-
-            sceneLight.intensity = 2.5f;
-            sceneLight.shadows = LightShadows.None;
-            sceneLight.type = LightType.Directional;
-            sceneLight.color = Color.white;
-
-        }
-    }
-
-    public Vector3 earthPosition;
+     public Vector3 earthPosition;
     private Vector3 moonPosition;
     public float orbitalDistance = 2;
     public float orbitalPeriod = 10;
@@ -143,7 +78,7 @@ public class earthMoon : MonoBehaviour
     public int oldModulePhase = 0;
     public int modulePhase = -1;
 
-    public lightControl theLight;
+    public utility.lightControl theLight;
     public Texture ballTexture;
     public GameObject ballPrefab;
     public float ballSize = 0.5f;
@@ -185,8 +120,7 @@ public class earthMoon : MonoBehaviour
     {
        
         aud = GetComponent<AudioSource>();
-        theLight = new lightControl();
-        theLight.init();
+        theLight = new utility.lightControl();
         theLight.sunlight();
 
         theBigRedButton = GameObject.Find("ArcadeButton Variant");
@@ -341,6 +275,8 @@ public class earthMoon : MonoBehaviour
 
         theBall.AddComponent<simpleRotation>();
         theBall.name = "Basketball";
+
+        Debug.Log(JsonUtility.ToJson(theBall,true)) ;
 
     }
 

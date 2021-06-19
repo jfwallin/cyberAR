@@ -14,6 +14,7 @@ Touchpad Radial = Rotate
 Touchpad Forcepress = Reset
 Reach out to extend pointer.
  */
+/*
 
 public class sortingActivityOld: MonoBehaviour
 {
@@ -497,4 +498,4 @@ public class sortingActivityOld: MonoBehaviour
     }
 }
 
-
+*/

@@ -6,7 +6,7 @@ using System;
 namespace sorting
 {
     [System.Serializable]
-    public class sortingData
+    public class sortingData : ActivityModuleData
     {
         public static int nObjects;
 
