@@ -76,12 +76,8 @@ public class earthMoon : MonoBehaviour
     const int pauseEarthMoon = 7;
     const int endSimulation  = 8;
 
-    public int oldModulePhase = -1;
-    public int modulePhase = -2;
+    public int modulePhase ;
     
-    //public int oldModulePhase = 0;
-    //public int modulePhase = -1;
-
     public utility.lightControl theLight;
     public Texture ballTexture;
     public GameObject ballPrefab;
@@ -140,7 +136,6 @@ public class earthMoon : MonoBehaviour
 
         createInstructions();
 
-        oldModulePhase = -2;
         modulePhase = 0; // startSimulation;
         moduleSequenceManager();
 
