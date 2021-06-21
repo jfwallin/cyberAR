@@ -66,6 +66,7 @@ public class earthMoon : MonoBehaviour
      */
 
 
+    const int startTheBridge = -1;
     const int startSimulation = 0;
     const int startBasketball = 1;
     const int basketball = 2;
@@ -75,8 +76,11 @@ public class earthMoon : MonoBehaviour
     const int pauseEarthMoon = 6;
     const int endSimulation  = 7;
 
-    public int oldModulePhase = 0;
-    public int modulePhase = -1;
+    public int oldModulePhase = -1;
+    public int modulePhase = -2;
+    
+    //public int oldModulePhase = 0;
+    //public int modulePhase = -1;
 
     public utility.lightControl theLight;
     public Texture ballTexture;
@@ -166,6 +170,16 @@ public class earthMoon : MonoBehaviour
     {
         switch (instructionNumber)
         {
+
+            case (startTheBridge):
+                instructionCanvas.GetComponent<Text>().text =
+                    "Using the Bridge.\n"
+                    + "Click on the Red Button to begin";
+                //aud.clip = startSimulationAudio;
+                //aud.Play();
+                Debug.Log("startting the bridge");
+                break;
+
             case (startSimulation):
                 instructionCanvas.GetComponent<Text>().text =
                     "Exploring how moon phases are created.\n"
@@ -266,6 +280,17 @@ public class earthMoon : MonoBehaviour
 
     }
 
+
+    void useTheBridge()
+    {
+
+    }
+
+    void destroyUseTheBridge()
+    {
+
+    }
+
     void createBall()
     {
         theBall = Instantiate(ballPrefab, new Vector3(0.0f, -0.2f, 1.5f), Quaternion.Euler(0.0f, 0.0f, 0.0f));
@@ -339,12 +364,15 @@ public class earthMoon : MonoBehaviour
         earthMoonEnabled = false;
         Debug.Log("disabling");
     }
-
-
     void moduleSequenceManager()
     {
         switch (modulePhase)
         {
+            case startTheBridge:
+                useTheBridge();
+                setInstructions(startTheBridge);
+                break;
+
             case startSimulation:
                 earthMoonEnabled = false;
                 setInstructions(startSimulation);

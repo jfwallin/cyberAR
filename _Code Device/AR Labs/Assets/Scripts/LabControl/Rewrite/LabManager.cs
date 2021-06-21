@@ -17,14 +17,17 @@ public class LabManager : MonoBehaviour
     private GameObject demoObject = null;
 
 
+    public void Start()
+    {
+        spawnDemo();
+    }
     public void Initialize(string[] moduleData)
     {
         //Initialize data
         modules = moduleData;
 
         //Start Lab
-        //        SpawnModule();
-        spawnDemo();
+        SpawnModule();
     }
 
 
