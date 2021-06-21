@@ -1,6 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using System;
+
 
 public class LabManager : MonoBehaviour
 {
@@ -16,11 +19,42 @@ public class LabManager : MonoBehaviour
     private GameObject demoPrefab = null;
     private GameObject demoObject = null;
 
+    [SerializeField]
+    GameObject instructionPrefab;
+    private GameObject instructionHolder;
+    private GameObject instructionCanvas;
+    
 
     public void Start()
     {
         spawnDemo();
     }
+
+    public void spawnDemo()
+    {
+        //demoObject = Instantiate(demoPrefab, Vector3.zero, Quaternion.identity);  //, rootUITransform);
+        createInstructions();
+        demoObject = Instantiate(demoPrefab, new Vector3(0.0f, 1.0f, 0.0f), Quaternion.identity);  //, rootUITransform);
+    }
+
+    public void demoCompleted()
+    {
+        Destroy(demoObject);
+    }
+
+    void createInstructions()
+    {
+        instructionHolder = Instantiate(instructionPrefab, new Vector3(0.3f, 1.5f, -1.0f), Quaternion.Euler(0.0f, 180.0f, 0.0f));
+        //instructionHolder = Instantiate(instructionPrefab, new Vector3(0.3f, -0.2f, -1.0f), Quaternion.Euler(0.0f, 180.0f, 0.0f));
+        instructionCanvas = GameObject.Find("MainInstructions");
+        instructionCanvas.GetComponent<Text>().text = "Test Text";
+    }
+
+
+
+// --------------------------------------------------------
+
+
     public void Initialize(string[] moduleData)
     {
         //Initialize data
@@ -31,15 +65,6 @@ public class LabManager : MonoBehaviour
     }
 
 
-    public void spawnDemo()
-    {
-        demoObject = Instantiate(demoPrefab, Vector3.zero, Quaternion.identity);  //, rootUITransform);
-    }
-
-    public void demoCompleted()
-    {
-        Destroy(demoObject);
-    }
 
 
 
