@@ -44,7 +44,7 @@ public class LabManager : MonoBehaviour
 
     void createInstructions()
     {
-        instructionHolder = Instantiate(instructionPrefab, new Vector3(0.3f, 1.5f, -1.0f), Quaternion.Euler(0.0f, 180.0f, 0.0f));
+        instructionHolder = Instantiate(instructionPrefab, new Vector3(-0.3f, 1.5f, 1.0f), Quaternion.Euler(0.0f, 180.0f, 0.0f));
         //instructionHolder = Instantiate(instructionPrefab, new Vector3(0.3f, -0.2f, -1.0f), Quaternion.Euler(0.0f, 180.0f, 0.0f));
         instructionCanvas = GameObject.Find("MainInstructions");
         instructionCanvas.GetComponent<Text>().text = "Test Text";

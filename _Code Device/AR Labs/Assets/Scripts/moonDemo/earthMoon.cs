@@ -66,15 +66,15 @@ public class earthMoon : MonoBehaviour
      */
 
 
-    const int startTheBridge = -1;
-    const int startSimulation = 0;
-    const int startBasketball = 1;
-    const int basketball = 2;
-    const int startTinyEarthMoon = 3;
-    const int tinyEarthMoon = 4;
-    const int bigEarthMoon = 5;
-    const int pauseEarthMoon = 6;
-    const int endSimulation  = 7;
+    const int startTheBridge = 0;
+    const int startSimulation = 1;
+    const int startBasketball = 2;
+    const int basketball = 3;
+    const int startTinyEarthMoon = 4;
+    const int tinyEarthMoon = 5;
+    const int bigEarthMoon = 6;
+    const int pauseEarthMoon = 7;
+    const int endSimulation  = 8;
 
     public int oldModulePhase = -1;
     public int modulePhase = -2;
@@ -129,7 +129,7 @@ public class earthMoon : MonoBehaviour
 
         theBigRedButton = GameObject.Find("ArcadeButton Variant");
         theBigRedButton.AddComponent<earthCallback>();
-        theBigRedButton.transform.localPosition = new Vector3(0.5f, -0.3f, 1.0f);
+        theBigRedButton.transform.localPosition = new Vector3(0.5f, 1.3f, 1.0f);
         theBigRedButton.transform.localRotation= Quaternion.Euler(-90f, 20f, 0.0f);
 
 
@@ -140,8 +140,8 @@ public class earthMoon : MonoBehaviour
 
         createInstructions();
 
-        oldModulePhase = -1;
-        modulePhase = startSimulation;
+        oldModulePhase = -2;
+        modulePhase = 0; // startSimulation;
         moduleSequenceManager();
 
     }
