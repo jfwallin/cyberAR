@@ -1,0 +1,24 @@
+{
+    "objects": [
+        {
+            "name": "Basketball",
+            "parentName": "",
+            "type": "moveableSphere",
+            "position": {
+                "x": 0.0,
+                "y": -0.2,
+                "z": 1.5
+            },
+            "scale": {
+                "x": 0.25,
+                "y": 0.25,
+                "z": 0.25
+            },
+            "material": "Earth",
+            "transmittable": false,
+            "componentsToAdd": [
+                "{\"name\":\"simpleRotation\",\"Texture\":\"ballTexture\"}"
+            ]
+        }
+    ]
+}

@@ -26,6 +26,7 @@ namespace sorting
         public int pretty = 1;
 
         public const int maxObjects = 10;
+        public string sortingShape;
         public GameObject myPrefab;
         public Texture[] myTexture = new Texture[maxObjects];
         public String[] tnames = new String[maxObjects];

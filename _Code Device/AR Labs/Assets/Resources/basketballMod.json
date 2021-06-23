@@ -1,0 +1,26 @@
+{
+    "objects": [
+        {
+            "name": "Basketball",
+            "parentName": "[_DYNAMIC]",
+            "type": "moveableSphere",
+            "position": {
+                "x": 0.0,
+                "y": 2.0,
+                "z": 1.5
+            },
+            "scale": {
+                "x": 0.25,
+                "y": 0.25,
+                "z": 0.25
+            },
+            "material": "",
+            "texture": "balldimpled",
+            "transmittable": false,
+            "componentsToModify":[{"name":"Rigidbody", "attributes" : {"isKinematic":false, "useGravity":false}}],
+            "componentsToAdd": [
+                "{\"name\":\"simpleRotation\"}"
+            ]
+        }
+    ]
+}

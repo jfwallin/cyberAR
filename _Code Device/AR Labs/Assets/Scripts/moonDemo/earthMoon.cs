@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using UnityEngine.UI;
-
+using System.IO;
+using UnityEngine.Networking;
 
 /*
  Home = Recenter content
@@ -23,6 +24,7 @@ Reach out to extend pointer.
 
 public class earthMoon : MonoBehaviour
 {
+        Bridge bridge = new Bridge();
      public Vector3 earthPosition;
     private Vector3 moonPosition;
     public float orbitalDistance = 2;
@@ -278,8 +280,44 @@ public class earthMoon : MonoBehaviour
 
     void useTheBridge()
     {
+        //string jsonExample = "";
+        //jsonExample = "{\"objects\":[{ \"name\": \"Earth\"}]"; //, \"parentName\": \"[_DYNAMIC]\", \"type\": \"sphere\", \"position\": { \"x\": 0.0, \"y\": 1.0, \"z\": -2.0 }, \"scale\": { \"x\": 0.25, \"y\": 0.25, \"z\": 0.25 }, \"material\": \"Earth\", \"transmittable\": false, \"componentsToAdd\": [ ] }]}"; 
+        //string path = "C:/Users/jfwal/OneDrive/Documents/GitHub/cyberAR/_Code Device/AR Labs/Assets/Resources/scene-example.json";
 
+        //StreamReader reader = new StreamReader(path);
+        //string line;
+        //jsonExample = reader.ReadToEnd();
+
+       string url = "http://cyberlearnar.cs.mtsu.edu/get_file/scene/scene-example.json";
+       StartCoroutine(GetRequest(url));
+
+        //Debug.Log(jsonExample);
+        //bridge.ParseJson(jsonExample);
     }
+
+
+    
+
+    // Loads json from URL, converts it to ObjectInfoCollection, and calls makeScene in the bridge class
+    IEnumerator GetRequest(string url)
+    {
+        UnityWebRequest webRequest = UnityWebRequest.Get(url);
+
+        Debug.Log("Loading json");
+        // Request and wait for the desired page.
+        yield return webRequest.SendWebRequest();
+
+        if (webRequest.isNetworkError)
+        {
+            Debug.Log("Error loading json: " + webRequest.error);
+        }
+        else
+        {
+            string jstring = webRequest.downloadHandler.text; // json file read as string
+            bridge.ParseJson(jstring);
+        }
+    }
+
 
     void destroyUseTheBridge()
     {

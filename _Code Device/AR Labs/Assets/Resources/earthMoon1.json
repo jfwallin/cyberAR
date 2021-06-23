@@ -1,0 +1,43 @@
+{
+    "objects": [
+        {
+            "name": "Earth",
+            "parentName": "[_DYNAMIC]",
+            "position": {
+                "x": 0.0,
+                "y": -0.2,
+                "z": 1.5
+            },
+            "scale": {
+                "x": 0.4,
+                "y": 0.4,
+                "z": 0.4
+            },
+            "material": "Earth",
+            "transmittable": false,
+            "componentsToAdd": [
+                "{\"name\":\"simpleRotation\"}"
+            ]
+        },
+        {
+            "name": "Moon",
+            "parentName": "[_DYNAMIC]",
+            "type": "moveableSphere",
+            "position": {
+                "x": 2.0,
+                "y": -0.2,
+                "z": 1.5
+            },
+            "scale": {
+                "x": 0.1,
+                "y": 0.1,
+                "z": 0.1
+            },
+            "material": "Moon",
+            "transmittable": false,
+            "componentsToAdd": [
+                "{\"name\":\"simpleRotation\"}"
+            ]
+        }
+    ]
+}

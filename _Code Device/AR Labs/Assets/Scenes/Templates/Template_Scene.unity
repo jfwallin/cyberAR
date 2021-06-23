@@ -538,6 +538,8 @@ MonoBehaviour:
   modules: []
   demoPrefab: {fileID: 7623918466506580603, guid: 2cfa7319a6fde034cbe67971fab09a8f,
     type: 3}
+  demoPrefab2: {fileID: 2583711036738200490, guid: adfcce8c925a717419ef6a6bf6295516,
+    type: 3}
   instructionPrefab: {fileID: 2366808887159404212, guid: e61e784b675cf9246baf21e5a1c6b4e3,
     type: 3}
 --- !u!1 &1793083456

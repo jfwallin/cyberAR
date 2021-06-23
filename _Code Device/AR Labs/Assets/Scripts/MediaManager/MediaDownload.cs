@@ -159,6 +159,8 @@ public class MediaDownload : MonoBehaviour
     public string resourcesManifestEndpoint = null;
     public string mediaEndpoint = null;
 
+
+
     void Start()
     {
         //Dictionary to hold all LabMedia objects (key: lab_id, value: LabMedia object)
@@ -238,6 +240,7 @@ public class MediaDownload : MonoBehaviour
         else
             //Retriveve results, decode binary data, and save as a string
             response = System.Text.Encoding.UTF8.GetString(uwr.downloadHandler.data);
+
     }
 
     //Function to sequentially download an image, create Texture2D asset, and store the created texture in a dictionary

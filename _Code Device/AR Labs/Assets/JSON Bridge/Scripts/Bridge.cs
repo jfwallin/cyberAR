@@ -10,8 +10,25 @@ using System.Collections.Specialized;
 using System.Runtime.Versioning;
 using System.Security.Policy;
 using System.Runtime.InteropServices;
+using UnityEditor;
 
-public class Bridge 
+public class rbClass
+{
+    public bool isKinematic = false;
+    public bool useGravity = false;
+    public float mass;
+    public float drag;
+    public float angularDrag;
+
+    public bool xConstraint;
+    public bool yConstraint;
+    public bool zConstraint;
+    public bool xRotationConstraint;
+    public bool yRotationConstraint;
+    public bool zRotationConstraint;
+
+}
+public class Bridge
 {
     //ParseJson can be called from outside the class to trigger the methods included here
     public void ParseJson(string data)
@@ -75,6 +92,90 @@ public class Bridge
             Renderer rend = myObject.GetComponent<Renderer>();
             rend.material = Resources.Load<Material>(obj.material); //material must be in a recources folder.
         }
+
+        if (obj.texture != "")
+        {
+            Debug.Log("texture " + obj.texture);
+            Renderer rend = myObject.GetComponent<Renderer>();
+            rend.material.mainTexture = Resources.Load<Texture2D>(obj.texture);
+        }
+
+        if (obj.textureByURL != "")
+        {
+            Debug.Log("textureByURL " + obj.textureByURL);
+            Renderer rend = myObject.GetComponent<Renderer>();
+            rend.material.mainTexture = Resources.Load<Texture2D>(obj.texture);
+        }
+
+        Debug.Log("rb length =" + obj.RigidBody.Length.ToString());
+
+        if (obj.RigidBody.Length > 0)
+        {
+
+            Debug.Log("rb string = " + obj.RigidBody);
+            Rigidbody mycomp = myObject.GetComponent<Rigidbody>();
+            if (mycomp == null)
+            {
+                Debug.Log("no rigidbody");
+            }
+            else
+            {
+                // create a new helper class for rigidbody components
+                rbClass rbTest = new rbClass();
+
+                // copy the current values from the rigid body component to the helper
+                rbTest.useGravity = mycomp.useGravity;
+                rbTest.isKinematic = mycomp.isKinematic;
+                rbTest.mass = mycomp.mass;
+                rbTest.drag = mycomp.drag;
+                rbTest.angularDrag = mycomp.angularDrag;
+
+                // the constraints for Rigid body use a bit flag system
+                // 2 = x constraint
+                // 4 = y constraint
+                // 8 = z constraint
+                // 16 = x rotation constraint
+                // 32 = y rotation constraint
+                // 64 = z rotation constraint
+                // the sum of the variables gives you the constraint, so 2+4 = 6 
+                // would constrain x and y
+                //rbTest.xConstraint = ((byte)mycomp.constraints & (1 << pos)) != 0;
+                rbTest.xConstraint = ((byte)mycomp.constraints & (1 << 1)) != 0;
+                rbTest.yConstraint = ((byte)mycomp.constraints & (1 << 2)) != 0;
+                rbTest.zConstraint = ((byte)mycomp.constraints & (1 << 3)) != 0;
+                
+                rbTest.xRotationConstraint = ((byte)mycomp.constraints & (1 << 4)) != 0;
+                rbTest.yRotationConstraint = ((byte)mycomp.constraints & (1 << 5)) != 0;
+                rbTest.zRotationConstraint = ((byte)mycomp.constraints & (1 << 6)) != 0;
+
+                mycomp.constraints = RigidbodyConstraints.FreezePosition;
+
+                // loop over the components in the json image and assign them to the helper
+                for (int i = 0; i < obj.RigidBody.Length; i++)
+                {
+                    Debug.Log(">>>>   " + i.ToString() + " | " + obj.RigidBody[i]);
+                    JsonUtility.FromJsonOverwrite(obj.RigidBody[i], rbTest);
+                }
+
+                // transfer the helper class back to the real rigid body 
+                mycomp.useGravity = rbTest.useGravity;
+                mycomp.isKinematic = rbTest.isKinematic;
+                mycomp.mass = rbTest.mass;
+                mycomp.drag = rbTest.drag;
+                mycomp.angularDrag = rbTest.angularDrag;
+
+
+                mycomp.constraints = RigidbodyConstraints.None;
+                if (rbTest.xConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezePositionX;
+                if (rbTest.yConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezePositionY;
+                if (rbTest.zConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezePositionZ;
+                if (rbTest.xRotationConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezeRotationX;
+                if (rbTest.yRotationConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezeRotationY;
+                if (rbTest.zRotationConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezeRotationZ;
+
+            }
+        }
+
     }
 
 
@@ -118,7 +219,7 @@ public class Bridge
             {
                 myObject.transform.parent = parent.transform;
             }
-            
+
 
             //This block is removed in Isaac's code and dealt with in the stringJson
             //I can't quite get that working though
@@ -127,9 +228,16 @@ public class Bridge
                 Renderer rend = myObject.GetComponent<Renderer>();
                 rend.material = Resources.Load<Material>(obj.material); //material must be in a recources folder.
             }
+
+            if (obj.texture != "")
+            {
+                Debug.Log("texture " + obj.texture);
+                Renderer rend = myObject.GetComponent<Renderer>();
+                rend.material.mainTexture = Resources.Load<Texture2D>(obj.texture);
+            }
             //I think the issue is here or when I reposition the thing. Need to look at Issac's pong game.
         }
-        
+
     }
 
 
@@ -138,7 +246,8 @@ public class Bridge
     {
         GameObject myObject;
 
-        switch (type){
+        switch (type)
+        {
             case "":
                 myObject = new GameObject();
                 break;
@@ -152,7 +261,7 @@ public class Bridge
                 myObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 break;
             case "sphere":
-                myObject=GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                myObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 break;
             case "capsule":
                 myObject = GameObject.CreatePrimitive(PrimitiveType.Capsule);
@@ -161,7 +270,24 @@ public class Bridge
                 myObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                 break;
             default:
-                myObject = GameObject.Instantiate(Resources.Load(type)) as GameObject; //This line is for if you want the default to be loading a prefab
+                Debug.Log("prefab name " + type);
+                type = "Prefabs/" + type;
+                Debug.Log("2  prefab name " + type);
+                string s1;
+                s1 = "Prefabs/moveableSphere.prefab";
+                s1 = "Prefabs/moveableSphere";
+                s1 = "Assets/Prefabs/demoPrefab";
+                s1 = "C:/Users/jfwal/OneDrive/Documents/GitHub/cyberAR/_Code Device/AR Labs/Assets/" +
+                    "Assets/Prefabs/demoPrefab";
+                s1 = "C:/Users/jfwal/OneDrive/Documents/GitHub/cyberAR/_Code Device/AR Labs/Assets/" +
+                    "Prefabs/moveableSphere";
+                s1 = "moveableSphere";
+
+                Debug.Log("2  prefab name " + s1);
+                myObject = GameObject.Instantiate(Resources.Load(s1) as GameObject);
+                //myObject = (GameObject)Resources.Load(s1) as GameObject;
+
+                //myObject = GameObject.Instantiate(Resources.Load(type)) as GameObject; //This line is for if you want the default to be loading a prefab
                 //Note that the above line requires your prefab to be located in a resources folder.
                 break;
         }
@@ -171,11 +297,13 @@ public class Bridge
     //This whole method will likely have to change slightly when we start dealing with Transmission.
 
     //a cleanup meathod....hmmm
-    public void CleanUp(string data) {
+    public void CleanUp(string data)
+    {
         //parse string
         ObjectInfoCollection info = JsonUtility.FromJson<ObjectInfoCollection>(data);
 
-        foreach (ObjectInfo obj in info.objects) {
+        foreach (ObjectInfo obj in info.objects)
+        {
             GameObject.Destroy(GameObject.Find(obj.name));
         }
     }
