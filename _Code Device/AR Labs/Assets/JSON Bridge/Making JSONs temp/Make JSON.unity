@@ -237,7 +237,16 @@ MonoBehaviour:
   name: 
   folderPath: 
   info:
-    objects: []
+    objects:
+    - name: 
+      parentName: 
+      type: 
+      position: {x: 0, y: 0, z: 0}
+      scale: {x: 0, y: 0, z: 0}
+      material: 
+      transmittable: 0
+      enabled: 0
+      componentsToAdd: []
 --- !u!1 &618003120
 GameObject:
   m_ObjectHideFlags: 0
