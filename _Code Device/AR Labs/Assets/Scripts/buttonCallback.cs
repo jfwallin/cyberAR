@@ -43,6 +43,11 @@ public class buttonCallback : MonoBehaviour
         {
             if (enableOnClick)
                 sorter.GetComponent<sortingActivity>().feedbackOnOrder();
+            /*
+             * string typeString = "sortingActivity";
+        System.Type type = System.Type.GetType(typeString);
+        FindObjectOfType(type).onFeedback();
+             */
         }
         else
             Debug.Log("no sorting object");
