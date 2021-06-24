@@ -75,6 +75,8 @@ public class Bridge
             Renderer rend = myObject.GetComponent<Renderer>();
             rend.material = Resources.Load<Material>(obj.material); //material must be in a recources folder.
         }
+
+        myObject.SetActive(obj.enabled); //sets the enabled/disabled state of the object
     }
 
 
