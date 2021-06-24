@@ -15,8 +15,8 @@ public class ObjectInfo
     public string parentName;
     public string type; 
 
-    public Vector3 position;
-    public Vector3 scale;
+    public Vector3 position = new Vector3(0f, 0f, 0f);
+    public Vector3 scale = new Vector3(1f, 1f, 1f);
     public string material; //Leaving material blank won't cause any problems and just won't render a material. 
     public bool transmittable = false; //transmission isn't working currently so this should be left as false
     public bool enabled = true; //defaults the true. Set to false if you want objects to be instantiated disabled. 
