@@ -5,19 +5,19 @@ using System.IO;
 
 public class MakeModule : MonoBehaviour
 {
-    private Bridge bridge = new Bridge();
+    private Bridge bridge = new Bridge(); //an instance of the bridge
 
     public string path;
 
     // Start is called before the first frame update
     void Start()
     {
+        //get json from file at path
         StreamReader reader = new StreamReader(path);
         string line;
-
         line = reader.ReadToEnd();
 
-        Debug.Log(line);
-        bridge.ParseJson(line);
+        Debug.Log(line); //print out the json
+        bridge.ParseJson(line); //make the objects in the JSON in the scene
     }
 }
