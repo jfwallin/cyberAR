@@ -3,11 +3,18 @@
         {
             "name": "Basketball",
             "parentName": "[_DYNAMIC]",
-            "type": "moveableSphere",
+            "type": "Prefabs/moveableSphere",
+            "tag": "sceneObject",
+            "active": true,
             "position": {
                 "x": 0.0,
                 "y": 2.0,
                 "z": 1.5
+            },
+            "euleriAngles": {
+                "x" : 0.0,
+                "y": 0.0,
+                "z": 0.0
             },
             "scale": {
                 "x": 0.25,
@@ -16,6 +23,7 @@
             },
             "material": "",
             "texture": "balldimpled",
+            "color": [1.0, 1.0, 1.0, 1.0],
             "transmittable": false,
             "RigidBody": [
                 "{\"mass\": 1.0}",

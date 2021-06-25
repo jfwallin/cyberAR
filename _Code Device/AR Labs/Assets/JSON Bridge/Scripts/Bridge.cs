@@ -99,6 +99,20 @@ public class Bridge
             myObject.transform.parent = parent.transform;
         }
 
+        if (obj.tag != "")
+        {
+            Debug.Log(" tagging with " + obj.tag);
+            myObject.tag = "SceneObject";
+            // allowable options are limited to the Unity defaults and other attributes
+            // manually added to the base scene
+        }
+
+        // the default is active
+        myObject.SetActive(obj.active);
+
+        //myObject.GetComponent<PointerReceiver>().Clicked)
+
+
         //This block is removed in Isaac's code and dealt with in the stringJson
         //I can't quite get that working though
         if (obj.material != "")
@@ -121,7 +135,16 @@ public class Bridge
             rend.material.mainTexture = Resources.Load<Texture2D>(obj.texture);
         }
 
-        if (obj.RigidBody.Length > 0)
+        if (obj.color != null)
+        {
+            if (obj.color.Length == 4)
+            {
+                Renderer rend = myObject.GetComponent<Renderer>();
+                rend.material.color = new Color( obj.color[0], obj.color[1], obj.color[2], obj.color[3]);
+            }
+        }
+
+        if (obj.RigidBody!= null)
         {
 
             Debug.Log("rigidBody string = " + obj.RigidBody);
@@ -191,8 +214,6 @@ public class Bridge
         {
 
             Debug.Log("PointerReceiver string = " + obj.PointerReceiver);
-
-
             MagicLeapTools.PointerReceiver mycomp = myObject.GetComponent<PointerReceiver>();
             if (mycomp == null)
             {
@@ -224,13 +245,6 @@ public class Bridge
                 mycomp.invertForward= pr.invertForward;
             }
 
-
-            /*    public bool draggable = true;
-                public bool kinematicWhileIdle = true;
-                public bool faceWhileDragging;
-                public bool matchWallWhileDragging;
-                public bool invertForward;
-            */
         }
     }
 
@@ -326,20 +340,7 @@ public class Bridge
                 break;
             default:
                 Debug.Log("prefab name " + type);
-                type = "Prefabs/" + type;
-                Debug.Log("2  prefab name " + type);
-                string s1;
-                s1 = "Prefabs/moveableSphere.prefab";
-                s1 = "Prefabs/moveableSphere";
-                s1 = "Assets/Prefabs/demoPrefab";
-                s1 = "C:/Users/jfwal/OneDrive/Documents/GitHub/cyberAR/_Code Device/AR Labs/Assets/" +
-                    "Assets/Prefabs/demoPrefab";
-                s1 = "C:/Users/jfwal/OneDrive/Documents/GitHub/cyberAR/_Code Device/AR Labs/Assets/" +
-                    "Prefabs/moveableSphere";
-                s1 = "moveableSphere";
-
-                Debug.Log("2  prefab name " + s1);
-                myObject = GameObject.Instantiate(Resources.Load(s1) as GameObject);
+                myObject = GameObject.Instantiate(Resources.Load(type, typeof(GameObject)) as GameObject);
                 //myObject = (GameObject)Resources.Load(s1) as GameObject;
 
                 //myObject = GameObject.Instantiate(Resources.Load(type)) as GameObject; //This line is for if you want the default to be loading a prefab
