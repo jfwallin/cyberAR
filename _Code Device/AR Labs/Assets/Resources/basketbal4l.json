@@ -2,7 +2,6 @@
     "objects": [
         {
             "name": "Basketball",
-            "parentName": "[_DYNAMIC]",
             "type": "moveableSphere",
             "position": {
                 "x": 0.0,
@@ -30,15 +29,15 @@
                 "{\"yRotationConstraint\":true}",
                 "{\"zRotationConstraint\":true}"
             ],
-            "PointerReceiver": [
-                "{\"draggable\":true}",
-                "{\"kinematicWhileIdle\":true}",
+            "PointerReceiver":[
+                "{\draggable"\":true}",
+                "{\"kinematicWhileIdle\":false}",
                 "{\"faceWhileDragging\":false}",
                 "{\"matchWallWhileDragging\":false}",
-                "{\"invertForward\":false}"
+                "{\"invertForward\":false}",
             ],
             "componentsToAdd": [
-                "{\"name\":\"simpleRotation\",\"timeRate\":1.0, \"rotationTime\":3.0 }"
+                "{\"name\":\"simpleRotation\",\"timeRate\":1.0, \"rotationTime\":3.0 }",
             ]
         }
     ]

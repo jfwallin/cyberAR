@@ -12,10 +12,10 @@ using System.Security.Policy;
 using System.Runtime.InteropServices;
 using UnityEditor;
 
-public class rbClass
+public class rigidBodyClass
 {
-    public bool isKinematic = false;
-    public bool useGravity = false;
+    public bool isKinematic;
+    public bool useGravity;
     public float mass;
     public float drag;
     public float angularDrag;
@@ -28,6 +28,18 @@ public class rbClass
     public bool zRotationConstraint;
 
 }
+
+public class pointerReceiverClass
+{
+    //Public Variables:
+    //[Tooltip("Can we drag this?")]
+    public bool draggable;
+    public bool kinematicWhileIdle;
+    public bool faceWhileDragging;
+    public bool matchWallWhileDragging;
+    public bool invertForward;
+}
+
 public class Bridge
 {
     //ParseJson can be called from outside the class to trigger the methods included here
@@ -66,6 +78,7 @@ public class Bridge
             //Parse once to get the name of the component
             ComponentName cName = JsonUtility.FromJson<ComponentName>(obj.componentsToAdd[i]);
             //Check if the component already exists (ie, the mesh renderer on aprimitive)
+            Debug.Log("adding component  " + i.ToString() + " " + cName.name);
             Component myComp = myObject.GetComponent(Type.GetType(cName.name));
             if (myComp == null)
             {
@@ -80,6 +93,7 @@ public class Bridge
 
         myObject.transform.position = obj.position;
         myObject.transform.localScale = obj.scale;
+        //myObject.transform.eulerAngles = obj.eulerAngles;
         if (obj.parentName != "")
         {
             myObject.transform.parent = parent.transform;
@@ -107,12 +121,10 @@ public class Bridge
             rend.material.mainTexture = Resources.Load<Texture2D>(obj.texture);
         }
 
-        Debug.Log("rb length =" + obj.RigidBody.Length.ToString());
-
         if (obj.RigidBody.Length > 0)
         {
 
-            Debug.Log("rb string = " + obj.RigidBody);
+            Debug.Log("rigidBody string = " + obj.RigidBody);
             Rigidbody mycomp = myObject.GetComponent<Rigidbody>();
             if (mycomp == null)
             {
@@ -121,14 +133,14 @@ public class Bridge
             else
             {
                 // create a new helper class for rigidbody components
-                rbClass rbTest = new rbClass();
+                rigidBodyClass rb = new rigidBodyClass();
 
                 // copy the current values from the rigid body component to the helper
-                rbTest.useGravity = mycomp.useGravity;
-                rbTest.isKinematic = mycomp.isKinematic;
-                rbTest.mass = mycomp.mass;
-                rbTest.drag = mycomp.drag;
-                rbTest.angularDrag = mycomp.angularDrag;
+                rb.useGravity = mycomp.useGravity;
+                rb.isKinematic = mycomp.isKinematic;
+                rb.mass = mycomp.mass;
+                rb.drag = mycomp.drag;
+                rb.angularDrag = mycomp.angularDrag;
 
                 // the constraints for Rigid body use a bit flag system
                 // 2 = x constraint
@@ -139,45 +151,88 @@ public class Bridge
                 // 64 = z rotation constraint
                 // the sum of the variables gives you the constraint, so 2+4 = 6 
                 // would constrain x and y
-                //rbTest.xConstraint = ((byte)mycomp.constraints & (1 << pos)) != 0;
-                rbTest.xConstraint = ((byte)mycomp.constraints & (1 << 1)) != 0;
-                rbTest.yConstraint = ((byte)mycomp.constraints & (1 << 2)) != 0;
-                rbTest.zConstraint = ((byte)mycomp.constraints & (1 << 3)) != 0;
-                
-                rbTest.xRotationConstraint = ((byte)mycomp.constraints & (1 << 4)) != 0;
-                rbTest.yRotationConstraint = ((byte)mycomp.constraints & (1 << 5)) != 0;
-                rbTest.zRotationConstraint = ((byte)mycomp.constraints & (1 << 6)) != 0;
+                //rb.xConstraint = ((byte)mycomp.constraints & (1 << pos)) != 0;
+                rb.xConstraint = ((byte)mycomp.constraints & (1 << 1)) != 0;
+                rb.yConstraint = ((byte)mycomp.constraints & (1 << 2)) != 0;
+                rb.zConstraint = ((byte)mycomp.constraints & (1 << 3)) != 0;
 
-                mycomp.constraints = RigidbodyConstraints.FreezePosition;
+                rb.xRotationConstraint = ((byte)mycomp.constraints & (1 << 4)) != 0;
+                rb.yRotationConstraint = ((byte)mycomp.constraints & (1 << 5)) != 0;
+                rb.zRotationConstraint = ((byte)mycomp.constraints & (1 << 6)) != 0;
 
                 // loop over the components in the json image and assign them to the helper
                 for (int i = 0; i < obj.RigidBody.Length; i++)
                 {
                     Debug.Log(">>>>   " + i.ToString() + " | " + obj.RigidBody[i]);
-                    JsonUtility.FromJsonOverwrite(obj.RigidBody[i], rbTest);
+                    JsonUtility.FromJsonOverwrite(obj.RigidBody[i], rb);
                 }
 
                 // transfer the helper class back to the real rigid body 
-                mycomp.useGravity = rbTest.useGravity;
-                mycomp.isKinematic = rbTest.isKinematic;
-                mycomp.mass = rbTest.mass;
-                mycomp.drag = rbTest.drag;
-                mycomp.angularDrag = rbTest.angularDrag;
+                mycomp.useGravity = rb.useGravity;
+                mycomp.isKinematic = rb.isKinematic;
+                mycomp.mass = rb.mass;
+                mycomp.drag = rb.drag;
+                mycomp.angularDrag = rb.angularDrag;
 
-
+                // this is a bit tedeous, but it zeems to work
                 mycomp.constraints = RigidbodyConstraints.None;
-                if (rbTest.xConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezePositionX;
-                if (rbTest.yConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezePositionY;
-                if (rbTest.zConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezePositionZ;
-                if (rbTest.xRotationConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezeRotationX;
-                if (rbTest.yRotationConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezeRotationY;
-                if (rbTest.zRotationConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezeRotationZ;
+                if (rb.xConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezePositionX;
+                if (rb.yConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezePositionY;
+                if (rb.zConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezePositionZ;
+                if (rb.xRotationConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezeRotationX;
+                if (rb.yRotationConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezeRotationY;
+                if (rb.zRotationConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezeRotationZ;
 
             }
         }
 
-    }
+        //Debug.Log(obj.PointerReceiver.Length.ToString() + " LENGTH");
+        if (obj.PointerReceiver != null) 
+        {
 
+            Debug.Log("PointerReceiver string = " + obj.PointerReceiver);
+
+
+            MagicLeapTools.PointerReceiver mycomp = myObject.GetComponent<PointerReceiver>();
+            if (mycomp == null)
+            {
+                Debug.Log("no Pointer Receiver");
+            }
+            else
+            {
+                // create a new helper class for rigidbody components
+                pointerReceiverClass pr = new pointerReceiverClass();
+                pr.draggable = mycomp.draggable;
+                pr.kinematicWhileIdle= mycomp.kinematicWhileIdle;
+                pr.faceWhileDragging = mycomp.faceWhileDragging;
+                pr.matchWallWhileDragging= mycomp.matchWallWhileDragging;
+                pr.invertForward= mycomp.invertForward;
+
+
+                // copy the current values from the rigid body component to the helper
+                for (int i = 0; i < obj.PointerReceiver.Length; i++)
+                {
+                    Debug.Log(">>>>   " + i.ToString() + " | " + obj.PointerReceiver[i]);
+                    JsonUtility.FromJsonOverwrite(obj.PointerReceiver[i], pr);
+                }
+
+
+                mycomp.draggable = pr.draggable;
+                mycomp.kinematicWhileIdle= pr.kinematicWhileIdle;
+                mycomp.faceWhileDragging = pr.faceWhileDragging;
+                mycomp.matchWallWhileDragging= pr.matchWallWhileDragging;
+                mycomp.invertForward= pr.invertForward;
+            }
+
+
+            /*    public bool draggable = true;
+                public bool kinematicWhileIdle = true;
+                public bool faceWhileDragging;
+                public bool matchWallWhileDragging;
+                public bool invertForward;
+            */
+        }
+    }
 
     private void makeTransmissionObject(ObjectInfo obj)
     {
