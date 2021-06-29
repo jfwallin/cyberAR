@@ -10,6 +10,7 @@ namespace demoRoutines
     {
         public string urlJson;
         public string json;
+        //public ObjectInfoCollection info;
 
         public float timeToEnd = -1;
         public bool endUsingButton = true;

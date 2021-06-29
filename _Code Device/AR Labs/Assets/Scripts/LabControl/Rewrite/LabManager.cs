@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System;
-
+using System.IO;
 
 public class LabManager : MonoBehaviour
 {
@@ -41,30 +41,49 @@ public class LabManager : MonoBehaviour
 
         string url = "http://cyberlearnar.cs.mtsu.edu/get_file/scene/scene-example.json";
         string ss = "{\"urlJson\": \"" + url + "\"} ";
-
-
-
         Debug.Log(ss);
+
+
         currentModuleObject = Instantiate(demoPrefab2, new Vector3(0.0f, 1.0f, 0.0f), Quaternion.identity);  //, rootUITransform);
         currentModuleScript = currentModuleObject.GetComponent<ActivityModule>();
 
-
         ss = "{\"moduleName\":\"duck\",\"specificName\":\"quacky\",\"prefabName\":\"demoPrefab\",\"prerequisiteActivities\":[],\"educationalObjectives\":[\"show that ducks are superiour\",\"quack a joke frequently\", \"promote duckyness everywhere\", \"duck the responsiblity of bad grades\"],\"instructions\":[\"click on something... anything!\"],\"numRepeatsAllowed\":0,\"numGradableRepeatsAllowed\":0,\"gradingCriteria\":\"\",\"currentScore\":0.0,\"bestScore\":0.0,\"completed\":false,\"currentSubphase\":0,\"subphaseNames\":[],\"demoJson\":\"\",\"urlJson\":\"http://cyberlearnar.cs.mtsu.edu/get_file/scene/scene-example.json\"}";
-        ActivityModuleData tmpData = new ActivityModuleData();
-        Debug.Log("ssss  = " + ss);
-        JsonUtility.FromJsonOverwrite(ss, tmpData);
-        Debug.Log(tmpData.moduleName);
 
-        string eobj = "Educational Objectives: \n\n";
-        string s;
-        for (int i = 0; i < tmpData.educationalObjectives.Length; i++ )
+        string jsonpath = "C:/Users/jfwal/OneDrive/Documents/GitHub/cyberAR/_Code Device/AR Labs/Assets/Resources/jsonDefinitions/";
+        string fname = "demo7.json";
+        //string fname = "genericDemo.json";
+        //fname = "gd.json";
+        string fpath = jsonpath + fname;
+        if (File.Exists(fpath))
         {
-            s = tmpData.educationalObjectives[i];
-            eobj = eobj  + i.ToString() + ") " + s + "\n";
-        }
-        instructionCanvas.GetComponent<Text>().text = eobj;
+            Debug.Log("json file exists!"); 
 
-        
+            using (StreamReader r = new StreamReader(fpath))
+            {
+                ss = r.ReadToEnd();
+                //ss.Replace("\"", "\\\"");
+            }
+            //ss = System.IO.File.ReadAllText(fpath);
+            Debug.Log(ss);
+        }
+        else
+        {
+            Debug.Log("NO json file!!!!!!!!!!!");
+        }
+
+        //ActivityModuleData tmpData = new ActivityModuleData();
+        //Debug.Log("ssss  = " + ss);
+        //JsonUtility.FromJsonOverwrite(ss, tmpData);
+        //Debug.Log("XXXXX " + tmpData.moduleName);
+
+        //string eobj = "Educational Objectives: \n\n";
+        //string s;
+        //for (int i = 0; i < tmpData.educationalObjectives.Length; i++ )
+       // {
+       //     s = tmpData.educationalObjectives[i];
+       //     eobj = eobj  + i.ToString() + ") " + s + "\n";
+       // }
+       // instructionCanvas.GetComponent<Text>().text = eobj;
         currentModuleScript.Initialize(ss);
     }
 

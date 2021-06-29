@@ -1,5 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
+//using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.IO;
@@ -12,11 +12,11 @@ namespace demoRoutines
         //[SerializeField]
         private demoData moduleData;        //Conatians answer choices, correct answers, and question text
         private Bridge bridge;
-        
+        private enum jsonTestCase { useURL, useFile, useString};
         public override void Initialize(string initData)
         {
 
-            Debug.Log("xxx " + initData);
+            Debug.Log("json string in the demo" + initData);
             moduleData = new demoData();
             bridge = new Bridge();
             JsonUtility.FromJsonOverwrite(initData, moduleData);
@@ -24,12 +24,18 @@ namespace demoRoutines
             mPlayer = MediaPlayer.Instance;
 
             Debug.Log("aobut to use the bridge");
+            Debug.Log("json string = " + moduleData.json);
+            Debug.Log("json string module name = " + moduleData.moduleName);
+            Debug.Log("json string specific name = " + moduleData.specificName);
+            Debug.Log("json string   json = " + moduleData.json);
+            Debug.Log("json string   jsonURL = " + moduleData.urlJson);
             useTheBridge();
         }
 
         public override void EndOfModule()
         {
             Debug.Log("demo finished!");
+            bridge.CleanUp(moduleData.json);
             FindObjectOfType<LabManager>().ModuleComplete();
         }
 
@@ -51,32 +57,64 @@ namespace demoRoutines
         }
         void useTheBridge()
         {
-            bool doURL = false;
-
-            if (doURL)
+            int jsonTest = (int)jsonTestCase.useString;
+            
+            if (jsonTest == (int) jsonTestCase.useURL)
             {
                 string url = moduleData.urlJson;
                 Debug.Log("the module name is " + moduleData.moduleName);
                 StartCoroutine(GetRequest(url));
             }
-            else
+            else if (jsonTest == (int) jsonTestCase.useFile)
+
             {
-
-
                 string jsonExample; ;
                 string path;
                 path = "C:/Users/jfwal/OneDrive/Documents/GitHub/cyberAR/_Code Device/AR Labs/Assets/Resources/scene-example.json";
                 path = "C:/Users/jfwal/OneDrive/Documents/GitHub/cyberAR/_Code Device/AR Labs/Assets/Resources/basketball.json";
-                //path = "C:/Users/jfwal/OneDrive/Documents/GitHub/cyberAR/_Code Device/AR Labs/Assets/Resources/earthMoon1.json";
                 StreamReader reader = new StreamReader(path);
                 jsonExample = reader.ReadToEnd();
                 Debug.Log(jsonExample);
-                bridge.ParseJson(jsonExample);
+                moduleData.json = jsonExample;
+                bridge.ParseJson(moduleData.json);
+            }
+            else if (jsonTest == (int) jsonTestCase.useString)
+            {
+                Debug.Log("using string ");
+                string s = "";
+                s = moduleData.json;
+
+                /*
+                s = s.Replace("\"{", "{");
+                s = s.Replace("}\"", "}");
+                s = s.Replace("\\\"","\"");
+                s = s.Replace("\\\\", "\\");
+                s = s.Replace("\"{", "{");
+                s = s.Replace("\\\\\\", "\\");
+                s = s.Replace("\\{", "{");
+                s = s.Replace("}\"", "}");
+                */
+
+               
+                Debug.Log("modified string " + s);
+                //bridge.ParseJson(moduleData.json);
+                bridge.ParseJson(s);
+            }
+            else
+            {
+
+                Debug.Log("Invalid Json casei  " + jsonTest.ToString());
             }
         }
 
 
+        IEnumerator EndByTime(string url)
+        {
+            yield return new WaitForSeconds(moduleData.timeToEnd);
 
+            SaveState();
+            EndOfModule();
+        }
 
         // Loads json from URL, converts it to ObjectInfoCollection, and calls makeScene in the bridge class
         IEnumerator GetRequest(string url)
@@ -94,7 +132,8 @@ namespace demoRoutines
             else
             {
                 string jstring = webRequest.downloadHandler.text; // json file read as string
-                bridge.ParseJson(jstring);
+                moduleData.json = jstring;
+                bridge.ParseJson(moduleData.json);
             }
         }
 

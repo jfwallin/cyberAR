@@ -45,6 +45,7 @@ public class Bridge
     //ParseJson can be called from outside the class to trigger the methods included here
     public void ParseJson(string data)
     {
+        Debug.Log("this is the string!! " + data);
         makeScene(JsonUtility.FromJson<ObjectInfoCollection>(data));
     }
 

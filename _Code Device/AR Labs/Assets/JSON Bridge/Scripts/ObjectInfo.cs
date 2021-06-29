@@ -11,10 +11,10 @@ using UnityEngine;
 [System.Serializable]
 public class ObjectInfo
 {
-    public string name;
-    public string parentName;
-    public string type;
-    public string tag;
+    public string name = "";
+    public string parentName = "[_DYNAMIC]";
+    public string type = "";
+    public string tag = "";
     public bool active = true;
 
     public Vector3 position = new Vector3(0.0f, 1.0f, 1.5f);
@@ -24,7 +24,7 @@ public class ObjectInfo
     public bool transmittable = false; //transmission isn't working currently so this should be left as false
     public string texture = "";
     public string textureByURL = "";
-    public float[] color;
+    public float[] color ;
     public string[] RigidBody;
     public string[] PointerReceiver;
     public string[] componentsToAdd; //This holds a string version of the component script JSONs
