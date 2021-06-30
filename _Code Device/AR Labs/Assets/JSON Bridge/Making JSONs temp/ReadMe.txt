@@ -1,0 +1,1 @@
+This is a very simple way of using the editor in game mode to create or edit a "Big JSON"

@@ -1,7 +1,7 @@
 {
     "objects": [
         {
-            "name": "lame",
+            "name": "test object",
             "parentName": "[_DYNAMIC]",
             "type": "cube",
             "position": {

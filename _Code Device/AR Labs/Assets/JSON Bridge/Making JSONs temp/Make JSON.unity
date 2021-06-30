@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   name: test
-  path: Assets/JSON Bridge/Examples/Example/Example 1.json
+  path: Assets/JSON Bridge/Making JSONs temp/test.json
   newJson: 0
   info:
     objects:
