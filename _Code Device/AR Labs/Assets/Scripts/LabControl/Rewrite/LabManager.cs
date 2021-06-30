@@ -61,9 +61,7 @@ public class LabManager : MonoBehaviour
             using (StreamReader r = new StreamReader(fpath))
             {
                 ss = r.ReadToEnd();
-                //ss.Replace("\"", "\\\"");
             }
-            //ss = System.IO.File.ReadAllText(fpath);
             Debug.Log(ss);
         }
         else
@@ -72,7 +70,7 @@ public class LabManager : MonoBehaviour
         }
 
         //ActivityModuleData tmpData = new ActivityModuleData();
-        //Debug.Log("ssss  = " + ss);
+        Debug.Log("ssss  = " + ss);
         //JsonUtility.FromJsonOverwrite(ss, tmpData);
         //Debug.Log("XXXXX " + tmpData.moduleName);
 

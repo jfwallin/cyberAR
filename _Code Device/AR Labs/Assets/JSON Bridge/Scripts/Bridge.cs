@@ -12,40 +12,11 @@ using System.Security.Policy;
 using System.Runtime.InteropServices;
 using UnityEditor;
 
-public class rigidBodyClass
-{
-    public bool isKinematic;
-    public bool useGravity;
-    public float mass;
-    public float drag;
-    public float angularDrag;
-
-    public bool xConstraint;
-    public bool yConstraint;
-    public bool zConstraint;
-    public bool xRotationConstraint;
-    public bool yRotationConstraint;
-    public bool zRotationConstraint;
-
-}
-
-public class pointerReceiverClass
-{
-    //Public Variables:
-    //[Tooltip("Can we drag this?")]
-    public bool draggable;
-    public bool kinematicWhileIdle;
-    public bool faceWhileDragging;
-    public bool matchWallWhileDragging;
-    public bool invertForward;
-}
-
 public class Bridge
 {
     //ParseJson can be called from outside the class to trigger the methods included here
     public void ParseJson(string data)
     {
-        Debug.Log("this is the string!! " + data);
         makeScene(JsonUtility.FromJson<ObjectInfoCollection>(data));
     }
 
@@ -79,7 +50,6 @@ public class Bridge
             //Parse once to get the name of the component
             ComponentName cName = JsonUtility.FromJson<ComponentName>(obj.componentsToAdd[i]);
             //Check if the component already exists (ie, the mesh renderer on aprimitive)
-            Debug.Log("adding component  " + i.ToString() + " " + cName.name);
             Component myComp = myObject.GetComponent(Type.GetType(cName.name));
             if (myComp == null)
             {
@@ -102,8 +72,7 @@ public class Bridge
 
         if (obj.tag != "")
         {
-            Debug.Log(" tagging with " + obj.tag);
-            myObject.tag = "SceneObject";
+            myObject.tag = obj.tag;
             // allowable options are limited to the Unity defaults and other attributes
             // manually added to the base scene
         }
@@ -124,14 +93,12 @@ public class Bridge
 
         if (obj.texture != "")
         {
-            Debug.Log("texture " + obj.texture);
             Renderer rend = myObject.GetComponent<Renderer>();
             rend.material.mainTexture = Resources.Load<Texture2D>(obj.texture);
         }
 
         if (obj.textureByURL != "")
         {
-            Debug.Log("textureByURL " + obj.textureByURL);
             Renderer rend = myObject.GetComponent<Renderer>();
             rend.material.mainTexture = Resources.Load<Texture2D>(obj.texture);
         }
@@ -145,10 +112,11 @@ public class Bridge
             }
         }
 
+
+        
         if (obj.RigidBody!= null)
         {
 
-            Debug.Log("rigidBody string = " + obj.RigidBody);
             Rigidbody mycomp = myObject.GetComponent<Rigidbody>();
             if (mycomp == null)
             {
@@ -184,13 +152,10 @@ public class Bridge
                 rb.yRotationConstraint = ((byte)mycomp.constraints & (1 << 5)) != 0;
                 rb.zRotationConstraint = ((byte)mycomp.constraints & (1 << 6)) != 0;
 
-                // loop over the components in the json image and assign them to the helper
-                for (int i = 0; i < obj.RigidBody.Length; i++)
-                {
-                    Debug.Log(">>>>   " + i.ToString() + " | " + obj.RigidBody[i]);
-                    JsonUtility.FromJsonOverwrite(obj.RigidBody[i], rb);
-                }
+                // assign components to the helper
 
+                JsonUtility.FromJsonOverwrite(obj.RigidBody, rb);
+                
                 // transfer the helper class back to the real rigid body 
                 mycomp.useGravity = rb.useGravity;
                 mycomp.isKinematic = rb.isKinematic;
@@ -209,12 +174,12 @@ public class Bridge
 
             }
         }
+        
 
-        //Debug.Log(obj.PointerReceiver.Length.ToString() + " LENGTH");
+
         if (obj.PointerReceiver != null) 
         {
 
-            Debug.Log("PointerReceiver string = " + obj.PointerReceiver);
             MagicLeapTools.PointerReceiver mycomp = myObject.GetComponent<PointerReceiver>();
             if (mycomp == null)
             {
@@ -230,14 +195,7 @@ public class Bridge
                 pr.matchWallWhileDragging= mycomp.matchWallWhileDragging;
                 pr.invertForward= mycomp.invertForward;
 
-
-                // copy the current values from the rigid body component to the helper
-                for (int i = 0; i < obj.PointerReceiver.Length; i++)
-                {
-                    Debug.Log(">>>>   " + i.ToString() + " | " + obj.PointerReceiver[i]);
-                    JsonUtility.FromJsonOverwrite(obj.PointerReceiver[i], pr);
-                }
-
+                JsonUtility.FromJsonOverwrite(obj.PointerReceiver, pr);
 
                 mycomp.draggable = pr.draggable;
                 mycomp.kinematicWhileIdle= pr.kinematicWhileIdle;
@@ -301,7 +259,6 @@ public class Bridge
 
             if (obj.texture != "")
             {
-                Debug.Log("texture " + obj.texture);
                 Renderer rend = myObject.GetComponent<Renderer>();
                 rend.material.mainTexture = Resources.Load<Texture2D>(obj.texture);
             }
@@ -340,7 +297,6 @@ public class Bridge
                 myObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                 break;
             default:
-                Debug.Log("prefab name " + type);
                 myObject = GameObject.Instantiate(Resources.Load(type, typeof(GameObject)) as GameObject);
                 //myObject = (GameObject)Resources.Load(s1) as GameObject;
 

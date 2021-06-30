@@ -8,6 +8,37 @@ using UnityEngine;
  * One of the things about JSONs that is nice is that not every field/variable has to be filled. We will take advantage of that.
  */
 
+
+public class rigidBodyClass
+{
+    public bool isKinematic;
+    public bool useGravity;
+    public float mass;
+    public float drag;
+    public float angularDrag;
+
+    public bool xConstraint;
+    public bool yConstraint;
+    public bool zConstraint;
+    public bool xRotationConstraint;
+    public bool yRotationConstraint;
+    public bool zRotationConstraint;
+
+}
+
+public class pointerReceiverClass
+{
+    //Public Variables:
+    //[Tooltip("Can we drag this?")]
+    public bool draggable;
+    public bool kinematicWhileIdle;
+    public bool faceWhileDragging;
+    public bool matchWallWhileDragging;
+    public bool invertForward;
+}
+
+
+
 [System.Serializable]
 public class ObjectInfo
 {
@@ -25,7 +56,7 @@ public class ObjectInfo
     public string texture = "";
     public string textureByURL = "";
     public float[] color ;
-    public string[] RigidBody;
-    public string[] PointerReceiver;
+    public string RigidBody;
+    public string PointerReceiver;
     public string[] componentsToAdd; //This holds a string version of the component script JSONs
 }

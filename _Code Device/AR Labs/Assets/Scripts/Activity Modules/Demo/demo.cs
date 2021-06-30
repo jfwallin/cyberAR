@@ -28,7 +28,6 @@ namespace demoRoutines
             Debug.Log("json string module name = " + moduleData.moduleName);
             Debug.Log("json string specific name = " + moduleData.specificName);
             Debug.Log("json string   json = " + moduleData.json);
-            Debug.Log("json string   jsonURL = " + moduleData.urlJson);
             useTheBridge();
         }
 
@@ -83,17 +82,6 @@ namespace demoRoutines
                 Debug.Log("using string ");
                 string s = "";
                 s = moduleData.json;
-
-                /*
-                s = s.Replace("\"{", "{");
-                s = s.Replace("}\"", "}");
-                s = s.Replace("\\\"","\"");
-                s = s.Replace("\\\\", "\\");
-                s = s.Replace("\"{", "{");
-                s = s.Replace("\\\\\\", "\\");
-                s = s.Replace("\\{", "{");
-                s = s.Replace("}\"", "}");
-                */
 
                
                 Debug.Log("modified string " + s);

@@ -24,7 +24,7 @@
 	"textureByURL": "",
 	"color": [1.0, 1.0, 1.0, 1.0],
 	"transmittable": false,
-	"RigidBody": [],
-	"PointerReceiver": [],
+	"RigidBody": "",
+	"PointerReceiver": "",
 	"componentsToAdd": []
 }
