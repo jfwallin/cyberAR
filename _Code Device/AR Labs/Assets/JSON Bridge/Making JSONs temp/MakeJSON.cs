@@ -12,15 +12,35 @@ public class MakeJSON : MonoBehaviour
 {
 
     public string name;
-    public string folderPath;
+    public string path;
+    public bool newJson;
 
     public ObjectInfoCollection info;
+
+    private string json;
 
     // Start is called before the first frame update
     void Start()
     {
-        string json;
-        string path = folderPath + name + ".json";
+        
+        if (newJson)
+        {
+            path = path + name + ".json";
+        }
+        else
+        {
+            StreamReader reader = new StreamReader(path);
+            json = reader.ReadToEnd(); //read into from doc into string
+
+            info = JsonUtility.FromJson<ObjectInfoCollection>(json);
+        }
+        
+    }
+
+
+    void OnDestroy()
+    {
+        Debug.Log("in destroy");
 
         StreamWriter writer = new StreamWriter(path);
 
@@ -31,5 +51,4 @@ public class MakeJSON : MonoBehaviour
 
         writer.Close();
     }
-
 }

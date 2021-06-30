@@ -234,18 +234,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b2493507326ec954fa7fb0a8f58e8664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: 
-  folderPath: 
+  name: test
+  path: Assets/JSON Bridge/Examples/Example/Example 1.json
+  newJson: 0
   info:
     objects:
-    - name: 
-      parentName: 
-      type: 
+    - name: lame
+      parentName: '[_DYNAMIC]'
+      type: cube
       position: {x: 0, y: 0, z: 0}
-      scale: {x: 0, y: 0, z: 0}
-      material: 
+      scale: {x: 1, y: 1, z: 1}
+      material: blue
       transmittable: 0
-      enabled: 0
+      enabled: 1
       componentsToAdd: []
 --- !u!1 &618003120
 GameObject:
