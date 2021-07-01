@@ -10,9 +10,8 @@ using System.Collections.Specialized;
 using System.Runtime.Versioning;
 using System.Security.Policy;
 using System.Runtime.InteropServices;
-using UnityEditor;
 
-public class Bridge
+public class Bridge 
 {
     //ParseJson can be called from outside the class to trigger the methods included here
     public void ParseJson(string data)
@@ -64,24 +63,10 @@ public class Bridge
 
         myObject.transform.position = obj.position;
         myObject.transform.localScale = obj.scale;
-        //myObject.transform.eulerAngles = obj.eulerAngles;
         if (obj.parentName != "")
         {
             myObject.transform.parent = parent.transform;
         }
-
-        if (obj.tag != "")
-        {
-            myObject.tag = obj.tag;
-            // allowable options are limited to the Unity defaults and other attributes
-            // manually added to the base scene
-        }
-
-        // the default is active
-        myObject.SetActive(obj.active);
-
-        //myObject.GetComponent<PointerReceiver>().Clicked)
-
 
         //This block is removed in Isaac's code and dealt with in the stringJson
         //I can't quite get that working though
@@ -90,122 +75,8 @@ public class Bridge
             Renderer rend = myObject.GetComponent<Renderer>();
             rend.material = Resources.Load<Material>(obj.material); //material must be in a recources folder.
         }
-
-        if (obj.texture != "")
-        {
-            Renderer rend = myObject.GetComponent<Renderer>();
-            rend.material.mainTexture = Resources.Load<Texture2D>(obj.texture);
-        }
-
-        if (obj.textureByURL != "")
-        {
-            Renderer rend = myObject.GetComponent<Renderer>();
-            rend.material.mainTexture = Resources.Load<Texture2D>(obj.texture);
-        }
-
-        if (obj.color != null)
-        {
-            if (obj.color.Length == 4)
-            {
-                Renderer rend = myObject.GetComponent<Renderer>();
-                rend.material.color = new Color( obj.color[0], obj.color[1], obj.color[2], obj.color[3]);
-            }
-        }
-
-
-        
-        if (obj.RigidBody!= null)
-        {
-
-            Rigidbody mycomp = myObject.GetComponent<Rigidbody>();
-            if (mycomp == null)
-            {
-                Debug.Log("no rigidbody");
-            }
-            else
-            {
-                // create a new helper class for rigidbody components
-                rigidBodyClass rb = new rigidBodyClass();
-
-                // copy the current values from the rigid body component to the helper
-                rb.useGravity = mycomp.useGravity;
-                rb.isKinematic = mycomp.isKinematic;
-                rb.mass = mycomp.mass;
-                rb.drag = mycomp.drag;
-                rb.angularDrag = mycomp.angularDrag;
-
-                // the constraints for Rigid body use a bit flag system
-                // 2 = x constraint
-                // 4 = y constraint
-                // 8 = z constraint
-                // 16 = x rotation constraint
-                // 32 = y rotation constraint
-                // 64 = z rotation constraint
-                // the sum of the variables gives you the constraint, so 2+4 = 6 
-                // would constrain x and y
-                //rb.xConstraint = ((byte)mycomp.constraints & (1 << pos)) != 0;
-                rb.xConstraint = ((byte)mycomp.constraints & (1 << 1)) != 0;
-                rb.yConstraint = ((byte)mycomp.constraints & (1 << 2)) != 0;
-                rb.zConstraint = ((byte)mycomp.constraints & (1 << 3)) != 0;
-
-                rb.xRotationConstraint = ((byte)mycomp.constraints & (1 << 4)) != 0;
-                rb.yRotationConstraint = ((byte)mycomp.constraints & (1 << 5)) != 0;
-                rb.zRotationConstraint = ((byte)mycomp.constraints & (1 << 6)) != 0;
-
-                // assign components to the helper
-
-                JsonUtility.FromJsonOverwrite(obj.RigidBody, rb);
-                
-                // transfer the helper class back to the real rigid body 
-                mycomp.useGravity = rb.useGravity;
-                mycomp.isKinematic = rb.isKinematic;
-                mycomp.mass = rb.mass;
-                mycomp.drag = rb.drag;
-                mycomp.angularDrag = rb.angularDrag;
-
-                // this is a bit tedeous, but it zeems to work
-                mycomp.constraints = RigidbodyConstraints.None;
-                if (rb.xConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezePositionX;
-                if (rb.yConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezePositionY;
-                if (rb.zConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezePositionZ;
-                if (rb.xRotationConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezeRotationX;
-                if (rb.yRotationConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezeRotationY;
-                if (rb.zRotationConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezeRotationZ;
-
-            }
-        }
-        
-
-
-        if (obj.PointerReceiver != null) 
-        {
-
-            MagicLeapTools.PointerReceiver mycomp = myObject.GetComponent<PointerReceiver>();
-            if (mycomp == null)
-            {
-                Debug.Log("no Pointer Receiver");
-            }
-            else
-            {
-                // create a new helper class for rigidbody components
-                pointerReceiverClass pr = new pointerReceiverClass();
-                pr.draggable = mycomp.draggable;
-                pr.kinematicWhileIdle= mycomp.kinematicWhileIdle;
-                pr.faceWhileDragging = mycomp.faceWhileDragging;
-                pr.matchWallWhileDragging= mycomp.matchWallWhileDragging;
-                pr.invertForward= mycomp.invertForward;
-
-                JsonUtility.FromJsonOverwrite(obj.PointerReceiver, pr);
-
-                mycomp.draggable = pr.draggable;
-                mycomp.kinematicWhileIdle= pr.kinematicWhileIdle;
-                mycomp.faceWhileDragging = pr.faceWhileDragging;
-                mycomp.matchWallWhileDragging= pr.matchWallWhileDragging;
-                mycomp.invertForward= pr.invertForward;
-            }
-
-        }
     }
+
 
     private void makeTransmissionObject(ObjectInfo obj)
     {
@@ -247,7 +118,7 @@ public class Bridge
             {
                 myObject.transform.parent = parent.transform;
             }
-
+            
 
             //This block is removed in Isaac's code and dealt with in the stringJson
             //I can't quite get that working though
@@ -256,15 +127,9 @@ public class Bridge
                 Renderer rend = myObject.GetComponent<Renderer>();
                 rend.material = Resources.Load<Material>(obj.material); //material must be in a recources folder.
             }
-
-            if (obj.texture != "")
-            {
-                Renderer rend = myObject.GetComponent<Renderer>();
-                rend.material.mainTexture = Resources.Load<Texture2D>(obj.texture);
-            }
             //I think the issue is here or when I reposition the thing. Need to look at Issac's pong game.
         }
-
+        
     }
 
 
@@ -273,8 +138,7 @@ public class Bridge
     {
         GameObject myObject;
 
-        switch (type)
-        {
+        switch (type){
             case "":
                 myObject = new GameObject();
                 break;
@@ -288,7 +152,7 @@ public class Bridge
                 myObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
                 break;
             case "sphere":
-                myObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                myObject=GameObject.CreatePrimitive(PrimitiveType.Sphere);
                 break;
             case "capsule":
                 myObject = GameObject.CreatePrimitive(PrimitiveType.Capsule);
@@ -297,10 +161,7 @@ public class Bridge
                 myObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
                 break;
             default:
-                myObject = GameObject.Instantiate(Resources.Load(type, typeof(GameObject)) as GameObject);
-                //myObject = (GameObject)Resources.Load(s1) as GameObject;
-
-                //myObject = GameObject.Instantiate(Resources.Load(type)) as GameObject; //This line is for if you want the default to be loading a prefab
+                myObject = GameObject.Instantiate(Resources.Load(type)) as GameObject; //This line is for if you want the default to be loading a prefab
                 //Note that the above line requires your prefab to be located in a resources folder.
                 break;
         }
@@ -310,13 +171,11 @@ public class Bridge
     //This whole method will likely have to change slightly when we start dealing with Transmission.
 
     //a cleanup meathod....hmmm
-    public void CleanUp(string data)
-    {
+    public void CleanUp(string data) {
         //parse string
         ObjectInfoCollection info = JsonUtility.FromJson<ObjectInfoCollection>(data);
 
-        foreach (ObjectInfo obj in info.objects)
-        {
+        foreach (ObjectInfo obj in info.objects) {
             GameObject.Destroy(GameObject.Find(obj.name));
         }
     }
