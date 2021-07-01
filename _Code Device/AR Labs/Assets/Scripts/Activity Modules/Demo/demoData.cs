@@ -8,9 +8,7 @@ namespace demoRoutines
     [System.Serializable]
     public class demoData : ActivityModuleData
     {
-        public string urlJson;
-        public string json;
-        //public ObjectInfoCollection info;
+        public string objects;
 
         public float timeToEnd = -1;
         public bool endUsingButton = true;

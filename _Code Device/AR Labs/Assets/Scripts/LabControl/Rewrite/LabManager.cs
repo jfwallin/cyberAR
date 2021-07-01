@@ -39,65 +39,55 @@ public class LabManager : MonoBehaviour
 
         instructionCanvas.GetComponent<Text>().text = "Now is the time for all good men";
 
-        string url = "http://cyberlearnar.cs.mtsu.edu/get_file/scene/scene-example.json";
-        string ss = "{\"urlJson\": \"" + url + "\"} ";
-        Debug.Log(ss);
-
-
         currentModuleObject = Instantiate(demoPrefab2, new Vector3(0.0f, 1.0f, 0.0f), Quaternion.identity);  //, rootUITransform);
         currentModuleScript = currentModuleObject.GetComponent<ActivityModule>();
 
-        ss = "{\"moduleName\":\"duck\",\"specificName\":\"quacky\",\"prefabName\":\"demoPrefab\",\"prerequisiteActivities\":[],\"educationalObjectives\":[\"show that ducks are superiour\",\"quack a joke frequently\", \"promote duckyness everywhere\", \"duck the responsiblity of bad grades\"],\"instructions\":[\"click on something... anything!\"],\"numRepeatsAllowed\":0,\"numGradableRepeatsAllowed\":0,\"gradingCriteria\":\"\",\"currentScore\":0.0,\"bestScore\":0.0,\"completed\":false,\"currentSubphase\":0,\"subphaseNames\":[],\"demoJson\":\"\",\"urlJson\":\"http://cyberlearnar.cs.mtsu.edu/get_file/scene/scene-example.json\"}";
 
         string jsonpath = "C:/Users/jfwal/OneDrive/Documents/GitHub/cyberAR/_Code Device/AR Labs/Assets/Resources/jsonDefinitions/";
-        string fname = "demo7.json";
-        //string fname = "genericDemo.json";
-        //fname = "gd.json";
+        string fname = "demo10.json";
+        string ss = "";
+
         string fpath = jsonpath + fname;
-        if (File.Exists(fpath))
-        {
-            Debug.Log("json file exists!"); 
 
-            using (StreamReader r = new StreamReader(fpath))
-            {
-                ss = r.ReadToEnd();
-            }
-            Debug.Log(ss);
-        }
-        else
-        {
-            Debug.Log("NO json file!!!!!!!!!!!");
-        }
 
-        //ActivityModuleData tmpData = new ActivityModuleData();
+        //if (File.Exists(fpath))
+        //{
+
+            string[] lines = System.IO.File.ReadAllLines(fpath);
+
+        ss = lines[2];
+        Debug.Log("lines length = " + lines.Length.ToString());
+        for (int i = 0; i < lines.Length; i++)
+            Debug.Log(i.ToString() + "  : " + lines[i]);
+
+        
+        ActivityModuleData tmpData = new ActivityModuleData();
         Debug.Log("ssss  = " + ss);
-        //JsonUtility.FromJsonOverwrite(ss, tmpData);
-        //Debug.Log("XXXXX " + tmpData.moduleName);
+        JsonUtility.FromJsonOverwrite(ss, tmpData);
 
-        //string eobj = "Educational Objectives: \n\n";
-        //string s;
-        //for (int i = 0; i < tmpData.educationalObjectives.Length; i++ )
-       // {
-       //     s = tmpData.educationalObjectives[i];
-       //     eobj = eobj  + i.ToString() + ") " + s + "\n";
-       // }
-       // instructionCanvas.GetComponent<Text>().text = eobj;
-        currentModuleScript.Initialize(ss);
+        string eobj = "Educational Objectives: \n\n";
+        string s;
+        for (int i = 0; i < tmpData.educationalObjectives.Length; i++ )
+        {
+            s = tmpData.educationalObjectives[i];
+            eobj = eobj  + i.ToString() + ") " + s + "\n";
+        }
+        instructionCanvas.GetComponent<Text>().text = eobj;
     }
 
 
     public void spawnDemo()
     {
-        //demoObject = Instantiate(demoPrefab, Vector3.zero, Quaternion.identity);  //, rootUITransform);
 
 
-        //ActivityModuleData tmpData = new ActivityModuleData();
-        //JsonUtility.FromJsonOverwrite(modules[index], tmpData);
+        ActivityModuleData tmpData = new ActivityModuleData();
+        JsonUtility.FromJsonOverwrite(modules[index], tmpData);
         //Load prefab from resources
-        //GameObject tmpPrefab = (GameObject)Resources.Load($"Prefabs/{tmpData.prefabName}");
+        GameObject tmpPrefab = (GameObject)Resources.Load($"Prefabs/{tmpData.prefabName}");
         //There will need to be some sort of placement routine, but for now it will be placed at 0,0,0
-        //currentModuleObject = Instantiate(tmpPrefab, Vector3.zero, Quaternion.identity);
-        //currentModuleScript = currentModuleObject.GetComponent<ActivityModule>();
+        currentModuleObject = Instantiate(tmpPrefab, Vector3.zero, Quaternion.identity);
+        currentModuleScript = currentModuleObject.GetComponent<ActivityModule>();
+        currentModuleScript.Initialize(modules[index]);
 
     }
 
