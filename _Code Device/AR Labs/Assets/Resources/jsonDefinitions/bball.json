@@ -1,0 +1,50 @@
+{
+	"name": "Basketball",
+	"parentName": "[_DYNAMIC]",
+	"type": "Prefabs/moveableSphere",
+	"tag": "",
+	"active": true,
+	"position": {
+		"x": 0.0,
+		"y": 1.0,
+		"z": 1.5
+	},
+	"euleriAngles": {
+		"x" : 0.0,
+		"y": 0.0,
+		"z": 0.0
+	},
+	"scale": {
+		"x": 1.0,
+		"y": 1.0,
+		"z": 1.0
+	},
+	"material": "",
+	"texture": "balldimpled",
+	"textureByURL": "",
+	"color": [1.0, 1.0, 1.0, 1.0],
+	"transmittable": false,
+	"RigidBody": [
+		"{\"mass\": 1.0}",
+		"{\"drag\": 5.0}",
+		"{\"angularDrag\":0.00}",
+		"{\"isKinematic\" :false}",
+		"{\"useGravity\" : true}",
+		"{\"xConstraint\":true}",
+		"{\"yConstraint\":true}",
+		"{\"zConstraint\":true}",
+		"{\"xRotationConstraint\":true}",
+		"{\"yRotationConstraint\":true}",
+		"{\"zRotationConstraint\":true}"
+	],
+	"PointerReceiver": [
+		"{\"draggable\":true}",
+		"{\"kinematicWhileIdle\":true}",
+		"{\"faceWhileDragging\":false}",
+		"{\"matchWallWhileDragging\":false}",
+		"{\"invertForward\":false}"
+	],
+	"componentsToAdd": [
+		"{\"name\":\"simpleRotation\",\"timeRate\":1.0, \"rotationTime\":3.0 }"
+	]
+}

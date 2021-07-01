@@ -1,0 +1,214 @@
+{
+    "moduleName": "planetDemo",
+    "specificName": "quacky",
+    "prefabName": "demoPrefab",
+    "prerequisiteActivities": [],
+    "educationalObjectives": [
+        "show that ducks are superiour",
+        "quack a joke frequently",
+        "promote duckyness everywhere",
+        "duck the responsiblity of bad grades"
+    ],
+    "instructions": [
+        "click on something... anything!"
+    ],
+    "numRepeatsAllowed": 0,
+    "numGradableRepeatsAllowed": 0,
+    "gradingCriteria": "",
+    "currentScore": 0.0,
+    "bestScore": 0.0,
+    "completed": false,
+    "currentSubphase": 0,
+    "subphaseNames": [],
+    "urlJson": "http://cyberlearnar.cs.mtsu.edu/get_file/scene/scene-example.json",
+    "json": "",
+    "timeToEnd": 15.0,
+    "endUsingButton": true,
+    "objects": [
+        {
+            "name": "Jupiter",
+            "parentName": "[_DYNAMIC]",
+            "type": "Prefabs/moveableSphere",
+            "tag": "",
+            "active": true,
+            "position": {
+                "x": -1.0,
+                "y": 1.5,
+                "z": 1.7
+            },
+            "euleriAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.5,
+                "y": 0.5,
+                "z": 0.5
+            },
+            "material": "",
+            "texture": "Textures/_k_jupiter",
+            "textureByURL": "",
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "transmittable": false,
+            "RigidBody": "{\"mass\": 1.0, \"drag\": 5.0, \"angularDrag\": 0.0, \"isKinematic\": true, \"useGravity\": false, \"xConstraint\": false, \"yConstraint\": false, \"zConstraint\": false, \"xRotationConstraint\": true, \"yRotationConstraint\": true, \"zRotationConstraint\": true}",
+            "PointerReceiver": "{\"draggable\": true, \"kinematicWhileIdle\": true, \"faceWhileDragging\": false, \"matchWallWhileDragging\": false, \"invertForward\": false}",
+            "componentsToAdd": [
+                "{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 28.0}"
+            ]
+        },
+        {
+            "name": "Uranus",
+            "parentName": "[_DYNAMIC]",
+            "type": "Prefabs/moveableSphere",
+            "tag": "",
+            "active": true,
+            "position": {
+                "x": -0.5,
+                "y": 1.5,
+                "z": 1.7
+            },
+            "euleriAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.2,
+                "y": 0.2,
+                "z": 0.2
+            },
+            "material": "",
+            "texture": "Textures/_k_uranus",
+            "textureByURL": "",
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "transmittable": false,
+            "RigidBody": "{\"mass\": 1.0, \"drag\": 5.0, \"angularDrag\": 0.0, \"isKinematic\": true, \"useGravity\": false, \"xConstraint\": false, \"yConstraint\": false, \"zConstraint\": false, \"xRotationConstraint\": true, \"yRotationConstraint\": true, \"zRotationConstraint\": true}",
+            "PointerReceiver": "{\"draggable\": true, \"kinematicWhileIdle\": true, \"faceWhileDragging\": false, \"matchWallWhileDragging\": false, \"invertForward\": false}",
+            "componentsToAdd": [
+                "{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 28.0}"
+            ]
+        },
+        {
+            "name": "Earth",
+            "parentName": "[_DYNAMIC]",
+            "type": "Prefabs/moveableSphere",
+            "tag": "",
+            "active": true,
+            "position": {
+                "x": 0.0,
+                "y": 1.5,
+                "z": 1.7
+            },
+            "euleriAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.1,
+                "y": 0.1,
+                "z": 0.1
+            },
+            "material": "",
+            "texture": "Textures/2k_earth_daymap",
+            "textureByURL": "",
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "transmittable": false,
+            "RigidBody": "{\"mass\": 1.0, \"drag\": 5.0, \"angularDrag\": 0.0, \"isKinematic\": true, \"useGravity\": false, \"xConstraint\": false, \"yConstraint\": false, \"zConstraint\": false, \"xRotationConstraint\": true, \"yRotationConstraint\": true, \"zRotationConstraint\": true}",
+            "PointerReceiver": "{\"draggable\": true, \"kinematicWhileIdle\": true, \"faceWhileDragging\": false, \"matchWallWhileDragging\": false, \"invertForward\": false}",
+            "componentsToAdd": [
+                "{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 28.0}"
+            ]
+        },
+        {
+            "name": "Mars",
+            "parentName": "[_DYNAMIC]",
+            "type": "Prefabs/moveableSphere",
+            "tag": "",
+            "active": true,
+            "position": {
+                "x": 0.5,
+                "y": 1.5,
+                "z": 1.7
+            },
+            "euleriAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.03,
+                "y": 0.03,
+                "z": 0.03
+            },
+            "material": "",
+            "texture": "Textures/_k_mars",
+            "textureByURL": "",
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "transmittable": false,
+            "RigidBody": "{\"mass\": 1.0, \"drag\": 5.0, \"angularDrag\": 0.0, \"isKinematic\": true, \"useGravity\": false, \"xConstraint\": false, \"yConstraint\": false, \"zConstraint\": false, \"xRotationConstraint\": true, \"yRotationConstraint\": true, \"zRotationConstraint\": true}",
+            "PointerReceiver": "{\"draggable\": true, \"kinematicWhileIdle\": true, \"faceWhileDragging\": false, \"matchWallWhileDragging\": false, \"invertForward\": false}",
+            "componentsToAdd": [
+                "{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 28.0}"
+            ]
+        },
+        {
+            "name": "Moon",
+            "parentName": "[_DYNAMIC]",
+            "type": "Prefabs/moveableSphere",
+            "tag": "",
+            "active": true,
+            "position": {
+                "x": 1.0,
+                "y": 1.5,
+                "z": 1.7
+            },
+            "euleriAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.02,
+                "y": 0.02,
+                "z": 0.02
+            },
+            "material": "",
+            "texture": "Textures/_k_moon",
+            "textureByURL": "",
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "transmittable": false,
+            "RigidBody": "{\"mass\": 1.0, \"drag\": 5.0, \"angularDrag\": 0.0, \"isKinematic\": true, \"useGravity\": false, \"xConstraint\": false, \"yConstraint\": false, \"zConstraint\": false, \"xRotationConstraint\": true, \"yRotationConstraint\": true, \"zRotationConstraint\": true}",
+            "PointerReceiver": "{\"draggable\": true, \"kinematicWhileIdle\": true, \"faceWhileDragging\": false, \"matchWallWhileDragging\": false, \"invertForward\": false}",
+            "componentsToAdd": [
+                "{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 28.0}"
+            ]
+        }
+    ]
+}
