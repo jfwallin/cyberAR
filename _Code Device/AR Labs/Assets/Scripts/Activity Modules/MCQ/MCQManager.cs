@@ -50,8 +50,13 @@ namespace MCQ
         /// </summary>
         /// <param name="initData">The data object containing all the information for the exercise</param>
         /// <param name="mPlayer">Reference to the media player that will play media for the question</param>
-        public override void Initialize(ActivityModuleData initData)
+        //public override void Initialize(ActivityModuleData initData)
+        public override void Initialize(string jsonData) //ActivityModuleData initData)
         {
+
+            ActivityModuleData initData = new ActivityModuleData(); 
+             JsonUtility.FromJsonOverwrite(jsonData, initData);
+
             Debug.Log("Initialize called on the MCQManager");
             //Set necessary references
             if (initData is MCExerciseData)
@@ -179,9 +184,11 @@ namespace MCQ
             go.GetComponent<LabControl>().MCCompleted();
         }
 
-        public override ActivityModuleData SaveState()
+        //public override ActivityModuleData SaveState()
+        public override string SaveState()
         {
-            return exerciseData;
+            //   return exerciseData;
+            return "";
         }
         #endregion //Public Functions
 

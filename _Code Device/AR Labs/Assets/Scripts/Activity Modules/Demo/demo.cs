@@ -13,21 +13,13 @@ namespace demoRoutines
         private demoData moduleData;        //Conatians answer choices, correct answers, and question text
         private Bridge bridge;
         private string jsonString;
-        public override void Initialize(ActivityModuleData dataIn)
+        //public override void Initialize(ActivityModuleData dataIn)
+        public override void Initialize(string jsonData)
         {
             moduleData = new demoData();
-            if (dataIn is demoData)
-            {
-                moduleData = (demoData) dataIn;
-            }
-            else
-            {
-                Debug.LogError("Unable to cast ActivityModuleData into correct data object, disabling script");
-                enabled = false;
-            }
 
-            //jsonString = initData;
-            //JsonUtility.FromJsonOverwrite(initData, moduleData);
+            jsonString = jsonData;
+            JsonUtility.FromJsonOverwrite(jsonData, moduleData);
             mPlayer = MediaPlayer.Instance;
 
             bridge = new Bridge();
@@ -39,15 +31,14 @@ namespace demoRoutines
         public override void EndOfModule()
         {
             Debug.Log("demo finished!");
-            //bridge.CleanUp(moduleData.json);
             bridge.CleanUp(jsonString);
             //FindObjectOfType<LabManager>().ModuleComplete();
         }
 
         //public override string SaveState()
-        public override ActivityModuleData SaveState()
+        public override string SaveState()
         {
-            return moduleData;
+            return jsonString;
         }
 
 

@@ -34,7 +34,8 @@ namespace MCQ
         public void OnStartClicked()
         {
             Debug.Log("OnStartClicked called");
-            manager.Initialize(data);
+            manager.Initialize(JsonUtility.ToJson(data));
+
         }
     }
 }

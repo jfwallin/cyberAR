@@ -9,9 +9,9 @@ public abstract class ActivityModule : MonoBehaviour
 {
     public ActivityModuleData data;
 
-    //public abstract void Initialize(string jsonData );
+    public abstract void Initialize(string jsonData );
     //jw change
-    public abstract void Initialize(ActivityModuleData initData);
+    //public abstract void Initialize(ActivityModuleData initData);
     //Have to define one function with one parameter. Problem is,
     //different modules will have different data objects. If we 
     //pass the unparsed string, that could work. and then the module
@@ -20,7 +20,7 @@ public abstract class ActivityModule : MonoBehaviour
 
     public abstract void EndOfModule();
 
-    //public abstract string SaveState();
+    public abstract string SaveState();
     // jw change
-    public abstract ActivityModuleData SaveState();
+    //public abstract ActivityModuleData SaveState();
 }
