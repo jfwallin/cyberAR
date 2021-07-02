@@ -30,10 +30,11 @@ namespace demoRoutines
 
         public override void EndOfModule()
         {
-            Debug.Log("demo finished!");
             bridge.CleanUp(jsonString);
-            //FindObjectOfType<LabManager>().ModuleComplete();
+//            StartCoroutine(DelayBeforeExit());
+            FindObjectOfType<LabManager>().ModuleComplete();
         }
+
 
         //public override string SaveState()
         public override string SaveState()
@@ -42,23 +43,10 @@ namespace demoRoutines
         }
 
 
-        // Start is called before the first frame update
-        void Start()
-        {
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-
-        }
-
-
         IEnumerator EndByTime()
         {
             yield return new WaitForSeconds(moduleData.timeToEnd);
 
-            SaveState();
             EndOfModule();
         }
 

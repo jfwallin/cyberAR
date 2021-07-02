@@ -312,6 +312,8 @@ public class Bridge
     //a cleanup meathod....hmmm
     public void CleanUp(string data)
     {
+
+        Debug.Log("cleaning up in the bridge");
         //parse string
         ObjectInfoCollection info = JsonUtility.FromJson<ObjectInfoCollection>(data);
 

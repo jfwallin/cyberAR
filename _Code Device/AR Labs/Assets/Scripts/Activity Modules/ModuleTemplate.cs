@@ -23,19 +23,7 @@ public class ModuleTemplate : ActivityModule
     //public override void Initialize(ActivityModuleData initData)
     public override void Initialize(string jsonData)
     {
-    /*    //Downcast initData into proper data type describing the module
-        if(initData is ModuleTemplateData)
-        {
-            moduleData = (ModuleTemplateData)initData;
-        }
-        else
-        {
-            Debug.LogError("Unable to cast ActivityModuleData into correct data object, disabling script");
-            enabled = false;
-        }
-    */
         
-        //jsonString = initData;
         JsonUtility.FromJsonOverwrite(jsonData, moduleData);
         //Get reference to the media player
         mPlayer = MediaPlayer.Instance;

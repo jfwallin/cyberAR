@@ -13,14 +13,6 @@ public class LabManager : MonoBehaviour
     private GameObject currentModuleObject;
     private ActivityModule currentModuleScript;
 
-
-
-    [SerializeField]
-    private GameObject demoPrefab = null;
-    [SerializeField]
-    private GameObject demoPrefab2 = null;
-    private GameObject demoObject = null;
-
     [SerializeField]
     GameObject instructionPrefab;
     private GameObject instructionHolder;
@@ -29,7 +21,8 @@ public class LabManager : MonoBehaviour
 
     public void Start()
     {
-        createInstructions();
+        // ultimately - we might use Initialize externally 
+        // For now - we will manually read in the json.
         spawnDemoNew();
     }
 
@@ -37,67 +30,70 @@ public class LabManager : MonoBehaviour
     public void spawnDemoNew()
     {
 
-        instructionCanvas.GetComponent<Text>().text = "Now is the time for all good men";
-
-        currentModuleObject = Instantiate(demoPrefab2, new Vector3(0.0f, 1.0f, 0.0f), Quaternion.identity);  //, rootUITransform);
-        currentModuleScript = currentModuleObject.GetComponent<ActivityModule>();
-
-
+        // this is a temporary way to load a json file
         string jsonpath = "C:/Users/jfwal/OneDrive/Documents/GitHub/cyberAR/_Code Device/AR Labs/Assets/Resources/jsonDefinitions/";
         string fname = "demo10.json";
-        string ss = "";
-
         string fpath = jsonpath + fname;
+        modules = System.IO.File.ReadAllLines(fpath);
+        Debug.Log("modules loaded = " + modules.Length.ToString());
 
-
-        //if (File.Exists(fpath))
-        //{
-
-        string[] lines = System.IO.File.ReadAllLines(fpath);
-
-        ss = lines[0];
-        Debug.Log("lines length = " + lines.Length.ToString());
-        for (int i = 0; i < lines.Length; i++)
-            Debug.Log(i.ToString() + "  : " + lines[i]);
-
-
-        ActivityModuleData tmpData = new ActivityModuleData();
-        JsonUtility.FromJsonOverwrite(ss, tmpData);
-
-        string eobj = "Educational Objectives: \n\n";
-        string s;
-        for (int i = 0; i < tmpData.educationalObjectives.Length; i++)
-        {
-            s = tmpData.educationalObjectives[i];
-            eobj = eobj + i.ToString() + ") " + s + "\n";
-        }
-        instructionCanvas.GetComponent<Text>().text = eobj;
-
-        spawnDemo(ss);
+        Initialize(modules);
     }
 
-
-    public void spawnDemo(string ssss)
+// --------------------------------------------------------
+    public void Initialize(string[] moduleData)
     {
+        // this creates the instruction canvas
+        createInstructions();
 
+        //Initialize data
+        modules = moduleData;
 
+        //Start Lab
+        SpawnModule();
+    }
+
+    private void SpawnModule()
+    {
+        Debug.Log("spawning module #" + index.ToString());
+
+        //Deserialize JSON to get the prefab name
         ActivityModuleData tmpData = new ActivityModuleData();
-        //JsonUtility.FromJsonOverwrite(modules[index], tmpData);
+        JsonUtility.FromJsonOverwrite(modules[index], tmpData);
+
+        // update the student instructions, objectives, and nav screen
+        updateInstructions(tmpData);
+
         //Load prefab from resources
-//        GameObject tmpPrefab = (GameObject)Resources.Load($"Prefabs/{tmpData.prefabName}");
-        //There will need to be some sort of placement routine, but for now it will be placed at 0,0,0
-        //currentModuleObject = Instantiate(tmpPrefab, Vector3.zero, Quaternion.identity);
-        currentModuleObject = Instantiate(demoPrefab, Vector3.zero, Quaternion.identity);
-        currentModuleScript = currentModuleObject.GetComponent<ActivityModule>();
-        //currentModuleScript.Initialize(modules[index]);
-        Debug.Log(">>>>>>>>>  " + ssss);
-        currentModuleScript.Initialize(ssss);
+        GameObject tmpPrefab = (GameObject)Resources.Load($"Prefabs/{tmpData.prefabName}");
 
+        //There will need to be some sort of placement routine, but for now it will be placed at 0,0,0
+        currentModuleObject = Instantiate(tmpPrefab, Vector3.zero, Quaternion.identity);
+        currentModuleScript = currentModuleObject.GetComponent<ActivityModule>();
+
+        //Start the module
+        currentModuleScript.Initialize(modules[index]);
+    }
+ 
+    public void ModuleComplete()
+    {
+        index++;
+        if (index < modules.Length)
+        {
+            Destroy(currentModuleObject);
+            SpawnModule();
+        }
+        else
+        {
+            Destroy(currentModuleObject);
+            EndLab();
+        }
     }
 
-    public void demoCompleted()
+
+    private void EndLab()
     {
-        Destroy(demoObject);
+        Application.Quit();
     }
 
     void createInstructions()
@@ -109,53 +105,21 @@ public class LabManager : MonoBehaviour
     }
 
 
-
-// --------------------------------------------------------
-
-
-    public void Initialize(string[] moduleData)
+    void updateInstructions(ActivityModuleData tmpData)
     {
-        //Initialize data
-        modules = moduleData;
+        // case the current data activity module data into a local variable
+        //ActivityModuleData tmpData = new ActivityModuleData();
+        //JsonUtility.FromJsonOverwrite(modules[index], tmpData);
 
-        //Start Lab
-//        SpawnModule();
-    }
-
-
-
-
-
- /*   private void SpawnModule()
-    {
-        //Deserialize JSON to get the prefab name
-        ActivityModuleData tmpData = new ActivityModuleData();
-        JsonUtility.FromJsonOverwrite(modules[index], tmpData);
-        //Load prefab from resources
-        GameObject tmpPrefab = (GameObject)Resources.Load($"Prefabs/{tmpData.prefabName}");
-        //There will need to be some sort of placement routine, but for now it will be placed at 0,0,0
-        currentModuleObject = Instantiate(tmpPrefab, Vector3.zero, Quaternion.identity);
-        currentModuleScript = currentModuleObject.GetComponent<ActivityModule>();
-        //Start the module
-        currentModuleScript.Initialize(modules[index]);
-    }
- */
-    public void ModuleComplete()
-    {
-        Destroy(currentModuleObject);
-        index++;
-        if (index < modules.Length)
+        string eobj = "Educational Objectives: \n\n";
+        string s;
+        for (int i = 0; i < tmpData.educationalObjectives.Length; i++)
         {
-   //         SpawnModule();
+            s = tmpData.educationalObjectives[i];
+            eobj = eobj + i.ToString() + ") " + s + "\n";
         }
-        else
-        {
-            EndLab();
-        }
+        instructionCanvas.GetComponent<Text>().text = eobj;
+
     }
 
-    private void EndLab()
-    {
-        ;
-    }
 }
