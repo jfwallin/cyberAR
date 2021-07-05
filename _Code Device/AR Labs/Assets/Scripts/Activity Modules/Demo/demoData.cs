@@ -9,6 +9,7 @@ namespace demoRoutines
     public class demoData : ActivityModuleData
     {
         public string objects;
+        public bool useSunlight = false;
 
         public float timeToEnd = -1;
         public bool endUsingButton = true;

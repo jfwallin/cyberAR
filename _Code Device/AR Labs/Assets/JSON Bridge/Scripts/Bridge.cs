@@ -298,8 +298,8 @@ public class Bridge
                 break;
             default:
                 myObject = GameObject.Instantiate(Resources.Load(type, typeof(GameObject)) as GameObject);
-                //myObject = (GameObject)Resources.Load(s1) as GameObject;
 
+                //myObject = (GameObject)Resources.Load(s1) as GameObject;
                 //myObject = GameObject.Instantiate(Resources.Load(type)) as GameObject; //This line is for if you want the default to be loading a prefab
                 //Note that the above line requires your prefab to be located in a resources folder.
                 break;

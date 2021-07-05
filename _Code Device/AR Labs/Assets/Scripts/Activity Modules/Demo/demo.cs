@@ -4,15 +4,19 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.IO;
 
+
 namespace demoRoutines
 {
     public class demo : ActivityModule
     {
         private MediaPlayer mPlayer = null;         //Reference to the object that plays all media
-        //[SerializeField]
         private demoData moduleData;        //Conatians answer choices, correct answers, and question text
         private Bridge bridge;
         private string jsonString;
+
+        private utility.lightControl lightControl; 
+
+
         //public override void Initialize(ActivityModuleData dataIn)
         public override void Initialize(string jsonData)
         {
@@ -22,6 +26,10 @@ namespace demoRoutines
             JsonUtility.FromJsonOverwrite(jsonData, moduleData);
             mPlayer = MediaPlayer.Instance;
 
+            lightControl = new utility.lightControl();
+            if (moduleData.useSunlight)
+                lightControl.sunlight();
+
             bridge = new Bridge();
             bridge.ParseJson(jsonString);
             if (moduleData.timeToEnd > 0)
@@ -30,6 +38,7 @@ namespace demoRoutines
 
         public override void EndOfModule()
         {
+            lightControl.restoreLights();
             bridge.CleanUp(jsonString);
 //            StartCoroutine(DelayBeforeExit());
             FindObjectOfType<LabManager>().ModuleComplete();
