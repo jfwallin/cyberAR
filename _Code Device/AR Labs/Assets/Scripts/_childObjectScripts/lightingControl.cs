@@ -83,6 +83,7 @@ namespace utility
             sceneLight.shadows = LightShadows.None;
             sceneLight.type = LightType.Directional;
             sceneLight.color = Color.white;
+          
 
         }
     }
