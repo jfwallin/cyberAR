@@ -1,14 +1,14 @@
 {
-    "moduleName": "Moveable Sphere Demo",
-    "specificName": "Sunlight on a basketball (part 2)",
-    "jsonFileName": "basketBallDemo2.json",
+    "moduleName": "Mini Earth Moon Demo",
+    "specificName": "The view from above the Earth's north pole",
+    "jsonFileName": "miniEarthMoon.json",
     "prefabName": "demoPrefab",
     "prerequisiteActivities": [],
     "educationalObjectives": [
-        "Understand that shadows on spherical objects lead to moon phases"
+        "Explore how shadows are cast on the Earth and Moon as seen from above"
     ],
     "instructions": [
-        "Explore how changing the location \nof the basketball changes the shadows.\n\n- Reach out to extend pointer. \n- Use the trigger to grab objects\n- Click on the red button when you are done exploring."
+        "This model is not to scale! \nNotice how rapidly the earth rotates \ncompared to how long it takes for the moon \nto revolve in its orbit.\n\n- Reach out to extend pointer. \n- Use the trigger to grab objects\n- Click on the red button when you are done exploring."
     ],
     "numRepeatsAllowed": 0,
     "numGradableRepeatsAllowed": 0,
@@ -22,7 +22,7 @@
     "json": "",
     "timeToEnd": 10,
     "endUsingButton": true,
-    "description": "A demonstration of how light from the sun illuminates a basketball.",
+    "description": "A one-meter orbit Earth-Moon model that can be viewed from above",
     "author": "John Wallin",
     "authorInstitution": "Middle Tennessee State University",
     "dateCreated": "Tue Jul  6 16:31:05 2021",
@@ -32,15 +32,15 @@
     "restoreLights": true,
     "objects": [
         {
-            "name": "Basketball",
+            "name": "Earth",
             "parentName": "[_DYNAMIC]",
             "type": "Prefabs/moveableSphere",
             "tag": "",
             "active": true,
             "position": {
                 "x": 0.0,
-                "y": -0.3,
-                "z": 1.0
+                "y": 1.0,
+                "z": 2.0
             },
             "euleriAngles": {
                 "x": 0.0,
@@ -48,12 +48,12 @@
                 "z": 0.0
             },
             "scale": {
-                "x": 0.5,
-                "y": 0.5,
-                "z": 0.5
+                "x": 0.2,
+                "y": 0.2,
+                "z": 0.2
             },
             "material": "",
-            "texture": "Textures/balldimpled",
+            "texture": "Textures/2k_earth_daymap",
             "textureByURL": "",
             "color": [
                 1.0,
@@ -85,6 +85,44 @@
             "componentsToAdd": [
                 "{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0, \"planetScale\": 1.0}"
             ]
+        },
+        {
+            "name": "Moon",
+            "parentName": "[_DYNAMIC]",
+            "type": "Prefabs/moveableSphere",
+            "tag": "",
+            "active": true,
+            "position": {
+                "x": 0.8,
+                "y": 1.0,
+                "z": 2.0
+            },
+            "euleriAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.05,
+                "y": 0.05,
+                "z": 0.05
+            },
+            "material": "",
+            "texture": "Textures/_k_moon",
+            "textureByURL": "",
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "transmittable": false,
+            "RigidBody": "",
+            "PointerReceiver": "",
+            "componentsToAdd": [
+                "{\"name\": \"simpleOrbit\", \"moonPosition\": {\"x\": 0.8, \"y\": 1.0, \"z\": 2.0}, \"orbitalPeriod\": 28.0, \"timeRate\": 1.0, \"orbitalScale\": 1.0, \"moonScale\": 1.0, \"synchronousRotation\": true}"
+            ],
+            "parent": "Earth"
         },
         {
             "name": "Sun",

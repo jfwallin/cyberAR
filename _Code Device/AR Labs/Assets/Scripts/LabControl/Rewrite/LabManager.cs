@@ -23,6 +23,8 @@ public class LabManager : MonoBehaviour
     {
         // ultimately - we might use Initialize externally 
         // For now - we will manually read in the json.
+        // create instances of media player prefab here
+
         spawnDemoNew();
     }
 

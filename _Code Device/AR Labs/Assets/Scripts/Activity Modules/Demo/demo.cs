@@ -14,7 +14,7 @@ namespace demoRoutines
         private Bridge bridge;
         private string jsonString;
 
-        private utility.lightControl lightControl; 
+        private lightingControl lightControl; 
 
 
         //public override void Initialize(ActivityModuleData dataIn)
@@ -26,20 +26,29 @@ namespace demoRoutines
             JsonUtility.FromJsonOverwrite(jsonData, moduleData);
             mPlayer = MediaPlayer.Instance;
 
-            lightControl = new utility.lightControl();
+            /*
+            GameObject lc = GameObject.Find("lightingControl");
+            lightControl = lc.GetComponent<lightingControl>().Instance;
+
+          //  lightControl = new lightControl();
             if (moduleData.useSunlight)
                 lightControl.sunlight();
+            */
 
             bridge = new Bridge();
-            bridge.ParseJson(jsonString);
+            if (moduleData.createObjects)
+                bridge.ParseJson(jsonString);
             if (moduleData.timeToEnd > 0)
                 StartCoroutine(EndByTime());
         }
 
         public override void EndOfModule()
         {
-            lightControl.restoreLights();
-            bridge.CleanUp(jsonString);
+            /*if (moduleData.restoreLights)
+                lightControl.restoreLights();   
+            */
+            if (moduleData.destroyObjects)
+                bridge.CleanUp(jsonString); 
 //            StartCoroutine(DelayBeforeExit());
             FindObjectOfType<LabManager>().ModuleComplete();
         }

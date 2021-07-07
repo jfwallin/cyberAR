@@ -42,8 +42,18 @@ public class Bridge
             parent = GameObject.Find(obj.parentName);
         }
 
+        GameObject go = GameObject.Find(obj.name);
+        if (go != null)
+        {
+            Debug.Log("found object " + obj.name);
+        } 
+
         myObject = dealWithType(obj.type); //possibly fixed
         myObject.name = obj.name;
+        myObject.transform.position = obj.position;
+        myObject.transform.localScale = obj.scale;
+        //myObject.transform.eulerAngles = obj.eulerAngles;
+        
 
         for (int i = 0; i < obj.componentsToAdd.Length; i++)
         {
@@ -62,9 +72,6 @@ public class Bridge
         }
 
 
-        myObject.transform.position = obj.position;
-        myObject.transform.localScale = obj.scale;
-        //myObject.transform.eulerAngles = obj.eulerAngles;
         if (obj.parentName != "")
         {
             myObject.transform.parent = parent.transform;
