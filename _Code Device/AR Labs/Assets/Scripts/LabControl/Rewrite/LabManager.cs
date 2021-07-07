@@ -33,7 +33,8 @@ public class LabManager : MonoBehaviour
     {
 
         // this is a temporary way to load a json file
-        string jsonpath = "C:/Users/jfwal/OneDrive/Documents/GitHub/cyberAR/_Code Device/AR Labs/Assets/Resources/jsonDefinitions/";
+        //string jsonpath = "C:/Users/jfwal/OneDrive/Documents/GitHub/cyberAR/_Code Device/AR Labs/Assets/Resources/jsonDefinitions/";
+        string jsonpath = "Assets/Resources/jsonDefinitions/";
         string fname = "demo10.json";
         string fpath = jsonpath + fname;
         modules = System.IO.File.ReadAllLines(fpath);
