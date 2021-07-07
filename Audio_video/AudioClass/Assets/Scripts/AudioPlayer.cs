@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.IO;
 using UnityEngine.Video;
 using UnityEngine;
 using UnityEngine.UI;
@@ -10,7 +11,7 @@ using UnityEngine.UI;
 public enum MCQ { Audio, Video, Image }
 public class AudioPlayer : MonoBehaviour
 {
-   
+
     public string Num { get; set; }
     public int PAUSE { get; set; }
     public int STOP { get; set; }
@@ -18,25 +19,26 @@ public class AudioPlayer : MonoBehaviour
     public System.Action localCallBack;
     // private float Beg { set; get; }
     //  public AudioSource[] allAudios;
-    public Sprite img1;
-    public VideoPlayer myVideoPlayer { set; get; }
+    public Sprite img1;  // This will hold the image 
+    public VideoPlayer myVideoPlayer { set; get; }  // videplayer comp.
     public AudioClip myAudioClip;
-    public AudioPlayer(string playMe)
-    {
-        Num = (playMe);
-    }
+    public string Path { set; get; } = "Assets/Resources/test2.txt";
+    //StreamWriter writer = new StreamWriter(Path, true);
+
     // This will get a item should change to get the file name
-    public void MediaManager (string[] item, System.Action CallBack)
+    public void MediaManager(string[] item)//, System.Action CallBack)
     {
+        // string path = "Assets/Resources/test2.txt";
+        StreamWriter writer = new StreamWriter(Path, true);
         AudioSource audio = GetComponent<AudioSource>();
         myVideoPlayer = GetComponent<VideoPlayer>();
-        localCallBack = CallBack;
-       // audio.Stop();
+        // localCallBack = CallBack;
+        // audio.Stop();
         string MediaName = item[0];
         NUM = Convert.ToInt32(item[1]);
-       // print(item[1]);
-        MCQ TYPE =(MCQ) NUM ;//  int.Parse(item[1]);
-     //   print(NUM);
+        // print(item[1]);
+        MCQ TYPE = (MCQ)NUM;//  int.Parse(item[1]);
+                            //   print(NUM);
         switch (TYPE)
         {
             case MCQ.Audio:
@@ -44,34 +46,53 @@ public class AudioPlayer : MonoBehaviour
                 {
                     myAudioClip = ((AudioClip)Resources.Load("Audio/" + MediaName));
                     audio.clip = myAudioClip;
-                   
+
                     audio.Play();
                     print($"audio length {audio.clip.length}");
                     StartCoroutine(waitAudio(audio.clip.length));
                     // new WaitForSeconds(audio.clip.length);
-
+                    writer.WriteLine($"Audio file {MediaName} played at {System.DateTime.Now} ");
+                    //  if (item[] == "correct")
+                    // {
+                    //    writer.WriteLine($"Question number {(item[0])} is {item[]}");
+                    // }
+                    // else
+                    // {
+                    //    writer.WriteLine($"Question number {(item[0])} is {item[2]}");
+                    // }
+                    writer.Close();
 
                 }
                 break;
             case MCQ.Video:
-                audio.Stop();
-                myVideoPlayer.Stop();
-                myVideoPlayer.clip = Resources.Load<VideoClip>("Video/" + MediaName);
-               // Beg = Time.time;
-                myVideoPlayer.Play();
-                myVideoPlayer.loopPointReached += EndReached;
-              
+                if (myVideoPlayer.isPlaying == false && audio.isPlaying == false)
+                {
+                    audio.Stop();
+
+                    myVideoPlayer.Stop();
+                    myVideoPlayer.clip = Resources.Load<VideoClip>("Video/" + MediaName);
+                    // Beg = Time.time;
+                    writer.WriteLine($"Video file {MediaName} played  at {System.DateTime.Now}");
+                    myVideoPlayer.Play();
+
+                    myVideoPlayer.loopPointReached += EndReached;
+                    writer.WriteLine($"Video file {MediaName} End  at {System.DateTime.Now}");
+
+                    writer.Close();
+                }
+
 
                 break;
             case MCQ.Image:
                 img1 = Resources.Load<Sprite>("Image/" + MediaName);
                 //display image to the component "UI image"  that connect to this script
                 GetComponent<Image>().sprite = img1;
+                writer.WriteLine($"Image {MediaName} has been showed ");
                 break;
 
 
         }
-        
+
 
 
     }
@@ -96,27 +117,38 @@ public class AudioPlayer : MonoBehaviour
     {
         yield return new WaitForSeconds(T);
         print("end of sound");
-        localCallBack.Invoke();
+
+        // img1 = Resources.Load<Sprite>("Image/card_waxing_gibbous_image");
+        //display image to the component "UI image"  that connect to this script
+        //GetComponent<Image>().overrideSprite = img1;
+        //localCallBack.Invoke();
         // gameObject.SendMessage("MethodNameToRecieveMessage", "TypeofMessage" );
     }
 
-    
+
     //This will send meesage after the Video playe stop
     void EndReached(UnityEngine.Video.VideoPlayer vp)
     {
+        StreamWriter writer = new StreamWriter(Path, true);
         //vp.playbackSpeed = vp.playbackSpeed / 10.0F;
         //myVideoPlayer.loopPointReached
         myVideoPlayer.Stop();
-       // myVideoPlayer.Prepare();
+        // myVideoPlayer.Prepare();
         myVideoPlayer.skipOnDrop = false;
         print($"I reached the end {myVideoPlayer.length}");
         print($"video frame is {myVideoPlayer.frame}");
-        localCallBack.Invoke();
+        writer.WriteLine($"Video file  End  at {System.DateTime.Now}");
+
+        writer.Close();
+        // img1 = Resources.Load<Sprite>("Image/card_waxing_gibbous_image");
+        //display image to the component "UI image"  that connect to this script
+        // GetComponent<Image>().overrideSprite= img1;
+        // localCallBack.Invoke();
         //gameObject.SendMessage("MethodNameToRecieveMessage", "TypeofMessage" );
     }
 
-// This method used to puse and unpause the audio 
-public void Pause(int number)
+    // This method used to puse and unpause the audio 
+    public void Pause(int number)
     {
         // -1 for pause and -2 for un pause
         PAUSE = number;
@@ -130,7 +162,7 @@ public void Pause(int number)
         }
         else
         {
-           
+
             foreach (AudioSource audioS in allAudios)
             {
                 audioS.UnPause();
@@ -158,5 +190,8 @@ public void Pause(int number)
     //    {
     //        //FileAudioPlayer();
     //    }
-
+    //  public AudioPlayer(string playMe)
+    // {
+    //     Num = (playMe);
+    //  }
 }

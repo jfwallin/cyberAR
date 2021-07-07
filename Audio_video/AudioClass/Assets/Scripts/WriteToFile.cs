@@ -17,13 +17,6 @@ public class WriteToFile : MonoBehaviour
         //Write some text to the test.txt file
         StreamWriter writer = new StreamWriter(path, true);
         writer.WriteLine($"Question number {(array[0])} is {array[1]}");
-        // writer.WriteLine("Test Line Two");
-
-       // var input = gameObject.GetComponent<InputField>();
-        //var se = new InputField.SubmitEvent();
-        //se.AddListener(SubmitName);
-        //input.onEndEdit = se;
-
         writer.Close();
 
         //Re-import the file to update the reference in the editor
