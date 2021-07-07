@@ -22,12 +22,17 @@ public class LabExit : MonoBehaviour
     IEnumerator Upload()
     {
         print($"upload called successfuly");
+        //byte[] myData = System.Text.Encoding.UTF8.GetBytes("This is some test data");
+        byte[] gifByte = File.ReadAllBytes("Assets/Resources/test2.txt");
         WWWForm form = new WWWForm();
-        form.AddField("myField", "myData");
+        //form.AddField("myField", "myData");
+        //Modify the format according to the long-passed file
+        //this function to upload files and images to a web server application.
+        form.AddBinaryData("file", gifByte, "test2.txt", "txt");
         print($"test for theform {form}");
         using (UnityWebRequest www = UnityWebRequest.Post("http://cyberlearnar.cs.mtsu.edu/upload_file", form))
         {
-            print($"Web server called");
+            print($"Web server called{www.result}");
             yield return www.SendWebRequest();
             print($"Web server Return value");
             if (www.result != UnityWebRequest.Result.Success)
@@ -40,6 +45,7 @@ public class LabExit : MonoBehaviour
                 print($"Web server Complete");
                 Debug.Log("Form upload complete!");
             }
+            print($"Web server called end of file {www.result}");
         }
 
         /*
