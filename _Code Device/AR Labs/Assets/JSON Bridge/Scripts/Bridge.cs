@@ -42,18 +42,30 @@ public class Bridge
             parent = GameObject.Find(obj.parentName);
         }
 
-        GameObject go = GameObject.Find(obj.name);
-        if (go != null)
+        // this allow use to modify existing objects in the scene
+        myObject = GameObject.Find(obj.name);
+        if (myObject != null)
         {
             Debug.Log("found object " + obj.name);
-        } 
+        }
+        else
+        {
+            myObject = dealWithType(obj.type); //possibly fixed
+            myObject.name = obj.name;
+            obj.newPosition = true;
+            obj.newScale = true;
+            obj.newEulerAngles = true;
+        }
 
-        myObject = dealWithType(obj.type); //possibly fixed
-        myObject.name = obj.name;
-        myObject.transform.position = obj.position;
-        myObject.transform.localScale = obj.scale;
-        //myObject.transform.eulerAngles = obj.eulerAngles;
-        
+        // three new key words have been added to the objectInfo class.
+        // The keywords allow use to not override the postions, scales, and
+        // orientation of an existing object if we don't want to do that.
+        if (obj.newPosition)
+            myObject.transform.position = obj.position;
+        if (obj.newScale)
+            myObject.transform.localScale = obj.scale;
+        if (obj.newEulerAngles)
+            myObject.transform.eulerAngles = obj.eulerAngles;
 
         for (int i = 0; i < obj.componentsToAdd.Length; i++)
         {
@@ -123,13 +135,8 @@ public class Bridge
 
         if (obj.RigidBody!= null)
         {
-
             Rigidbody mycomp = myObject.GetComponent<Rigidbody>();
-            if (mycomp == null)
-            {
-                Debug.Log("no rigidbody");
-            }
-            else
+            if (mycomp != null)
             {
                 // create a new helper class for rigidbody components
                 rigidBodyClass rb = new rigidBodyClass();

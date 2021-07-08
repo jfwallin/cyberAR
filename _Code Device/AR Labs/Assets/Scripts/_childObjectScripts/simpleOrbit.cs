@@ -11,13 +11,11 @@ public class simpleOrbit : MonoBehaviour
     public float orbitalPeriod = 10.0f;
     public float timeRate = 1.0f;  // this is a way to scale the time of the orbit
     public float orbitScale = 1.0f; // this is a way to scale the orbital size
-    public float moonScale = 1.0f;
     public bool synchronousRotation = true;
 
     private float orbitalDistance;
     private float orbitalRate;
     private float orbitalAngle;
-    private Vector3 originalMoonScale;
     private GameObject planet;
     
     // Start is called before the first frame update
@@ -34,8 +32,6 @@ public class simpleOrbit : MonoBehaviour
         // set the orbital rate and angle
         orbitalRate = Mathf.PI * 2.0f / orbitalPeriod;
         orbitalAngle = Mathf.Atan2(displacement[1], displacement[0]);
-
-        originalMoonScale = transform.localScale;
     }
 
     // Update is called once per frame
@@ -66,9 +62,6 @@ public class simpleOrbit : MonoBehaviour
         {
             transform.eulerAngles = new Vector3(0.0f, -orbitTheta * 180.0f / Mathf.PI + 180.0f, 0.0f);
         }
-
-        // this allows a quick rescaling of the moon size without changing the base data
-        transform.localScale = originalMoonScale * moonScale;
 
 
     }

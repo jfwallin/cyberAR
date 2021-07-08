@@ -59,4 +59,9 @@ public class ObjectInfo
     public string RigidBody;
     public string PointerReceiver;
     public string[] componentsToAdd; //This holds a string version of the component script JSONs
+
+    // used to override the positions and scales of existing objects
+    public bool newPosition = true;
+    public bool newScale = true;
+    public bool newEulerAngles = true;
 }

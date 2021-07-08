@@ -25,9 +25,9 @@
     "description": "A one-meter orbit Earth-Moon model that can be viewed from above",
     "author": "John Wallin",
     "authorInstitution": "Middle Tennessee State University",
-    "dateCreated": "Tue Jul  6 16:31:05 2021",
+    "dateCreated": "Wed Jul  7 16:57:35 2021",
     "introAudio": "Audio/basketball",
-    "createObjects": false,
+    "createObjects": true,
     "destroyObjects": true,
     "restoreLights": true,
     "objects": [
