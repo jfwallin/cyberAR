@@ -1,14 +1,14 @@
 {
     "moduleName": "Moveable Sphere Demo",
-    "specificName": "Sunlight on a basketball",
-    "jsonFileName": "basketBallDemo1.json",
+    "specificName": "Sunlight on a basketball (part 2)",
+    "jsonFileName": "basketBallDemo3.json",
     "prefabName": "demoPrefab",
     "prerequisiteActivities": [],
     "educationalObjectives": [
         "Understand that shadows on spherical objects lead to moon phases"
     ],
     "instructions": [
-        "Explore how changing the location \nof the basketball changes the shadows.\nNotice how the lighted part of the moon always\nFaces the same direction. \n\n- Reach out to extend pointer. \n- Use the trigger to grab objects\n- Click on the red button when you are done exploring."
+        "Explore how changing the location \nof the basketball changes the shadows.\n\n- Reach out to extend pointer. \n- Use the trigger to grab objects\n- Click on the red button when you are done exploring."
     ],
     "numRepeatsAllowed": 0,
     "numGradableRepeatsAllowed": 0,
@@ -28,11 +28,11 @@
     "dateCreated": "Thu Jul  8 18:50:59 2021",
     "introAudio": "Audio/basketball",
     "createObjects": true,
-    "destroyObjects": false,
-    "restoreLights": false,
+    "destroyObjects": true,
+    "restoreLights": true,
     "objects": [
         {
-            "name": "Basketball",
+            "name": "bbb",
             "parentName": "[_DYNAMIC]",
             "type": "Prefabs/moveableSphere",
             "tag": "",
@@ -84,7 +84,8 @@
             },
             "componentsToAdd": [
                 "{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0}"
-            ]
+            ],
+            "newScale": true
         },
         {
             "name": "Sun",
@@ -122,5 +123,5 @@
             "componentsToAdd": []
         }
     ],
-    "useSunlight": true
+    "useSunlight": false
 }

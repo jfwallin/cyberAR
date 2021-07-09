@@ -20,7 +20,7 @@ GameObject:
   - component: {fileID: 5852801425856087178}
   - component: {fileID: 5852801425856087179}
   m_Layer: 0
-  m_Name: JW sphere
+  m_Name: moveableSphere
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
