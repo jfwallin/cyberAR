@@ -52,8 +52,6 @@ public class lightingControl : MonoBehaviour
             _instance = this;
         }
 
-
-        Debug.Log("ddddddddd");
         theLight = GameObject.Find("Directional Light");
         sceneLight = theLight.GetComponent<Light>();
         saveLights();

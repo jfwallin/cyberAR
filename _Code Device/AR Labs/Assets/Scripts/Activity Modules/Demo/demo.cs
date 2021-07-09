@@ -9,10 +9,10 @@ namespace demoRoutines
 {
     public class demo : ActivityModule
     {
-        private demoData moduleData;        //Conatians answer choices, correct answers, and question text
+        private demoData moduleData;      
         private string jsonString;
 
-        private MediaPlayer mPlayer = null;         //Reference to the object that plays all media
+        private MediaPlayer mPlayer = null;    
         private lightingControl lightControl;
         private AudioSource aud;
         private Bridge bridge;
@@ -25,21 +25,26 @@ namespace demoRoutines
             moduleData = new demoData();
             jsonString = jsonData;
             JsonUtility.FromJsonOverwrite(jsonData, moduleData);
-            
+           
+            // setup the media player, lightControl, and audio player
             mPlayer = MediaPlayer.Instance;
             lightControl = lightingControl.Instance;
             aud = gameObject.GetComponent<AudioSource>();
-            
+
+            // play the introAudio
             aud.clip = Resources.Load<AudioClip>(moduleData.introAudio);
             aud.Play();
 
+            // set the light if needed
             if (moduleData.useSunlight)
                 lightControl.sunlight();
 
+            // instantiate the bridge and create the demo objects
             bridge = new Bridge();
             if (moduleData.createObjects)
                 bridge.ParseJson(jsonString);
 
+            // set the end criteria
             if (moduleData.timeToEnd > 0)
                 StartCoroutine(EndByTime());
         }
@@ -51,12 +56,10 @@ namespace demoRoutines
             
             if (moduleData.destroyObjects)
                 bridge.CleanUp(jsonString); 
-//            StartCoroutine(DelayBeforeExit());
             FindObjectOfType<LabManager>().ModuleComplete();
         }
 
 
-        //public override string SaveState()
         public override string SaveState()
         {
             return jsonString;
