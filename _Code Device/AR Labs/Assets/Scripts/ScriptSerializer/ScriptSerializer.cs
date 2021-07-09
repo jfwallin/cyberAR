@@ -12,6 +12,6 @@ public class ScriptSerializer : ScriptableObject
 
     public void SerializeScript()
     {
-        serializedScript = JsonUtility.ToJson(data);
+        serializedScript = JsonUtility.ToJson(data, true);
     }
 }

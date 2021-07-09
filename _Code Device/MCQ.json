@@ -1,0 +1,129 @@
+{
+    "moduleName": "Multiple Choice Question",
+    "jsonFileName": "",
+    "description": "",
+    "author": "",
+    "authorInstitution": "",
+    "dateCreated": "",
+    "prerequisiteActivities": [],
+    "prefabName": "",
+    "specificName": "Moon Phase Identification MCQ",
+    "educationalObjectives": [],
+    "instructions": [],
+    "numRepeatsAllowed": -1,
+    "numGradableRepeatsAllowed": -1,
+    "gradingCriteria": "",
+    "currentScore": 0.0,
+    "bestScore": 0.0,
+    "completed": false,
+    "currentSubphase": 0,
+    "subphaseNames": [],
+    "questions": [
+        {
+            "question": "What is the name of this phase of the moon?",
+            "randomizeOrder": true,
+            "allowMultiSelect": false,
+            "numberOfOptionsFromPool": 3,
+            "answerOptions": [
+                "Full Moon"
+            ],
+            "correctOptionsIndices": [
+                0
+            ]
+        },
+        {
+            "question": "What is the name of this phase of the moon?",
+            "randomizeOrder": true,
+            "allowMultiSelect": false,
+            "numberOfOptionsFromPool": 3,
+            "answerOptions": [
+                "Waning Gibbous"
+            ],
+            "correctOptionsIndices": [
+                0
+            ]
+        },
+        {
+            "question": "What is the name of this phase of the moon?",
+            "randomizeOrder": true,
+            "allowMultiSelect": false,
+            "numberOfOptionsFromPool": 3,
+            "answerOptions": [
+                "Third Quarter"
+            ],
+            "correctOptionsIndices": [
+                0
+            ]
+        },
+        {
+            "question": "What is the name of this phase of the moon?",
+            "randomizeOrder": true,
+            "allowMultiSelect": false,
+            "numberOfOptionsFromPool": 3,
+            "answerOptions": [
+                "Waning Crescent"
+            ],
+            "correctOptionsIndices": [
+                0
+            ]
+        },
+        {
+            "question": "What is the name of this phase of the moon?",
+            "randomizeOrder": true,
+            "allowMultiSelect": false,
+            "numberOfOptionsFromPool": 3,
+            "answerOptions": [
+                "New Moon"
+            ],
+            "correctOptionsIndices": [
+                0
+            ]
+        },
+        {
+            "question": "What is the name of this phase of the moon?",
+            "randomizeOrder": true,
+            "allowMultiSelect": false,
+            "numberOfOptionsFromPool": 3,
+            "answerOptions": [
+                "Waxing Crescent"
+            ],
+            "correctOptionsIndices": [
+                0
+            ]
+        },
+        {
+            "question": "What is the name of this phase of the moon?",
+            "randomizeOrder": true,
+            "allowMultiSelect": false,
+            "numberOfOptionsFromPool": 3,
+            "answerOptions": [
+                "First Quarter"
+            ],
+            "correctOptionsIndices": [
+                0
+            ]
+        },
+        {
+            "question": "What is the name of this phase of the moon?",
+            "randomizeOrder": true,
+            "allowMultiSelect": false,
+            "numberOfOptionsFromPool": 3,
+            "answerOptions": [
+                "Waxing Gibbous"
+            ],
+            "correctOptionsIndices": [
+                0
+            ]
+        }
+    ],
+    "answerPool": [
+        "New Moon",
+        "Waxing Crescent",
+        "First Quarter",
+        "Waxing Gibbous",
+        "Full Moon",
+        "Waning Gibbous",
+        "Third Quarter",
+        "Waning Crescent"
+    ]
+}

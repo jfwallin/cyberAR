@@ -1,0 +1,69 @@
+{
+    "moduleName": "Moveable Sphere Demo",
+    "specificName": "Sunlight on a basketball",
+    "jsonFileName": "basketBallDemo.json",
+    "prefabName": "demoPrefab",
+    "prerequisiteActivities": [],
+    "educationalObjectives": [
+        "Understand that shadows on spherical objects lead to moon phases"
+    ],
+    "instructions": [
+        "Notice how the lighted part of the basketball always faces the same direction."
+    ],
+    "numRepeatsAllowed": 0,
+    "numGradableRepeatsAllowed": 0,
+    "gradingCriteria": "",
+    "currentScore": 0.0,
+    "bestScore": 0.0,
+    "completed": false,
+    "currentSubphase": 0,
+    "subphaseNames": [],
+    "urlJson": "",
+    "json": "",
+    "timeToEnd": 5,
+    "endUsingButton": true,
+    "description": "A demonstration of how light from the sun illuminates a basketball.",
+    "author": "John Wallin",
+    "authorInstitution": "Middle Tennessee State University",
+    "dateCreated": "Sun Jul  4 15:50:00 2021",
+    "objects": [
+        {
+            "prefab": "moveableSphere",
+            "position": [
+                0.0,
+                -0.3,
+                1.0
+            ],
+            "scale": [
+                0.5,
+                0.5,
+                0.5
+            ],
+            "name": "Basketball",
+            "texture": "balldimpled",
+            "componentsToAdd": [
+                "{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 3.0}"
+            ],
+            "RigidBody": {
+                "mass": 1.0,
+                "drag": 5.0,
+                "angularDrag": 0.0,
+                "isKinematic": true,
+                "useGravity": true,
+                "xConstraint": false,
+                "yConstraint": false,
+                "zConstraint": false,
+                "xRotationConstraint": true,
+                "yRotationConstraint": true,
+                "zRotationConstraint": true
+            },
+            "PointerReceiver": {
+                "draggable": true,
+                "kinematicWhileIdle": true,
+                "faceWhileDragging": false,
+                "matchWallWhileDragging": false,
+                "invertForward": false
+            }
+        }
+    ]
+}

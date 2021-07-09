@@ -20,19 +20,11 @@ public class ModuleTemplate : ActivityModule
     #endregion Variables
 
     #region Public Functions
-    public override void Initialize(ActivityModuleData initData)
+    //public override void Initialize(ActivityModuleData initData)
+    public override void Initialize(string jsonData)
     {
-        //Downcast initData into proper data type describing the module
-        if(initData is ModuleTemplateData)
-        {
-            moduleData = (ModuleTemplateData)initData;
-        }
-        else
-        {
-            Debug.LogError("Unable to cast ActivityModuleData into correct data object, disabling script");
-            enabled = false;
-        }
-
+        
+        JsonUtility.FromJsonOverwrite(jsonData, moduleData);
         //Get reference to the media player
         mPlayer = MediaPlayer.Instance;
 
@@ -69,14 +61,15 @@ public class ModuleTemplate : ActivityModule
         //GameObject.FindObjectOfType<LabControl>().SomeFunction()
     }
 
-    public override ActivityModuleData SaveState()
+    //public override ActivityModuleData SaveState()
+    public override string SaveState()
     {
         //Perform any tasks needed and update the data object
 
 
         //
         //Return the updated data object
-        return moduleData;
+        return ""; // moduleData;
     }
     #endregion Public Functions
 }

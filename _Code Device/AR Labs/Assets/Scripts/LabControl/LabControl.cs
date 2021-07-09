@@ -92,7 +92,10 @@ public class LabControl : MonoBehaviour
     {
         Debug.Log("Intro media done playing, spawning and initializing the MCQ manager");
         mcqManager = Instantiate(mcqPrefab, aPlayer.transform.position + aPlayer.transform.right * 1.5f, aPlayer.transform.rotation, rootUITransform).GetComponent<MCQ.MCQManager>();
-        mcqManager.Initialize(initData);
+        string tmpJson;
+        tmpJson = JsonUtility.ToJson(initData);
+        mcqManager.Initialize(tmpJson);
+        //mcqManager.Initialize(initData);
     }
 
     public void MCCompleted()
