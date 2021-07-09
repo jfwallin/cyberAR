@@ -95,21 +95,39 @@ public class InstructionBox : MonoBehaviour
     /// <param name="show">Whether to show the new page once made</param>
     public void AddPage(string pageTitle, string pageContent, bool show = false)
     {
-        GameObject newPage = Instantiate(pages[0], pages[0].transform.parent);
-        GameObject newTab = Instantiate(tabs[0], tabs[0].transform.parent);
-        tabs.Add(newTab);
-        pages.Add(newPage);
+        //Declare variables to hold references to the text we need to modify
+        Text title;
+        Text content;
+        Text tabLabel;
 
-        Text title = newPage.transform.Find("Title").GetComponent<Text>();
-        Text content = newPage.transform.Find("Content").GetComponent<Text>();
-        Text tabLabel = newTab.transform.GetComponentInChildren<Text>();
+        if(pages.Count == 1 && pages[0].transform.Find("Content").GetComponent<Text>().text == "No Content Set")
+        {
+            //There is no pages set yet. Just use the preexisting placeholder tab
+            title = pages[0].transform.Find("Title").GetComponent<Text>();
+            content = pages[0].transform.Find("Content").GetComponent<Text>();
+            tabLabel = tabs[0].transform.GetComponentInChildren<Text>();
+        }
+        else
+        {
+            //The first tab is already used, or there's already more than 1 tab, so make a new one.
+            GameObject newPage = Instantiate(pages[0], pages[0].transform.parent);
+            GameObject newTab = Instantiate(tabs[0], tabs[0].transform.parent);
+            newTab.GetComponent<Toggle>().group = tGroup;
+            newTab.GetComponent<Toggle>().onValueChanged.AddListener((bool v) => HandleValueChanged(v, pages.Count - 1));
+            tabs.Add(newTab);
+            pages.Add(newPage);
 
+            title = newPage.transform.Find("Title").GetComponent<Text>();
+            content = newPage.transform.Find("Content").GetComponent<Text>();
+            tabLabel = newTab.transform.GetComponentInChildren<Text>();
+        }
+
+        //Set the text to the correct value
         title.text = pageTitle;
         tabLabel.text = pageTitle;
         content.text = pageContent;
-        newTab.GetComponent<Toggle>().group = tGroup;
-        newTab.GetComponent<Toggle>().onValueChanged.AddListener((bool v) => HandleValueChanged(v, pages.Count-1));
 
+        //Display the new page to the user
         if(show)
         {
             ShowPage(pages.Count - 1);
@@ -172,14 +190,17 @@ public class InstructionBox : MonoBehaviour
         }
         else
         {
+            //Unhook event handlers
             tabs[pageIndex].GetComponent<Toggle>().onValueChanged.RemoveAllListeners();
 
+            //Get references to proper text components
             Text title = pages[pageIndex].transform.Find("Title").GetComponent<Text>();
             Text content = pages[pageIndex].transform.Find("Content").GetComponent<Text>();
             Text tabLabel = tabs[pageIndex].transform.GetComponentInChildren<Text>();
 
             if (pages.Count == 1) //Only one tab
             {
+                //Do not delete the last tab. keep it blank to be used as a template for future instantiations
                 ToggleVisibility(0);
                 title.text = "Tab1";
                 content.text = "No Content Set";
@@ -232,6 +253,23 @@ public class InstructionBox : MonoBehaviour
     }
 
     /// <summary>
+    /// Returns the page index of a specific page title
+    /// </summary>
+    /// <param name="title">The page title and tab label to find</param>
+    /// <returns>index of the page in the UI</returns>
+    public int FindPage(string title)
+    {
+        for (int i = 0; i < tabs.Count; i++)
+        {
+            if (tabs[i].transform.GetComponentInChildren<Text>().text == title)
+            {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    /// <summary>
     /// Fade the instruction box in or out
     /// </summary>
     /// <param name="fadeTime">Time it takes the fade to complete, default is 1 sec</param>
@@ -259,6 +297,7 @@ public class InstructionBox : MonoBehaviour
             cGroup.alpha = val;
             yield return null;
         }
+        gameObject.SetActive(false);
     }
 
     IEnumerator FadeIn(float length)
@@ -269,6 +308,7 @@ public class InstructionBox : MonoBehaviour
             cGroup.alpha = val;
             yield return null;
         }
+        gameObject.SetActive(true);
     }
     #endregion Coroutines
 
@@ -281,9 +321,9 @@ public class InstructionBox : MonoBehaviour
         }
     }
 
-    private void HandleDoubleBumper()
+    public void HandleDoubleBumper()
     {
-        gameObject.SetActive(!gameObject.activeSelf);
+        ToggleVisibility();
     }
     #endregion Event Handlers
 }

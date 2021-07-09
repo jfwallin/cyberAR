@@ -100,13 +100,18 @@ public class LabManager : MonoBehaviour
 
     void createInstructions()
     {
+        /*
         instructionHolder = Instantiate(instructionPrefab, new Vector3(-0.3f, 1.5f, 1.0f), Quaternion.Euler(0.0f, 180.0f, 0.0f));
         //instructionHolder = Instantiate(instructionPrefab, new Vector3(0.3f, -0.2f, -1.0f), Quaternion.Euler(0.0f, 180.0f, 0.0f));
         instructionCanvas = GameObject.Find("MainInstructions");
         instructionCanvas.GetComponent<Text>().text = "Test Text";
+        */
+
+        InstructionBox.Instance.transform.position = new Vector3(-0.3f, 1.5f, 1.0f); //Creates instance, places it. by default it points at the user
+        FindObjectOfType<MagicLeapTools.ControlInput>().OnDoubleBumper.AddListener(InstructionBox.Instance.HandleDoubleBumper); //responds to double bumper to appear and disappear
     }
 
-
+    //Should module specific changes to the instruction box be done in the module code?
     void updateInstructions(ActivityModuleData tmpData)
     {
         // case the current data activity module data into a local variable
@@ -120,7 +125,9 @@ public class LabManager : MonoBehaviour
             s = tmpData.educationalObjectives[i];
             eobj = eobj + i.ToString() + ") " + s + "\n";
         }
-        instructionCanvas.GetComponent<Text>().text = eobj;
+        //instructionCanvas.GetComponent<Text>().text = eobj;
+
+        InstructionBox.Instance.AddPage("Objectives", eobj, true); //Creates tab for the educational objectives and shows it.
 
     }
 
