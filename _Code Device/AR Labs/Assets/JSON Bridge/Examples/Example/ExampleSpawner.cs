@@ -5,17 +5,35 @@ using System.IO;
 
 
 //This script allows you to test the Bridge without a outside source.
-public class ExampleSpawner : MonoBehaviour
+//You can create the JSON in the inspector and then test if it is working corrrectly in one run in the Unity Editor.
+public class MakeObjectInfo : MonoBehaviour
 {
-    private Bridge bridge = new Bridge(); //an instance of the bridge
+    private Bridge bridge = new Bridge();
 
-    public string[] paths; 
+    public string name;
+    public string[] paths;
+    
+    //public ObjectInfo info;
+    //public ObjectInfoCollection info;
 
     // Start is called before the first frame update
     void Start()
     {
         string[] json = new string[paths.Length];
         int i = 0;
+        //path = path + name+ ".json";
+
+        //StreamWriter writer = new StreamWriter(path);
+        
+        //json = JsonUtility.ToJson(info, true);
+        //Debug.Log("json file is: " + json);
+
+        //writer.WriteLine(json);
+
+        //writer.Close();
+
+        //bridge.ParseJsonFromPath(path);
+
 
         foreach(string path in paths)
         {
@@ -27,21 +45,19 @@ public class ExampleSpawner : MonoBehaviour
         if (json[0] != null) StartCoroutine(ExampleCoroutine(json));
     }
 
-    //coroutine is used so that the wait funtion works
     IEnumerator ExampleCoroutine(string[] json)
     {
 
         foreach (string obj in json)
         {
-            Debug.Log("obj is = " + obj); //print out json
-            bridge.ParseJson(obj); //make the objects in the JSON in the scene
+            Debug.Log("obj is = " + obj);
+            bridge.ParseJson(obj);
 
             yield return new WaitForSeconds(15);
-            bridge.CleanUp(obj); //remove the objects in the JSON from the scene
+            bridge.CleanUp(obj);
         }
     }
 
-    //gets a string of a file at a path
     private string fromPathToString(string path)
     {
         StreamReader reader = new StreamReader(path);

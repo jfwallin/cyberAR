@@ -9,11 +9,6 @@ public class Pulse : MonoBehaviour
     public float min, max;
     private bool grow = true;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
     // Update is called once per frame
     void Update()

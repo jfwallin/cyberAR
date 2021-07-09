@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 17875983}
   - component: {fileID: 17875984}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: Make Module
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -163,13 +163,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 17875982}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 00a04607b4d1bc348986b9f017c39d25, type: 3}
+  m_Script: {fileID: 11500000, guid: 784842014cea1194ab0a7b12b9379798, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: SolarSystemExample
-  paths:
-  - Assets/JSON Bridge/Examples/Example/Example.json
-  - Assets/JSON Bridge/Examples/Solar System Example/SolarSystemExample.json
+  path: Assets/JSON Bridge/Examples/Solar System Example/SolarSystemExample.json
 --- !u!1001 &241266520
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -414,12 +411,12 @@ PrefabInstance:
     - target: {fileID: 5619764785477124592, guid: 4b83d5952ef78964a987c932f7375418,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5619764785477124592, guid: 4b83d5952ef78964a987c932f7375418,
         type: 3}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5619764785477124592, guid: 4b83d5952ef78964a987c932f7375418,
         type: 3}
@@ -434,7 +431,7 @@ PrefabInstance:
     - target: {fileID: 5619764785477124592, guid: 4b83d5952ef78964a987c932f7375418,
         type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b83d5952ef78964a987c932f7375418, type: 3}
