@@ -3,50 +3,36 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-namespace sorting
+namespace sortingRoutines
 {
     [System.Serializable]
-    public class sortingData
+    public class sortingActivityData: ActivityModuleData
     {
-        public static int nObjects;
-
-        // declare the sort info array
-
-        public string objectTag = "sortable";
-        public float xstart, ystart, zstart;
-        public float xend, yend, zend;
-        public GameObject[] gameObjects;
-        public Vector3[] sortPts;
 
         bool isSorted;
 
-        // default values for the delay, move time, and flourish of the movements
-        public float tdelay = 2.0f;
-        public float tmove = 5.0f;
-        public int pretty = 1;
-
-        public const int maxObjects = 10;
-        public GameObject myPrefab;
-        public Texture[] myTexture = new Texture[maxObjects];
-        public String[] tnames = new String[maxObjects];
-        public GameObject[] markers = new GameObject[maxObjects];
-        public float mscale = 0.1f;
-        public GameObject markerPrefab;
-
-        //public AudioClip grab;
         public const int maxWrongAnswers = 5;
-        public AudioClip audioInstructions;
-        public AudioClip[] wrongOrder = new AudioClip[maxWrongAnswers];
-        public AudioClip correctOrder;
-        public int wrongAnswerCount = 0;
-        public int totalWrongAnswer = 0;
 
-        //public GameObject theButton;
-        public GameObject myButton;
+        public string[] wrongOrderAudio;
+        public string correctOrderAudio;
 
         private bool feedbackEnabled = true;
 
+        public string objects;
+        public string introAudio;
+        public bool useSunlight = false;
 
+        public float timeToEnd = -1;
+        public bool endUsingButton = true;
+
+        public bool createObjects = true;
+        public bool destroyObjects = true;
+        public bool restoreLights = true;
 
     }
+
+
+
 }
+
+

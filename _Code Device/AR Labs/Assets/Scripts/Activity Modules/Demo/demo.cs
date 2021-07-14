@@ -29,6 +29,7 @@ namespace demoRoutines
             // setup the media player, lightControl, and audio player
             mPlayer = MediaPlayer.Instance;
             lightControl = lightingControl.Instance;
+            
             aud = gameObject.GetComponent<AudioSource>();
 
             // play the introAudio

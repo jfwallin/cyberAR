@@ -17,7 +17,9 @@ public class LabManager : MonoBehaviour
     GameObject instructionPrefab;
     private GameObject instructionHolder;
     private GameObject instructionCanvas;
-    
+
+    private InstructionBox ibox;
+
 
     public void Start()
     {
@@ -25,6 +27,8 @@ public class LabManager : MonoBehaviour
         // For now - we will manually read in the json.
         // create instances of media player prefab here
 
+
+        ibox = InstructionBox.Instance;
         spawnDemoNew();
     }
 
@@ -82,8 +86,7 @@ public class LabManager : MonoBehaviour
         index++;
         if (index < modules.Length)
         {
-            Destroy(currentModuleObject);
-            SpawnModule();
+            StartCoroutine(NewModule());
         }
         else
         {
@@ -91,6 +94,15 @@ public class LabManager : MonoBehaviour
             EndLab();
         }
     }
+
+    IEnumerator NewModule()
+    {
+        yield return new WaitForSeconds(1.0f);
+        Destroy(currentModuleObject);
+        SpawnModule();
+
+    }
+
 
 
     private void EndLab()

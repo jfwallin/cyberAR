@@ -15,496 +15,566 @@ Touchpad Forcepress = Reset
 Reach out to extend pointer.
  */
 
-
-public class sortingActivity: MonoBehaviour
+namespace sortingRoutines
 {
-
-    public class sortInfo
+    public class sortingActivity : ActivityModule
     {
-        public GameObject theObject;
-        public int sortedOrder;
-        public bool isSorted;
 
-        public float fractionalDistance;
-
-        // implement IComparable interface
-        public int CompareTo(object obj)
+        public class sortInfo
         {
-            if (obj is sortInfo)
+            public GameObject theObject;
+            public int sortedOrder;
+            public bool isSorted;
+
+            public float fractionalDistance;
+
+            // implement IComparable interface
+            public int CompareTo(object obj)
             {
-                return this.fractionalDistance.CompareTo((obj as sortInfo).fractionalDistance);  // compare user names
+                if (obj is sortInfo)
+                {
+                    return this.fractionalDistance.CompareTo((obj as sortInfo).fractionalDistance);  // compare user names
+                }
+                else
+                {
+                    return 0;
+                }
+                //throw new ArgumentException("Object is not a sortInfo");
             }
-            else
-            {
-                return 0;
-            }
-            //throw new ArgumentException("Object is not a sortInfo");
         }
-    }
 
-    // declare the sort info array
-    public sortInfo[] sortData;
-
-
-    public static int nObjects;
+        // declare the sort info array
+        private sortInfo[] sortData;
 
 
-    // internal geometry
-    private float xstart, ystart, zstart;
-    private float xend, yend, zend;
-    
-    bool isSorted;
-    
+        private static int nObjects;
+        private bool isSorted;
 
-    // default values for the delay, move time, and flourish of the movements
-    public float tdelay = 2.0f;
-    public float tmove = 5.0f;
-    public int pretty = 1;
+        // sortable Objects
+        private Vector3[] sortPts;
 
 
-    // sortable Objects
-    public string objectTag = "sortable";
-    private Vector3[] sortPts;
-    private GameObject[] gameObjects;
+        // markers
+        private GameObject markerPrefab;
+        private string markerPrefabName = "Prefab/tinysphere";
+        private GameObject[] markers;
+        private float mscale = 0.1f;
+        private float voffset = 0.2f;
 
-    public const int maxObjects = 10;
-    public GameObject myPrefab;
-    public Texture[] myTexture = new Texture[maxObjects];
-    public String[] tnames = new String[maxObjects];
+        //public AudioClip grab;
+        public const int maxWrongAnswers = 5;
+        public AudioClip[] wrongOrder = new AudioClip[maxWrongAnswers];
+        public AudioClip correctOrder;
+        private int wrongAnswerCount = 0;
+        private int totalWrongAnswer = 0;
 
-    // markers
-    public GameObject markerPrefab;
-    public GameObject[] markers = new GameObject[maxObjects];
-    public float mscale = 0.1f;
+        //public GameObject theButton;
+        private string buttonPrefabString;
+        private GameObject buttonPrefab;
+        public GameObject myButton;
 
-    //public AudioClip grab;
-    public const int maxWrongAnswers = 5;
-    public AudioClip audioInstructions;
-    public AudioClip[] wrongOrder = new AudioClip[maxWrongAnswers];
-    public AudioClip correctOrder;
-    public int wrongAnswerCount = 0;
-    public int totalWrongAnswer = 0;
+        private bool feedbackEnabled = true;
 
-    //public GameObject theButton;
-    public GameObject myButton;
-    
-    private bool feedbackEnabled = true;
+        // default values for the delay, move time, and flourish of the movements
+        private float tdelay = 2.0f;
+        private float tmove = 5.0f;
+        private int pretty = 1;
 
+        //---------------------------------------------------------
+        private sortingActivityData moduleData;
+        private string jsonString;
 
-
-
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-        AudioSource aud = GetComponent<AudioSource>();
-        //yield return new WaitForSeconds(audio.clip.length);
-        aud.clip = audioInstructions;
-        aud.Play();
-
-        // create data
-        // find all the game objects to be sorted
-        //gameObjects = GameObject.FindGameObjectsWithTag("sortable");
-        //nObjects = gameObjects.Length;
-
-        // find the number of objects to be sorted
-        nObjects = 0;
-        for (int i = 0; i < maxObjects; i++)
-            if (myTexture[i] != null) nObjects++;
+        private MediaPlayer mPlayer = null;
+        private lightingControl lightControl;
+        private AudioSource aud;
+        private Bridge bridge;
 
 
-        // find the actual number wrong Answers
-        totalWrongAnswer = 0;
-        for (int i = 0; i < maxWrongAnswers; i++)
-            if (wrongOrder[i] != null) totalWrongAnswer++;
-
-        //nObjects = 5;
-        //totalWrongAnswers = 3;
-
-
-        // this define the points where objects should be located
-        setSortedLocations(distance: 2.2f, angle: 0.0f, height: 0.0f,
-            width: 1.5f, xoffset: 0.0f, zoffset: 0.0f);
-
-        for (int i = 0; i < nObjects; i++)
+        //public override void Initialize(ActivityModuleData dataIn)
+        public override void Initialize(string jsonData)
         {
+            // save the json string into a private variable
+            moduleData = new sortingActivityData();
+            jsonString = jsonData;
+            JsonUtility.FromJsonOverwrite(jsonData, moduleData);
+
+            // setup the media player, lightControl, and audio player
+            mPlayer = MediaPlayer.Instance;
+            lightControl = lightingControl.Instance;
+
+            aud = gameObject.GetComponent<AudioSource>();
+
+            // play the introAudio
+            aud.clip = Resources.Load<AudioClip>(moduleData.introAudio);
+            aud.Play();
+
+            // set the light if needed
+            if (moduleData.useSunlight)
+                lightControl.sunlight();
+
+            // instantiate the bridge and create the demo objects
+            bridge = new Bridge();
+            if (moduleData.createObjects)
+                bridge.ParseJson(jsonString);
+
+            // set the end criteria
+            if (moduleData.timeToEnd > 0)
+                StartCoroutine(EndByTime());
+        }
+
+        public override void EndOfModule()
+        {
+            if (moduleData.restoreLights)
+                lightControl.restoreLights();
+
+            if (moduleData.destroyObjects)
+                bridge.CleanUp(jsonString);
+            FindObjectOfType<LabManager>().ModuleComplete();
+
+            destroyMarkers();
+            Destroy(myButton, 0.1f);
+        }
+
+
+        public override string SaveState()
+        {
+            return jsonString;
+        }
+
+
+        IEnumerator EndByTime()
+        {
+            yield return new WaitForSeconds(moduleData.timeToEnd);
+
+            EndOfModule();
+        }
+
+
+
+        // Start is called before the first frame update
+        void Start()
+        {
+
+
+            ObjectInfoCollection objList = JsonUtility.FromJson<ObjectInfoCollection>(jsonString);
+            nObjects = objList.objects.Length;
+            sortPts = new Vector3[nObjects];
+            for (int i= 0; i < nObjects; i++)
+            {
+                Debug.Log(i.ToString() + " : " + objList.objects[i].name);
+                sortPts[i] = objList.objects[i].position;
+            }
+            
+
+            // find the actual number wrong Answers
+            totalWrongAnswer = 0;
+            for (int i = 0; i < nObjects; i++)
+                if (wrongOrder[i] != null) totalWrongAnswer++;
+
+
             mscale = 0.07f;
-            markers[i] = Instantiate(markerPrefab, sortPts[i] - new Vector3(0.0f, 0.2f, 0.0f), Quaternion.identity) as GameObject;
-            markers[i].transform.localScale = new Vector3(mscale, mscale, mscale);
-            markers[i].GetComponent<Renderer>().material.color = new Color(0.3f, 0.3f, 0.3f, 1.0f);
-        }
-
-        // set the array to be unsorted
-        isSorted = false;
-
-        // creates the sortable panels
-        createSortables();
-
-        // create an array to help with the sorting
-        sortData = new sortInfo[nObjects];
-
-        // populate the sorting array with needed information
-        for (int i = 0; i < nObjects; i++)
-        {
-            sortData[i] = new sortInfo();
-            sortData[i].theObject = gameObjects[i];
-            sortData[i].sortedOrder = nObjects - i - 1;
-            sortData[i].fractionalDistance = 0.0f;
-            sortData[i].isSorted = false;
-
-            // add the moveObject script to the sortable objects
-            sortData[i].theObject.AddComponent<moveObjects>();
-
-        }
-
-        // this sets the intial position to the current position of the objects
-        // and sets the time limits so nothing actually moves
-        initializePath();
-        //
-        gameObject.name = "sortingManager";
-
-        myButton =  GameObject.Find("sortbutton");
-        myButton.AddComponent<buttonCallback>();
-        myButton.transform.localPosition = new Vector3(0.0f, -0.3f, 2.0f);
-        myButton.transform.localRotation = Quaternion.Euler(-90f, 0f, 0.0f);
-        myButton.GetComponent<Renderer>().material.color = Color.red;
-        GameObject.Find("sbutton").GetComponent<Renderer>().material.color = Color.red;
+            voffset = 0.2f;
+            createMarkers(mscale, voffset);
 
 
-        // this moves the objects to a scrambled location
-        scrambleProjectedPosition();
-        resetPositions(); //, orderList);
+            // set the array to be unsorted
+            isSorted = false;
 
-    }
+            // create an array to help with the sorting
+            sortData = new sortInfo[nObjects];
 
-    void createSortables()
-    {
-        float oscale = 0.02f;
-        gameObjects = new GameObject[nObjects];
-        for (int i = 0; i < nObjects; i++)
-        {
-            gameObjects[i] = Instantiate(myPrefab, sortPts[i], Quaternion.identity) as GameObject;
-            gameObjects[i].transform.eulerAngles = new Vector3(90.0f, 180.0f, 0.0f);
-            gameObjects[i].transform.localScale = new Vector3(2.0f * oscale, 1.0f * oscale, 1.0f * oscale);
-            //gameObjects[i].tag = "sortable";
-
-            gameObjects[i].GetComponent<Renderer>().material.mainTexture = myTexture[i]; // theTexture;
-            gameObjects[i].name = tnames[i];
-            gameObjects[i].GetComponent<Rigidbody>().useGravity = false;
-
-            // gameObjects[i].AddComponent<InputFeedback>();
-
-        }
-
-    }
-
-
-    IEnumerator buttonWait(float dTime)
-    {
-        // this routine disables the click interaction so the move routine
-        // doesn't get suck in the middle of a resort
-
-        feedbackEnabled = false;
-        yield return new WaitForSeconds(dTime);
-        feedbackEnabled = true;
-    }
-
-    public void feedbackOnOrder()
-    {
-        IEnumerator coroutine;
-
-        // we can disable the feedback loop so clicks don't affect the system 
-        // during a sort
-        if (feedbackEnabled)
-        {
-            checkOrder();
-            AudioSource aud = GetComponent<AudioSource>();
-            if (isSorted)
+            
+            // populate the sorting array with needed information
+            for (int i = 0; i < nObjects; i++)
             {
-                aud.clip = correctOrder;
-                setOrderLights();
-                pretty = 1;
-
-                aud.Play();
-                coroutine = taskCompleted();
-                StartCoroutine(coroutine);
-                //taskCompleted();
-
-            }
-            else
-            {
-                // this moves the objects to a scrambled location
-                setOrderLights();
-                scrambleProjectedPosition();
-                tdelay = 5.0f;
-                tmove = 3.0f;
-                pretty = 1;
-                resetPositions(); //, orderList);
-                coroutine = clearOrderLights();
-                StartCoroutine(coroutine);
-
-                //yield return new WaitForSeconds(audio.clip.length);
-                aud.clip = wrongOrder[wrongAnswerCount];
-
-                if (wrongAnswerCount + 1 < totalWrongAnswer)
-                    wrongAnswerCount = wrongAnswerCount + 1;
-                aud.Play();
-            }
-        }
-    }
-
-    IEnumerator taskCompleted()
-    {
-
-        float dtime;
-
-        dtime = 5.0f;
-        yield return new WaitForSeconds(dtime);
-        //Debug.Log("sorting is done!");
-        for (int i = 0; i < nObjects; i++)
-        {
-            Destroy(sortData[i].theObject);
-            Destroy(markers[i]);
-        }
-        Destroy(myButton);
-
-        GameObject jj = GameObject.Find("Lab Control");
-        jj.GetComponent<LabControl>().sortingDone();
-
-    }
-
-
-
-
-    public void resort()
-    {
-
-        // find where the objects are along the projected path
-        setProjectedLocation();
-
-        pretty = 0;
-        tdelay = 0.50f;
-        tmove = 1.5f;
-        resetPositions();
-    }
-
-    IEnumerator clearOrderLights()
-    {
-        float delaytime = 5.0f;
-
-        yield return new WaitForSeconds(delaytime);
-
-        for (int i = 0; i < nObjects; i++)
-            markers[i].GetComponent<Renderer>().material.color = new Color(0.3f, 0.3f, 0.3f, 1.0f);
-
-    }
-
-    void setOrderLights()
-    {
-        for (int i = 0; i < nObjects; i++)
-        {
-            if (sortData[i].isSorted)
-                markers[i].GetComponent<Renderer>().material.color = new Color(0.0f, 1.0f, 0.0f, 1.0f);
-            else
-                markers[i].GetComponent<Renderer>().material.color = Color.red;
-        }
-
-    }
-
-    void setSortedLocations(float distance = 3.0f, float angle = 0.0f, float height = 0.0f, float width = 5.0f, float xoffset = 0.0f, float zoffset = 0.0f)
-    {
-
-        float xcenter, ycenter, zcenter;
-        float angleStart;
-        float angleEnd;
-        float angleOffset;
-        float angleCenter;
-
-        // convert the direction of the sorting line to be in radians
-        angleCenter = angle * Mathf.PI / 180.0f;
-
-        // find the center of the sorting line
-        // height in the Unity environment is y, not z
-        xcenter = distance * Mathf.Sin(angleCenter) + xoffset;
-        zcenter = distance * Mathf.Cos(angleCenter) + zoffset;
-        ycenter = height;
-
-        // find the angular directions for the left and right side of the sorting line
-        angleOffset = Mathf.Atan(width / 2.0f / distance);
-        angleStart = angleCenter + angleOffset;
-        angleEnd = angleCenter - angleOffset;
-
-        // find the starting and ending positions of the sorting line
-        xstart = distance * Mathf.Sin(angleStart) / Mathf.Cos(angleOffset) + xoffset;
-        zstart = distance * Mathf.Cos(angleStart) / Mathf.Cos(angleOffset) + zoffset;
-        ystart = height;
-
-        xend = distance * Mathf.Sin(angleEnd) / Mathf.Cos(angleOffset) + xoffset;
-        zend = distance * Mathf.Cos(angleEnd) / Mathf.Cos(angleOffset) + zoffset;
-        yend = height;
-
-        // initialize the array of sorting locaitons
-        sortPts = new Vector3[nObjects];
-
-        // determine the correct positions for the elements 
-        float dx = (xend - xstart) / (float)(nObjects - 1);
-        float dz = (zend - zstart) / (float)(nObjects - 1);
-        for (int i = 0; i < nObjects; i++)
-        {
-            sortPts[i] = new Vector3(xstart + dx * i, height, zstart + dz * i);
-        }
-    }
-
-    void checkOrder()
-    {
-        isSorted = true;
-        for (int i = 0; i < nObjects; i++)
-        {
-            if (i == sortData[i].sortedOrder)
-            {
-                sortData[i].isSorted = true;
-            }
-            else
-            {
+                sortData[i] = new sortInfo();
+                sortData[i].theObject = GameObject.Find( objList.objects[i].name);
+                //sortData[i].theObject = gameObjects[i];
+                sortData[i].sortedOrder = i; // nObjects - i - 1;
+                sortData[i].fractionalDistance = 0.0f;
                 sortData[i].isSorted = false;
-                isSorted = false;
+
+                // add the moveObject script to the sortable objects
+                sortData[i].theObject.AddComponent<moveObjects>();
+
+            }
+
+    
+            // this sets the intial position to the current position of the objects
+            // and sets the time limits so nothing actually moves
+            initializePath();
+
+            // set up the big red button
+            gameObject.name = "sortingManager";
+            buttonPrefabString = "Prefabs/BigRedButton";
+            buttonPrefab = Resources.Load(buttonPrefabString) as GameObject;
+            myButton = Instantiate(buttonPrefab, new Vector3(0.0f, -0.3f, 2.0f),
+                Quaternion.Euler(-90f, 0f, 0.0f));
+            myButton.AddComponent<buttonCallback>();
+            GameObject.Find("button").GetComponent<Renderer>().material.color = Color.red;
+
+            // this moves the objects to a scrambled location
+            scrambleProjectedPosition();
+            resetPositions(); //, orderList);
+
+        }
+        
+        public void createMarkers(float mscale, float voffset)
+        { 
+            
+            markers = new GameObject[nObjects];
+            for (int i = 0; i < nObjects; i++)
+            {
+                mscale = 0.07f;
+                markerPrefab = Resources.Load("Prefabs/tinysphere") as GameObject;
+                markers[i] = Instantiate(markerPrefab, sortPts[i] - new Vector3(0.0f, voffset, 0.0f), Quaternion.identity) as GameObject;
+                markers[i].transform.localScale = new Vector3(mscale, mscale, mscale);
+                markers[i].GetComponent<Renderer>().material.color = new Color(0.3f, 0.3f, 0.3f, 1.0f);
+            }
+
+
+        }
+        public void destroyMarkers()
+        {
+            for (int i = 0; i < nObjects; i++)
+            {
+                Destroy(markers[i]);
             }
         }
-    }
 
-    void scrambleProjectedPosition()
-    {
-        for (int i = 0; i < nObjects; i++)
-            sortData[i].fractionalDistance = UnityEngine.Random.value;
-    }
 
-    void setProjectedLocation()
-    {
-        // find the project position of an object along the direction of the sorted locations line
-
-        // projected distance along a line r for a vector p is given by
-        // distance = r dot p / r
-        // the fractional distance is r dot p / r**2
-
-        for (int i = 0; i < nObjects; i++)
+        IEnumerator buttonWait(float dTime)
         {
-            Vector3 targetPosition = sortData[i].theObject.transform.position;
-            Vector3 projectedPath = new Vector3(xend - xstart, yend - ystart, zend - zstart);
-            float fractionalDistance = Vector3.Dot(targetPosition, projectedPath) /
-            Vector3.Dot(projectedPath, projectedPath);
-            sortData[i].fractionalDistance = fractionalDistance;
+            // this routine disables the click interaction so the move routine
+            // doesn't get suck in the middle of a resort
+
+            feedbackEnabled = false;
+            yield return new WaitForSeconds(dTime);
+            feedbackEnabled = true;
         }
-    }
 
+        public void feedbackOnOrder()
+        {
+            IEnumerator coroutine;
 
-    void resetPositions()
-    {
-        float myTime;
-        myTime = Time.time;
-        float a1, a2, a3;
+            // we can disable the feedback loop so clicks don't affect the system 
+            // during a sort
+            if (feedbackEnabled)
+            {
+                checkOrder();
+                AudioSource aud = GetComponent<AudioSource>();
+                if (isSorted)
+                {
+                    aud.clip = correctOrder;
+                    setOrderLights();
+                    pretty = 1;
 
+                    aud.Play();
+                    coroutine = taskCompleted();
+                    StartCoroutine(coroutine);
+                    //taskCompleted();
 
+                }
+                else
+                {
+                    // this moves the objects to a scrambled location
+                    setOrderLights();
+                    scrambleProjectedPosition();
+                    tdelay = 5.0f;
+                    tmove = 3.0f;
+                    pretty = 1;
+                    resetPositions(); //, orderList);
+                    coroutine = clearOrderLights();
+                    StartCoroutine(coroutine);
 
-        // sort by the projected fractional order
-        Array.Sort(sortData, delegate (sortInfo s1, sortInfo s2) {
-            return s1.fractionalDistance.CompareTo(s2.fractionalDistance);
-        });
+                    //yield return new WaitForSeconds(audio.clip.length);
+                    aud.clip = wrongOrder[wrongAnswerCount];
 
-        // initialize the moveObject variables to safe default values
-        initializePath();
+                    if (wrongAnswerCount + 1 < totalWrongAnswer)
+                        wrongAnswerCount = wrongAnswerCount + 1;
+                    aud.Play();
+                }
+            }
+        }
 
-        // set up the moveObject scripts to move the objects
-        for (int i = 0; i < nObjects; i++)
+        IEnumerator taskCompleted()
         {
 
-            // set the final positions of the particles to be the target locations
-            sortData[i].theObject.GetComponent<moveObjects>().FinalPos = sortPts[i];
+            float dtime;
 
-            // move them in an indirect path or a direct path
-            if (pretty == 1)
+            dtime = 5.0f;
+            yield return new WaitForSeconds(dtime);
+            //Debug.Log("sorting is done!");
+            for (int i = 0; i < nObjects; i++)
+            {
+                Destroy(sortData[i].theObject);
+                Destroy(markers[i]);
+            }
+            Destroy(myButton);
+
+            GameObject jj = GameObject.Find("Lab Control");
+            jj.GetComponent<LabControl>().sortingDone();
+
+        }
+
+
+
+
+        public void resort()
+        {
+
+            Debug.Log("in resort.....");
+
+            // find where the objects are along the projected path
+            setProjectedLocation();
+
+            pretty = 0;
+            tdelay = 0.50f;
+            tmove = 1.5f;
+            resetPositions();
+        }
+
+        IEnumerator clearOrderLights()
+        {
+            float delaytime = 5.0f;
+
+            yield return new WaitForSeconds(delaytime);
+
+            for (int i = 0; i < nObjects; i++)
+                markers[i].GetComponent<Renderer>().material.color = new Color(0.3f, 0.3f, 0.3f, 1.0f);
+
+        }
+
+        void setOrderLights()
+        {
+            for (int i = 0; i < nObjects; i++)
+            {
+                if (sortData[i].isSorted)
+                    markers[i].GetComponent<Renderer>().material.color = new Color(0.0f, 1.0f, 0.0f, 1.0f);
+                else
+                    markers[i].GetComponent<Renderer>().material.color = Color.red;
+            }
+
+        }
+
+        void checkOrder()
+        {
+            isSorted = true;
+            for (int i = 0; i < nObjects; i++)
+            {
+                if (i == sortData[i].sortedOrder)
+                {
+                    sortData[i].isSorted = true;
+                }
+                else
+                {
+                    sortData[i].isSorted = false;
+                    isSorted = false;
+                }
+            }
+        }
+
+        void scrambleProjectedPosition()
+        {
+            for (int i = 0; i < nObjects; i++)
+                sortData[i].fractionalDistance = UnityEngine.Random.value;
+        }
+
+
+        void setProjectedLocation()
+        {
+            float distance, minDistance, maxDistance;
+            Vector3 dr;
+            int[] closestMarker = new int[nObjects];
+            float[] closestDistance = new float[nObjects];
+            int displacedObject;            
+
+            // find the closest points for all the objects
+            for (int i = 0; i < nObjects; i++)
+            {
+                minDistance = 10000.0f;
+                for (int j = 0; j < nObjects; j++)
+                {
+                    dr = sortData[i].theObject.transform.position - sortPts[j];
+                    distance = Vector3.Dot(dr, dr);
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        closestMarker[i] = j;
+                        closestDistance[i] = minDistance;
+                    }
+                }
+            }
+
+            // find the object that is the furthest away from the target points
+            maxDistance = 0.0f;
+            displacedObject = 0;
+
+            for (int i = 0; i < nObjects; i++)
+            { 
+                if (closestDistance[i] > maxDistance)
+                {
+                    displacedObject = i;
+                    maxDistance = closestDistance[i];
+                }
+            }
+
+            // now find the second closest target point for the displaced object
+            minDistance = 1000000.0f;
+            int secondClosest = 0;
+            for (int j = 0; j < nObjects; j++)
+            {
+                dr = sortData[displacedObject].theObject.transform.position - sortPts[j];
+                distance = Vector3.Dot(dr, dr);
+
+                if (distance < minDistance && distance < closestMarker[j] - 0.01f)
+                {
+                    minDistance = distance;
+                    secondClosest = j;
+                }
+            }
+            Debug.Log("second closest " + secondClosest.ToString() + "   :" + minDistance.ToString());
+
+
+            for (int i = 0; i < nObjects; i++)
+            {
+                Debug.Log("particle " + i.ToString() + " " + closestMarker[i].ToString() + " : " + closestDistance[i].ToString());
+            }
+            Debug.Log("the displaced particle is " + displacedObject.ToString());
+
+            // find the two closest objects from the object that is currently being moved
+
+
+        }
+
+        /*
+        void setProjectedLocation()
+        {
+            // find the project position of an object along the direction of the sorted locations line
+
+            // projected distance along a line r for a vector p is given by
+            // distance = r dot p / r
+            // the fractional distance is r dot p / r**2
+
+            for (int i = 0; i < nObjects; i++)
+            {
+                Vector3 targetPosition = sortData[i].theObject.transform.position;
+                Vector3 projectedPath = new Vector3(xend - xstart, yend - ystart, zend - zstart);
+                float fractionalDistance = Vector3.Dot(targetPosition, projectedPath) /
+                Vector3.Dot(projectedPath, projectedPath);
+                sortData[i].fractionalDistance = fractionalDistance;
+            }
+        }*/
+
+
+        void resetPositions()
+        {
+            float myTime;
+            myTime = Time.time;
+            float a1, a2, a3;
+
+
+
+            // sort by the projected fractional order
+            Array.Sort(sortData, delegate (sortInfo s1, sortInfo s2)
+            {
+                return s1.fractionalDistance.CompareTo(s2.fractionalDistance);
+            });
+
+            // initialize the moveObject variables to safe default values
+            initializePath();
+
+            // set up the moveObject scripts to move the objects
+            for (int i = 0; i < nObjects; i++)
             {
 
-                // pick a midpoint scattered around the middle of the path
-                float rrange = 0.85f;
-                sortData[i].theObject.GetComponent<moveObjects>().MidPos = (sortData[i].theObject.transform.position + sortPts[i]) * 0.5f +
-                new Vector3(UnityEngine.Random.Range(-rrange, rrange), UnityEngine.Random.Range(0, rrange), UnityEngine.Random.Range(-rrange, rrange));
+                // set the final positions of the particles to be the target locations
+                sortData[i].theObject.GetComponent<moveObjects>().FinalPos = sortPts[i];
 
-                // this adds a nice spin during the sort - a1 should be 90 or 90 + 360*n
-                a1 = 90;
-                a2 = 180;
-                a3 = 0;
-                sortData[i].theObject.GetComponent<moveObjects>().FinalAngle = new Vector3(a1, a2, a3);
+                // move them in an indirect path or a direct path
+                if (pretty == 1)
+                {
+
+                    // pick a midpoint scattered around the middle of the path
+                    float rrange = 0.85f;
+                    sortData[i].theObject.GetComponent<moveObjects>().MidPos = (sortData[i].theObject.transform.position + sortPts[i]) * 0.5f +
+                    new Vector3(UnityEngine.Random.Range(-rrange, rrange), UnityEngine.Random.Range(0, rrange), UnityEngine.Random.Range(-rrange, rrange));
+
+                    // this adds a nice spin during the sort - a1 should be 90 or 90 + 360*n
+                    a1 = 90;
+                    a2 = 180;
+                    a3 = 0;
+                    sortData[i].theObject.GetComponent<moveObjects>().FinalAngle = new Vector3(a1, a2, a3);
+
+                }
+                else
+                {
+
+                    // pick a midpoint between the points
+                    sortData[i].theObject.GetComponent<moveObjects>().MidPos = (sortData[i].theObject.transform.position +
+                        sortPts[i]) * 0.5f;
+
+                    a1 = 90;
+                    a2 = 180;
+                    a3 = 0;
+                    sortData[i].theObject.GetComponent<moveObjects>().FinalAngle = new Vector3(a1, a2, a3);
+                }
+
+                // start the move after a delay and finishing in a specified time
+                sortData[i].theObject.GetComponent<moveObjects>().TimeRange = new Vector2(myTime + tdelay, myTime + tdelay + tmove);
+
+                // this is the last thing to do to make it all work
+                sortData[i].theObject.GetComponent<moveObjects>().initializePath();
 
             }
-            else
-            {
-
-                // pick a midpoint between the points
-                sortData[i].theObject.GetComponent<moveObjects>().MidPos = (sortData[i].theObject.transform.position +
-                    sortPts[i]) * 0.5f;
-
-                a1 = 90;
-                a2 = 180;
-                a3 = 0;
-                sortData[i].theObject.GetComponent<moveObjects>().FinalAngle = new Vector3(a1, a2, a3);
-            }
-
-            // start the move after a delay and finishing in a specified time
-            sortData[i].theObject.GetComponent<moveObjects>().TimeRange = new Vector2(myTime + tdelay, myTime + tdelay + tmove);
-
-            // this is the last thing to do to make it all work
-            sortData[i].theObject.GetComponent<moveObjects>().initializePath();
-
+            IEnumerator pausePointer = buttonWait(tdelay + tmove);
+            StartCoroutine(pausePointer);
         }
-        IEnumerator pausePointer = buttonWait(tdelay + tmove);
-        StartCoroutine(pausePointer);
-    }
 
 
 
-    void initializePath()
-    {
-
-        for (int i = 0; i < nObjects; i++)
+        void initializePath()
         {
-            sortData[i].theObject.GetComponent<moveObjects>().StartPos = sortData[i].theObject.transform.position;
-            sortData[i].theObject.GetComponent<moveObjects>().MidPos = new Vector3(0.001f, 0.001f, 0.001f);
-            sortData[i].theObject.GetComponent<moveObjects>().FinalPos = new Vector3(0.001f, 0.001f, 0.001f);
 
-            sortData[i].theObject.GetComponent<moveObjects>().StartSize = sortData[i].theObject.transform.localScale;
-            sortData[i].theObject.GetComponent<moveObjects>().FinalSize = sortData[i].theObject.transform.localScale;
+            for (int i = 0; i < nObjects; i++)
+            {
+                sortData[i].theObject.GetComponent<moveObjects>().StartPos = sortData[i].theObject.transform.position;
+                sortData[i].theObject.GetComponent<moveObjects>().MidPos = new Vector3(0.001f, 0.001f, 0.001f);
+                sortData[i].theObject.GetComponent<moveObjects>().FinalPos = new Vector3(0.001f, 0.001f, 0.001f);
 
-            sortData[i].theObject.GetComponent<moveObjects>().StartAngle = sortData[i].theObject.transform.eulerAngles;
-            sortData[i].theObject.GetComponent<moveObjects>().FinalAngle = sortData[i].theObject.transform.eulerAngles;
+                sortData[i].theObject.GetComponent<moveObjects>().StartSize = sortData[i].theObject.transform.localScale;
+                sortData[i].theObject.GetComponent<moveObjects>().FinalSize = sortData[i].theObject.transform.localScale;
 
-            // this disables the move
-            sortData[i].theObject.GetComponent<moveObjects>().TimeRange = new Vector2(-100.0f, -90.0f);
+                sortData[i].theObject.GetComponent<moveObjects>().StartAngle = sortData[i].theObject.transform.eulerAngles;
+                sortData[i].theObject.GetComponent<moveObjects>().FinalAngle = sortData[i].theObject.transform.eulerAngles;
+
+                // this disables the move
+                sortData[i].theObject.GetComponent<moveObjects>().TimeRange = new Vector2(-100.0f, -90.0f);
+
+            }
+        }
+
+        void testMove()
+        {
+
+            //setProjectedLocation();
+            //sortData[3].fractionalDistance = -10f;
+            sortData[0].fractionalDistance = 100f;
+
+            pretty = 0;
+            tdelay = 3.0f;
+            tmove = 3.0f;
+            resetPositions();
+        }
+
+
+        // Update is called once per frame
+        void Update()
+        {
+            float myTime;
+            myTime = Time.time;
 
         }
     }
 
-    void testMove()
-    {
-
-        setProjectedLocation();
-        //sortData[3].fractionalDistance = -10f;
-        sortData[0].fractionalDistance = 100f;
-
-        pretty = 0;
-        tdelay = 3.0f;
-        tmove = 3.0f;
-        resetPositions();
-    }
-
-
-    // Update is called once per frame
-    void Update()
-    {
-        float myTime;
-        myTime = Time.time;
-
-    }
 }
-
-
