@@ -5,72 +5,51 @@ using System.Text;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
-
+//Ubon lab terminted file with login information and results
+//will be upload to the server
 public class LabExit : MonoBehaviour
 {
     public string myFile = "Assets/Resources/test2.txt";
-    // Start is called before the first frame update
+    // thi method will be called upon stopping the lab
     void OnApplicationQuit()
     {
-        print($"Quit called successfuly");
+        // upload method is called
         StartCoroutine(Upload());
-        // StartCoroutine(Upload());
-        Debug.Log("Application ending after " + Time.time + " seconds");
+        // time stamp to the log file 
+         Debug.Log("Application ending after " + Time.time + " seconds");
 
 
     }
+    //method used to upload file to the web
     IEnumerator Upload()
     {
-        print($"upload called successfuly");
+        //Convert the file into binary
         //byte[] myData = System.Text.Encoding.UTF8.GetBytes("This is some test data");
-        byte[] gifByte = File.ReadAllBytes("Assets/Resources/test2.txt");
+        byte[] txtByte = File.ReadAllBytes("Assets/Resources/test2.txt");
+        //create a webForm object
         WWWForm form = new WWWForm();
-        //form.AddField("myField", "myData");
-        //Modify the format according to the long-passed file
+
+        //public void AddBinaryData(string fieldName, byte[] contents, string fileName = null, string mimeType = null);
         //this function to upload files and images to a web server application.
-        form.AddBinaryData("file", gifByte, "test2.txt", "txt");
-        print($"test for theform {form}");
+        //Note that the data is read from the contents of byte array and not from a file.
+        //The fileName parameter is for telling the server what filename to use when saving the uploaded file.
+        form.AddBinaryData("file", txtByte, "test2.txt", "txt");
+        
         using (UnityWebRequest www = UnityWebRequest.Post("http://cyberlearnar.cs.mtsu.edu/upload_file", form))
         {
-            print($"Web server called{www.result}");
+            
             yield return www.SendWebRequest();
-            print($"Web server Return value");
+            
             if (www.result != UnityWebRequest.Result.Success)
             {
-                print($"Web server Error");
                 Debug.Log(www.error);
             }
             else
             {
-                print($"Web server Complete");
                 Debug.Log("Form upload complete!");
             }
-            print($"Web server called end of file {www.result}");
+
         }
 
-        /*
-        print($"upload called successfuly");
-        // byte[] myData = System.Text.Encoding.UTF8.GetBytes("This is some test data");
-        //making a dummy xml level file
-       // XmlDocument map = new XmlDocument();
-       // map.LoadXml("<level></level>");
-        //converting the xml to bytes to be ready for upload
-       // byte[] levelData = System.Text.Encoding.UTF8.GetBytes(map.OuterXml);
-
-        UnityWebRequest www = UnityWebRequest.Post("http://cyberlearnar.cs.mtsu.edu/upload_file", myFile);
-        // UnityWebRequest www = UnityWebRequest.Put("https://www.cs.mtsu.edu/~raltobasei/1170/public", myData);
-        yield return www.SendWebRequest();
-
-        if (www.result != UnityWebRequest.Result.Success)
-        {
-            Debug.Log(www.error);
-            print($"upload success");
-        }
-        else
-        {
-            Debug.Log("Upload complete!");
-            print($"No upload");
-        }
-        */
     }
 }

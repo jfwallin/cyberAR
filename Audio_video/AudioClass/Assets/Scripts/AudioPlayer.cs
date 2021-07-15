@@ -17,19 +17,27 @@ public class AudioPlayer : MonoBehaviour
     public int STOP { get; set; }
     public int NUM { set; get; }
     public System.Action localCallBack;
-    // private float Beg { set; get; }
-    //  public AudioSource[] allAudios;
     public Sprite img1;  // This will hold the image 
     public VideoPlayer myVideoPlayer { set; get; }  // videplayer comp.
     public AudioClip myAudioClip;
-    public string Path { set; get; } = "Assets/Resources/test2.txt";
-    //StreamWriter writer = new StreamWriter(Path, true);
+    public InputType dataType { set; get; } = InputType.Media;
+    //public string Path { set; get; } = "Assets/Resources/test2.txt";
 
-    // This will get a item should change to get the file name
+    //Create instance of WrtieToFile
+   // [SerializeField]
+   // WriteAtEnd writeatEnd;
+    [SerializeField]
+    TestWrite testWrite;
+    // This will create an instant for Write file
+    public void Start()
+    {
+        testWrite = FindObjectOfType(typeof(TestWrite)) as TestWrite;
+    }
+
     public void MediaManager(string[] item)//, System.Action CallBack)
     {
-        // string path = "Assets/Resources/test2.txt";
-        StreamWriter writer = new StreamWriter(Path, true);
+        //string path = "Assets/Resources/test2.txt";
+       // StreamWriter writer = new StreamWriter(Path, true);
         AudioSource audio = GetComponent<AudioSource>();
         myVideoPlayer = GetComponent<VideoPlayer>();
         // localCallBack = CallBack;
@@ -37,8 +45,9 @@ public class AudioPlayer : MonoBehaviour
         string MediaName = item[0];
         NUM = Convert.ToInt32(item[1]);
         // print(item[1]);
-        MCQ TYPE = (MCQ)NUM;//  int.Parse(item[1]);
-                            //   print(NUM);
+        MCQ TYPE = (MCQ)NUM;
+        
+        
         switch (TYPE)
         {
             case MCQ.Audio:
@@ -51,16 +60,9 @@ public class AudioPlayer : MonoBehaviour
                     print($"audio length {audio.clip.length}");
                     StartCoroutine(waitAudio(audio.clip.length));
                     // new WaitForSeconds(audio.clip.length);
-                    writer.WriteLine($"Audio file {MediaName} played at {System.DateTime.Now} ");
-                    //  if (item[] == "correct")
-                    // {
-                    //    writer.WriteLine($"Question number {(item[0])} is {item[]}");
-                    // }
-                    // else
-                    // {
-                    //    writer.WriteLine($"Question number {(item[0])} is {item[2]}");
-                    // }
-                    writer.Close();
+                   //writer.WriteLine($"Audio file {MediaName} played at {System.DateTime.Now} ");
+                    testWrite.WriteToString(dataType, System.DateTime.Now.ToString(), MediaName, "Audio", "Other inormation");
+                   //writer.Close();
 
                 }
                 break;
@@ -68,17 +70,12 @@ public class AudioPlayer : MonoBehaviour
                 if (myVideoPlayer.isPlaying == false && audio.isPlaying == false)
                 {
                     audio.Stop();
-
+                  //  print($"thsi is a test for write script{JustWrite.number}");
                     myVideoPlayer.Stop();
                     myVideoPlayer.clip = Resources.Load<VideoClip>("Video/" + MediaName);
-                    // Beg = Time.time;
-                    writer.WriteLine($"Video file {MediaName} played  at {System.DateTime.Now}");
                     myVideoPlayer.Play();
-
                     myVideoPlayer.loopPointReached += EndReached;
-                    writer.WriteLine($"Video file {MediaName} End  at {System.DateTime.Now}");
-
-                    writer.Close();
+                    testWrite.WriteToString(dataType, System.DateTime.Now.ToString(), MediaName, "Video");
                 }
 
 
@@ -87,7 +84,7 @@ public class AudioPlayer : MonoBehaviour
                 img1 = Resources.Load<Sprite>("Image/" + MediaName);
                 //display image to the component "UI image"  that connect to this script
                 GetComponent<Image>().sprite = img1;
-                writer.WriteLine($"Image {MediaName} has been showed ");
+             //   writer.WriteLine($"Image {MediaName} has been showed ");
                 break;
 
 
@@ -129,7 +126,7 @@ public class AudioPlayer : MonoBehaviour
     //This will send meesage after the Video playe stop
     void EndReached(UnityEngine.Video.VideoPlayer vp)
     {
-        StreamWriter writer = new StreamWriter(Path, true);
+        //StreamWriter writer = new StreamWriter(Path, true);
         //vp.playbackSpeed = vp.playbackSpeed / 10.0F;
         //myVideoPlayer.loopPointReached
         myVideoPlayer.Stop();
@@ -137,9 +134,9 @@ public class AudioPlayer : MonoBehaviour
         myVideoPlayer.skipOnDrop = false;
         print($"I reached the end {myVideoPlayer.length}");
         print($"video frame is {myVideoPlayer.frame}");
-        writer.WriteLine($"Video file  End  at {System.DateTime.Now}");
+       // writer.WriteLine($"Video file  End  at {System.DateTime.Now}");
 
-        writer.Close();
+       // writer.Close();
         // img1 = Resources.Load<Sprite>("Image/card_waxing_gibbous_image");
         //display image to the component "UI image"  that connect to this script
         // GetComponent<Image>().overrideSprite= img1;
