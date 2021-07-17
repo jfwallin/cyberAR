@@ -85,6 +85,7 @@ namespace sortingRoutines
         private string jsonString;
 
         private MediaPlayer mPlayer = null;
+        private GameObject mainCamera;
         private lightingControl lightControl;
         private AudioSource aud;
         private Bridge bridge;
@@ -101,8 +102,8 @@ namespace sortingRoutines
             // setup the media player, lightControl, and audio player
             mPlayer = MediaPlayer.Instance;
             lightControl = lightingControl.Instance;
-
             aud = gameObject.GetComponent<AudioSource>();
+            mainCamera = GameObject.Find("Main Camera");
 
             // play the introAudio
             aud.clip = Resources.Load<AudioClip>(moduleData.introAudio);
@@ -381,13 +382,12 @@ namespace sortingRoutines
         }
 
 
-        void setProjectedLocation()
+        int[] findDisplacedObject()
         {
-            float distance, minDistance, maxDistance;
+            float distance, minDistance;
             Vector3 dr;
             int[] closestMarker = new int[nObjects];
             float[] closestDistance = new float[nObjects];
-            int displacedObject;            
 
             // find the closest points for all the objects
             for (int i = 0; i < nObjects; i++)
@@ -396,7 +396,7 @@ namespace sortingRoutines
                 for (int j = 0; j < nObjects; j++)
                 {
                     dr = sortData[i].theObject.transform.position - sortPts[j];
-                    distance = Vector3.Dot(dr, dr);
+                    distance = Mathf.Sqrt(Vector3.Dot(dr, dr));
                     if (distance < minDistance)
                     {
                         minDistance = distance;
@@ -406,46 +406,117 @@ namespace sortingRoutines
                 }
             }
 
-            // find the object that is the furthest away from the target points
-            maxDistance = 0.0f;
-            displacedObject = 0;
-
+            // find the closest points for all the objects
             for (int i = 0; i < nObjects; i++)
-            { 
-                if (closestDistance[i] > maxDistance)
+            {
+                minDistance = 10000.0f;
+                for (int j = 0; j < nObjects; j++)
                 {
-                    displacedObject = i;
-                    maxDistance = closestDistance[i];
+                    dr = sortData[i].theObject.transform.position - sortPts[j];
+                    distance = Mathf.Sqrt(Vector3.Dot(dr, dr));
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        closestMarker[i] = j;
+                        closestDistance[i] = minDistance;
+                    }
                 }
             }
+
+            float d1;
+            int i1;
+            int dObject = 0;
+            // find the object that is the furthest away from the target points
+            d1 = 0.0f;
+            i1 = 0;
+            for (int i = 0; i < nObjects; i++)
+            {
+                if (closestDistance[i] > d1)
+                {
+                    dObject = i;
+                    i1 = closestMarker[i];
+                    d1 = closestDistance[i];
+                }
+            }
+
 
             // now find the second closest target point for the displaced object
-            minDistance = 1000000.0f;
-            int secondClosest = 0;
+            float d2;
+            int i2;
+
+            d2 = 100000.0f;
+            i2 = 0;
             for (int j = 0; j < nObjects; j++)
             {
-                dr = sortData[displacedObject].theObject.transform.position - sortPts[j];
-                distance = Vector3.Dot(dr, dr);
-
-                if (distance < minDistance && distance < closestMarker[j] - 0.01f)
+                if (j != i1)
                 {
-                    minDistance = distance;
-                    secondClosest = j;
+                    dr = sortData[dObject].theObject.transform.position - sortPts[j];
+                    distance = Mathf.Sqrt(Vector3.Dot(dr, dr));
+                    if (distance < d2)
+                    {
+                        d2 = distance;
+                        i2 = j;
+                    }
                 }
             }
-            Debug.Log("second closest " + secondClosest.ToString() + "   :" + minDistance.ToString());
-
-
-            for (int i = 0; i < nObjects; i++)
-            {
-                Debug.Log("particle " + i.ToString() + " " + closestMarker[i].ToString() + " : " + closestDistance[i].ToString());
-            }
-            Debug.Log("the displaced particle is " + displacedObject.ToString());
-
-            // find the two closest objects from the object that is currently being moved
-
+            
+            return new int[3] { dObject, i1, i2 };
 
         }
+
+
+
+
+        void setProjectedLocation()
+        {
+
+
+            int[] pdata;
+            pdata = findDisplacedObject();
+
+            int displacedObject = pdata[0];
+            int firstClosestPt = pdata[1];
+            int secondClosestPt = pdata[2];
+
+            //print("new position " + displacedObject.ToString() + "   " + firstClosestPt.ToString() + "  -  " + secondClosestPt.ToString());
+
+            // reset the fractional distances 
+            for (int i = 0; i < nObjects; i++)
+            {
+                sortData[i].fractionalDistance = (float) i;
+            }
+
+            float eps = 0.01f;  // this is a small number to shift and object for resorting
+            // case 1 -  the first closest point located to the right of the second closet point 
+            if (firstClosestPt > secondClosestPt)
+            {
+                // move the object currently at the firstClosest point to the right
+                if (firstClosestPt < nObjects - 1)
+                {
+                    sortData[displacedObject].fractionalDistance = (float)firstClosestPt - eps;
+                }
+                else
+                {
+                    sortData[displacedObject].fractionalDistance = (float)firstClosestPt + eps;
+                }
+            }
+            else
+            // case 2 - first closest point located to the left of the second closest point
+            {
+                // move the object currently at the firstClosest point to the left
+                if (firstClosestPt > 0)
+                {
+                    sortData[displacedObject].fractionalDistance = (float)firstClosestPt + eps;
+                }
+                else
+                { 
+                    sortData[displacedObject].fractionalDistance = (float)firstClosestPt - eps;
+                }
+            }
+
+        }
+
+
 
         /*
         void setProjectedLocation()
