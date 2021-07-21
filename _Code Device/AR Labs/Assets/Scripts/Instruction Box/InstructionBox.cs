@@ -15,7 +15,12 @@ public class InstructionBox : MonoBehaviour
         {
             if (_instance == null)
             {
-                _instance = Instantiate((GameObject)Resources.Load("Prefabs/Instruction Box"), GameObject.Find("[WORLD]").transform).GetComponent<InstructionBox>();
+                _instance = FindObjectOfType<InstructionBox>();
+                if(_instance == null)
+                {
+                    _instance = Instantiate((GameObject)Resources.Load("Prefabs/Instruction Box"), GameObject.Find("[WORLD]").transform).GetComponent<InstructionBox>();
+                    Debug.Log($"Added new instance, singleton reference is now not null: {_instance != null}");
+                }
             }
 
             return _instance;
