@@ -20,6 +20,9 @@ public class InstructionBox : MonoBehaviour
                 {
                     _instance = Instantiate((GameObject)Resources.Load("Prefabs/Instruction Box"), GameObject.Find("[WORLD]").transform).GetComponent<InstructionBox>();
                     Debug.Log($"Added new instance, singleton reference is now not null: {_instance != null}");
+
+                    InstructionBox iiii = FindObjectOfType<InstructionBox>();
+                    Debug.Log($"Added new new new instance, singleton reference is now not null: {iiii != null}");
                 }
             }
 
@@ -48,7 +51,7 @@ public class InstructionBox : MonoBehaviour
         //Make sure there isn't more than one instruction box
         if(this != _instance)
         {
-            Destroy(this);
+            GameObject.Destroy(this);
         }
 
         // Fail fast null checks
@@ -77,6 +80,7 @@ public class InstructionBox : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("starting isntances of instruction Box");
         //Set the camera for the canvas
         GetComponent<Canvas>().worldCamera = Camera.main;
     }
