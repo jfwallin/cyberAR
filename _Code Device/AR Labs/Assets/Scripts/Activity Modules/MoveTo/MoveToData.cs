@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 
-namespace sortingRoutines
+namespace MoveToRoutines
 {
     [System.Serializable]
-    public class sortingActivityData: ActivityModuleData
+    public class MoveToActivityData: ActivityModuleData
     {
 
         bool isSorted;
@@ -18,7 +18,7 @@ namespace sortingRoutines
 
         private bool feedbackEnabled = true;
 
-        public ObjectInfo[] objects;
+        public string objects;
         public string introAudio;
         public bool useSunlight = false;
 

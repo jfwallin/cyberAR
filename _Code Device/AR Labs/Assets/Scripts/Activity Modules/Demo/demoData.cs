@@ -8,7 +8,7 @@ namespace demoRoutines
     [System.Serializable]
     public class demoData : ActivityModuleData
     {
-        public string objects;
+        public ObjectInfo[] objects;
         public string introAudio;
         public bool useSunlight = false;
 

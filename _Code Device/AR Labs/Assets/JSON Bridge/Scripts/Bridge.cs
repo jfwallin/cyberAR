@@ -20,10 +20,18 @@ public class Bridge
         makeScene(JsonUtility.FromJson<ObjectInfoCollection>(data));
     }
 
+    public void makeObjects(ObjectInfo[] objectList)
+    {
+        foreach (ObjectInfo obj in objectList)
+        {
+            if (obj.transmittable == false) makeObject(obj);
+            else if (obj.transmittable == true) makeTransmissionObject(obj);
+        }
+    }
 
     private void makeScene(ObjectInfoCollection info)
     {
-        //In the event that transmission obects need to be created this will send each to thier apropriet category
+        //In the event that transmission objects need to be created this will send each to thier apropriet category
         foreach (ObjectInfo obj in info.objects)
         {
             if (obj.transmittable == false) makeObject(obj);

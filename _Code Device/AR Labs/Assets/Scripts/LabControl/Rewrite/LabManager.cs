@@ -73,6 +73,8 @@ public class LabManager : MonoBehaviour
         //Load prefab from resources
         GameObject tmpPrefab = (GameObject)Resources.Load($"Prefabs/{tmpData.prefabName}");
 
+        Debug.Log("tmpdata = " + tmpData.prefabName);
+
         //There will need to be some sort of placement routine, but for now it will be placed at 0,0,0
         currentModuleObject = Instantiate(tmpPrefab, Vector3.zero, Quaternion.identity);
         currentModuleScript = currentModuleObject.GetComponent<ActivityModule>();

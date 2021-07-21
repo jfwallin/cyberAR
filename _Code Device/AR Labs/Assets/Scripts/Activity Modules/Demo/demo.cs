@@ -21,6 +21,7 @@ namespace demoRoutines
         //public override void Initialize(ActivityModuleData dataIn)
         public override void Initialize(string jsonData)
         {
+            Debug.Log("starting the f module");
             // save the json string into a private variable
             moduleData = new demoData();
             jsonString = jsonData;
@@ -43,7 +44,7 @@ namespace demoRoutines
             // instantiate the bridge and create the demo objects
             bridge = new Bridge();
             if (moduleData.createObjects)
-                bridge.ParseJson(jsonString);
+                bridge.makeObjects(moduleData.objects);
 
             // set the end criteria
             if (moduleData.timeToEnd > 0)
@@ -52,12 +53,19 @@ namespace demoRoutines
 
         public override void EndOfModule()
         {
+            string jdata = JsonUtility.ToJson(moduleData, true);
+            Debug.Log(jdata);
+            string odata = JsonUtility.ToJson(moduleData.objects, true);
+            Debug.Log(odata);
+
             if (moduleData.restoreLights)
                 lightControl.restoreLights();   
             
             if (moduleData.destroyObjects)
                 bridge.CleanUp(jsonString); 
             FindObjectOfType<LabManager>().ModuleComplete();
+
+
         }
 
 
@@ -70,7 +78,7 @@ namespace demoRoutines
         IEnumerator EndByTime()
         {
             yield return new WaitForSeconds(moduleData.timeToEnd);
-
+            Debug.Log("ending module");
             EndOfModule();
         }
 

@@ -15,9 +15,9 @@ Touchpad Forcepress = Reset
 Reach out to extend pointer.
  */
 
-namespace sortingRoutines
+namespace MoveToRoutines
 {
-    public class sortingActivity : ActivityModule
+    public class MoveToActivity : ActivityModule
     {
 
         public class sortInfo
@@ -81,7 +81,7 @@ namespace sortingRoutines
         private int pretty = 1;
 
         //---------------------------------------------------------
-        private sortingActivityData moduleData;
+        private MoveToActivityData moduleData;
         private string jsonString;
 
         private MediaPlayer mPlayer = null;
@@ -95,21 +95,9 @@ namespace sortingRoutines
         public override void Initialize(string jsonData)
         {
             // save the json string into a private variable
-            moduleData = new sortingActivityData();
+            moduleData = new MoveToActivityData();
             jsonString = jsonData;
             JsonUtility.FromJsonOverwrite(jsonData, moduleData);
-
-
-            string jdata = JsonUtility.ToJson(moduleData, true);
-            Debug.Log(jdata);
-
-
-            ObjectInfoCollection oi = JsonUtility.FromJson<ObjectInfoCollection>(jsonString);
-            foreach (ObjectInfo obj in oi.objects)
-            {
-                string jdat = JsonUtility.ToJson(obj, true);
-                Debug.Log(jdat);
-            }
 
             // setup the media player, lightControl, and audio player
             mPlayer = MediaPlayer.Instance;
@@ -128,7 +116,7 @@ namespace sortingRoutines
             // instantiate the bridge and create the demo objects
             bridge = new Bridge();
             if (moduleData.createObjects)
-                bridge.makeObjects(moduleData.objects);
+                bridge.ParseJson(jsonString);
 
             // set the end criteria
             if (moduleData.timeToEnd > 0)

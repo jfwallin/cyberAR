@@ -25,7 +25,7 @@
     "description": "Test case for the sorting activity.",
     "author": "John Wallin",
     "authorInstitution": "Middle Tennessee State University",
-    "dateCreated": "Tue Jul 13 00:15:00 2021",
+    "dateCreated": "Tue Jul 20 18:00:45 2021",
     "introAudio": "Audio/sorting_instructions",
     "createObjects": true,
     "destroyObjects": true,
