@@ -28,7 +28,7 @@ public class LabManager : MonoBehaviour
         // create instances of media player prefab here
 
 
-        ibox = InstructionBox.Instance;
+    //    ibox = InstructionBox.Instance;
         spawnDemoNew();
     }
 
