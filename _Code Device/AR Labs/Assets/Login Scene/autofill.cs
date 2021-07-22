@@ -16,6 +16,7 @@ public class autofill : MonoBehaviour
     #region Private Variables
     private List<string> names = new List<string>();
     private Text input;
+    private string csvText;
     private string currText;
     private Dropdown dropdown; 
     private int showing = 0;
@@ -31,20 +32,14 @@ public class autofill : MonoBehaviour
         input = transform.GetChild(0).GetComponent<Text>();
         dropdown = GetComponent<Dropdown>();
         currText = input.text;
-        refreshText();
-
-
-        // TESTING - Name bank to pull autofill from 
-        // string[] nameslist = new string[] { "guest", "jim", "sam", "chad", "cronie", "crestin", "crestin2", "crestion", "crestolemu", "crester", "crestunker", "Michael", "Christopher", "Jessica", "Matthew", "Ashley", "Jennifer", "Joshua", "Amanda", "Daniel", "David", "James", "Robert", "John", "Joseph", "Andrew", "Ryan", "Brandon", "Jason", "Justin", "Sarah", "William", "Jonathan", "Stephanie", "Brian", "Nicole", "Nicholas", "Anthony", "Heather", "Eric", "Elizabeth", "Adam", "Megan", "Melissa", "Kevin", "Steven", "Thomas", "Timothy", "Christina", "Kyle", "Rachel", "Laura", "Lauren", "Amber", "Brittany", "Danielle", "Richard", "Kimberly", "Jeffrey", "Amy", "Crystal", "Michelle", "Tiffany", "Jeremy", "Benjamin", "Mark", "Emily", "Aaron", "Charles", "Rebecca", "Jacob", "Stephen", "Patrick", "Sean", "Erin", "Zachary", "Jamie", "Kelly", "Samantha", "Nathan", "Sara", "Dustin", "Paul", "Angela", "Tyler", "Scott", "Katherine", "Andrea", "Gregory", "Erica", "Mary", "Travis", "Lisa", "Kenneth", "Bryan", "Lindsey", "Kristen", "Jose", "Alexander", "Jesse", "Katie", "Lindsay", "Shannon", "Vanessa", "Courtney", "Christine", "Alicia", "Cody", "Allison", "Bradley", "Samuel", "Shawn", "April", "Derek", "Kathryn", "Kristin", "Chad", "Jenna", "Tara", "Maria", "Krystal", "Jared", "Anna", "Edward", "Julie", "Peter", "Holly", "Marcus", "Kristina", "Natalie", "Jordan", "Victoria", "Jacqueline", "Corey", "Keith", "Monica", "Juan", "Donald", "Cassandra", "Meghan", "Joel", "Shane", "Phillip", "Patricia", "Brett", "Ronald", "Catherine", "George", "Antonio", "Cynthia", "Stacy", "Kathleen", "Raymond", "Carlos", "Brandi", "Douglas", "Nathaniel", "Ian", "Craig", "Brandy", "Alex", "Valerie", "Veronica", "Cory", "Whitney", "Gary", "Derrick", "Philip", "Luis", "Diana", "Chelsea", "Leslie", "Caitlin", "Leah", "Natasha", "Erika", "Casey", "Latoya", "Erik", "Dana", "Victor", "Brent", "Dominique", "Frank", "Brittney", "Evan", "Gabriel", "Julia", "Candice", "Karen", "Melanie", "Adrian", "Stacey", "Margaret", "Sheena", "Wesley", "Vincent", "Alexandra", "Katrina", "Bethany", "Nichole", "Larry", "Jeffery", "Curtis", "Carrie", "Todd", "Blake", "Christian", "Randy", "Dennis", "Alison", "Trevor", "Seth", "Kara", "Joanna", "Rachael", "Luke", "Felicia", "Brooke", "Austin", "Candace", "Jasmine", "Jesus", "Alan", "Susan", "Sandra", "Tracy", "Kayla", "Nancy", "Tina", "Krystle", "Russell", "Jeremiah", "Carl"}; // TESTING
-        // foreach (string name in nameslist) { names.Add(name.ToLower()); }    
-        names.Add("guest"); users.Add(new User("guest","guest","0000000")); crnLabsUrl = new Dictionary<string, Dictionary<string, string>>() {{"0000000",new Dictionary<string, string>() {{"guest_Lab","www.guestLab.json/url"}}}};
+        refreshText();   
 
         // building localized User databases
         crnLabsUrl = pullCSV(); // NOT WORKING ON LEAP
         sort(names);
 
         // Print out User and crn data to make sure everything is loading in properly 
-        // foreach (string crn in crnLabs.Keys) { string outtie = ""; foreach (string str in crnLabs[crn]) { outtie += str + " "; } print(outtie);  }
+        // foreach (string crn in crnLabsUrl.Keys) { string outtie = ""; foreach (string str in crnLabsUrl[crn].Keys) { outtie += str + " "; } print(outtie);  }
         
         // Prints each user with crn and password for testing
         // foreach (User usr in users) { print(usr.ToString()); }
@@ -148,6 +143,12 @@ public class autofill : MonoBehaviour
     }
     #endregion
 
+    IEnumerator pullText(string path)
+    {
+        var asset = Resources.Load<TextAsset>(path);
+        csvText = asset.text;
+        yield return null;
+    }
 
     #region Private Methods 
     /* Loads names into a list, Username+Password+CRN into a list of UserObjects, and CRN + Hashset<labs> in a dictionary.
@@ -157,12 +158,13 @@ public class autofill : MonoBehaviour
     {
         var result = new Dictionary<string, Dictionary<string, string>>();
 
-        // Set path for where to pull data from
-        string namesPath = "Assets/Login Scene/csv bank/test_names.csv";
-        string crnPath = "Assets/Login Scene/csv bank/crn_to_labs.csv";
+        // Set path for where to pull data from: Assets/Resources/
+        string namesPath = "csv bank/test_names";
+        string crnPath = "csv bank/crn_to_labs";
 
         // Get String array of the lines and read them off
-        string[] lines = System.IO.File.ReadAllLines(namesPath);      
+        StartCoroutine(pullText(namesPath));
+        string[] lines = csvText.Split('\n');
 
         // 0: username, 1: Name, 2: CRN, 3: Instructor, 4: Password
         for (int i = 1; i < lines.Length; i++)  // Skips labeling row
@@ -171,12 +173,13 @@ public class autofill : MonoBehaviour
             string[] columns = lines[i].Split(',');
 
             // Add names into autofill list and create new User(username, passowrd, crn)
-            names.Add(columns[0]);
-            users.Add(new User(columns[0], columns[4], columns[2]));
+            names.Add(columns[0].Trim());
+            users.Add(new User(columns[0].Trim(), columns[4].Trim(), columns[2].Trim()));
         }
 
         // Load in CRN - Lab/JsonUrl dictionary
-        lines = System.IO.File.ReadAllLines(crnPath);            
+        StartCoroutine(pullText(crnPath));
+        lines = csvText.Split('\n');          
 
         // 0: CRN, Odd: Lab Name, Even: JsonUrl associated with lab
         for (int i = 1; i < lines.Length; i++)  // Skips labeling row
@@ -190,7 +193,7 @@ public class autofill : MonoBehaviour
             {
                 for (int j = 1; j < columns.Length; j++)
                 {
-                    tempDic.Add(columns[j], columns[++j]);
+                    tempDic.Add(columns[j].Trim(), columns[++j].Trim());
                 }
             } 
             catch 
@@ -204,12 +207,12 @@ public class autofill : MonoBehaviour
 
             // Adds crn and Lab/json to dictionary unless it exists => adds to existing
             try { 
-                result.Add(columns[0], tempDic);
+                result.Add(columns[0].Trim(), tempDic);
             }
             catch {
                 foreach (string str in tempDic.Keys) 
                 { 
-                    result[columns[0]].Add(str, tempDic[str]); 
+                    result[columns[0].Trim()].Add(str, tempDic[str]); 
                 } 
             }
         }
