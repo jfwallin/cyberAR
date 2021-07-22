@@ -14,7 +14,6 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.01
@@ -2388,7 +2387,6 @@ GameObject:
   m_Component:
   - component: {fileID: 685460497}
   - component: {fileID: 685460498}
-  - component: {fileID: 685460499}
   m_Layer: 0
   m_Name: '[LOGIC]'
   m_TagString: Untagged
@@ -2434,48 +2432,6 @@ MonoBehaviour:
   lab_options: {fileID: 1283812652}
   guestButton: {fileID: 434943772}
   labTemp: {fileID: 1861776993}
---- !u!114 &685460499
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 685460496}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5d96f4dbc38976c4082e55aa4c6ff252, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data:
-    moduleName: 
-    jsonFileName: 
-    description: 
-    author: 
-    authorInstitution: 
-    dateCreated: 
-    prerequisiteActivities: []
-    prefabName: 
-    specificName: 
-    educationalObjectives: []
-    instructions: []
-    introMediaIDs: []
-    outroMediaIDs: []
-    numRepeatsAllowed: 0
-    numGradableRepeatsAllowed: 0
-    gradingCriteria: 
-    currentScore: 0
-    bestScore: 0
-    completed: 0
-    currentSubphase: 0
-    subphaseNames: []
-  wrongOrder:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  correctOrder: {fileID: 0}
-  myButton: {fileID: 0}
 --- !u!1 &716852239
 GameObject:
   m_ObjectHideFlags: 0
@@ -3335,7 +3291,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03c7262ffa37c3147804a08a8c841cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lengthQueue: 3
+  len: 3
   optionLimit: 5
 --- !u!4 &1146952147 stripped
 Transform:
@@ -3630,7 +3586,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.2}
+  m_AnchoredPosition: {x: 0, y: 0.12000084}
   m_SizeDelta: {x: 149.5, y: 109.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1283812654
