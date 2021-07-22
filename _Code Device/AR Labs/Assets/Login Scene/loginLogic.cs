@@ -369,7 +369,7 @@ public class loginLogic : MonoBehaviour
         #endif
         } 
 
-        // If no lab has been selected (forced next()), returns to lab selection
+        // If no lab has been selected (forced next()), returns to lab selection - TODO FOR SOME REASON, THIS IS CALLED BEOFRE A LAB IS SELECTED
         else if (labSelected.Equals("none")) 
         {
             print("No lab selected; returning to lab selection");
