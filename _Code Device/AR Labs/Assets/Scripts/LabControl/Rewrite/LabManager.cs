@@ -18,7 +18,7 @@ public class LabManager : MonoBehaviour
     private GameObject instructionHolder;
     private GameObject instructionCanvas;
 
-    private InstructionBox ibox;
+//    private InstructionBox ibox;
 
 
     public void Start()
@@ -28,7 +28,7 @@ public class LabManager : MonoBehaviour
         // create instances of media player prefab here
 
 
-        ibox = InstructionBox.Instance;
+    //    ibox = InstructionBox.Instance;
         spawnDemoNew();
     }
 
@@ -50,7 +50,7 @@ public class LabManager : MonoBehaviour
     public void Initialize(string[] moduleData)
     {
         // this creates the instruction canvas
-        createInstructions();
+        //createInstructions();
 
         //Initialize data
         modules = moduleData;
@@ -68,7 +68,7 @@ public class LabManager : MonoBehaviour
         JsonUtility.FromJsonOverwrite(modules[index], tmpData);
 
         // update the student instructions, objectives, and nav screen
-        updateInstructions(tmpData);
+        //updateInstructions(tmpData);
 
         //Load prefab from resources
         GameObject tmpPrefab = (GameObject)Resources.Load($"Prefabs/{tmpData.prefabName}");
@@ -111,7 +111,7 @@ public class LabManager : MonoBehaviour
     {
         Application.Quit();
     }
-
+/*
     void createInstructions()
     {
         /*
@@ -119,10 +119,10 @@ public class LabManager : MonoBehaviour
         //instructionHolder = Instantiate(instructionPrefab, new Vector3(0.3f, -0.2f, -1.0f), Quaternion.Euler(0.0f, 180.0f, 0.0f));
         instructionCanvas = GameObject.Find("MainInstructions");
         instructionCanvas.GetComponent<Text>().text = "Test Text";
-        */
+        
 
-        InstructionBox.Instance.transform.position = new Vector3(-0.3f, 1.5f, 1.0f); //Creates instance, places it. by default it points at the user
-        FindObjectOfType<MagicLeapTools.ControlInput>().OnDoubleBumper.AddListener(InstructionBox.Instance.HandleDoubleBumper); //responds to double bumper to appear and disappear
+        //InstructionBox.Instance.transform.position = new Vector3(-0.3f, 1.5f, 1.0f); //Creates instance, places it. by default it points at the user
+        //FindObjectOfType<MagicLeapTools.ControlInput>().OnDoubleBumper.AddListener(InstructionBox.Instance.HandleDoubleBumper); //responds to double bumper to appear and disappear
     }
 
     //Should module specific changes to the instruction box be done in the module code?
@@ -144,5 +144,5 @@ public class LabManager : MonoBehaviour
         InstructionBox.Instance.AddPage("Objectives", eobj, true); //Creates tab for the educational objectives and shows it.
 
     }
-
+*/
 }

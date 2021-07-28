@@ -15,7 +15,11 @@ public class InstructionBox : MonoBehaviour
         {
             if (_instance == null)
             {
-                _instance = Instantiate((GameObject)Resources.Load("Prefabs/Instruction Box"), GameObject.Find("[WORLD]").transform).GetComponent<InstructionBox>();
+                _instance = FindObjectOfType<InstructionBox>();
+                if (_instance == null)
+                {
+                    _instance = Instantiate((GameObject)Resources.Load("Prefabs/Instruction Box"), GameObject.Find("[WORLD]").transform).GetComponent<InstructionBox>();
+                }
             }
 
             return _instance;
@@ -41,27 +45,27 @@ public class InstructionBox : MonoBehaviour
     private void Awake()
     {
         //Make sure there isn't more than one instruction box
-        if(this != _instance)
+        if (_instance != null && _instance != this)
         {
-            Destroy(this);
+            Destroy(this.gameObject);
         }
 
         // Fail fast null checks
-        if(cGroup == null)
+        if (cGroup == null)
         {
             cGroup = GetComponent<CanvasGroup>();
             Assert.IsNotNull(cGroup, "Could not find canvas group on instruction box");
         }
-        if(tGroup == null)
+        if (tGroup == null)
         {
             tGroup = GetComponentInChildren<ToggleGroup>();
             Assert.IsNotNull(tGroup, "Could not find toggle group on instruction box");
         }
-        if(pages.Count == 0 || pages[0] == null)
+        if (pages.Count == 0 || pages[0] == null)
         {
             Debug.LogError("No Pages assigned on instruction box");
         }
-        if(tabs.Count == 0 || tabs[0] == null)
+        if (tabs.Count == 0 || tabs[0] == null)
         {
             Debug.LogError("No tabs assigned on instruction box");
         }
@@ -78,8 +82,13 @@ public class InstructionBox : MonoBehaviour
 
     void Update()
     {
+        if (_instance == null)
+        {
+            Debug.Log($"InstructionBox is null");
+        }
+
         //Point the instructions at the camera if enabled
-        if(BillBoard)
+        if (BillBoard)
         {
             transform.rotation = Quaternion.LookRotation(Camera.main.transform.position - transform.position);
         }
@@ -100,7 +109,7 @@ public class InstructionBox : MonoBehaviour
         Text content;
         Text tabLabel;
 
-        if(pages.Count == 1 && pages[0].transform.Find("Content").GetComponent<Text>().text == "No Content Set")
+        if (pages.Count == 1 && pages[0].transform.Find("Content").GetComponent<Text>().text == "No Content Set")
         {
             //There is no pages set yet. Just use the preexisting placeholder tab
             title = pages[0].transform.Find("Title").GetComponent<Text>();
@@ -128,7 +137,7 @@ public class InstructionBox : MonoBehaviour
         content.text = pageContent;
 
         //Display the new page to the user
-        if(show)
+        if (show)
         {
             ShowPage(pages.Count - 1);
         }
@@ -141,16 +150,16 @@ public class InstructionBox : MonoBehaviour
     /// <param name="pageTitle">New page title and tab label</param>
     /// <param name="pageContent">New page content</param>
     /// <param name="show">Whether to show the new page once updated</param>
-    public void SetPage(int pageIndex, string pageTitle, string pageContent, bool show=false)
+    public void SetPage(int pageIndex, string pageTitle, string pageContent, bool show = false)
     {
-        if(pageIndex >= pages.Count)
+        if (pageIndex >= pages.Count)
         {
             Debug.LogWarning("tried to set page contents on a nonexistent page, index too high");
             return;
         }
-        if(pageIndex < pages.Count)
+        if (pageIndex < pages.Count)
         {
-            if(pageTitle == "" && pageContent == "")
+            if (pageTitle == "" && pageContent == "")
             {
                 RemovePage(pageIndex);
             }
@@ -164,7 +173,7 @@ public class InstructionBox : MonoBehaviour
                 tabLabel.text = pageTitle;
                 content.text = pageContent;
 
-                if(show)
+                if (show)
                 {
                     ShowPage(pageIndex);
                 }
@@ -178,12 +187,12 @@ public class InstructionBox : MonoBehaviour
     /// <param name="pageIndex">Index of the page to remove</param>
     public void RemovePage(int pageIndex)
     {
-        if(pageIndex < 0)
+        if (pageIndex < 0)
         {
             Debug.LogWarning("Page index is non-positive, not removing any page");
             return;
         }
-        if(pageIndex >= pages.Count)
+        if (pageIndex >= pages.Count)
         {
             Debug.LogWarning("Tried to remove nonexistent page, index too high");
             return;
@@ -206,9 +215,9 @@ public class InstructionBox : MonoBehaviour
                 content.text = "No Content Set";
                 tabLabel.text = "Tab1";
             }
-            else if(tabs[pageIndex].GetComponent<Toggle>().isOn) //Multiple tabs, removing the enabled one
+            else if (tabs[pageIndex].GetComponent<Toggle>().isOn) //Multiple tabs, removing the enabled one
             {
-                if(pageIndex == 0) //must increment
+                if (pageIndex == 0) //must increment
                 {
                     ShowPage(1);
                 }
@@ -233,19 +242,19 @@ public class InstructionBox : MonoBehaviour
     /// <param name="pageIndex">Identifies which page to show, numbered from L to R</param>
     public void ShowPage(int pageIndex)
     {
-        if(pageIndex < 0 || pageIndex >= pages.Count)
+        if (pageIndex < 0 || pageIndex >= pages.Count)
         {
             Debug.LogWarning("invalid page index to show, not showing any page");
             return;
         }
 
-        for(int i = 0; i < pages.Count; i ++)
+        for (int i = 0; i < pages.Count; i++)
         {
-            if(i != pageIndex)
+            if (i != pageIndex)
             {
                 pages[i].SetActive(false);
             }
-            if(i == pageIndex)
+            if (i == pageIndex)
             {
                 pages[i].SetActive(true);
             }
@@ -275,12 +284,12 @@ public class InstructionBox : MonoBehaviour
     /// <param name="fadeTime">Time it takes the fade to complete, default is 1 sec</param>
     public void ToggleVisibility(float fadeTime = 1f)
     {
-        if(visible)
+        if (visible)
         {
             StartCoroutine(FadeOut(fadeTime));
             visible = false;
         }
-        if(!visible)
+        if (!visible)
         {
             StartCoroutine(FadeIn(fadeTime));
             visible = true;
@@ -292,7 +301,7 @@ public class InstructionBox : MonoBehaviour
     IEnumerator FadeOut(float length)
     {
         float step = 1 / length;
-        for(float val = 1f; val > 0; val -= step)
+        for (float val = 1f; val > 0; val -= step)
         {
             cGroup.alpha = val;
             yield return null;
@@ -303,7 +312,7 @@ public class InstructionBox : MonoBehaviour
     IEnumerator FadeIn(float length)
     {
         float step = 1 / length;
-        for(float val = 0; val < 1; val+=step)
+        for (float val = 0; val < 1; val += step)
         {
             cGroup.alpha = val;
             yield return null;
@@ -315,7 +324,7 @@ public class InstructionBox : MonoBehaviour
     #region Event Handlers
     private void HandleValueChanged(bool value, int index)
     {
-        if(value)
+        if (value)
         {
             ShowPage(index);
         }

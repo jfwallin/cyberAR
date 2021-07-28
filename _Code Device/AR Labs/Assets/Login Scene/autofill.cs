@@ -143,14 +143,6 @@ public class autofill : MonoBehaviour
     }
     #endregion
 
-    // Not currently implemented
-    IEnumerator pullText(string path)
-    {
-        var asset = Resources.Load<TextAsset>(path);
-        csvText = asset.text;
-        yield return null;
-    }
-
     #region Private Methods 
     /* Loads names into a list, Username+Password+CRN into a list of UserObjects, and CRN + Hashset<labs> in a dictionary.
      * @return: Dictionary of crns with set of lab IDs.
@@ -164,11 +156,6 @@ public class autofill : MonoBehaviour
         string crnPath = "csv bank/crn_to_labs";
 
         // Get String array of the lines and read them off
-        // Ensured no race conditions 
-        //StartCoroutine(pullText(namesPath));
-        //string[] lines = csvText.Split('\n');
-
-        // Potential Race conditions
         string[] lines = Resources.Load<TextAsset>(namesPath).text.Split('\n');
 
         // 0: username, 1: Name, 2: CRN, 3: Instructor, 4: Password
@@ -183,11 +170,6 @@ public class autofill : MonoBehaviour
         }
 
         // Load in CRN - Lab/JsonUrl dictionary
-        // Ensures no race conditions: 
-        //StartCoroutine(pullText(crnPath));
-        //lines = csvText.Split('\n');          
-
-        // Might have race conditions
         lines = Resources.Load<TextAsset>(crnPath).text.Split('\n');
 
         // 0: CRN, Odd: Lab Name, Even: JsonUrl associated with lab

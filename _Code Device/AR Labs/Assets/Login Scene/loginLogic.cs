@@ -382,6 +382,9 @@ public class loginLogic : MonoBehaviour
             print("Lab selected: " + format(labSelected) + ", but no info to load for now :^)\n");
             var manifestPath = "http://cyberlearnar.cs.mtsu.edu/lab_manifest/" + labSelected;
             var jsonPath = labOptions[labSelected];
+            // media downloader here. 
+
+            // pass in Lab Object
             // GameObject.Find("LabManager").GetComponent<LabManagerScript>().startLab(manifestPath,jsonPath);
         }
     }

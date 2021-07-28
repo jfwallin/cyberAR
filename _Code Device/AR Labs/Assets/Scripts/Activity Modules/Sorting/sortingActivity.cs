@@ -89,7 +89,7 @@ namespace sortingRoutines
         private lightingControl lightControl;
         private AudioSource aud;
         private Bridge bridge;
-
+        private InstructionBox ibox;
 
         //public override void Initialize(ActivityModuleData dataIn)
         public override void Initialize(string jsonData)
@@ -99,6 +99,7 @@ namespace sortingRoutines
             jsonString = jsonData;
             JsonUtility.FromJsonOverwrite(jsonData, moduleData);
 
+            ibox = InstructionBox.Instance;
 
             string jdata = JsonUtility.ToJson(moduleData, true);
             Debug.Log(jdata);
