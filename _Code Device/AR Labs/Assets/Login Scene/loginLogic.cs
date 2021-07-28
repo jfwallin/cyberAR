@@ -7,17 +7,19 @@ using UnityEngine.Networking;
 public class loginLogic : MonoBehaviour
 {
     #region Public Variables
-    public GameObject LoginUI; 
+    public GameObject controller;
+    public GameObject intro;
+    public GameObject placement_prop;
+    public GameObject anchor;
+
+    public GameObject LoginUI;
+    public GameObject guestButton;
     public GameObject usr;
     public GameObject pas;
     public GameObject loading;
-    public GameObject intro;
     public GameObject keyboard;
-    public GameObject anchor; 
-    public GameObject placement_prop;
-    public GameObject controller;
+
     public GameObject lab_options;
-    public GameObject guestButton;
     public GameObject labTemp;
     #endregion
 
@@ -25,6 +27,7 @@ public class loginLogic : MonoBehaviour
     private List<GameObject> labList;
     Dictionary<string, string> labOptions;
     private string labSelected = "none";
+    private string allLabs;
     private bool placed = false;
     private bool playAnimation = true;
     private bool setAnimationAnchor = true;
@@ -49,6 +52,8 @@ public class loginLogic : MonoBehaviour
         labList = new List<GameObject>();
         StartCoroutine(DownloadFile("http://cyberlearnar.cs.mtsu.edu/show_uploaded/test_names.csv", "Assets/Resources/csv bank/test_names.csv"));
         StartCoroutine(DownloadFile("http://cyberlearnar.cs.mtsu.edu/show_uploaded/crn_to_labs.csv", "Assets/Resources/csv bank/crn_to_labs.csv"));
+        StartCoroutine(DownloadFile("http://cyberlearnar.cs.mtsu.edu/labs", "Assets/Resources/csv bank/allLabs.json"));
+        allLabs = Resources.Load<TextAsset>("csv bank/allLabs").text;
         intro.SetActive(true);
         toggleLineRender(false);
     }
@@ -299,7 +304,7 @@ public class loginLogic : MonoBehaviour
         int count = 0;
         foreach (string lab in labOptions.Keys)
         {
-            labList.Add(createLab(lab, getDesc(labOptions[lab]), count++));
+            labList.Add(createLab(lab, getDesc(lab), count++));
             if (count == 5) { break; }
         }
 
@@ -338,12 +343,16 @@ public class loginLogic : MonoBehaviour
 
 
     // Returns lab description as a string  TODO
-    private string getDesc(string jsonUrl)
+    private string getDesc(string labId)
     {
-        // string temp = jsonUrl.Substring(jsonUrl.indexOf("Description: {"));
-        // return jsonUrl.Substring(temp, temp.indexOf("}"));
-
-        return jsonUrl;
+        string temp = allLabs;
+        try
+        {
+            temp = allLabs.Substring(0, allLabs.IndexOf("\"lab_id\":" + labId) - 2);
+            temp = temp.Substring(temp.LastIndexOf("\"lab_description\":\"")+19);
+        }
+        catch { print("No description found on Lab list on the website"); temp = "Lab not found on site"; }
+        return temp;
     }
 
 
@@ -382,11 +391,16 @@ public class loginLogic : MonoBehaviour
             print("Lab selected: " + format(labSelected) + ", but no info to load for now :^)\n");
             var manifestPath = "http://cyberlearnar.cs.mtsu.edu/lab_manifest/" + labSelected;
             var jsonPath = labOptions[labSelected];
-            // media downloader here. 
 
-            // pass in Lab Object
-            // GameObject.Find("LabManager").GetComponent<LabManagerScript>().startLab(manifestPath,jsonPath);
-            // GameObject.Find("LabManager").GetComponent<LabManager>().Initialize(LabDataObject);
+            // media downloader here. TODO - ALSO ADD ANIMATION
+
+
+            StartCoroutine(DownloadFile(jsonPath, "Assets/Resources/csv bank/LabJson.json"));
+            string jsonString = Resources.Load<TextAsset>("csv bank/LabJson").text;
+            LabDataObject LabData = new LabDataObject();
+            JsonUtility.FromJsonOverwrite(jsonString, LabData);
+
+            // GameObject.Find("LabManager").GetComponent<LabManager>().Initialize(LabData);
         }
     }
 #endregion
