@@ -69,11 +69,11 @@ public class Bridge
         // The keywords allow use to not override the postions, scales, and
         // orientation of an existing object if we don't want to do that.
         if (obj.newPosition)
-            myObject.transform.position = obj.position;
+            myObject.transform.localPosition = obj.position;
         if (obj.newScale)
             myObject.transform.localScale = obj.scale;
         if (obj.newEulerAngles)
-            myObject.transform.eulerAngles = obj.eulerAngles;
+            myObject.transform.localEulerAngles = obj.eulerAngles;
 
         for (int i = 0; i < obj.componentsToAdd.Length; i++)
         {

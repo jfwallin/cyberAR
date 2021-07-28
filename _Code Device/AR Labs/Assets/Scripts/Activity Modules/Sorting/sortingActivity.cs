@@ -91,6 +91,8 @@ namespace sortingRoutines
         private Bridge bridge;
         private InstructionBox ibox;
 
+        private GameObject parentObject;
+
         //public override void Initialize(ActivityModuleData dataIn)
         public override void Initialize(string jsonData)
         {
@@ -117,6 +119,7 @@ namespace sortingRoutines
             lightControl = lightingControl.Instance;
             aud = gameObject.GetComponent<AudioSource>();
             mainCamera = GameObject.Find("Main Camera");
+
 
             // play the introAudio
             aud.clip = Resources.Load<AudioClip>(moduleData.introAudio);
@@ -168,7 +171,7 @@ namespace sortingRoutines
         // Start is called before the first frame update
         void Start()
         {
-
+            parentObject = GameObject.Find("[_DYNAMIC]");
 
             ObjectInfoCollection objList = JsonUtility.FromJson<ObjectInfoCollection>(jsonString);
             nObjects = objList.objects.Length;
@@ -222,8 +225,7 @@ namespace sortingRoutines
             gameObject.name = "sortingManager";
             buttonPrefabString = "Prefabs/BigRedButton";
             buttonPrefab = Resources.Load(buttonPrefabString) as GameObject;
-            myButton = Instantiate(buttonPrefab, new Vector3(0.0f, -0.3f, 2.0f),
-                Quaternion.Euler(-90f, 0f, 0.0f));
+            myButton = Instantiate(buttonPrefab, new Vector3(0.0f, 1.0f, 1.5f), Quaternion.Euler(-90f, 0f, 0.0f), parentObject.transform) as GameObject;
             myButton.AddComponent<buttonCallback>();
             GameObject.Find("button").GetComponent<Renderer>().material.color = Color.red;
 
@@ -408,7 +410,7 @@ namespace sortingRoutines
                 minDistance = 10000.0f;
                 for (int j = 0; j < nObjects; j++)
                 {
-                    dr = sortData[i].theObject.transform.position - sortPts[j];
+                    dr = sortData[i].theObject.transform.localPosition - sortPts[j];
                     distance = Mathf.Sqrt(Vector3.Dot(dr, dr));
                     if (distance < minDistance)
                     {
@@ -425,7 +427,7 @@ namespace sortingRoutines
                 minDistance = 10000.0f;
                 for (int j = 0; j < nObjects; j++)
                 {
-                    dr = sortData[i].theObject.transform.position - sortPts[j];
+                    dr = sortData[i].theObject.transform.localPosition - sortPts[j];
                     distance = Mathf.Sqrt(Vector3.Dot(dr, dr));
                     if (distance < minDistance)
                     {
@@ -463,7 +465,7 @@ namespace sortingRoutines
             {
                 if (j != i1)
                 {
-                    dr = sortData[dObject].theObject.transform.position - sortPts[j];
+                    dr = sortData[dObject].theObject.transform.localPosition - sortPts[j];
                     distance = Mathf.Sqrt(Vector3.Dot(dr, dr));
                     if (distance < d2)
                     {
@@ -581,7 +583,7 @@ namespace sortingRoutines
 
                     // pick a midpoint scattered around the middle of the path
                     float rrange = 0.85f;
-                    sortData[i].theObject.GetComponent<moveObjects>().MidPos = (sortData[i].theObject.transform.position + sortPts[i]) * 0.5f +
+                    sortData[i].theObject.GetComponent<moveObjects>().MidPos = (sortData[i].theObject.transform.localPosition + sortPts[i]) * 0.5f +
                     new Vector3(UnityEngine.Random.Range(-rrange, rrange), UnityEngine.Random.Range(0, rrange), UnityEngine.Random.Range(-rrange, rrange));
 
                     // this adds a nice spin during the sort - a1 should be 90 or 90 + 360*n
@@ -595,7 +597,7 @@ namespace sortingRoutines
                 {
 
                     // pick a midpoint between the points
-                    sortData[i].theObject.GetComponent<moveObjects>().MidPos = (sortData[i].theObject.transform.position +
+                    sortData[i].theObject.GetComponent<moveObjects>().MidPos = (sortData[i].theObject.transform.localPosition +
                         sortPts[i]) * 0.5f;
 
                     a1 = 90;
@@ -622,15 +624,15 @@ namespace sortingRoutines
 
             for (int i = 0; i < nObjects; i++)
             {
-                sortData[i].theObject.GetComponent<moveObjects>().StartPos = sortData[i].theObject.transform.position;
+                sortData[i].theObject.GetComponent<moveObjects>().StartPos = sortData[i].theObject.transform.localPosition;
                 sortData[i].theObject.GetComponent<moveObjects>().MidPos = new Vector3(0.001f, 0.001f, 0.001f);
                 sortData[i].theObject.GetComponent<moveObjects>().FinalPos = new Vector3(0.001f, 0.001f, 0.001f);
 
                 sortData[i].theObject.GetComponent<moveObjects>().StartSize = sortData[i].theObject.transform.localScale;
                 sortData[i].theObject.GetComponent<moveObjects>().FinalSize = sortData[i].theObject.transform.localScale;
 
-                sortData[i].theObject.GetComponent<moveObjects>().StartAngle = sortData[i].theObject.transform.eulerAngles;
-                sortData[i].theObject.GetComponent<moveObjects>().FinalAngle = sortData[i].theObject.transform.eulerAngles;
+                sortData[i].theObject.GetComponent<moveObjects>().StartAngle = sortData[i].theObject.transform.localEulerAngles;
+                sortData[i].theObject.GetComponent<moveObjects>().FinalAngle = sortData[i].theObject.transform.localEulerAngles;
 
                 // this disables the move
                 sortData[i].theObject.GetComponent<moveObjects>().TimeRange = new Vector2(-100.0f, -90.0f);
