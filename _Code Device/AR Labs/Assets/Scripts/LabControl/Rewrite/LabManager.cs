@@ -32,6 +32,13 @@ public class LabManager : MonoBehaviour
         spawnDemoNew();
     }
 
+    public void Initialize(LabDataObject data)
+    {
+        modules = data.ActivityModules;
+
+        SpawnModule();
+    }
+
 
     public void spawnDemoNew()
     {
