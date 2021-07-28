@@ -386,6 +386,7 @@ public class loginLogic : MonoBehaviour
 
             // pass in Lab Object
             // GameObject.Find("LabManager").GetComponent<LabManagerScript>().startLab(manifestPath,jsonPath);
+            // GameObject.Find("LabManager").GetComponent<LabManager>().Initialize(LabDataObject);
         }
     }
 #endregion

@@ -14,6 +14,7 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
+  m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.01
@@ -1791,8 +1792,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 2043695026}
-  m_RootOrder: 1
+  m_Father: {fileID: 851215326}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!108 &582005756
 Light:
@@ -3291,7 +3292,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03c7262ffa37c3147804a08a8c841cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  len: 3
+  lengthQueue: 3
   optionLimit: 5
 --- !u!4 &1146952147 stripped
 Transform:
@@ -6488,7 +6489,6 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 851215326}
-  - {fileID: 582005755}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
