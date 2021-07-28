@@ -60,10 +60,10 @@ public class loginLogic : MonoBehaviour
         // After Start, sets intro position - such that it exists in worldspace and isn't bound to head movemnet
         if (setAnimationAnchor && Camera.main.transform.position != new Vector3(0, 0, 0)) // This took longer than it should've to come up with
         {
+            toggleLineRender(false);
+            setAnimationAnchor = false;
             intro.transform.position = Camera.main.transform.position + Camera.main.transform.rotation * new Vector3(0, 0, 5); 
             intro.transform.eulerAngles = new Vector3(0,Camera.main.transform.eulerAngles.y,0);
-            setAnimationAnchor = false;
-            toggleLineRender(false);
         }
 
         // After initial animation, this will initiate placement scene, then the login screen 
@@ -292,7 +292,7 @@ public class loginLogic : MonoBehaviour
     private void setLabs()
     {
         // pull labs as a Dictionary <string lab_name, string jsonUrl> 
-        //              username-field    script        method               (username text)
+        //            username-field   script     method               (username text)
         labOptions = usr.GetComponent<autofill>().getLabs(usr.transform.GetChild(0).GetComponent<Text>().text);
 
         // Loop through labs pulling up to 5 of them and instantiating an interface to pick one
@@ -342,6 +342,7 @@ public class loginLogic : MonoBehaviour
     {
         // string temp = jsonUrl.Substring(jsonUrl.indexOf("Description: {"));
         // return jsonUrl.Substring(temp, temp.indexOf("}"));
+
         return jsonUrl;
     }
 

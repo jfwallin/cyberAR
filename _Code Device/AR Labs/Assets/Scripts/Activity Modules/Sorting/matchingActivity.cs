@@ -20,31 +20,32 @@ namespace sortingRoutines
     public class matchingActivity : ActivityModule
     {
 
-        public class sortInfo
+        public class matchInfo
         {
             public GameObject theObject;
-            public int sortedOrder;
+            public string matchName;
             public bool isMatcheded;
 
             public float fractionalDistance;
 
             // implement IComparable interface
-            public int CompareTo(object obj)
+            public bool Match(object obj)
             {
-                if (obj is sortInfo)
+                if (obj is matchInfo)
                 {
-                    return this.fractionalDistance.CompareTo((obj as sortInfo).fractionalDistance);  // compare user names
+                    return matchName.Equals((obj as matchInfo).matchName);
                 }
                 else
                 {
-                    return 0;
+                    return false;
                 }
-                //throw new ArgumentException("Object is not a sortInfo");
+                //throw new ArgumentException("Object is not a matchInfo");
             }
         }
 
         // declare the sort info array
-        private sortInfo[] sortData;
+        private matchInfo[] matchData;
+        private Dictionary<string, string> matchNames;
 
 
         private static int nObjects;
@@ -167,8 +168,6 @@ namespace sortingRoutines
         // Start is called before the first frame update
         void Start()
         {
-
-
             ObjectInfoCollection objList = JsonUtility.FromJson<ObjectInfoCollection>(jsonString);
             nObjects = objList.objects.Length;
             sortPts = new Vector3[nObjects]; // 
@@ -184,23 +183,34 @@ namespace sortingRoutines
             isMatcheded = false;
 
             // create an array to help with the sorting
-            sortData = new sortInfo[nObjects];
+            matchData = new matchInfo[nObjects];
 
-            
+
             // populate the sorting array with needed information
-            for (int i = 0; i < nObjects; i++)
+            try
             {
-                sortData[i] = new sortInfo();
-                sortData[i].theObject = GameObject.Find( objList.objects[i].name);
-                //sortData[i].theObject = gameObjects[i];
-                sortData[i].sortedOrder = i; // nObjects - i - 1;
-                sortData[i].fractionalDistance = 0.0f;
-                sortData[i].isMatcheded = false;
+                for (int i = 0; i < nObjects; i+=2)
+                {
+                    matchData[i] = new matchInfo();
+                    matchData[i + 1] = new matchInfo();
 
-                // add the moveObject script to the sortable objects
-                sortData[i].theObject.AddComponent<moveObjects>();
+                    matchData[i].theObject = GameObject.Find(objList.objects[i].name);
+                    matchData[i + 1].theObject = GameObject.Find(objList.objects[i + 1].name);
 
+                    matchData[i].isMatcheded = false;
+                    matchData[i + 1].isMatcheded = false;
+
+                    // add the moveObject script to the sortable objects
+                    matchData[i].theObject.AddComponent<moveObjects>();
+                    matchData[i + 1].theObject.AddComponent<moveObjects>();
+
+                    matchData[i].matchName = matchData[i + 1].theObject.name;
+                    matchData[i + 1].matchName = matchData[i].theObject.name;
+
+                    matchNames.Add(matchData[i].theObject.name, matchData[i + 1].theObject.name);
+                }
             }
+            catch { print("There is an uneven amount of matching pairs."); }
 
     
             // this sets the intial position to the current position of the objects
@@ -218,7 +228,7 @@ namespace sortingRoutines
 
             // this moves the objects to a scrambled location
             scrambleProjectedPosition();
-            resetPositions(); //, orderList);
+            //resetPositions(); //, orderList);
 
         }
         
@@ -246,92 +256,26 @@ namespace sortingRoutines
 
             for (int i = 0; i < nObjects; i++)
             {
-                sortData[i].theObject.GetComponent<moveObjects>().StartPos = sortData[i].theObject.transform.position;
-                sortData[i].theObject.GetComponent<moveObjects>().MidPos = new Vector3(0.001f, 0.001f, 0.001f);
-                sortData[i].theObject.GetComponent<moveObjects>().FinalPos = new Vector3(0.001f, 0.001f, 0.001f);
+                matchData[i].theObject.GetComponent<moveObjects>().StartPos = matchData[i].theObject.transform.position;
+                matchData[i].theObject.GetComponent<moveObjects>().MidPos = new Vector3(0.001f, 0.001f, 0.001f);
+                matchData[i].theObject.GetComponent<moveObjects>().FinalPos = new Vector3(0.001f, 0.001f, 0.001f);
 
-                sortData[i].theObject.GetComponent<moveObjects>().StartSize = sortData[i].theObject.transform.localScale;
-                sortData[i].theObject.GetComponent<moveObjects>().FinalSize = sortData[i].theObject.transform.localScale;
+                matchData[i].theObject.GetComponent<moveObjects>().StartSize = matchData[i].theObject.transform.localScale;
+                matchData[i].theObject.GetComponent<moveObjects>().FinalSize = matchData[i].theObject.transform.localScale;
 
-                sortData[i].theObject.GetComponent<moveObjects>().StartAngle = sortData[i].theObject.transform.eulerAngles;
-                sortData[i].theObject.GetComponent<moveObjects>().FinalAngle = sortData[i].theObject.transform.eulerAngles;
+                matchData[i].theObject.GetComponent<moveObjects>().StartAngle = matchData[i].theObject.transform.eulerAngles;
+                matchData[i].theObject.GetComponent<moveObjects>().FinalAngle = matchData[i].theObject.transform.eulerAngles;
 
                 // this disables the move
-                sortData[i].theObject.GetComponent<moveObjects>().TimeRange = new Vector2(-100.0f, -90.0f);
+                matchData[i].theObject.GetComponent<moveObjects>().TimeRange = new Vector2(-100.0f, -90.0f);
 
             }
         }
-
-
-        void resetPositions()
-        {
-            float myTime;
-            myTime = Time.time;
-            float a1, a2, a3;
-
-
-
-            // sort by the projected fractional order
-            Array.Sort(sortData, delegate (sortInfo s1, sortInfo s2)
-            {
-                return s1.fractionalDistance.CompareTo(s2.fractionalDistance);
-            });
-
-            // initialize the moveObject variables to safe default values
-            initializePath();
-
-            // set up the moveObject scripts to move the objects
-            for (int i = 0; i < nObjects; i++)
-            {
-
-                // set the final positions of the particles to be the target locations
-                sortData[i].theObject.GetComponent<moveObjects>().FinalPos = sortPts[i];
-
-                // move them in an indirect path or a direct path
-                if (pretty == 1)
-                {
-
-                    // pick a midpoint scattered around the middle of the path
-                    float rrange = 0.85f;
-                    sortData[i].theObject.GetComponent<moveObjects>().MidPos = (sortData[i].theObject.transform.position + sortPts[i]) * 0.5f +
-                    new Vector3(UnityEngine.Random.Range(-rrange, rrange), UnityEngine.Random.Range(0, rrange), UnityEngine.Random.Range(-rrange, rrange));
-
-                    // this adds a nice spin during the sort - a1 should be 90 or 90 + 360*n
-                    a1 = 90;
-                    a2 = 180;
-                    a3 = 0;
-                    sortData[i].theObject.GetComponent<moveObjects>().FinalAngle = new Vector3(a1, a2, a3);
-
-                }
-                else
-                {
-
-                    // pick a midpoint between the points
-                    sortData[i].theObject.GetComponent<moveObjects>().MidPos = (sortData[i].theObject.transform.position +
-                        sortPts[i]) * 0.5f;
-
-                    a1 = 90;
-                    a2 = 180;
-                    a3 = 0;
-                    sortData[i].theObject.GetComponent<moveObjects>().FinalAngle = new Vector3(a1, a2, a3);
-                }
-
-                // start the move after a delay and finishing in a specified time
-                sortData[i].theObject.GetComponent<moveObjects>().TimeRange = new Vector2(myTime + tdelay, myTime + tdelay + tmove);
-
-                // this is the last thing to do to make it all work
-                sortData[i].theObject.GetComponent<moveObjects>().initializePath();
-
-            }
-            // IEnumerator pausePointer = buttonWait(tdelay + tmove);
-            // StartCoroutine(pausePointer);
-        }
-
 
         void scrambleProjectedPosition()
         {
             for (int i = 0; i < nObjects; i++)
-                sortData[i].fractionalDistance = UnityEngine.Random.value;
+                matchData[i].fractionalDistance = UnityEngine.Random.value;
         }
     }
 

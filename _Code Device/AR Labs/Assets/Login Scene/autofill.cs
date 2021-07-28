@@ -143,6 +143,7 @@ public class autofill : MonoBehaviour
     }
     #endregion
 
+    // Not currently implemented
     IEnumerator pullText(string path)
     {
         var asset = Resources.Load<TextAsset>(path);
@@ -163,8 +164,12 @@ public class autofill : MonoBehaviour
         string crnPath = "csv bank/crn_to_labs";
 
         // Get String array of the lines and read them off
-        StartCoroutine(pullText(namesPath));
-        string[] lines = csvText.Split('\n');
+        // Ensured no race conditions 
+        //StartCoroutine(pullText(namesPath));
+        //string[] lines = csvText.Split('\n');
+
+        // Potential Race conditions
+        string[] lines = Resources.Load<TextAsset>(namesPath).text.Split('\n');
 
         // 0: username, 1: Name, 2: CRN, 3: Instructor, 4: Password
         for (int i = 1; i < lines.Length; i++)  // Skips labeling row
@@ -178,8 +183,12 @@ public class autofill : MonoBehaviour
         }
 
         // Load in CRN - Lab/JsonUrl dictionary
-        StartCoroutine(pullText(crnPath));
-        lines = csvText.Split('\n');          
+        // Ensures no race conditions: 
+        //StartCoroutine(pullText(crnPath));
+        //lines = csvText.Split('\n');          
+
+        // Might have race conditions
+        lines = Resources.Load<TextAsset>(crnPath).text.Split('\n');
 
         // 0: CRN, Odd: Lab Name, Even: JsonUrl associated with lab
         for (int i = 1; i < lines.Length; i++)  // Skips labeling row
