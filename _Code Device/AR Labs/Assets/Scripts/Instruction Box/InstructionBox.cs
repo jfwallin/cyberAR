@@ -90,7 +90,7 @@ public class InstructionBox : MonoBehaviour
         //Point the instructions at the camera if enabled
         if (BillBoard)
         {
-            transform.rotation = Quaternion.LookRotation(Camera.main.transform.position - transform.position);
+            transform.rotation = Quaternion.LookRotation(-Camera.main.transform.position + transform.position);
         }
     }
     #endregion Unity Methods
