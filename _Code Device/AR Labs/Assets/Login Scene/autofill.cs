@@ -21,7 +21,7 @@ public class autofill : MonoBehaviour
     private Dropdown dropdown; 
     private int showing = 0;
     private List<User> users = new List<User>();
-    public Dictionary<string, Dictionary<string, string>> crnLabsUrl;
+    public Dictionary<string, List<string>> crnLabs;
     #endregion
 
 
@@ -35,11 +35,11 @@ public class autofill : MonoBehaviour
         refreshText();   
 
         // building localized User databases
-        crnLabsUrl = pullCSV();
+        crnLabs = pullCSV();
         sort(names);
 
         // Print out User and crn data to make sure everything is loading in properly 
-        // foreach (string crn in crnLabsUrl.Keys) { string outtie = ""; foreach (string str in crnLabsUrl[crn].Keys) { outtie += str + " "; } print(outtie);  }
+        // foreach (string crn in crnLabs.Keys) { string outtie = ""; foreach (string str in crnLabs[crn].Keys) { outtie += str + " "; } print(outtie);  }
         
         // Prints each user with crn and password for testing
         // foreach (User usr in users) { print(usr.ToString()); }
@@ -123,7 +123,7 @@ public class autofill : MonoBehaviour
 
     // Returns a Dictionary of <string lab, string jsonURL>
     // Can only be called after the user is authenticated -> throws error if cant find CRN provided for authenticated user in Dictionary
-    public Dictionary<string,string> getLabs(string usr)
+    public List<string> getLabs(string usr)
     {
         string crn = "0000000";  // Guest crn: seven 0s
         try { 
@@ -134,11 +134,11 @@ public class autofill : MonoBehaviour
         }
 
         try { 
-            return crnLabsUrl[crn]; 
+            return crnLabs[crn]; 
         } catch 
         { 
             print("CRN Dictionary is missing, returning a blank dicitonary"); 
-            return new Dictionary<string, string>(){ { "guest","default_json_url"} }; 
+            return new List<string>(){ "guest" }; 
         }
     }
     #endregion
@@ -147,9 +147,9 @@ public class autofill : MonoBehaviour
     /* Loads names into a list, Username+Password+CRN into a list of UserObjects, and CRN + Hashset<labs> in a dictionary.
      * @return: Dictionary of crns with ditionary of lab IDs and associated Json URLs.
      */
-    private Dictionary<string, Dictionary<string, string>> pullCSV()
+    private Dictionary<string, List<string>> pullCSV()
     {
-        var result = new Dictionary<string, Dictionary<string, string>>();
+        var result = new Dictionary<string, List<string>>();
 
         // Set path for where to pull data from: Assets/Resources/
         string namesPath = "csv bank/test_names";
@@ -177,33 +177,26 @@ public class autofill : MonoBehaviour
         {
             // Split row into columns 
             string[] columns = lines[i].Split(',');
-            
-            // Create new Dictionary and add values for each pair in the row 
-            var tempDic = new Dictionary<string, string>();
-            try
-            {
-                for (int j = 1; j < columns.Length; j++)
-                {
-                    tempDic.Add(columns[j].Trim(), columns[++j].Trim());
-                }
-            } 
-            catch 
-            { 
-                Debug.Log("crn " + columns[0] + " has an incomplete crn/jsonpath pair.");
-            }
 
+            // Create new Dictionary and add values for each pair in the row 
+            var tempList = new List<string>();
+            for (int j = 1; j < columns.Length; j++)
+            {
+                tempList.Add(columns[j].Trim());
+            }
+            
             // Prints CRN with associated dictionary values. If there are multiple lines dedicated to the same crn, they will print on different lines 
             // written on one line for quick toggling 
-            // string strs = ""; foreach (string s in tempDic.Keys) { strs += "Lab: " + s + "\t url: " + tempDic[s] + "\n"; } print(strs);
+            // string strs = ""; foreach (string s in tempList.Keys) { strs += "Lab: " + s + "\t url: " + tempList[s] + "\n"; } print(strs);
 
             // Adds crn and Lab/json to dictionary unless it exists => adds to existing
             try { 
-                result.Add(columns[0].Trim(), tempDic);
+                result.Add(columns[0].Trim(), tempList);
             }
             catch {
-                foreach (string str in tempDic.Keys) 
+                foreach (string str in tempList) 
                 { 
-                    result[columns[0].Trim()].Add(str, tempDic[str]); 
+                    result[columns[0].Trim()].Add(str); 
                 } 
             }
         }

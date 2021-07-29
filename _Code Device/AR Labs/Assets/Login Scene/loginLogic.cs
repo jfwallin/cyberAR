@@ -25,7 +25,7 @@ public class loginLogic : MonoBehaviour
 
     #region Private Variables 
     private List<GameObject> labList;
-    Dictionary<string, string> labOptions;
+    List<string> labOptions;
     private string labSelected = "none";
     private string allLabs;
     private bool placed = false;
@@ -299,9 +299,9 @@ public class loginLogic : MonoBehaviour
 
         // Loop through labs pulling up to 5 of them and instantiating an interface to pick one
         int count = 0;
-        foreach (string lab in labOptions.Keys)
+        foreach (string lab in labOptions)
         {
-            labList.Add(createLab(lab, getDesc(lab), count++));
+            labList.Add(createLab(getName(lab), getDesc(lab), count++));
             if (count == 5) { break; }
         }
 
@@ -336,6 +336,20 @@ public class loginLogic : MonoBehaviour
             if (chars[i] == '_') { chars[i] = ' '; }
         }
         return new string(chars);
+    }
+
+
+    // Returns lab Name as a string
+    private string getName(string labId)
+    {
+        string temp = allLabs;
+        try
+        {
+            temp = allLabs.Substring(0, allLabs.IndexOf("\"lab_id\":" + labId) - 2);
+            temp = temp.Substring(temp.LastIndexOf("\"lab_title\":\"") + 13);
+        }
+        catch { print("No description found on the website for lab: " + labId); temp = "Lab not found on site"; }
+        return temp;
     }
 
 
@@ -386,7 +400,7 @@ public class loginLogic : MonoBehaviour
         else
         {
             string manifestPath = "http://cyberlearnar.cs.mtsu.edu/lab_manifest/" + labSelected;
-            string jsonPath = labOptions[labSelected];
+            string jsonPath = labOptions[0];
 
             // media downloader here. TODO - ALSO ADD ANIMATION
             // GameObject.Find("MediaDownloader").GetComponent<MediaDownloaderScript>().addToCatalogue(manifestPath);

@@ -1,9 +1,7 @@
-crn,lab,json_url
-0000000,1,"https://Scooby.doo"
-0000000,Moon_Phase_lab,https://moon.lab
-0000000,Starry_Night_demo,https://stars.lab
-0000000,Interactive_Solar_System,https://solar.lab
-8008135,1,url_placeholder,Crab_Taser,url_placeholder
-1023492,Magic_Fred,url_placeholder
-0293100,Four_Finger_Demo,url_placeholder
-0100101,Beep,url_placeholder,Boop,url_placeholder
+CRN,LabID
+0000000,1,2
+0000000,3,4
+8008135,1,Crab_Taser
+1023492,Magic_Fred
+0293100,Four_Finger_Demo
+0100101,Beep,Boop
