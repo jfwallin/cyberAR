@@ -95,14 +95,11 @@ public class loginLogic : MonoBehaviour
 
     #region Public Events
     // OnHomeButtonDown() realigns UI to position of controller and angle head is pointing
-    public void realign()  // TODO I WANT TO FIX THIS RUNNING OUT OF TIME THO :(
+    public void realign()  
     {
         print("Realigning UI.");
         anchor.transform.position = controller.transform.position;
         anchor.transform.eulerAngles = new Vector3(0, Camera.main.transform.eulerAngles.y, 0);
-
-        // Alternative to align closer to the body - UNTESTED
-        // anchor.transform.position = new Vector3((controller.transform.position.x + Camera.main.transform.position.x)/2, controller.transform.position.y,(controller.transform.position.x + Camera.main.transform.position.x)/2);
 
         // change orientation of starfield
         // **Starfield disabled for now due to incapatibility**
@@ -323,7 +320,7 @@ public class loginLogic : MonoBehaviour
         newlab.GetComponent<Button>().onClick.AddListener(delegate () { setLab(lab); });
 
         // Set Lab Title, description, name, and visibility
-        newlab.transform.GetChild(0).GetComponent<Text>().text = format(lab); //format doesn't work here but it really doesn't matter
+        newlab.transform.GetChild(0).GetComponent<Text>().text = format(lab);
         newlab.transform.GetChild(1).GetComponent<Text>().text = description;
         newlab.name = lab.Equals("Exit") ? lab : "Lab: " + lab;
         newlab.SetActive(true);
@@ -342,7 +339,7 @@ public class loginLogic : MonoBehaviour
     }
 
 
-    // Returns lab description as a string  TODO
+    // Returns lab description as a string
     private string getDesc(string labId)
     {
         string temp = allLabs;
@@ -351,7 +348,7 @@ public class loginLogic : MonoBehaviour
             temp = allLabs.Substring(0, allLabs.IndexOf("\"lab_id\":" + labId) - 2);
             temp = temp.Substring(temp.LastIndexOf("\"lab_description\":\"")+19);
         }
-        catch { print("No description found on Lab list on the website"); temp = "Lab not found on site"; }
+        catch { print("No description found on the website for lab: " +labId); temp = "Lab not found on site"; }
         return temp;
     }
 
@@ -379,7 +376,7 @@ public class loginLogic : MonoBehaviour
         #endif
         } 
 
-        // If no lab has been selected (forced next()), returns to lab selection - TODO FOR SOME REASON, THIS IS CALLED BEOFRE A LAB IS SELECTED
+        // If no lab has been selected (forced next()), returns to lab selection
         else if (labSelected.Equals("none")) 
         {
             print("No lab selected; returning to lab selection");
@@ -388,14 +385,14 @@ public class loginLogic : MonoBehaviour
 
         else
         {
-            print("Lab selected: " + format(labSelected) + ", but no info to load for now :^)\n");
-            var manifestPath = "http://cyberlearnar.cs.mtsu.edu/lab_manifest/" + labSelected;
-            var jsonPath = labOptions[labSelected];
+            string manifestPath = "http://cyberlearnar.cs.mtsu.edu/lab_manifest/" + labSelected;
+            string jsonPath = labOptions[labSelected];
 
             // media downloader here. TODO - ALSO ADD ANIMATION
+            // GameObject.Find("MediaDownloader").GetComponent<MediaDownloaderScript>().addToCatalogue(manifestPath);
 
-
-            StartCoroutine(DownloadFile(jsonPath, "Assets/Resources/csv bank/LabJson.json"));
+            try { StartCoroutine(DownloadFile(jsonPath, "Assets/Resources/csv bank/LabJson.json")); }
+            catch { print("Cant load Lab list from url"); }
             string jsonString = Resources.Load<TextAsset>("csv bank/LabJson").text;
             LabDataObject LabData = new LabDataObject();
             JsonUtility.FromJsonOverwrite(jsonString, LabData);

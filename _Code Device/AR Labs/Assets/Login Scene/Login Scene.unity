@@ -2421,17 +2421,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28d701e6a5c0e604896fe87be0acdca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  controller: {fileID: 474883755}
+  intro: {fileID: 590541481}
+  placement_prop: {fileID: 254351805}
+  anchor: {fileID: 149315593}
   LoginUI: {fileID: 2090734661}
+  guestButton: {fileID: 434943772}
   usr: {fileID: 1141388811}
   pas: {fileID: 405811793}
   loading: {fileID: 308462849}
-  intro: {fileID: 590541481}
   keyboard: {fileID: 7756163131501644642}
-  anchor: {fileID: 149315593}
-  placement_prop: {fileID: 254351805}
-  controller: {fileID: 474883755}
   lab_options: {fileID: 1283812652}
-  guestButton: {fileID: 434943772}
   labTemp: {fileID: 1861776993}
 --- !u!1 &716852239
 GameObject:
@@ -6723,7 +6723,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0.3}
+  m_AnchoredPosition: {x: 0, y: 0.25}
   m_SizeDelta: {x: 445.9, y: 203.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2127033899
