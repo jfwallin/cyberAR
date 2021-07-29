@@ -7,6 +7,11 @@ using UnityEngine.Networking;
 public class loginLogic : MonoBehaviour
 {
     #region Public Variables
+    [Header("Toggle Downloading")]
+    [Tooltip("This toggle allows for use of immediate local files instead of pulling them from the web")]
+    public bool useLocalFiles = false;
+
+    [Header("GameObjects")]
     public GameObject controller;
     public GameObject intro;
     public GameObject placement_prop;
@@ -251,13 +256,22 @@ public class loginLogic : MonoBehaviour
     // Downloads CSVs before autofill script on usr_dropbox is instantiated 
     IEnumerator DownloadFile(string webpath, string path)
     {
-        var uwr = new UnityWebRequest(webpath, UnityWebRequest.kHttpVerbGET);
-        uwr.downloadHandler = new DownloadHandlerFile(path);
-        yield return uwr.SendWebRequest();
-        if (uwr.result != UnityWebRequest.Result.Success)
-            Debug.LogError(uwr.error);
+        if (useLocalFiles && System.IO.File.Exists(path))
+        { 
+            print("File: " + path.Substring(path.LastIndexOf("/")+1) + " exists and will not be pulled from the website.");
+            yield return null;
+        }
+
         else
-            Debug.Log("File successfully downloaded and saved to " + path + "\n");
+        {
+            var uwr = new UnityWebRequest(webpath, UnityWebRequest.kHttpVerbGET);
+            uwr.downloadHandler = new DownloadHandlerFile(path);
+            yield return uwr.SendWebRequest();
+            if (uwr.result != UnityWebRequest.Result.Success)
+                Debug.LogError(uwr.error);
+            else
+                Debug.Log("File successfully downloaded and saved to " + path + "\n");
+        }
     }
 
 
@@ -301,7 +315,7 @@ public class loginLogic : MonoBehaviour
         int count = 0;
         foreach (string lab in labOptions)
         {
-            labList.Add(createLab(getName(lab), getDesc(lab), count++));
+            labList.Add(createLab(lab, getDesc(lab), count++));
             if (count == 5) { break; }
         }
 
@@ -320,7 +334,7 @@ public class loginLogic : MonoBehaviour
         newlab.GetComponent<Button>().onClick.AddListener(delegate () { setLab(lab); });
 
         // Set Lab Title, description, name, and visibility
-        newlab.transform.GetChild(0).GetComponent<Text>().text = format(lab);
+        newlab.transform.GetChild(0).GetComponent<Text>().text = getName(lab);
         newlab.transform.GetChild(1).GetComponent<Text>().text = description;
         newlab.name = lab.Equals("Exit") ? lab : "Lab: " + lab;
         newlab.SetActive(true);
@@ -342,11 +356,13 @@ public class loginLogic : MonoBehaviour
     // Returns lab Name as a string
     private string getName(string labId)
     {
+        if (labId.ToUpper().Equals("EXIT")) { return "Exit"; }
         string temp = allLabs;
         try
         {
-            temp = allLabs.Substring(0, allLabs.IndexOf("\"lab_id\":" + labId) - 2);
-            temp = temp.Substring(temp.LastIndexOf("\"lab_title\":\"") + 13);
+            print(temp);
+            temp = allLabs.Substring(allLabs.IndexOf("\"lab_id\":" + labId) + 23 + labId.Length);
+            temp = temp.Substring(0,temp.IndexOf("\""));
         }
         catch { print("No description found on the website for lab: " + labId); temp = "Lab not found on site"; }
         return temp;

@@ -2421,6 +2421,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28d701e6a5c0e604896fe87be0acdca6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  useLocalFiles: 0
   controller: {fileID: 474883755}
   intro: {fileID: 590541481}
   placement_prop: {fileID: 254351805}
