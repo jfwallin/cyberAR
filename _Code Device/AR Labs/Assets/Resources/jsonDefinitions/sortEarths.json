@@ -25,7 +25,7 @@
     "description": "Test case for the sorting activity.",
     "author": "John Wallin",
     "authorInstitution": "Middle Tennessee State University",
-    "dateCreated": "Wed Jul 28 14:42:07 2021",
+    "dateCreated": "Wed Jul 28 17:25:15 2021",
     "introAudio": "Audio/sorting_instructions",
     "createObjects": true,
     "destroyObjects": true,
@@ -39,7 +39,7 @@
             "active": true,
             "position": {
                 "x": -1.0,
-                "y": 1.5,
+                "y": 0.0,
                 "z": 1.5
             },
             "euleriAngles": {
@@ -94,7 +94,7 @@
             "active": true,
             "position": {
                 "x": -0.5,
-                "y": 1.5,
+                "y": 0.0,
                 "z": 1.5
             },
             "euleriAngles": {
@@ -149,7 +149,7 @@
             "active": true,
             "position": {
                 "x": 0.0,
-                "y": 1.5,
+                "y": 0.0,
                 "z": 1.5
             },
             "euleriAngles": {
@@ -204,7 +204,7 @@
             "active": true,
             "position": {
                 "x": 0.5,
-                "y": 1.5,
+                "y": 0.0,
                 "z": 1.5
             },
             "euleriAngles": {
@@ -259,7 +259,7 @@
             "active": true,
             "position": {
                 "x": 1.0,
-                "y": 1.5,
+                "y": 0.0,
                 "z": 1.5
             },
             "euleriAngles": {

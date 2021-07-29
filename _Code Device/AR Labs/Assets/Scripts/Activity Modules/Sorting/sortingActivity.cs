@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using System;
 
 
@@ -56,7 +57,7 @@ namespace sortingRoutines
 
         // markers
         private GameObject markerPrefab;
-        private string markerPrefabName = "Prefab/tinysphere";
+        private string markerPrefabName = "Prefabs/tinysphere";
         private GameObject[] markers;
         private float mscale = 0.1f;
         private float voffset = 0.2f;
@@ -102,24 +103,14 @@ namespace sortingRoutines
             JsonUtility.FromJsonOverwrite(jsonData, moduleData);
 
             ibox = InstructionBox.Instance;
-
-            string jdata = JsonUtility.ToJson(moduleData, true);
-            Debug.Log(jdata);
-
-
-            ObjectInfoCollection oi = JsonUtility.FromJson<ObjectInfoCollection>(jsonString);
-            foreach (ObjectInfo obj in oi.objects)
-            {
-                string jdat = JsonUtility.ToJson(obj, true);
-                Debug.Log(jdat);
-            }
+            ibox.transform.localPosition = new Vector3(1.5f, -0.3f, 0.0f);
+            initializeIbox();
 
             // setup the media player, lightControl, and audio player
             mPlayer = MediaPlayer.Instance;
             lightControl = lightingControl.Instance;
             aud = gameObject.GetComponent<AudioSource>();
             mainCamera = GameObject.Find("Main Camera");
-
 
             // play the introAudio
             aud.clip = Resources.Load<AudioClip>(moduleData.introAudio);
@@ -141,15 +132,10 @@ namespace sortingRoutines
 
         public override void EndOfModule()
         {
-            if (moduleData.restoreLights)
-                lightControl.restoreLights();
+            // Destroy the objects in the scene
+            IEnumerator coroutine = taskCompleted();
+            StartCoroutine(coroutine);
 
-            if (moduleData.destroyObjects)
-                bridge.CleanUp(jsonString);
-            FindObjectOfType<LabManager>().ModuleComplete();
-
-            destroyMarkers();
-            Destroy(myButton, 0.1f);
         }
 
 
@@ -167,6 +153,44 @@ namespace sortingRoutines
         }
 
 
+        private void initializeIbox()
+        {
+
+            // create the instruction page
+            int instructionIndex = ibox.FindPage("Instructions");
+            if ( instructionIndex == -1)
+            {
+                ibox.AddPage("Instructions", moduleData.instructions[0], true);
+            }
+            else {
+                ibox.SetPage(instructionIndex, "Instructions", moduleData.instructions[0], true);
+            }
+
+            // add the objectives
+            string theObjectives = "After completing this module, the student will:\n\n";
+            for (int i = 0; i < moduleData.educationalObjectives.Length; i++)
+            {
+                theObjectives = theObjectives + i.ToString() + ". " + moduleData.educationalObjectives[i];
+
+            }
+            int objectivesIndex = ibox.FindPage("Objectives");
+            if ( objectivesIndex == -1)
+            {
+                
+                ibox.AddPage("Objectives", theObjectives, true);
+            }
+            else {
+                ibox.SetPage(objectivesIndex, "Objectives", theObjectives, true);
+            }
+
+            // create the help page
+
+            // update the navigation page
+
+            
+        }
+
+
 
         // Start is called before the first frame update
         void Start()
@@ -178,28 +202,24 @@ namespace sortingRoutines
             sortPts = new Vector3[nObjects];
             for (int i= 0; i < nObjects; i++)
             {
-                Debug.Log(i.ToString() + " : " + objList.objects[i].name);
+                //Debug.Log(i.ToString() + " : " + objList.objects[i].name);
                 sortPts[i] = objList.objects[i].position;
             }
-            
 
             // find the actual number wrong Answers
             totalWrongAnswer = 0;
             for (int i = 0; i < nObjects; i++)
                 if (wrongOrder[i] != null) totalWrongAnswer++;
 
-
             mscale = 0.07f;
             voffset = 0.2f;
             createMarkers(mscale, voffset);
-
 
             // set the array to be unsorted
             isSorted = false;
 
             // create an array to help with the sorting
             sortData = new sortInfo[nObjects];
-
             
             // populate the sorting array with needed information
             for (int i = 0; i < nObjects; i++)
@@ -214,9 +234,11 @@ namespace sortingRoutines
                 // add the moveObject script to the sortable objects
                 sortData[i].theObject.AddComponent<moveObjects>();
 
+                // Handle the release from drag
+                sortData[i].theObject.GetComponent<MagicLeapTools.InputReceiver>().OnDragEnd.AddListener(handleObjectOnDragEnd);
             }
 
-    
+
             // this sets the intial position to the current position of the objects
             // and sets the time limits so nothing actually moves
             initializePath();
@@ -225,14 +247,26 @@ namespace sortingRoutines
             gameObject.name = "sortingManager";
             buttonPrefabString = "Prefabs/BigRedButton";
             buttonPrefab = Resources.Load(buttonPrefabString) as GameObject;
-            myButton = Instantiate(buttonPrefab, new Vector3(0.0f, 1.0f, 1.5f), Quaternion.Euler(-90f, 0f, 0.0f), parentObject.transform) as GameObject;
-            myButton.AddComponent<buttonCallback>();
+            myButton = Instantiate(buttonPrefab, new Vector3(0.0f, -0.4f, 1.5f), Quaternion.Euler(-90f, 0f, 0.0f), parentObject.transform) as GameObject;
             GameObject.Find("button").GetComponent<Renderer>().material.color = Color.red;
+            // add the callback for OnClick
+            myButton.GetComponent<MagicLeapTools.InputReceiver>().OnClick.AddListener(buttonClick);
+
 
             // this moves the objects to a scrambled location
             scrambleProjectedPosition();
             resetPositions(); //, orderList);
 
+        }
+
+        private void buttonClick(GameObject sender)
+        {
+            feedbackOnOrder();
+        }
+
+        private void handleObjectOnDragEnd(GameObject sender)
+        {
+            resort();
         }
         
         public void createMarkers(float mscale, float voffset)
@@ -242,22 +276,12 @@ namespace sortingRoutines
             for (int i = 0; i < nObjects; i++)
             {
                 mscale = 0.07f;
-                markerPrefab = Resources.Load("Prefabs/tinysphere") as GameObject;
+                markerPrefab = Resources.Load(markerPrefabName) as GameObject;
                 markers[i] = Instantiate(markerPrefab, sortPts[i] - new Vector3(0.0f, voffset, 0.0f), Quaternion.identity) as GameObject;
                 markers[i].transform.localScale = new Vector3(mscale, mscale, mscale);
                 markers[i].GetComponent<Renderer>().material.color = new Color(0.3f, 0.3f, 0.3f, 1.0f);
             }
-
-
         }
-        public void destroyMarkers()
-        {
-            for (int i = 0; i < nObjects; i++)
-            {
-                Destroy(markers[i]);
-            }
-        }
-
 
         IEnumerator buttonWait(float dTime)
         {
@@ -281,15 +305,15 @@ namespace sortingRoutines
                 AudioSource aud = GetComponent<AudioSource>();
                 if (isSorted)
                 {
-                    aud.clip = correctOrder;
                     setOrderLights();
                     pretty = 1;
 
+                    aud.clip = correctOrder;
                     aud.Play();
+                  
+                    // make sure the audio clip has enough time to play
                     coroutine = taskCompleted();
                     StartCoroutine(coroutine);
-                    //taskCompleted();
-
                 }
                 else
                 {
@@ -316,31 +340,44 @@ namespace sortingRoutines
         IEnumerator taskCompleted()
         {
 
-            float dtime;
-
-            dtime = 5.0f;
-            yield return new WaitForSeconds(dtime);
-            //Debug.Log("sorting is done!");
+            // Delete the listeners - it takes some time for this to happen
             for (int i = 0; i < nObjects; i++)
             {
+                sortData[i].theObject.GetComponent<MagicLeapTools.InputReceiver>().OnDragEnd.RemoveAllListeners();
+            }
+            myButton.GetComponent<MagicLeapTools.InputReceiver>().OnClick.RemoveAllListeners();
+
+            // wait a few seconds to the person can observe their accomplishment and the sound can play
+            float dtime = 5.0f;
+            yield return new WaitForSeconds(dtime);
+
+            // delete the markers, objects, and button
+            for (int i = 0; i < nObjects; i++)
+            {
+
                 Destroy(sortData[i].theObject);
                 Destroy(markers[i]);
             }
             Destroy(myButton);
 
-            GameObject jj = GameObject.Find("Lab Control");
-            jj.GetComponent<LabControl>().sortingDone();
+            // fix the lights if appropriate
+            if (moduleData.restoreLights)
+                lightControl.restoreLights();
+
+            // we are going to clean up all the objects by hand
+            //if (moduleData.destroyObjects)
+            //    bridge.CleanUp(jsonString);
+
+            // go back to the lab manager
+            FindObjectOfType<LabManager>().ModuleComplete();
 
         }
 
-
+        
 
 
         public void resort()
         {
-
-            Debug.Log("in resort.....");
-
             // find where the objects are along the projected path
             setProjectedLocation();
 
@@ -353,7 +390,6 @@ namespace sortingRoutines
         IEnumerator clearOrderLights()
         {
             float delaytime = 5.0f;
-
             yield return new WaitForSeconds(delaytime);
 
             for (int i = 0; i < nObjects; i++)
@@ -492,8 +528,6 @@ namespace sortingRoutines
             int displacedObject = pdata[0];
             int firstClosestPt = pdata[1];
             int secondClosestPt = pdata[2];
-
-            //print("new position " + displacedObject.ToString() + "   " + firstClosestPt.ToString() + "  -  " + secondClosestPt.ToString());
 
             // reset the fractional distances 
             for (int i = 0; i < nObjects; i++)

@@ -16,8 +16,6 @@ namespace sortingRoutines
         public string[] wrongOrderAudio;
         public string correctOrderAudio;
 
-        private bool feedbackEnabled = true;
-
         public ObjectInfo[] objects;
         public string introAudio;
         public bool useSunlight = false;
