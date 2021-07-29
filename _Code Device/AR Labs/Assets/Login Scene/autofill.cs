@@ -35,7 +35,7 @@ public class autofill : MonoBehaviour
         refreshText();   
 
         // building localized User databases
-        crnLabsUrl = pullCSV(); // NOT WORKING ON LEAP
+        crnLabsUrl = pullCSV();
         sort(names);
 
         // Print out User and crn data to make sure everything is loading in properly 
@@ -143,16 +143,9 @@ public class autofill : MonoBehaviour
     }
     #endregion
 
-    IEnumerator pullText(string path)
-    {
-        var asset = Resources.Load<TextAsset>(path);
-        csvText = asset.text;
-        yield return null;
-    }
-
     #region Private Methods 
     /* Loads names into a list, Username+Password+CRN into a list of UserObjects, and CRN + Hashset<labs> in a dictionary.
-     * @return: Dictionary of crns with set of lab IDs.
+     * @return: Dictionary of crns with ditionary of lab IDs and associated Json URLs.
      */
     private Dictionary<string, Dictionary<string, string>> pullCSV()
     {
@@ -163,8 +156,7 @@ public class autofill : MonoBehaviour
         string crnPath = "csv bank/crn_to_labs";
 
         // Get String array of the lines and read them off
-        StartCoroutine(pullText(namesPath));
-        string[] lines = csvText.Split('\n');
+        string[] lines = Resources.Load<TextAsset>(namesPath).text.Split('\n');
 
         // 0: username, 1: Name, 2: CRN, 3: Instructor, 4: Password
         for (int i = 1; i < lines.Length; i++)  // Skips labeling row
@@ -178,8 +170,7 @@ public class autofill : MonoBehaviour
         }
 
         // Load in CRN - Lab/JsonUrl dictionary
-        StartCoroutine(pullText(crnPath));
-        lines = csvText.Split('\n');          
+        lines = Resources.Load<TextAsset>(crnPath).text.Split('\n');
 
         // 0: CRN, Odd: Lab Name, Even: JsonUrl associated with lab
         for (int i = 1; i < lines.Length; i++)  // Skips labeling row
