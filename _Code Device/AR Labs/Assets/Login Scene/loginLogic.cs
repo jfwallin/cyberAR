@@ -336,7 +336,9 @@ public class loginLogic : MonoBehaviour
         // Set Lab Title, description, name, and visibility
         newlab.transform.GetChild(0).GetComponent<Text>().text = getName(lab);
         newlab.transform.GetChild(1).GetComponent<Text>().text = description;
-        newlab.name = lab.Equals("Exit") ? lab : "Lab: " + lab;
+
+        // This makes the Panel name the lab's unique identifier not the title
+        newlab.name = lab.Equals("Exit") ? lab : "Lab: " + lab; 
         newlab.SetActive(true);
         return newlab;
     }
@@ -364,7 +366,7 @@ public class loginLogic : MonoBehaviour
             temp = allLabs.Substring(allLabs.IndexOf("\"lab_id\":" + labId) + 23 + labId.Length);
             temp = temp.Substring(0,temp.IndexOf("\""));
         }
-        catch { print("No description found on the website for lab: " + labId); temp = "Lab not found on site"; }
+        catch { print("No Name found on the website for lab: " + labId); temp = "Lab not found on site"; }
         return temp;
     }
 
