@@ -13,177 +13,471 @@ MonoBehaviour:
   m_Name: Serializer
   m_EditorClassIdentifier: 
   data:
-    moduleName: Multiple Choice Question
-    jsonFileName: 
-    description: 
-    author: 
-    authorInstitution: 
-    dateCreated: 
-    prerequisiteActivities: []
-    prefabName: 
-    specificName: Moon Phase Identification MCQ
-    educationalObjectives: []
-    instructions: []
-    introMediaIDs:
-    - id: Test
-      mediaType: 1
-    outroMediaIDs: []
-    numRepeatsAllowed: -1
-    numGradableRepeatsAllowed: -1
-    gradingCriteria: 
-    currentScore: 0
-    bestScore: 0
-    completed: 0
-    currentSubphase: 0
-    subphaseNames: []
-    questions:
-    - referenceMedia: []
-      answerCorrectMedia: []
-      answerIncorrectMedia: []
-      question: What is the name of this phase of the moon?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - Full Moon
-      correctOptionsIndices: 00000000
-    - referenceMedia: []
-      answerCorrectMedia: []
-      answerIncorrectMedia: []
-      question: What is the name of this phase of the moon?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - Waning Gibbous
-      correctOptionsIndices: 00000000
-    - referenceMedia: []
-      answerCorrectMedia: []
-      answerIncorrectMedia: []
-      question: What is the name of this phase of the moon?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - Third Quarter
-      correctOptionsIndices: 00000000
-    - referenceMedia: []
-      answerCorrectMedia: []
-      answerIncorrectMedia: []
-      question: What is the name of this phase of the moon?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - Waning Crescent
-      correctOptionsIndices: 00000000
-    - referenceMedia: []
-      answerCorrectMedia: []
-      answerIncorrectMedia: []
-      question: What is the name of this phase of the moon?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - New Moon
-      correctOptionsIndices: 00000000
-    - referenceMedia: []
-      answerCorrectMedia: []
-      answerIncorrectMedia: []
-      question: What is the name of this phase of the moon?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - Waxing Crescent
-      correctOptionsIndices: 00000000
-    - referenceMedia: []
-      answerCorrectMedia: []
-      answerIncorrectMedia: []
-      question: What is the name of this phase of the moon?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - First Quarter
-      correctOptionsIndices: 00000000
-    - referenceMedia: []
-      answerCorrectMedia: []
-      answerIncorrectMedia: []
-      question: What is the name of this phase of the moon?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - Waxing Gibbous
-      correctOptionsIndices: 00000000
-    answerPool:
-    - New Moon
-    - Waxing Crescent
-    - First Quarter
-    - Waxing Gibbous
-    - Full Moon
-    - Waning Gibbous
-    - Third Quarter
-    - Waning Crescent
-  serializedScript: "{\n    \"moduleName\": \"Multiple Choice Question\",\n    \"jsonFileName\":
-    \"\",\n    \"description\": \"\",\n    \"author\": \"\",\n    \"authorInstitution\":
-    \"\",\n    \"dateCreated\": \"\",\n    \"prerequisiteActivities\": [],\n    \"prefabName\":
-    \"\",\n    \"specificName\": \"Moon Phase Identification MCQ\",\n    \"educationalObjectives\":
-    [],\n    \"instructions\": [],\n    \"introMediaIDs\": [\n        {\n           
-    \"id\": \"Test\",\n            \"mediaType\": 1\n        }\n    ],\n    \"outroMediaIDs\":
-    [],\n    \"numRepeatsAllowed\": -1,\n    \"numGradableRepeatsAllowed\": -1,\n   
-    \"gradingCriteria\": \"\",\n    \"currentScore\": 0.0,\n    \"bestScore\": 0.0,\n   
-    \"completed\": false,\n    \"currentSubphase\": 0,\n    \"subphaseNames\": [],\n   
-    \"questions\": [\n        {\n            \"referenceMedia\": [],\n           
-    \"answerCorrectMedia\": [],\n            \"answerIncorrectMedia\": [],\n           
-    \"question\": \"What is the name of this phase of the moon?\",\n            \"randomizeOrder\":
-    true,\n            \"allowMultiSelect\": false,\n            \"numberOfOptionsFromPool\":
-    3,\n            \"answerOptions\": [\n                \"Full Moon\"\n           
-    ],\n            \"correctOptionsIndices\": [\n                0\n           
-    ]\n        },\n        {\n            \"referenceMedia\": [],\n            \"answerCorrectMedia\":
-    [],\n            \"answerIncorrectMedia\": [],\n            \"question\": \"What
-    is the name of this phase of the moon?\",\n            \"randomizeOrder\": true,\n           
-    \"allowMultiSelect\": false,\n            \"numberOfOptionsFromPool\": 3,\n           
-    \"answerOptions\": [\n                \"Waning Gibbous\"\n            ],\n           
-    \"correctOptionsIndices\": [\n                0\n            ]\n        },\n       
-    {\n            \"referenceMedia\": [],\n            \"answerCorrectMedia\": [],\n           
-    \"answerIncorrectMedia\": [],\n            \"question\": \"What is the name of
-    this phase of the moon?\",\n            \"randomizeOrder\": true,\n           
-    \"allowMultiSelect\": false,\n            \"numberOfOptionsFromPool\": 3,\n           
-    \"answerOptions\": [\n                \"Third Quarter\"\n            ],\n           
-    \"correctOptionsIndices\": [\n                0\n            ]\n        },\n       
-    {\n            \"referenceMedia\": [],\n            \"answerCorrectMedia\": [],\n           
-    \"answerIncorrectMedia\": [],\n            \"question\": \"What is the name of
-    this phase of the moon?\",\n            \"randomizeOrder\": true,\n           
-    \"allowMultiSelect\": false,\n            \"numberOfOptionsFromPool\": 3,\n           
-    \"answerOptions\": [\n                \"Waning Crescent\"\n            ],\n           
-    \"correctOptionsIndices\": [\n                0\n            ]\n        },\n       
-    {\n            \"referenceMedia\": [],\n            \"answerCorrectMedia\": [],\n           
-    \"answerIncorrectMedia\": [],\n            \"question\": \"What is the name of
-    this phase of the moon?\",\n            \"randomizeOrder\": true,\n           
-    \"allowMultiSelect\": false,\n            \"numberOfOptionsFromPool\": 3,\n           
-    \"answerOptions\": [\n                \"New Moon\"\n            ],\n           
-    \"correctOptionsIndices\": [\n                0\n            ]\n        },\n       
-    {\n            \"referenceMedia\": [],\n            \"answerCorrectMedia\": [],\n           
-    \"answerIncorrectMedia\": [],\n            \"question\": \"What is the name of
-    this phase of the moon?\",\n            \"randomizeOrder\": true,\n           
-    \"allowMultiSelect\": false,\n            \"numberOfOptionsFromPool\": 3,\n           
-    \"answerOptions\": [\n                \"Waxing Crescent\"\n            ],\n           
-    \"correctOptionsIndices\": [\n                0\n            ]\n        },\n       
-    {\n            \"referenceMedia\": [],\n            \"answerCorrectMedia\": [],\n           
-    \"answerIncorrectMedia\": [],\n            \"question\": \"What is the name of
-    this phase of the moon?\",\n            \"randomizeOrder\": true,\n           
-    \"allowMultiSelect\": false,\n            \"numberOfOptionsFromPool\": 3,\n           
-    \"answerOptions\": [\n                \"First Quarter\"\n            ],\n           
-    \"correctOptionsIndices\": [\n                0\n            ]\n        },\n       
-    {\n            \"referenceMedia\": [],\n            \"answerCorrectMedia\": [],\n           
-    \"answerIncorrectMedia\": [],\n            \"question\": \"What is the name of
-    this phase of the moon?\",\n            \"randomizeOrder\": true,\n           
-    \"allowMultiSelect\": false,\n            \"numberOfOptionsFromPool\": 3,\n           
-    \"answerOptions\": [\n                \"Waxing Gibbous\"\n            ],\n           
-    \"correctOptionsIndices\": [\n                0\n            ]\n        }\n   
-    ],\n    \"answerPool\": [\n        \"New Moon\",\n        \"Waxing Crescent\",\n       
-    \"First Quarter\",\n        \"Waxing Gibbous\",\n        \"Full Moon\",\n       
-    \"Waning Gibbous\",\n        \"Third Quarter\",\n        \"Waning Crescent\"\n   
-    ]\n}"
+    Author: John Wallin
+    CourseName: Astronomy 101
+    EstimatedLength: 20 minutes
+    NumModules: 3
+    Objectives:
+    - Learn about space
+    - Learn about stars
+    ActivityModules:
+    - '{"moduleName": "Sorting Demo Demo", "specificName": "Sort by order", "jsonFileName":
+      "sortEarths.json", "prefabName": "sortingManager", "prerequisiteActivities":
+      [], "educationalObjectives": ["Understand that shadows on spherical objects
+      lead to moon phases"], "instructions": ["Sort the balls small to big."], "numRepeatsAllowed":
+      0, "numGradableRepeatsAllowed": 0, "gradingCriteria": "", "currentScore": 0.0,
+      "bestScore": 0.0, "completed": false, "currentSubphase": 0, "subphaseNames":
+      [], "urlJson": "", "json": "", "timeToEnd": 20, "endUsingButton": true, "description":
+      "Test case for the sorting activity.", "author": "John Wallin", "authorInstitution":
+      "Middle Tennessee State University", "dateCreated": "Tue Jul 13 00:15:00 2021",
+      "introAudio": "Audio/sorting_instructions", "createObjects": true, "destroyObjects":
+      true, "restoreLights": true, "objects": [{"name": "Earth0", "parentName": "[_DYNAMIC]",
+      "type": "Prefabs/moveableSphere", "tag": "", "active": true, "position": {"x":
+      -1.0, "y": 0.8, "z": 1.5}, "euleriAngles": {"x": 0.0, "y": 0.0, "z": 0.0},
+      "scale": {"x": 0.1, "y": 0.1, "z": 0.1}, "material": "", "texture": "Textures/2k_earth_daymap",
+      "textureByURL": "", "color": [1.0, 1.0, 1.0, 1.0], "transmittable": false,
+      "RigidBody": {"mass": 1.0, "drag": 5.0, "angularDrag": 0.0, "isKinematic":
+      true, "useGravity": false, "xConstraint": false, "yConstraint": false, "zConstraint":
+      false, "xRotationConstraint": true, "yRotationConstraint": true, "zRotationConstraint":
+      true}, "PointerReceiver": {"draggable": true, "kinematicWhileIdle": true, "faceWhileDragging":
+      false, "matchWallWhileDragging": false, "invertForward": false}, "componentsToAdd":
+      ["{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0}"]},
+      {"name": "Earth1", "parentName": "[_DYNAMIC]", "type": "Prefabs/moveableSphere",
+      "tag": "", "active": true, "position": {"x": -0.5, "y": 0.8, "z": 1.5}, "euleriAngles":
+      {"x": 0.0, "y": 0.0, "z": 0.0}, "scale": {"x": 0.15000000000000002, "y": 0.15000000000000002,
+      "z": 0.15000000000000002}, "material": "", "texture": "Textures/2k_earth_daymap",
+      "textureByURL": "", "color": [1.0, 1.0, 1.0, 1.0], "transmittable": false,
+      "RigidBody": {"mass": 1.0, "drag": 5.0, "angularDrag": 0.0, "isKinematic":
+      true, "useGravity": false, "xConstraint": false, "yConstraint": false, "zConstraint":
+      false, "xRotationConstraint": true, "yRotationConstraint": true, "zRotationConstraint":
+      true}, "PointerReceiver": {"draggable": true, "kinematicWhileIdle": true, "faceWhileDragging":
+      false, "matchWallWhileDragging": false, "invertForward": false}, "componentsToAdd":
+      ["{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0}"]},
+      {"name": "Earth2", "parentName": "[_DYNAMIC]", "type": "Prefabs/moveableSphere",
+      "tag": "", "active": true, "position": {"x": 0.0, "y": 0.8, "z": 1.5}, "euleriAngles":
+      {"x": 0.0, "y": 0.0, "z": 0.0}, "scale": {"x": 0.2, "y": 0.2, "z": 0.2}, "material":
+      "", "texture": "Textures/2k_earth_daymap", "textureByURL": "", "color": [1.0,
+      1.0, 1.0, 1.0], "transmittable": false, "RigidBody": {"mass": 1.0, "drag":
+      5.0, "angularDrag": 0.0, "isKinematic": true, "useGravity": false, "xConstraint":
+      false, "yConstraint": false, "zConstraint": false, "xRotationConstraint": true,
+      "yRotationConstraint": true, "zRotationConstraint": true}, "PointerReceiver":
+      {"draggable": true, "kinematicWhileIdle": true, "faceWhileDragging": false,
+      "matchWallWhileDragging": false, "invertForward": false}, "componentsToAdd":
+      ["{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0}"]},
+      {"name": "Earth3", "parentName": "[_DYNAMIC]", "type": "Prefabs/moveableSphere",
+      "tag": "", "active": true, "position": {"x": 0.5, "y": 0.8, "z": 1.5}, "euleriAngles":
+      {"x": 0.0, "y": 0.0, "z": 0.0}, "scale": {"x": 0.25, "y": 0.25, "z": 0.25},
+      "material": "", "texture": "Textures/2k_earth_daymap", "textureByURL": "",
+      "color": [1.0, 1.0, 1.0, 1.0], "transmittable": false, "RigidBody": {"mass":
+      1.0, "drag": 5.0, "angularDrag": 0.0, "isKinematic": true, "useGravity": false,
+      "xConstraint": false, "yConstraint": false, "zConstraint": false, "xRotationConstraint":
+      true, "yRotationConstraint": true, "zRotationConstraint": true}, "PointerReceiver":
+      {"draggable": true, "kinematicWhileIdle": true, "faceWhileDragging": false,
+      "matchWallWhileDragging": false, "invertForward": false}, "componentsToAdd":
+      ["{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0}"]},
+      {"name": "Earth4", "parentName": "[_DYNAMIC]", "type": "Prefabs/moveableSphere",
+      "tag": "", "active": true, "position": {"x": 1.0, "y": 0.8, "z": 1.5}, "euleriAngles":
+      {"x": 0.0, "y": 0.0, "z": 0.0}, "scale": {"x": 0.30000000000000004, "y": 0.30000000000000004,
+      "z": 0.30000000000000004}, "material": "", "texture": "Textures/2k_earth_daymap",
+      "textureByURL": "", "color": [1.0, 1.0, 1.0, 1.0], "transmittable": false,
+      "RigidBody": {"mass": 1.0, "drag": 5.0, "angularDrag": 0.0, "isKinematic":
+      true, "useGravity": false, "xConstraint": false, "yConstraint": false, "zConstraint":
+      false, "xRotationConstraint": true, "yRotationConstraint": true, "zRotationConstraint":
+      true}, "PointerReceiver": {"draggable": true, "kinematicWhileIdle": true, "faceWhileDragging":
+      false, "matchWallWhileDragging": false, "invertForward": false}, "componentsToAdd":
+      ["{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0}"]}],
+      "useSunlight": false}'
+    - '{"moduleName": "Sorting Demo Demo", "specificName": "Sort by order", "jsonFileName":
+      "sortEarths.json", "prefabName": "sortingManager", "prerequisiteActivities":
+      [], "educationalObjectives": ["Understand that shadows on spherical objects
+      lead to moon phases"], "instructions": ["Sort the balls small to big."], "numRepeatsAllowed":
+      0, "numGradableRepeatsAllowed": 0, "gradingCriteria": "", "currentScore": 0.0,
+      "bestScore": 0.0, "completed": false, "currentSubphase": 0, "subphaseNames":
+      [], "urlJson": "", "json": "", "timeToEnd": 20, "endUsingButton": true, "description":
+      "Test case for the sorting activity.", "author": "John Wallin", "authorInstitution":
+      "Middle Tennessee State University", "dateCreated": "Tue Jul 13 00:15:00 2021",
+      "introAudio": "Audio/sorting_instructions", "createObjects": true, "destroyObjects":
+      true, "restoreLights": true, "objects": [{"name": "Earth0", "parentName": "[_DYNAMIC]",
+      "type": "Prefabs/moveableSphere", "tag": "", "active": true, "position": {"x":
+      -1.0, "y": 0.8, "z": 1.5}, "euleriAngles": {"x": 0.0, "y": 0.0, "z": 0.0},
+      "scale": {"x": 0.1, "y": 0.1, "z": 0.1}, "material": "", "texture": "Textures/2k_earth_daymap",
+      "textureByURL": "", "color": [1.0, 1.0, 1.0, 1.0], "transmittable": false,
+      "RigidBody": {"mass": 1.0, "drag": 5.0, "angularDrag": 0.0, "isKinematic":
+      true, "useGravity": false, "xConstraint": false, "yConstraint": false, "zConstraint":
+      false, "xRotationConstraint": true, "yRotationConstraint": true, "zRotationConstraint":
+      true}, "PointerReceiver": {"draggable": true, "kinematicWhileIdle": true, "faceWhileDragging":
+      false, "matchWallWhileDragging": false, "invertForward": false}, "componentsToAdd":
+      ["{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0}"]},
+      {"name": "Earth1", "parentName": "[_DYNAMIC]", "type": "Prefabs/moveableSphere",
+      "tag": "", "active": true, "position": {"x": -0.5, "y": 0.8, "z": 1.5}, "euleriAngles":
+      {"x": 0.0, "y": 0.0, "z": 0.0}, "scale": {"x": 0.15000000000000002, "y": 0.15000000000000002,
+      "z": 0.15000000000000002}, "material": "", "texture": "Textures/2k_earth_daymap",
+      "textureByURL": "", "color": [1.0, 1.0, 1.0, 1.0], "transmittable": false,
+      "RigidBody": {"mass": 1.0, "drag": 5.0, "angularDrag": 0.0, "isKinematic":
+      true, "useGravity": false, "xConstraint": false, "yConstraint": false, "zConstraint":
+      false, "xRotationConstraint": true, "yRotationConstraint": true, "zRotationConstraint":
+      true}, "PointerReceiver": {"draggable": true, "kinematicWhileIdle": true, "faceWhileDragging":
+      false, "matchWallWhileDragging": false, "invertForward": false}, "componentsToAdd":
+      ["{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0}"]},
+      {"name": "Earth2", "parentName": "[_DYNAMIC]", "type": "Prefabs/moveableSphere",
+      "tag": "", "active": true, "position": {"x": 0.0, "y": 0.8, "z": 1.5}, "euleriAngles":
+      {"x": 0.0, "y": 0.0, "z": 0.0}, "scale": {"x": 0.2, "y": 0.2, "z": 0.2}, "material":
+      "", "texture": "Textures/2k_earth_daymap", "textureByURL": "", "color": [1.0,
+      1.0, 1.0, 1.0], "transmittable": false, "RigidBody": {"mass": 1.0, "drag":
+      5.0, "angularDrag": 0.0, "isKinematic": true, "useGravity": false, "xConstraint":
+      false, "yConstraint": false, "zConstraint": false, "xRotationConstraint": true,
+      "yRotationConstraint": true, "zRotationConstraint": true}, "PointerReceiver":
+      {"draggable": true, "kinematicWhileIdle": true, "faceWhileDragging": false,
+      "matchWallWhileDragging": false, "invertForward": false}, "componentsToAdd":
+      ["{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0}"]},
+      {"name": "Earth3", "parentName": "[_DYNAMIC]", "type": "Prefabs/moveableSphere",
+      "tag": "", "active": true, "position": {"x": 0.5, "y": 0.8, "z": 1.5}, "euleriAngles":
+      {"x": 0.0, "y": 0.0, "z": 0.0}, "scale": {"x": 0.25, "y": 0.25, "z": 0.25},
+      "material": "", "texture": "Textures/2k_earth_daymap", "textureByURL": "",
+      "color": [1.0, 1.0, 1.0, 1.0], "transmittable": false, "RigidBody": {"mass":
+      1.0, "drag": 5.0, "angularDrag": 0.0, "isKinematic": true, "useGravity": false,
+      "xConstraint": false, "yConstraint": false, "zConstraint": false, "xRotationConstraint":
+      true, "yRotationConstraint": true, "zRotationConstraint": true}, "PointerReceiver":
+      {"draggable": true, "kinematicWhileIdle": true, "faceWhileDragging": false,
+      "matchWallWhileDragging": false, "invertForward": false}, "componentsToAdd":
+      ["{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0}"]},
+      {"name": "Earth4", "parentName": "[_DYNAMIC]", "type": "Prefabs/moveableSphere",
+      "tag": "", "active": true, "position": {"x": 1.0, "y": 0.8, "z": 1.5}, "euleriAngles":
+      {"x": 0.0, "y": 0.0, "z": 0.0}, "scale": {"x": 0.30000000000000004, "y": 0.30000000000000004,
+      "z": 0.30000000000000004}, "material": "", "texture": "Textures/2k_earth_daymap",
+      "textureByURL": "", "color": [1.0, 1.0, 1.0, 1.0], "transmittable": false,
+      "RigidBody": {"mass": 1.0, "drag": 5.0, "angularDrag": 0.0, "isKinematic":
+      true, "useGravity": false, "xConstraint": false, "yConstraint": false, "zConstraint":
+      false, "xRotationConstraint": true, "yRotationConstraint": true, "zRotationConstraint":
+      true}, "PointerReceiver": {"draggable": true, "kinematicWhileIdle": true, "faceWhileDragging":
+      false, "matchWallWhileDragging": false, "invertForward": false}, "componentsToAdd":
+      ["{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0}"]}],
+      "useSunlight": false}'
+    - '{"moduleName": "Sorting Demo Demo", "specificName": "Sort by order", "jsonFileName":
+      "sortEarths.json", "prefabName": "sortingManager", "prerequisiteActivities":
+      [], "educationalObjectives": ["Understand that shadows on spherical objects
+      lead to moon phases"], "instructions": ["Sort the balls small to big."], "numRepeatsAllowed":
+      0, "numGradableRepeatsAllowed": 0, "gradingCriteria": "", "currentScore": 0.0,
+      "bestScore": 0.0, "completed": false, "currentSubphase": 0, "subphaseNames":
+      [], "urlJson": "", "json": "", "timeToEnd": 50, "endUsingButton": true, "description":
+      "Test case for the sorting activity.", "author": "John Wallin", "authorInstitution":
+      "Middle Tennessee State University", "dateCreated": "Tue Jul 13 00:15:00 2021",
+      "introAudio": "Audio/sorting_instructions", "createObjects": true, "destroyObjects":
+      true, "restoreLights": true, "objects": [{"name": "Earth0", "parentName": "[_DYNAMIC]",
+      "type": "Prefabs/moveableSphere", "tag": "", "active": true, "position": {"x":
+      -1.0, "y": 0.8, "z": 1.5}, "euleriAngles": {"x": 0.0, "y": 0.0, "z": 0.0},
+      "scale": {"x": 0.1, "y": 0.1, "z": 0.1}, "material": "", "texture": "Textures/2k_earth_daymap",
+      "textureByURL": "", "color": [1.0, 1.0, 1.0, 1.0], "transmittable": false,
+      "RigidBody": {"mass": 1.0, "drag": 5.0, "angularDrag": 0.0, "isKinematic":
+      true, "useGravity": false, "xConstraint": false, "yConstraint": false, "zConstraint":
+      false, "xRotationConstraint": true, "yRotationConstraint": true, "zRotationConstraint":
+      true}, "PointerReceiver": {"draggable": true, "kinematicWhileIdle": true, "faceWhileDragging":
+      false, "matchWallWhileDragging": false, "invertForward": false}, "componentsToAdd":
+      ["{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0}"]},
+      {"name": "Earth1", "parentName": "[_DYNAMIC]", "type": "Prefabs/moveableSphere",
+      "tag": "", "active": true, "position": {"x": -0.5, "y": 0.8, "z": 1.5}, "euleriAngles":
+      {"x": 0.0, "y": 0.0, "z": 0.0}, "scale": {"x": 0.15000000000000002, "y": 0.15000000000000002,
+      "z": 0.15000000000000002}, "material": "", "texture": "Textures/2k_earth_daymap",
+      "textureByURL": "", "color": [1.0, 1.0, 1.0, 1.0], "transmittable": false,
+      "RigidBody": {"mass": 1.0, "drag": 5.0, "angularDrag": 0.0, "isKinematic":
+      true, "useGravity": false, "xConstraint": false, "yConstraint": false, "zConstraint":
+      false, "xRotationConstraint": true, "yRotationConstraint": true, "zRotationConstraint":
+      true}, "PointerReceiver": {"draggable": true, "kinematicWhileIdle": true, "faceWhileDragging":
+      false, "matchWallWhileDragging": false, "invertForward": false}, "componentsToAdd":
+      ["{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0}"]},
+      {"name": "Earth2", "parentName": "[_DYNAMIC]", "type": "Prefabs/moveableSphere",
+      "tag": "", "active": true, "position": {"x": 0.0, "y": 0.8, "z": 1.5}, "euleriAngles":
+      {"x": 0.0, "y": 0.0, "z": 0.0}, "scale": {"x": 0.2, "y": 0.2, "z": 0.2}, "material":
+      "", "texture": "Textures/2k_earth_daymap", "textureByURL": "", "color": [1.0,
+      1.0, 1.0, 1.0], "transmittable": false, "RigidBody": {"mass": 1.0, "drag":
+      5.0, "angularDrag": 0.0, "isKinematic": true, "useGravity": false, "xConstraint":
+      false, "yConstraint": false, "zConstraint": false, "xRotationConstraint": true,
+      "yRotationConstraint": true, "zRotationConstraint": true}, "PointerReceiver":
+      {"draggable": true, "kinematicWhileIdle": true, "faceWhileDragging": false,
+      "matchWallWhileDragging": false, "invertForward": false}, "componentsToAdd":
+      ["{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0}"]},
+      {"name": "Earth3", "parentName": "[_DYNAMIC]", "type": "Prefabs/moveableSphere",
+      "tag": "", "active": true, "position": {"x": 0.5, "y": 0.8, "z": 1.5}, "euleriAngles":
+      {"x": 0.0, "y": 0.0, "z": 0.0}, "scale": {"x": 0.25, "y": 0.25, "z": 0.25},
+      "material": "", "texture": "Textures/2k_earth_daymap", "textureByURL": "",
+      "color": [1.0, 1.0, 1.0, 1.0], "transmittable": false, "RigidBody": {"mass":
+      1.0, "drag": 5.0, "angularDrag": 0.0, "isKinematic": true, "useGravity": false,
+      "xConstraint": false, "yConstraint": false, "zConstraint": false, "xRotationConstraint":
+      true, "yRotationConstraint": true, "zRotationConstraint": true}, "PointerReceiver":
+      {"draggable": true, "kinematicWhileIdle": true, "faceWhileDragging": false,
+      "matchWallWhileDragging": false, "invertForward": false}, "componentsToAdd":
+      ["{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0}"]},
+      {"name": "Earth4", "parentName": "[_DYNAMIC]", "type": "Prefabs/moveableSphere",
+      "tag": "", "active": true, "position": {"x": 1.0, "y": 0.8, "z": 1.5}, "euleriAngles":
+      {"x": 0.0, "y": 0.0, "z": 0.0}, "scale": {"x": 0.30000000000000004, "y": 0.30000000000000004,
+      "z": 0.30000000000000004}, "material": "", "texture": "Textures/2k_earth_daymap",
+      "textureByURL": "", "color": [1.0, 1.0, 1.0, 1.0], "transmittable": false,
+      "RigidBody": {"mass": 1.0, "drag": 5.0, "angularDrag": 0.0, "isKinematic":
+      true, "useGravity": false, "xConstraint": false, "yConstraint": false, "zConstraint":
+      false, "xRotationConstraint": true, "yRotationConstraint": true, "zRotationConstraint":
+      true}, "PointerReceiver": {"draggable": true, "kinematicWhileIdle": true, "faceWhileDragging":
+      false, "matchWallWhileDragging": false, "invertForward": false}, "componentsToAdd":
+      ["{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0}"]}],
+      "useSunlight": false}'
+  serializedScript: "{\n    \"Author\": \"John Wallin\",\n    \"CourseName\": \"Astronomy
+    101\",\n    \"EstimatedLength\": \"20 minutes\",\n    \"NumModules\": \"3\",\n   
+    \"Objectives\": [\n        \"Learn about space\",\n        \"Learn about stars\"\n   
+    ],\n    \"ActivityModules\": [\n        \"{\\\"moduleName\\\": \\\"Sorting Demo
+    Demo\\\", \\\"specificName\\\": \\\"Sort by order\\\", \\\"jsonFileName\\\":
+    \\\"sortEarths.json\\\", \\\"prefabName\\\": \\\"sortingManager\\\", \\\"prerequisiteActivities\\\":
+    [], \\\"educationalObjectives\\\": [\\\"Understand that shadows on spherical
+    objects lead to moon phases\\\"], \\\"instructions\\\": [\\\"Sort the balls small
+    to big.\\\"], \\\"numRepeatsAllowed\\\": 0, \\\"numGradableRepeatsAllowed\\\":
+    0, \\\"gradingCriteria\\\": \\\"\\\", \\\"currentScore\\\": 0.0, \\\"bestScore\\\":
+    0.0, \\\"completed\\\": false, \\\"currentSubphase\\\": 0, \\\"subphaseNames\\\":
+    [], \\\"urlJson\\\": \\\"\\\", \\\"json\\\": \\\"\\\", \\\"timeToEnd\\\": 20,
+    \\\"endUsingButton\\\": true, \\\"description\\\": \\\"Test case for the sorting
+    activity.\\\", \\\"author\\\": \\\"John Wallin\\\", \\\"authorInstitution\\\":
+    \\\"Middle Tennessee State University\\\", \\\"dateCreated\\\": \\\"Tue Jul 13
+    00:15:00 2021\\\", \\\"introAudio\\\": \\\"Audio/sorting_instructions\\\", \\\"createObjects\\\":
+    true, \\\"destroyObjects\\\": true, \\\"restoreLights\\\": true, \\\"objects\\\":
+    [{\\\"name\\\": \\\"Earth0\\\", \\\"parentName\\\": \\\"[_DYNAMIC]\\\", \\\"type\\\":
+    \\\"Prefabs/moveableSphere\\\", \\\"tag\\\": \\\"\\\", \\\"active\\\": true,
+    \\\"position\\\": {\\\"x\\\": -1.0, \\\"y\\\": 0.8, \\\"z\\\": 1.5}, \\\"euleriAngles\\\":
+    {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"z\\\": 0.0}, \\\"scale\\\": {\\\"x\\\":
+    0.1, \\\"y\\\": 0.1, \\\"z\\\": 0.1}, \\\"material\\\": \\\"\\\", \\\"texture\\\":
+    \\\"Textures/2k_earth_daymap\\\", \\\"textureByURL\\\": \\\"\\\", \\\"color\\\":
+    [1.0, 1.0, 1.0, 1.0], \\\"transmittable\\\": false, \\\"RigidBody\\\": {\\\"mass\\\":
+    1.0, \\\"drag\\\": 5.0, \\\"angularDrag\\\": 0.0, \\\"isKinematic\\\": true,
+    \\\"useGravity\\\": false, \\\"xConstraint\\\": false, \\\"yConstraint\\\": false,
+    \\\"zConstraint\\\": false, \\\"xRotationConstraint\\\": true, \\\"yRotationConstraint\\\":
+    true, \\\"zRotationConstraint\\\": true}, \\\"PointerReceiver\\\": {\\\"draggable\\\":
+    true, \\\"kinematicWhileIdle\\\": true, \\\"faceWhileDragging\\\": false, \\\"matchWallWhileDragging\\\":
+    false, \\\"invertForward\\\": false}, \\\"componentsToAdd\\\": [\\\"{\\\\\\\"name\\\\\\\":
+    \\\\\\\"simpleRotation\\\\\\\", \\\\\\\"timeRate\\\\\\\": 1.0, \\\\\\\"rotationTime\\\\\\\":
+    1.0}\\\"]}, {\\\"name\\\": \\\"Earth1\\\", \\\"parentName\\\": \\\"[_DYNAMIC]\\\",
+    \\\"type\\\": \\\"Prefabs/moveableSphere\\\", \\\"tag\\\": \\\"\\\", \\\"active\\\":
+    true, \\\"position\\\": {\\\"x\\\": -0.5, \\\"y\\\": 0.8, \\\"z\\\": 1.5}, \\\"euleriAngles\\\":
+    {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"z\\\": 0.0}, \\\"scale\\\": {\\\"x\\\":
+    0.15000000000000002, \\\"y\\\": 0.15000000000000002, \\\"z\\\": 0.15000000000000002},
+    \\\"material\\\": \\\"\\\", \\\"texture\\\": \\\"Textures/2k_earth_daymap\\\",
+    \\\"textureByURL\\\": \\\"\\\", \\\"color\\\": [1.0, 1.0, 1.0, 1.0], \\\"transmittable\\\":
+    false, \\\"RigidBody\\\": {\\\"mass\\\": 1.0, \\\"drag\\\": 5.0, \\\"angularDrag\\\":
+    0.0, \\\"isKinematic\\\": true, \\\"useGravity\\\": false, \\\"xConstraint\\\":
+    false, \\\"yConstraint\\\": false, \\\"zConstraint\\\": false, \\\"xRotationConstraint\\\":
+    true, \\\"yRotationConstraint\\\": true, \\\"zRotationConstraint\\\": true},
+    \\\"PointerReceiver\\\": {\\\"draggable\\\": true, \\\"kinematicWhileIdle\\\":
+    true, \\\"faceWhileDragging\\\": false, \\\"matchWallWhileDragging\\\": false,
+    \\\"invertForward\\\": false}, \\\"componentsToAdd\\\": [\\\"{\\\\\\\"name\\\\\\\":
+    \\\\\\\"simpleRotation\\\\\\\", \\\\\\\"timeRate\\\\\\\": 1.0, \\\\\\\"rotationTime\\\\\\\":
+    1.0}\\\"]}, {\\\"name\\\": \\\"Earth2\\\", \\\"parentName\\\": \\\"[_DYNAMIC]\\\",
+    \\\"type\\\": \\\"Prefabs/moveableSphere\\\", \\\"tag\\\": \\\"\\\", \\\"active\\\":
+    true, \\\"position\\\": {\\\"x\\\": 0.0, \\\"y\\\": 0.8, \\\"z\\\": 1.5}, \\\"euleriAngles\\\":
+    {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"z\\\": 0.0}, \\\"scale\\\": {\\\"x\\\":
+    0.2, \\\"y\\\": 0.2, \\\"z\\\": 0.2}, \\\"material\\\": \\\"\\\", \\\"texture\\\":
+    \\\"Textures/2k_earth_daymap\\\", \\\"textureByURL\\\": \\\"\\\", \\\"color\\\":
+    [1.0, 1.0, 1.0, 1.0], \\\"transmittable\\\": false, \\\"RigidBody\\\": {\\\"mass\\\":
+    1.0, \\\"drag\\\": 5.0, \\\"angularDrag\\\": 0.0, \\\"isKinematic\\\": true,
+    \\\"useGravity\\\": false, \\\"xConstraint\\\": false, \\\"yConstraint\\\": false,
+    \\\"zConstraint\\\": false, \\\"xRotationConstraint\\\": true, \\\"yRotationConstraint\\\":
+    true, \\\"zRotationConstraint\\\": true}, \\\"PointerReceiver\\\": {\\\"draggable\\\":
+    true, \\\"kinematicWhileIdle\\\": true, \\\"faceWhileDragging\\\": false, \\\"matchWallWhileDragging\\\":
+    false, \\\"invertForward\\\": false}, \\\"componentsToAdd\\\": [\\\"{\\\\\\\"name\\\\\\\":
+    \\\\\\\"simpleRotation\\\\\\\", \\\\\\\"timeRate\\\\\\\": 1.0, \\\\\\\"rotationTime\\\\\\\":
+    1.0}\\\"]}, {\\\"name\\\": \\\"Earth3\\\", \\\"parentName\\\": \\\"[_DYNAMIC]\\\",
+    \\\"type\\\": \\\"Prefabs/moveableSphere\\\", \\\"tag\\\": \\\"\\\", \\\"active\\\":
+    true, \\\"position\\\": {\\\"x\\\": 0.5, \\\"y\\\": 0.8, \\\"z\\\": 1.5}, \\\"euleriAngles\\\":
+    {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"z\\\": 0.0}, \\\"scale\\\": {\\\"x\\\":
+    0.25, \\\"y\\\": 0.25, \\\"z\\\": 0.25}, \\\"material\\\": \\\"\\\", \\\"texture\\\":
+    \\\"Textures/2k_earth_daymap\\\", \\\"textureByURL\\\": \\\"\\\", \\\"color\\\":
+    [1.0, 1.0, 1.0, 1.0], \\\"transmittable\\\": false, \\\"RigidBody\\\": {\\\"mass\\\":
+    1.0, \\\"drag\\\": 5.0, \\\"angularDrag\\\": 0.0, \\\"isKinematic\\\": true,
+    \\\"useGravity\\\": false, \\\"xConstraint\\\": false, \\\"yConstraint\\\": false,
+    \\\"zConstraint\\\": false, \\\"xRotationConstraint\\\": true, \\\"yRotationConstraint\\\":
+    true, \\\"zRotationConstraint\\\": true}, \\\"PointerReceiver\\\": {\\\"draggable\\\":
+    true, \\\"kinematicWhileIdle\\\": true, \\\"faceWhileDragging\\\": false, \\\"matchWallWhileDragging\\\":
+    false, \\\"invertForward\\\": false}, \\\"componentsToAdd\\\": [\\\"{\\\\\\\"name\\\\\\\":
+    \\\\\\\"simpleRotation\\\\\\\", \\\\\\\"timeRate\\\\\\\": 1.0, \\\\\\\"rotationTime\\\\\\\":
+    1.0}\\\"]}, {\\\"name\\\": \\\"Earth4\\\", \\\"parentName\\\": \\\"[_DYNAMIC]\\\",
+    \\\"type\\\": \\\"Prefabs/moveableSphere\\\", \\\"tag\\\": \\\"\\\", \\\"active\\\":
+    true, \\\"position\\\": {\\\"x\\\": 1.0, \\\"y\\\": 0.8, \\\"z\\\": 1.5}, \\\"euleriAngles\\\":
+    {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"z\\\": 0.0}, \\\"scale\\\": {\\\"x\\\":
+    0.30000000000000004, \\\"y\\\": 0.30000000000000004, \\\"z\\\": 0.30000000000000004},
+    \\\"material\\\": \\\"\\\", \\\"texture\\\": \\\"Textures/2k_earth_daymap\\\",
+    \\\"textureByURL\\\": \\\"\\\", \\\"color\\\": [1.0, 1.0, 1.0, 1.0], \\\"transmittable\\\":
+    false, \\\"RigidBody\\\": {\\\"mass\\\": 1.0, \\\"drag\\\": 5.0, \\\"angularDrag\\\":
+    0.0, \\\"isKinematic\\\": true, \\\"useGravity\\\": false, \\\"xConstraint\\\":
+    false, \\\"yConstraint\\\": false, \\\"zConstraint\\\": false, \\\"xRotationConstraint\\\":
+    true, \\\"yRotationConstraint\\\": true, \\\"zRotationConstraint\\\": true},
+    \\\"PointerReceiver\\\": {\\\"draggable\\\": true, \\\"kinematicWhileIdle\\\":
+    true, \\\"faceWhileDragging\\\": false, \\\"matchWallWhileDragging\\\": false,
+    \\\"invertForward\\\": false}, \\\"componentsToAdd\\\": [\\\"{\\\\\\\"name\\\\\\\":
+    \\\\\\\"simpleRotation\\\\\\\", \\\\\\\"timeRate\\\\\\\": 1.0, \\\\\\\"rotationTime\\\\\\\":
+    1.0}\\\"]}], \\\"useSunlight\\\": false}\",\n        \"{\\\"moduleName\\\": \\\"Sorting
+    Demo Demo\\\", \\\"specificName\\\": \\\"Sort by order\\\", \\\"jsonFileName\\\":
+    \\\"sortEarths.json\\\", \\\"prefabName\\\": \\\"sortingManager\\\", \\\"prerequisiteActivities\\\":
+    [], \\\"educationalObjectives\\\": [\\\"Understand that shadows on spherical
+    objects lead to moon phases\\\"], \\\"instructions\\\": [\\\"Sort the balls small
+    to big.\\\"], \\\"numRepeatsAllowed\\\": 0, \\\"numGradableRepeatsAllowed\\\":
+    0, \\\"gradingCriteria\\\": \\\"\\\", \\\"currentScore\\\": 0.0, \\\"bestScore\\\":
+    0.0, \\\"completed\\\": false, \\\"currentSubphase\\\": 0, \\\"subphaseNames\\\":
+    [], \\\"urlJson\\\": \\\"\\\", \\\"json\\\": \\\"\\\", \\\"timeToEnd\\\": 20,
+    \\\"endUsingButton\\\": true, \\\"description\\\": \\\"Test case for the sorting
+    activity.\\\", \\\"author\\\": \\\"John Wallin\\\", \\\"authorInstitution\\\":
+    \\\"Middle Tennessee State University\\\", \\\"dateCreated\\\": \\\"Tue Jul 13
+    00:15:00 2021\\\", \\\"introAudio\\\": \\\"Audio/sorting_instructions\\\", \\\"createObjects\\\":
+    true, \\\"destroyObjects\\\": true, \\\"restoreLights\\\": true, \\\"objects\\\":
+    [{\\\"name\\\": \\\"Earth0\\\", \\\"parentName\\\": \\\"[_DYNAMIC]\\\", \\\"type\\\":
+    \\\"Prefabs/moveableSphere\\\", \\\"tag\\\": \\\"\\\", \\\"active\\\": true,
+    \\\"position\\\": {\\\"x\\\": -1.0, \\\"y\\\": 0.8, \\\"z\\\": 1.5}, \\\"euleriAngles\\\":
+    {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"z\\\": 0.0}, \\\"scale\\\": {\\\"x\\\":
+    0.1, \\\"y\\\": 0.1, \\\"z\\\": 0.1}, \\\"material\\\": \\\"\\\", \\\"texture\\\":
+    \\\"Textures/2k_earth_daymap\\\", \\\"textureByURL\\\": \\\"\\\", \\\"color\\\":
+    [1.0, 1.0, 1.0, 1.0], \\\"transmittable\\\": false, \\\"RigidBody\\\": {\\\"mass\\\":
+    1.0, \\\"drag\\\": 5.0, \\\"angularDrag\\\": 0.0, \\\"isKinematic\\\": true,
+    \\\"useGravity\\\": false, \\\"xConstraint\\\": false, \\\"yConstraint\\\": false,
+    \\\"zConstraint\\\": false, \\\"xRotationConstraint\\\": true, \\\"yRotationConstraint\\\":
+    true, \\\"zRotationConstraint\\\": true}, \\\"PointerReceiver\\\": {\\\"draggable\\\":
+    true, \\\"kinematicWhileIdle\\\": true, \\\"faceWhileDragging\\\": false, \\\"matchWallWhileDragging\\\":
+    false, \\\"invertForward\\\": false}, \\\"componentsToAdd\\\": [\\\"{\\\\\\\"name\\\\\\\":
+    \\\\\\\"simpleRotation\\\\\\\", \\\\\\\"timeRate\\\\\\\": 1.0, \\\\\\\"rotationTime\\\\\\\":
+    1.0}\\\"]}, {\\\"name\\\": \\\"Earth1\\\", \\\"parentName\\\": \\\"[_DYNAMIC]\\\",
+    \\\"type\\\": \\\"Prefabs/moveableSphere\\\", \\\"tag\\\": \\\"\\\", \\\"active\\\":
+    true, \\\"position\\\": {\\\"x\\\": -0.5, \\\"y\\\": 0.8, \\\"z\\\": 1.5}, \\\"euleriAngles\\\":
+    {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"z\\\": 0.0}, \\\"scale\\\": {\\\"x\\\":
+    0.15000000000000002, \\\"y\\\": 0.15000000000000002, \\\"z\\\": 0.15000000000000002},
+    \\\"material\\\": \\\"\\\", \\\"texture\\\": \\\"Textures/2k_earth_daymap\\\",
+    \\\"textureByURL\\\": \\\"\\\", \\\"color\\\": [1.0, 1.0, 1.0, 1.0], \\\"transmittable\\\":
+    false, \\\"RigidBody\\\": {\\\"mass\\\": 1.0, \\\"drag\\\": 5.0, \\\"angularDrag\\\":
+    0.0, \\\"isKinematic\\\": true, \\\"useGravity\\\": false, \\\"xConstraint\\\":
+    false, \\\"yConstraint\\\": false, \\\"zConstraint\\\": false, \\\"xRotationConstraint\\\":
+    true, \\\"yRotationConstraint\\\": true, \\\"zRotationConstraint\\\": true},
+    \\\"PointerReceiver\\\": {\\\"draggable\\\": true, \\\"kinematicWhileIdle\\\":
+    true, \\\"faceWhileDragging\\\": false, \\\"matchWallWhileDragging\\\": false,
+    \\\"invertForward\\\": false}, \\\"componentsToAdd\\\": [\\\"{\\\\\\\"name\\\\\\\":
+    \\\\\\\"simpleRotation\\\\\\\", \\\\\\\"timeRate\\\\\\\": 1.0, \\\\\\\"rotationTime\\\\\\\":
+    1.0}\\\"]}, {\\\"name\\\": \\\"Earth2\\\", \\\"parentName\\\": \\\"[_DYNAMIC]\\\",
+    \\\"type\\\": \\\"Prefabs/moveableSphere\\\", \\\"tag\\\": \\\"\\\", \\\"active\\\":
+    true, \\\"position\\\": {\\\"x\\\": 0.0, \\\"y\\\": 0.8, \\\"z\\\": 1.5}, \\\"euleriAngles\\\":
+    {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"z\\\": 0.0}, \\\"scale\\\": {\\\"x\\\":
+    0.2, \\\"y\\\": 0.2, \\\"z\\\": 0.2}, \\\"material\\\": \\\"\\\", \\\"texture\\\":
+    \\\"Textures/2k_earth_daymap\\\", \\\"textureByURL\\\": \\\"\\\", \\\"color\\\":
+    [1.0, 1.0, 1.0, 1.0], \\\"transmittable\\\": false, \\\"RigidBody\\\": {\\\"mass\\\":
+    1.0, \\\"drag\\\": 5.0, \\\"angularDrag\\\": 0.0, \\\"isKinematic\\\": true,
+    \\\"useGravity\\\": false, \\\"xConstraint\\\": false, \\\"yConstraint\\\": false,
+    \\\"zConstraint\\\": false, \\\"xRotationConstraint\\\": true, \\\"yRotationConstraint\\\":
+    true, \\\"zRotationConstraint\\\": true}, \\\"PointerReceiver\\\": {\\\"draggable\\\":
+    true, \\\"kinematicWhileIdle\\\": true, \\\"faceWhileDragging\\\": false, \\\"matchWallWhileDragging\\\":
+    false, \\\"invertForward\\\": false}, \\\"componentsToAdd\\\": [\\\"{\\\\\\\"name\\\\\\\":
+    \\\\\\\"simpleRotation\\\\\\\", \\\\\\\"timeRate\\\\\\\": 1.0, \\\\\\\"rotationTime\\\\\\\":
+    1.0}\\\"]}, {\\\"name\\\": \\\"Earth3\\\", \\\"parentName\\\": \\\"[_DYNAMIC]\\\",
+    \\\"type\\\": \\\"Prefabs/moveableSphere\\\", \\\"tag\\\": \\\"\\\", \\\"active\\\":
+    true, \\\"position\\\": {\\\"x\\\": 0.5, \\\"y\\\": 0.8, \\\"z\\\": 1.5}, \\\"euleriAngles\\\":
+    {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"z\\\": 0.0}, \\\"scale\\\": {\\\"x\\\":
+    0.25, \\\"y\\\": 0.25, \\\"z\\\": 0.25}, \\\"material\\\": \\\"\\\", \\\"texture\\\":
+    \\\"Textures/2k_earth_daymap\\\", \\\"textureByURL\\\": \\\"\\\", \\\"color\\\":
+    [1.0, 1.0, 1.0, 1.0], \\\"transmittable\\\": false, \\\"RigidBody\\\": {\\\"mass\\\":
+    1.0, \\\"drag\\\": 5.0, \\\"angularDrag\\\": 0.0, \\\"isKinematic\\\": true,
+    \\\"useGravity\\\": false, \\\"xConstraint\\\": false, \\\"yConstraint\\\": false,
+    \\\"zConstraint\\\": false, \\\"xRotationConstraint\\\": true, \\\"yRotationConstraint\\\":
+    true, \\\"zRotationConstraint\\\": true}, \\\"PointerReceiver\\\": {\\\"draggable\\\":
+    true, \\\"kinematicWhileIdle\\\": true, \\\"faceWhileDragging\\\": false, \\\"matchWallWhileDragging\\\":
+    false, \\\"invertForward\\\": false}, \\\"componentsToAdd\\\": [\\\"{\\\\\\\"name\\\\\\\":
+    \\\\\\\"simpleRotation\\\\\\\", \\\\\\\"timeRate\\\\\\\": 1.0, \\\\\\\"rotationTime\\\\\\\":
+    1.0}\\\"]}, {\\\"name\\\": \\\"Earth4\\\", \\\"parentName\\\": \\\"[_DYNAMIC]\\\",
+    \\\"type\\\": \\\"Prefabs/moveableSphere\\\", \\\"tag\\\": \\\"\\\", \\\"active\\\":
+    true, \\\"position\\\": {\\\"x\\\": 1.0, \\\"y\\\": 0.8, \\\"z\\\": 1.5}, \\\"euleriAngles\\\":
+    {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"z\\\": 0.0}, \\\"scale\\\": {\\\"x\\\":
+    0.30000000000000004, \\\"y\\\": 0.30000000000000004, \\\"z\\\": 0.30000000000000004},
+    \\\"material\\\": \\\"\\\", \\\"texture\\\": \\\"Textures/2k_earth_daymap\\\",
+    \\\"textureByURL\\\": \\\"\\\", \\\"color\\\": [1.0, 1.0, 1.0, 1.0], \\\"transmittable\\\":
+    false, \\\"RigidBody\\\": {\\\"mass\\\": 1.0, \\\"drag\\\": 5.0, \\\"angularDrag\\\":
+    0.0, \\\"isKinematic\\\": true, \\\"useGravity\\\": false, \\\"xConstraint\\\":
+    false, \\\"yConstraint\\\": false, \\\"zConstraint\\\": false, \\\"xRotationConstraint\\\":
+    true, \\\"yRotationConstraint\\\": true, \\\"zRotationConstraint\\\": true},
+    \\\"PointerReceiver\\\": {\\\"draggable\\\": true, \\\"kinematicWhileIdle\\\":
+    true, \\\"faceWhileDragging\\\": false, \\\"matchWallWhileDragging\\\": false,
+    \\\"invertForward\\\": false}, \\\"componentsToAdd\\\": [\\\"{\\\\\\\"name\\\\\\\":
+    \\\\\\\"simpleRotation\\\\\\\", \\\\\\\"timeRate\\\\\\\": 1.0, \\\\\\\"rotationTime\\\\\\\":
+    1.0}\\\"]}], \\\"useSunlight\\\": false}\",\n        \"{\\\"moduleName\\\": \\\"Sorting
+    Demo Demo\\\", \\\"specificName\\\": \\\"Sort by order\\\", \\\"jsonFileName\\\":
+    \\\"sortEarths.json\\\", \\\"prefabName\\\": \\\"sortingManager\\\", \\\"prerequisiteActivities\\\":
+    [], \\\"educationalObjectives\\\": [\\\"Understand that shadows on spherical
+    objects lead to moon phases\\\"], \\\"instructions\\\": [\\\"Sort the balls small
+    to big.\\\"], \\\"numRepeatsAllowed\\\": 0, \\\"numGradableRepeatsAllowed\\\":
+    0, \\\"gradingCriteria\\\": \\\"\\\", \\\"currentScore\\\": 0.0, \\\"bestScore\\\":
+    0.0, \\\"completed\\\": false, \\\"currentSubphase\\\": 0, \\\"subphaseNames\\\":
+    [], \\\"urlJson\\\": \\\"\\\", \\\"json\\\": \\\"\\\", \\\"timeToEnd\\\": 50,
+    \\\"endUsingButton\\\": true, \\\"description\\\": \\\"Test case for the sorting
+    activity.\\\", \\\"author\\\": \\\"John Wallin\\\", \\\"authorInstitution\\\":
+    \\\"Middle Tennessee State University\\\", \\\"dateCreated\\\": \\\"Tue Jul 13
+    00:15:00 2021\\\", \\\"introAudio\\\": \\\"Audio/sorting_instructions\\\", \\\"createObjects\\\":
+    true, \\\"destroyObjects\\\": true, \\\"restoreLights\\\": true, \\\"objects\\\":
+    [{\\\"name\\\": \\\"Earth0\\\", \\\"parentName\\\": \\\"[_DYNAMIC]\\\", \\\"type\\\":
+    \\\"Prefabs/moveableSphere\\\", \\\"tag\\\": \\\"\\\", \\\"active\\\": true,
+    \\\"position\\\": {\\\"x\\\": -1.0, \\\"y\\\": 0.8, \\\"z\\\": 1.5}, \\\"euleriAngles\\\":
+    {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"z\\\": 0.0}, \\\"scale\\\": {\\\"x\\\":
+    0.1, \\\"y\\\": 0.1, \\\"z\\\": 0.1}, \\\"material\\\": \\\"\\\", \\\"texture\\\":
+    \\\"Textures/2k_earth_daymap\\\", \\\"textureByURL\\\": \\\"\\\", \\\"color\\\":
+    [1.0, 1.0, 1.0, 1.0], \\\"transmittable\\\": false, \\\"RigidBody\\\": {\\\"mass\\\":
+    1.0, \\\"drag\\\": 5.0, \\\"angularDrag\\\": 0.0, \\\"isKinematic\\\": true,
+    \\\"useGravity\\\": false, \\\"xConstraint\\\": false, \\\"yConstraint\\\": false,
+    \\\"zConstraint\\\": false, \\\"xRotationConstraint\\\": true, \\\"yRotationConstraint\\\":
+    true, \\\"zRotationConstraint\\\": true}, \\\"PointerReceiver\\\": {\\\"draggable\\\":
+    true, \\\"kinematicWhileIdle\\\": true, \\\"faceWhileDragging\\\": false, \\\"matchWallWhileDragging\\\":
+    false, \\\"invertForward\\\": false}, \\\"componentsToAdd\\\": [\\\"{\\\\\\\"name\\\\\\\":
+    \\\\\\\"simpleRotation\\\\\\\", \\\\\\\"timeRate\\\\\\\": 1.0, \\\\\\\"rotationTime\\\\\\\":
+    1.0}\\\"]}, {\\\"name\\\": \\\"Earth1\\\", \\\"parentName\\\": \\\"[_DYNAMIC]\\\",
+    \\\"type\\\": \\\"Prefabs/moveableSphere\\\", \\\"tag\\\": \\\"\\\", \\\"active\\\":
+    true, \\\"position\\\": {\\\"x\\\": -0.5, \\\"y\\\": 0.8, \\\"z\\\": 1.5}, \\\"euleriAngles\\\":
+    {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"z\\\": 0.0}, \\\"scale\\\": {\\\"x\\\":
+    0.15000000000000002, \\\"y\\\": 0.15000000000000002, \\\"z\\\": 0.15000000000000002},
+    \\\"material\\\": \\\"\\\", \\\"texture\\\": \\\"Textures/2k_earth_daymap\\\",
+    \\\"textureByURL\\\": \\\"\\\", \\\"color\\\": [1.0, 1.0, 1.0, 1.0], \\\"transmittable\\\":
+    false, \\\"RigidBody\\\": {\\\"mass\\\": 1.0, \\\"drag\\\": 5.0, \\\"angularDrag\\\":
+    0.0, \\\"isKinematic\\\": true, \\\"useGravity\\\": false, \\\"xConstraint\\\":
+    false, \\\"yConstraint\\\": false, \\\"zConstraint\\\": false, \\\"xRotationConstraint\\\":
+    true, \\\"yRotationConstraint\\\": true, \\\"zRotationConstraint\\\": true},
+    \\\"PointerReceiver\\\": {\\\"draggable\\\": true, \\\"kinematicWhileIdle\\\":
+    true, \\\"faceWhileDragging\\\": false, \\\"matchWallWhileDragging\\\": false,
+    \\\"invertForward\\\": false}, \\\"componentsToAdd\\\": [\\\"{\\\\\\\"name\\\\\\\":
+    \\\\\\\"simpleRotation\\\\\\\", \\\\\\\"timeRate\\\\\\\": 1.0, \\\\\\\"rotationTime\\\\\\\":
+    1.0}\\\"]}, {\\\"name\\\": \\\"Earth2\\\", \\\"parentName\\\": \\\"[_DYNAMIC]\\\",
+    \\\"type\\\": \\\"Prefabs/moveableSphere\\\", \\\"tag\\\": \\\"\\\", \\\"active\\\":
+    true, \\\"position\\\": {\\\"x\\\": 0.0, \\\"y\\\": 0.8, \\\"z\\\": 1.5}, \\\"euleriAngles\\\":
+    {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"z\\\": 0.0}, \\\"scale\\\": {\\\"x\\\":
+    0.2, \\\"y\\\": 0.2, \\\"z\\\": 0.2}, \\\"material\\\": \\\"\\\", \\\"texture\\\":
+    \\\"Textures/2k_earth_daymap\\\", \\\"textureByURL\\\": \\\"\\\", \\\"color\\\":
+    [1.0, 1.0, 1.0, 1.0], \\\"transmittable\\\": false, \\\"RigidBody\\\": {\\\"mass\\\":
+    1.0, \\\"drag\\\": 5.0, \\\"angularDrag\\\": 0.0, \\\"isKinematic\\\": true,
+    \\\"useGravity\\\": false, \\\"xConstraint\\\": false, \\\"yConstraint\\\": false,
+    \\\"zConstraint\\\": false, \\\"xRotationConstraint\\\": true, \\\"yRotationConstraint\\\":
+    true, \\\"zRotationConstraint\\\": true}, \\\"PointerReceiver\\\": {\\\"draggable\\\":
+    true, \\\"kinematicWhileIdle\\\": true, \\\"faceWhileDragging\\\": false, \\\"matchWallWhileDragging\\\":
+    false, \\\"invertForward\\\": false}, \\\"componentsToAdd\\\": [\\\"{\\\\\\\"name\\\\\\\":
+    \\\\\\\"simpleRotation\\\\\\\", \\\\\\\"timeRate\\\\\\\": 1.0, \\\\\\\"rotationTime\\\\\\\":
+    1.0}\\\"]}, {\\\"name\\\": \\\"Earth3\\\", \\\"parentName\\\": \\\"[_DYNAMIC]\\\",
+    \\\"type\\\": \\\"Prefabs/moveableSphere\\\", \\\"tag\\\": \\\"\\\", \\\"active\\\":
+    true, \\\"position\\\": {\\\"x\\\": 0.5, \\\"y\\\": 0.8, \\\"z\\\": 1.5}, \\\"euleriAngles\\\":
+    {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"z\\\": 0.0}, \\\"scale\\\": {\\\"x\\\":
+    0.25, \\\"y\\\": 0.25, \\\"z\\\": 0.25}, \\\"material\\\": \\\"\\\", \\\"texture\\\":
+    \\\"Textures/2k_earth_daymap\\\", \\\"textureByURL\\\": \\\"\\\", \\\"color\\\":
+    [1.0, 1.0, 1.0, 1.0], \\\"transmittable\\\": false, \\\"RigidBody\\\": {\\\"mass\\\":
+    1.0, \\\"drag\\\": 5.0, \\\"angularDrag\\\": 0.0, \\\"isKinematic\\\": true,
+    \\\"useGravity\\\": false, \\\"xConstraint\\\": false, \\\"yConstraint\\\": false,
+    \\\"zConstraint\\\": false, \\\"xRotationConstraint\\\": true, \\\"yRotationConstraint\\\":
+    true, \\\"zRotationConstraint\\\": true}, \\\"PointerReceiver\\\": {\\\"draggable\\\":
+    true, \\\"kinematicWhileIdle\\\": true, \\\"faceWhileDragging\\\": false, \\\"matchWallWhileDragging\\\":
+    false, \\\"invertForward\\\": false}, \\\"componentsToAdd\\\": [\\\"{\\\\\\\"name\\\\\\\":
+    \\\\\\\"simpleRotation\\\\\\\", \\\\\\\"timeRate\\\\\\\": 1.0, \\\\\\\"rotationTime\\\\\\\":
+    1.0}\\\"]}, {\\\"name\\\": \\\"Earth4\\\", \\\"parentName\\\": \\\"[_DYNAMIC]\\\",
+    \\\"type\\\": \\\"Prefabs/moveableSphere\\\", \\\"tag\\\": \\\"\\\", \\\"active\\\":
+    true, \\\"position\\\": {\\\"x\\\": 1.0, \\\"y\\\": 0.8, \\\"z\\\": 1.5}, \\\"euleriAngles\\\":
+    {\\\"x\\\": 0.0, \\\"y\\\": 0.0, \\\"z\\\": 0.0}, \\\"scale\\\": {\\\"x\\\":
+    0.30000000000000004, \\\"y\\\": 0.30000000000000004, \\\"z\\\": 0.30000000000000004},
+    \\\"material\\\": \\\"\\\", \\\"texture\\\": \\\"Textures/2k_earth_daymap\\\",
+    \\\"textureByURL\\\": \\\"\\\", \\\"color\\\": [1.0, 1.0, 1.0, 1.0], \\\"transmittable\\\":
+    false, \\\"RigidBody\\\": {\\\"mass\\\": 1.0, \\\"drag\\\": 5.0, \\\"angularDrag\\\":
+    0.0, \\\"isKinematic\\\": true, \\\"useGravity\\\": false, \\\"xConstraint\\\":
+    false, \\\"yConstraint\\\": false, \\\"zConstraint\\\": false, \\\"xRotationConstraint\\\":
+    true, \\\"yRotationConstraint\\\": true, \\\"zRotationConstraint\\\": true},
+    \\\"PointerReceiver\\\": {\\\"draggable\\\": true, \\\"kinematicWhileIdle\\\":
+    true, \\\"faceWhileDragging\\\": false, \\\"matchWallWhileDragging\\\": false,
+    \\\"invertForward\\\": false}, \\\"componentsToAdd\\\": [\\\"{\\\\\\\"name\\\\\\\":
+    \\\\\\\"simpleRotation\\\\\\\", \\\\\\\"timeRate\\\\\\\": 1.0, \\\\\\\"rotationTime\\\\\\\":
+    1.0}\\\"]}], \\\"useSunlight\\\": false}\"\n    ]\n}"

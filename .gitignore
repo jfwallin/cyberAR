@@ -60,3 +60,4 @@ sysinfo.txt
 # Crashlytics generated file #Not in other gitignore
 #crashlytics-build.properties #Not in other gitignore
 
+_Code Device/AR Labs/Packages/packages-lock.json
