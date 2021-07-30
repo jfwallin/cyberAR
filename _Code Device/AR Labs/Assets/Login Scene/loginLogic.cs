@@ -362,7 +362,6 @@ public class loginLogic : MonoBehaviour
         string temp = allLabs;
         try
         {
-            print(temp);
             temp = allLabs.Substring(allLabs.IndexOf("\"lab_id\":" + labId) + 23 + labId.Length);
             temp = temp.Substring(0,temp.IndexOf("\""));
         }
@@ -416,9 +415,9 @@ public class loginLogic : MonoBehaviour
         }
 
         else
-        {
-            string manifestPath = "http://cyberlearnar.cs.mtsu.edu/lab_manifest/" + labSelected;
-            string jsonPath = labOptions[0];
+        { // THIS DOESN'T WORK CURRENTLY
+            // string manifestPath = "http://cyberlearnar.cs.mtsu.edu/lab_manifest/" + labSelected;
+            string jsonPath = labOptions[0]; // "http://cyberlearnar.cs.mtsu.edu/lab_json/" + labSelected;
 
             // media downloader here. TODO - ALSO ADD ANIMATION
             // GameObject.Find("MediaDownloader").GetComponent<MediaDownloaderScript>().addToCatalogue(manifestPath);
@@ -428,6 +427,8 @@ public class loginLogic : MonoBehaviour
             string jsonString = Resources.Load<TextAsset>("csv bank/LabJson").text;
             LabDataObject LabData = new LabDataObject();
             JsonUtility.FromJsonOverwrite(jsonString, LabData);
+
+            // GameObject.Find("MediaDownloader").GetComponent<MediaDownaloaderScript>().addToCatalogue(LabData.Assets);
 
             // GameObject.Find("LabManager").GetComponent<LabManager>().Initialize(LabData);
         }
