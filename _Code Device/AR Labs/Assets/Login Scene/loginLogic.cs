@@ -33,9 +33,11 @@ public class loginLogic : MonoBehaviour
     List<string> labOptions;
     private string labSelected = "none";
     private string allLabs;
+
     private bool placed = false;
     private bool playAnimation = true;
     private bool setAnimationAnchor = true;
+
     private int currState = -1; 
     private enum state
     { 
@@ -304,7 +306,7 @@ public class loginLogic : MonoBehaviour
     }
 
 
-    // Instantiates UP TO 6 lab options that are clickable and load 
+    // Instantiates UP TO 5 lab options that are clickable and load 
     private void setLabs()
     {
         // pull labs as a Dictionary <string lab_name, string jsonUrl> 
@@ -365,7 +367,7 @@ public class loginLogic : MonoBehaviour
             temp = allLabs.Substring(allLabs.IndexOf("\"lab_id\":" + labId) + 23 + labId.Length);
             temp = temp.Substring(0,temp.IndexOf("\""));
         }
-        catch { print("No Name found on the website for lab: " + labId); temp = "Lab not found on site"; }
+        catch { print("No Name found on the website for lab: " + labId); temp = "Lab title not found on site"; }
         return temp;
     }
 
@@ -379,7 +381,7 @@ public class loginLogic : MonoBehaviour
             temp = allLabs.Substring(0, allLabs.IndexOf("\"lab_id\":" + labId) - 2);
             temp = temp.Substring(temp.LastIndexOf("\"lab_description\":\"")+19);
         }
-        catch { print("No description found on the website for lab: " +labId); temp = "Lab not found on site"; }
+        catch { print("No description found on the website for lab: " +labId); temp = "Lab description not found on site"; }
         return temp;
     }
 
@@ -415,12 +417,8 @@ public class loginLogic : MonoBehaviour
         }
 
         else
-        { // THIS DOESN'T WORK CURRENTLY
-            // string manifestPath = "http://cyberlearnar.cs.mtsu.edu/lab_manifest/" + labSelected;
-            string jsonPath = labOptions[0]; // "http://cyberlearnar.cs.mtsu.edu/lab_json/" + labSelected;
-
-            // media downloader here. TODO - ALSO ADD ANIMATION
-            // GameObject.Find("MediaDownloader").GetComponent<MediaDownloaderScript>().addToCatalogue(manifestPath);
+        { // THE URL PROVIDED CURRENTLY DOES NOTHING - THIS NEEDS TO BE PROVIDED WEB-SIDE
+            string jsonPath = "http://cyberlearnar.cs.mtsu.edu/lab_json/" + labSelected;
 
             try { StartCoroutine(DownloadFile(jsonPath, "Assets/Resources/csv bank/LabJson.json")); }
             catch { print("Cant load Lab list from url"); }
@@ -428,8 +426,11 @@ public class loginLogic : MonoBehaviour
             LabDataObject LabData = new LabDataObject();
             JsonUtility.FromJsonOverwrite(jsonString, LabData);
 
+            // media downloader here. TODO - ADD ANIMATION OR SANDBOX TO PASS TIME
+            // GameObject.Find("MediaDownloader").SetActive(true); 
             // GameObject.Find("MediaDownloader").GetComponent<MediaDownaloaderScript>().addToCatalogue(LabData.Assets);
 
+            // Start Lab Manager
             // GameObject.Find("LabManager").GetComponent<LabManager>().Initialize(LabData);
         }
     }
