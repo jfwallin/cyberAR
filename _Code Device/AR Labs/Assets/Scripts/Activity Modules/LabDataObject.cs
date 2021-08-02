@@ -16,7 +16,7 @@ public class LabDataObject
 
     public class subManifest
     {
-        public string resource_id;
+        public int resource_id;
         public string resource_type;
         public string resource_url;
     }

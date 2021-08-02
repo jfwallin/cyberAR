@@ -26,6 +26,8 @@ public class loginLogic : MonoBehaviour
 
     public GameObject lab_options;
     public GameObject labTemp;
+
+    public GameObject sandbox;
     #endregion
 
     #region Private Variables 
@@ -417,7 +419,12 @@ public class loginLogic : MonoBehaviour
         }
 
         else
-        { // THE URL PROVIDED CURRENTLY DOES NOTHING - THIS NEEDS TO BE PROVIDED WEB-SIDE
+        {
+            // Sandbox while lab is loading
+            toggleLineRender(false);
+            sandbox.SetActive(true);
+
+            // THE URL PROVIDED CURRENTLY DOES NOTHING - THIS NEEDS TO BE PROVIDED WEB-SIDE
             string jsonPath = "http://cyberlearnar.cs.mtsu.edu/lab_json/" + labSelected;
 
             try { StartCoroutine(DownloadFile(jsonPath, "Assets/Resources/csv bank/LabJson.json")); }
@@ -432,6 +439,10 @@ public class loginLogic : MonoBehaviour
 
             // Start Lab Manager
             // GameObject.Find("LabManager").GetComponent<LabManager>().Initialize(LabData);
+
+            //disable sandbox
+            // toggleLineRender(true);
+            // sandbox.SetActive(false);
         }
     }
 #endregion
