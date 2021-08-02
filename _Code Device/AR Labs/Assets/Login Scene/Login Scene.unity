@@ -14,7 +14,6 @@ OcclusionCullingSettings:
 RenderSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 9
-  m_Fog: 0
   m_FogColor: {r: 0.5, g: 0.5, b: 0.5, a: 1}
   m_FogMode: 3
   m_FogDensity: 0.01
@@ -3406,7 +3405,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 03c7262ffa37c3147804a08a8c841cb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lengthQueue: 3
+  len: 3
   optionLimit: 5
 --- !u!4 &1146952147 stripped
 Transform:

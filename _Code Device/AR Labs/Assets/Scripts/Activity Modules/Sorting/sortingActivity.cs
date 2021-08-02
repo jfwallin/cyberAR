@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using System;
 
 
@@ -56,7 +57,7 @@ namespace sortingRoutines
 
         // markers
         private GameObject markerPrefab;
-        private string markerPrefabName = "Prefab/tinysphere";
+        private string markerPrefabName = "Prefabs/tinysphere";
         private GameObject[] markers;
         private float mscale = 0.1f;
         private float voffset = 0.2f;
@@ -91,6 +92,8 @@ namespace sortingRoutines
         private Bridge bridge;
         private InstructionBox ibox;
 
+        private GameObject parentObject;
+
         //public override void Initialize(ActivityModuleData dataIn)
         public override void Initialize(string jsonData)
         {
@@ -100,17 +103,8 @@ namespace sortingRoutines
             JsonUtility.FromJsonOverwrite(jsonData, moduleData);
 
             ibox = InstructionBox.Instance;
-
-            string jdata = JsonUtility.ToJson(moduleData, true);
-            Debug.Log(jdata);
-
-
-            ObjectInfoCollection oi = JsonUtility.FromJson<ObjectInfoCollection>(jsonString);
-            foreach (ObjectInfo obj in oi.objects)
-            {
-                string jdat = JsonUtility.ToJson(obj, true);
-                Debug.Log(jdat);
-            }
+            ibox.transform.localPosition = new Vector3(1.5f, -0.3f, 0.0f);
+            initializeIbox();
 
             // setup the media player, lightControl, and audio player
             mPlayer = MediaPlayer.Instance;
@@ -138,15 +132,10 @@ namespace sortingRoutines
 
         public override void EndOfModule()
         {
-            if (moduleData.restoreLights)
-                lightControl.restoreLights();
+            // Destroy the objects in the scene
+            IEnumerator coroutine = taskCompleted();
+            StartCoroutine(coroutine);
 
-            if (moduleData.destroyObjects)
-                bridge.CleanUp(jsonString);
-            FindObjectOfType<LabManager>().ModuleComplete();
-
-            destroyMarkers();
-            Destroy(myButton, 0.1f);
         }
 
 
@@ -164,39 +153,73 @@ namespace sortingRoutines
         }
 
 
+        private void initializeIbox()
+        {
+
+            // create the instruction page
+            int instructionIndex = ibox.FindPage("Instructions");
+            if ( instructionIndex == -1)
+            {
+                ibox.AddPage("Instructions", moduleData.instructions[0], true);
+            }
+            else {
+                ibox.SetPage(instructionIndex, "Instructions", moduleData.instructions[0], true);
+            }
+
+            // add the objectives
+            string theObjectives = "After completing this module, the student will:\n\n";
+            for (int i = 0; i < moduleData.educationalObjectives.Length; i++)
+            {
+                theObjectives = theObjectives + i.ToString() + ". " + moduleData.educationalObjectives[i];
+
+            }
+            int objectivesIndex = ibox.FindPage("Objectives");
+            if ( objectivesIndex == -1)
+            {
+                
+                ibox.AddPage("Objectives", theObjectives, true);
+            }
+            else {
+                ibox.SetPage(objectivesIndex, "Objectives", theObjectives, true);
+            }
+
+            // create the help page
+
+            // update the navigation page
+
+            
+        }
+
+
 
         // Start is called before the first frame update
         void Start()
         {
-
+            parentObject = GameObject.Find("[_DYNAMIC]");
 
             ObjectInfoCollection objList = JsonUtility.FromJson<ObjectInfoCollection>(jsonString);
             nObjects = objList.objects.Length;
             sortPts = new Vector3[nObjects];
             for (int i= 0; i < nObjects; i++)
             {
-                Debug.Log(i.ToString() + " : " + objList.objects[i].name);
+                //Debug.Log(i.ToString() + " : " + objList.objects[i].name);
                 sortPts[i] = objList.objects[i].position;
             }
-            
 
             // find the actual number wrong Answers
             totalWrongAnswer = 0;
             for (int i = 0; i < nObjects; i++)
                 if (wrongOrder[i] != null) totalWrongAnswer++;
 
-
             mscale = 0.07f;
             voffset = 0.2f;
             createMarkers(mscale, voffset);
-
 
             // set the array to be unsorted
             isSorted = false;
 
             // create an array to help with the sorting
             sortData = new sortInfo[nObjects];
-
             
             // populate the sorting array with needed information
             for (int i = 0; i < nObjects; i++)
@@ -211,9 +234,11 @@ namespace sortingRoutines
                 // add the moveObject script to the sortable objects
                 sortData[i].theObject.AddComponent<moveObjects>();
 
+                // Handle the release from drag
+                sortData[i].theObject.GetComponent<MagicLeapTools.InputReceiver>().OnDragEnd.AddListener(handleObjectOnDragEnd);
             }
 
-    
+
             // this sets the intial position to the current position of the objects
             // and sets the time limits so nothing actually moves
             initializePath();
@@ -222,15 +247,26 @@ namespace sortingRoutines
             gameObject.name = "sortingManager";
             buttonPrefabString = "Prefabs/BigRedButton";
             buttonPrefab = Resources.Load(buttonPrefabString) as GameObject;
-            myButton = Instantiate(buttonPrefab, new Vector3(0.0f, -0.3f, 2.0f),
-                Quaternion.Euler(-90f, 0f, 0.0f));
-            myButton.AddComponent<buttonCallback>();
+            myButton = Instantiate(buttonPrefab, new Vector3(0.0f, -0.4f, 1.5f), Quaternion.Euler(-90f, 0f, 0.0f), parentObject.transform) as GameObject;
             GameObject.Find("button").GetComponent<Renderer>().material.color = Color.red;
+            // add the callback for OnClick
+            myButton.GetComponent<MagicLeapTools.InputReceiver>().OnClick.AddListener(buttonClick);
+
 
             // this moves the objects to a scrambled location
             scrambleProjectedPosition();
             resetPositions(); //, orderList);
 
+        }
+
+        private void buttonClick(GameObject sender)
+        {
+            feedbackOnOrder();
+        }
+
+        private void handleObjectOnDragEnd(GameObject sender)
+        {
+            resort();
         }
         
         public void createMarkers(float mscale, float voffset)
@@ -240,22 +276,12 @@ namespace sortingRoutines
             for (int i = 0; i < nObjects; i++)
             {
                 mscale = 0.07f;
-                markerPrefab = Resources.Load("Prefabs/tinysphere") as GameObject;
+                markerPrefab = Resources.Load(markerPrefabName) as GameObject;
                 markers[i] = Instantiate(markerPrefab, sortPts[i] - new Vector3(0.0f, voffset, 0.0f), Quaternion.identity) as GameObject;
                 markers[i].transform.localScale = new Vector3(mscale, mscale, mscale);
                 markers[i].GetComponent<Renderer>().material.color = new Color(0.3f, 0.3f, 0.3f, 1.0f);
             }
-
-
         }
-        public void destroyMarkers()
-        {
-            for (int i = 0; i < nObjects; i++)
-            {
-                Destroy(markers[i]);
-            }
-        }
-
 
         IEnumerator buttonWait(float dTime)
         {
@@ -279,15 +305,15 @@ namespace sortingRoutines
                 AudioSource aud = GetComponent<AudioSource>();
                 if (isSorted)
                 {
-                    aud.clip = correctOrder;
                     setOrderLights();
                     pretty = 1;
 
+                    aud.clip = correctOrder;
                     aud.Play();
+                  
+                    // make sure the audio clip has enough time to play
                     coroutine = taskCompleted();
                     StartCoroutine(coroutine);
-                    //taskCompleted();
-
                 }
                 else
                 {
@@ -314,31 +340,44 @@ namespace sortingRoutines
         IEnumerator taskCompleted()
         {
 
-            float dtime;
-
-            dtime = 5.0f;
-            yield return new WaitForSeconds(dtime);
-            //Debug.Log("sorting is done!");
+            // Delete the listeners - it takes some time for this to happen
             for (int i = 0; i < nObjects; i++)
             {
+                sortData[i].theObject.GetComponent<MagicLeapTools.InputReceiver>().OnDragEnd.RemoveAllListeners();
+            }
+            myButton.GetComponent<MagicLeapTools.InputReceiver>().OnClick.RemoveAllListeners();
+
+            // wait a few seconds to the person can observe their accomplishment and the sound can play
+            float dtime = 5.0f;
+            yield return new WaitForSeconds(dtime);
+
+            // delete the markers, objects, and button
+            for (int i = 0; i < nObjects; i++)
+            {
+
                 Destroy(sortData[i].theObject);
                 Destroy(markers[i]);
             }
             Destroy(myButton);
 
-            GameObject jj = GameObject.Find("Lab Control");
-            jj.GetComponent<LabControl>().sortingDone();
+            // fix the lights if appropriate
+            if (moduleData.restoreLights)
+                lightControl.restoreLights();
+
+            // we are going to clean up all the objects by hand
+            //if (moduleData.destroyObjects)
+            //    bridge.CleanUp(jsonString);
+
+            // go back to the lab manager
+            FindObjectOfType<LabManager>().ModuleComplete();
 
         }
 
-
+        
 
 
         public void resort()
         {
-
-            Debug.Log("in resort.....");
-
             // find where the objects are along the projected path
             setProjectedLocation();
 
@@ -351,7 +390,6 @@ namespace sortingRoutines
         IEnumerator clearOrderLights()
         {
             float delaytime = 5.0f;
-
             yield return new WaitForSeconds(delaytime);
 
             for (int i = 0; i < nObjects; i++)
@@ -408,7 +446,7 @@ namespace sortingRoutines
                 minDistance = 10000.0f;
                 for (int j = 0; j < nObjects; j++)
                 {
-                    dr = sortData[i].theObject.transform.position - sortPts[j];
+                    dr = sortData[i].theObject.transform.localPosition - sortPts[j];
                     distance = Mathf.Sqrt(Vector3.Dot(dr, dr));
                     if (distance < minDistance)
                     {
@@ -425,7 +463,7 @@ namespace sortingRoutines
                 minDistance = 10000.0f;
                 for (int j = 0; j < nObjects; j++)
                 {
-                    dr = sortData[i].theObject.transform.position - sortPts[j];
+                    dr = sortData[i].theObject.transform.localPosition - sortPts[j];
                     distance = Mathf.Sqrt(Vector3.Dot(dr, dr));
                     if (distance < minDistance)
                     {
@@ -463,7 +501,7 @@ namespace sortingRoutines
             {
                 if (j != i1)
                 {
-                    dr = sortData[dObject].theObject.transform.position - sortPts[j];
+                    dr = sortData[dObject].theObject.transform.localPosition - sortPts[j];
                     distance = Mathf.Sqrt(Vector3.Dot(dr, dr));
                     if (distance < d2)
                     {
@@ -490,8 +528,6 @@ namespace sortingRoutines
             int displacedObject = pdata[0];
             int firstClosestPt = pdata[1];
             int secondClosestPt = pdata[2];
-
-            //print("new position " + displacedObject.ToString() + "   " + firstClosestPt.ToString() + "  -  " + secondClosestPt.ToString());
 
             // reset the fractional distances 
             for (int i = 0; i < nObjects; i++)
@@ -581,7 +617,7 @@ namespace sortingRoutines
 
                     // pick a midpoint scattered around the middle of the path
                     float rrange = 0.85f;
-                    sortData[i].theObject.GetComponent<moveObjects>().MidPos = (sortData[i].theObject.transform.position + sortPts[i]) * 0.5f +
+                    sortData[i].theObject.GetComponent<moveObjects>().MidPos = (sortData[i].theObject.transform.localPosition + sortPts[i]) * 0.5f +
                     new Vector3(UnityEngine.Random.Range(-rrange, rrange), UnityEngine.Random.Range(0, rrange), UnityEngine.Random.Range(-rrange, rrange));
 
                     // this adds a nice spin during the sort - a1 should be 90 or 90 + 360*n
@@ -595,7 +631,7 @@ namespace sortingRoutines
                 {
 
                     // pick a midpoint between the points
-                    sortData[i].theObject.GetComponent<moveObjects>().MidPos = (sortData[i].theObject.transform.position +
+                    sortData[i].theObject.GetComponent<moveObjects>().MidPos = (sortData[i].theObject.transform.localPosition +
                         sortPts[i]) * 0.5f;
 
                     a1 = 90;
@@ -622,15 +658,15 @@ namespace sortingRoutines
 
             for (int i = 0; i < nObjects; i++)
             {
-                sortData[i].theObject.GetComponent<moveObjects>().StartPos = sortData[i].theObject.transform.position;
+                sortData[i].theObject.GetComponent<moveObjects>().StartPos = sortData[i].theObject.transform.localPosition;
                 sortData[i].theObject.GetComponent<moveObjects>().MidPos = new Vector3(0.001f, 0.001f, 0.001f);
                 sortData[i].theObject.GetComponent<moveObjects>().FinalPos = new Vector3(0.001f, 0.001f, 0.001f);
 
                 sortData[i].theObject.GetComponent<moveObjects>().StartSize = sortData[i].theObject.transform.localScale;
                 sortData[i].theObject.GetComponent<moveObjects>().FinalSize = sortData[i].theObject.transform.localScale;
 
-                sortData[i].theObject.GetComponent<moveObjects>().StartAngle = sortData[i].theObject.transform.eulerAngles;
-                sortData[i].theObject.GetComponent<moveObjects>().FinalAngle = sortData[i].theObject.transform.eulerAngles;
+                sortData[i].theObject.GetComponent<moveObjects>().StartAngle = sortData[i].theObject.transform.localEulerAngles;
+                sortData[i].theObject.GetComponent<moveObjects>().FinalAngle = sortData[i].theObject.transform.localEulerAngles;
 
                 // this disables the move
                 sortData[i].theObject.GetComponent<moveObjects>().TimeRange = new Vector2(-100.0f, -90.0f);
