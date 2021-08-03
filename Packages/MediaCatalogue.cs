@@ -26,6 +26,11 @@ public class MediaCatalogue : MonoBehaviour
     public Dictionary<string, AudioClip> labAudio = new Dictionary<string, AudioClip>();
     public Dictionary<string, string> labVideos = new Dictionary<string, string>();
 
+    public addToCatalogue(LabDataObject data)
+    {
+        StartCoroutine(DownloadLabMedia(data.subManifest));
+    }
+
     //Retrieve a Texture2D asset for a lab
     //textureKey is the url that the raw image file is retrieved from
     //If the Texture2D asset isn't found an error message is displayed in the debug console and a null value is returned.
