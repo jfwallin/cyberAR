@@ -122,7 +122,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2603711696372166840}
         m_TargetAssemblyTypeName: MCQ.MCQManager, Assembly-CSharp
-        m_MethodName: OnFinishButtonPressed
+        m_MethodName: EndOfModule
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -504,6 +504,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee9cd2bfbd5314245860be0ffd679061, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  data:
+    moduleName: 
+    specificName: 
+    prefabName: 
+    prerequisiteActivities: []
+    educationalObjectives: []
+    instructions: []
+    numRepeatsAllowed: 0
+    numGradableRepeatsAllowed: 0
+    gradingCriteria: 
+    currentScore: 0
+    bestScore: 0
+    completed: 0
+    currentSubphase: 0
+    subphaseNames: []
   answerPrefab: {fileID: 6459619092733853206, guid: f2f5e20181bc6f44ea2e0373a61ae9dc,
     type: 3}
   submitButton: {fileID: 2603711696744275886}
