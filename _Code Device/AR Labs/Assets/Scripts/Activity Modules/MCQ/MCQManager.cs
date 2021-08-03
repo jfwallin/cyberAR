@@ -60,7 +60,7 @@ namespace MCQ
             Debug.Log("Initialize called on the MCQManager");
             //Set necessary references
             exerciseData = new MCExerciseData();
-            JsonUtility.FromJsonOverwrite(initData, exerciseData);
+            JsonUtility.FromJsonOverwrite(jsonData, exerciseData);
             mPlayer = MediaPlayer.Instance;
 
             //Initilize some internal state

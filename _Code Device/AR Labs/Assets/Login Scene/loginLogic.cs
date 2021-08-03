@@ -28,6 +28,7 @@ public class loginLogic : MonoBehaviour
     public GameObject labTemp;
 
     public GameObject sandbox;
+    public GameObject labStarter;
     #endregion
 
     #region Private Variables 
@@ -280,41 +281,33 @@ public class loginLogic : MonoBehaviour
         }
     }
 
+    private void getJson(string path)
+    {
+        // crop the path 
+        path = path.Substring(path.IndexOf("es/") + 3);
+        path = path.Substring(0, path.Length - 5);
+
+        string jsonString = Resources.Load<TextAsset>(path).text;
+        LabDataObject LabData = new LabDataObject();
+        JsonUtility.FromJsonOverwrite(jsonString, LabData);
+
+        // pass info to Media Catalogue and Lab Manager
+        StartCoroutine(Catalogue(LabData));
+    }
+
     IEnumerator Catalogue(LabDataObject LabData)
     {
-        gameObject.GetComponent<MediaCatalogue>().enabled = true;
-        gameObject.GetComponent<MediaCatalogue>().addToCatalogue(LabData);
-        yield return new WaitUntil(() => gameObject.GetComponent<MediaCatalogue>().done);
+        labStarter.GetComponent<MediaCatalogue>().enabled = true;
+        labStarter.GetComponent<MediaCatalogue>().addToCatalogue(LabData);
+        yield return new WaitUntil(() => labStarter.GetComponent<MediaCatalogue>().done);
         StartCoroutine(Start(LabData));
     }
 
     IEnumerator Start(LabDataObject LabData)
     {
-        gameObject.GetComponent<LabManager>().enabled = true;
-        gameObject.GetComponent<LabManager>().Initialize(LabData.ActivityModules);
+        labStarter.GetComponent<LabManager>().enabled = true;
+        labStarter.GetComponent<LabManager>().Initialize(LabData.ActivityModules);
         yield return null;
-    }
-
-    private void getJson(string path) // FIX RACE WAR 
-    { 
-        // crop the path 
-        path = path.Substring(path.IndexOf("es/") + 3);
-        path = path.Substring(0, path.Length - 5);
-        
-        // 
-        string jsonString = Resources.Load<TextAsset>(path).text;
-        LabDataObject LabData = new LabDataObject();
-        JsonUtility.FromJsonOverwrite(jsonString, LabData);
-
-        StartCoroutine(Catalogue(LabData));
-        // media downloader here. 
-        //gameObject.GetComponent<MediaCatalogue>().enabled = true;
-        //gameObject.GetComponent<MediaCatalogue>().addToCatalogue(LabData);
-
-        //StartCoroutine(Start(LabData));
-        // Start Lab Manager
-        //gameObject.GetComponent<LabManager>().enabled = true;
-        //gameObject.GetComponent<LabManager>().Initialize(LabData.ActivityModules);
     }
 
     // Toggles line renderer emitted from controller

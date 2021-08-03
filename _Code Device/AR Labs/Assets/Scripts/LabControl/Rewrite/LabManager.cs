@@ -18,8 +18,9 @@ public class LabManager : MonoBehaviour
     private GameObject instructionHolder;
     private GameObject instructionCanvas;
 
-//    private InstructionBox ibox;
+    //    private InstructionBox ibox;
 
+    private Transform labform;
 
     public void Start()
     {
@@ -28,8 +29,9 @@ public class LabManager : MonoBehaviour
         // create instances of media player prefab here
 
 
-    //    ibox = InstructionBox.Instance;
+        //    ibox = InstructionBox.Instance;
         // spawnDemoNew();
+        labform = GameObject.Find("[CurrentLab]").transform;
     }
 
     public void Initialize(LabDataObject data)
@@ -83,7 +85,7 @@ public class LabManager : MonoBehaviour
         Debug.Log("tmpdata = " + tmpData.prefabName);
 
         //There will need to be some sort of placement routine, but for now it will be placed at 0,0,0
-        currentModuleObject = Instantiate(tmpPrefab, GameObject.Find("[CurrentLab]").transform);
+        currentModuleObject = Instantiate(tmpPrefab, labform);
         currentModuleScript = currentModuleObject.GetComponent<ActivityModule>();
 
         //Start the module
