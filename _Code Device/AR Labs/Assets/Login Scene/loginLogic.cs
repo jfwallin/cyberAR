@@ -434,8 +434,9 @@ public class loginLogic : MonoBehaviour
             JsonUtility.FromJsonOverwrite(jsonString, LabData);
 
             // media downloader here. TODO - ADD ANIMATION OR SANDBOX TO PASS TIME
-            // GameObject.Find("MediaDownloader").SetActive(true); 
-            // GameObject.Find("MediaDownloader").GetComponent<MediaDownaloaderScript>().addToCatalogue(LabData.Assets);
+            var script = gameObject.GetComponent<MediaCatalogue>();
+            script.SetActive(true);
+            script.addToCatalogue(LabData);
 
             // Start Lab Manager
             // GameObject.Find("LabManager").GetComponent<LabManager>().Initialize(LabData);
