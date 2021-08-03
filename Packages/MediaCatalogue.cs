@@ -26,7 +26,7 @@ public class MediaCatalogue : MonoBehaviour
     public Dictionary<string, AudioClip> labAudio = new Dictionary<string, AudioClip>();
     public Dictionary<string, string> labVideos = new Dictionary<string, string>();
 
-    public addToCatalogue(LabDataObject data)
+    public void addToCatalogue(LabDataObject data)
     {
         StartCoroutine(DownloadLabMedia(data.subManifest));
     }
