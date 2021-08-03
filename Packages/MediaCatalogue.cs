@@ -68,7 +68,7 @@ public class MediaCatalogue : MonoBehaviour
         return retrievedVideoURL;
     }
 
-    //Downloads an image file, creates a Texutre2D asset, and stores the texture in a LabMedia's Texture2D dictionary
+    //Downloads an image file, creates a Texutre2D asset, and stores the asset in the labTextures dictionary
     IEnumerator DownloadTexture(string url)
     {
         using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(url))
@@ -80,13 +80,11 @@ public class MediaCatalogue : MonoBehaviour
                 UnityEngine.Debug.Log(url);
             }
             else
-            {
                 labTextures.Add(url, DownloadHandlerTexture.GetContent(uwr));
-            }
         }
     }
 
-    //Downloads an audio file, create an AudioClip asset, and store the AudioClip in a LabMedia's AudioClips dictionary
+    //Downloads an audio file, create an AudioClip asset, and stores the asset in the labAudio dictionary
     IEnumerator DownloadAudio(string url, AudioType fileType)
     {
         using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip(url, fileType))
@@ -98,9 +96,7 @@ public class MediaCatalogue : MonoBehaviour
                 UnityEngine.Debug.Log(url);
             }
             else
-            {
                 labAudio.Add(url, DownloadHandlerAudioClip.GetContent(uwr));
-            }
         }
     }
 
@@ -118,13 +114,11 @@ public class MediaCatalogue : MonoBehaviour
         foreach (subManifest asset in labAssetList)
         {
             string resourceKey = asset.resource_url;
-            switch (asset.resource_type)
+            switch (asset.resource_type) //Determine type of asset to be downloaded
             {
                 case "image":
                     if(labTextures.ContainsKey(resourceKey) == false)
-                    {
                         yield return StartCoroutine(DownloadTexture(resourceKey));
-                    }
                     break;
                 case "audio":
                     if(labAudio.ContainsKey(resourceKey) == false)
