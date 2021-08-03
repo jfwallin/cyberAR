@@ -28,7 +28,7 @@ public class MediaCatalogue : MonoBehaviour
 
     public void addToCatalogue(LabDataObject data)
     {
-        StartCoroutine(DownloadLabMedia(data.subManifest));
+        StartCoroutine(DownloadLabMedia(data.Assets));
     }
 
     //Retrieve a Texture2D asset for a lab
@@ -40,10 +40,9 @@ public class MediaCatalogue : MonoBehaviour
         if (labTextures.ContainsKey(textureKey))
         {
             retrievedTexture = labTextures[textureKey];
-            
         }
         else
-            Debug.Log("Texture asset not found.");
+            UnityEngine.Debug.Log("Texture asset not found.");
         return retrievedTexture;
     }
 
@@ -85,7 +84,10 @@ public class MediaCatalogue : MonoBehaviour
                 UnityEngine.Debug.Log(url);
             }
             else
+            {
                 labTextures.Add(url, DownloadHandlerTexture.GetContent(uwr));
+                UnityEngine.Debug.Log("Texture downloaded from " + url);
+            }
         }
     }
 
@@ -101,12 +103,15 @@ public class MediaCatalogue : MonoBehaviour
                 UnityEngine.Debug.Log(url);
             }
             else
+            {
                 labAudio.Add(url, DownloadHandlerAudioClip.GetContent(uwr));
+                UnityEngine.Debug.Log("AudioClip downloaded from " + url);
+            }
         }
     }
 
     //Downloads all the media assets for a single lab
-    IEnumerator DownloadLabMedia(subManifest[] labAssetList)
+    IEnumerator DownloadLabMedia(LabDataObject.submanifest[] labAssetList)
     {
         //Currently supported audio file types
         Dictionary<string, AudioType> supportedAudio = new Dictionary<string, AudioType>()
@@ -116,7 +121,7 @@ public class MediaCatalogue : MonoBehaviour
             { "mp3", AudioType.MPEG }
         };
 
-        foreach (subManifest asset in labAssetList)
+        foreach (LabDataObject.subManifest asset in labAssetList)
         {
             string resourceKey = asset.resource_url;
             switch (asset.resource_type) //Determine type of asset to be downloaded
