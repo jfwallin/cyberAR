@@ -83,7 +83,7 @@ public class LabManager : MonoBehaviour
         Debug.Log("tmpdata = " + tmpData.prefabName);
 
         //There will need to be some sort of placement routine, but for now it will be placed at 0,0,0
-        currentModuleObject = Instantiate(tmpPrefab, Vector3.zero, Quaternion.identity);
+        currentModuleObject = Instantiate(tmpPrefab, GameObject.Find("[CurrentLab]").transform);
         currentModuleScript = currentModuleObject.GetComponent<ActivityModule>();
 
         //Start the module

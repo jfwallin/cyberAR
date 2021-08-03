@@ -18,7 +18,7 @@ public class InstructionBox : MonoBehaviour
                 _instance = FindObjectOfType<InstructionBox>();
                 if (_instance == null)
                 {
-                    _instance = Instantiate((GameObject)Resources.Load("Prefabs/Instruction Box"), GameObject.Find("[WORLD]").transform).GetComponent<InstructionBox>();
+                    _instance = Instantiate((GameObject)Resources.Load("Prefabs/Instruction Box"), GameObject.Find("[CurrentLab]").transform).GetComponent<InstructionBox>();
                 }
             }
 
