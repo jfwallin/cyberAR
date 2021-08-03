@@ -275,9 +275,47 @@ public class loginLogic : MonoBehaviour
                 Debug.LogError(uwr.error);
             else
                 Debug.Log("File successfully downloaded and saved to " + path + "\n");
+
+            if (currState == 5) { getJson(path); }
         }
     }
 
+    IEnumerator Catalogue(LabDataObject LabData)
+    {
+        gameObject.GetComponent<MediaCatalogue>().enabled = true;
+        gameObject.GetComponent<MediaCatalogue>().addToCatalogue(LabData);
+        yield return new WaitUntil(() => gameObject.GetComponent<MediaCatalogue>().done);
+        StartCoroutine(Start(LabData));
+    }
+
+    IEnumerator Start(LabDataObject LabData)
+    {
+        gameObject.GetComponent<LabManager>().enabled = true;
+        gameObject.GetComponent<LabManager>().Initialize(LabData.ActivityModules);
+        yield return null;
+    }
+
+    private void getJson(string path) // FIX RACE WAR 
+    { 
+        // crop the path 
+        path = path.Substring(path.IndexOf("es/") + 3);
+        path = path.Substring(0, path.Length - 5);
+        
+        // 
+        string jsonString = Resources.Load<TextAsset>(path).text;
+        LabDataObject LabData = new LabDataObject();
+        JsonUtility.FromJsonOverwrite(jsonString, LabData);
+
+        StartCoroutine(Catalogue(LabData));
+        // media downloader here. 
+        //gameObject.GetComponent<MediaCatalogue>().enabled = true;
+        //gameObject.GetComponent<MediaCatalogue>().addToCatalogue(LabData);
+
+        //StartCoroutine(Start(LabData));
+        // Start Lab Manager
+        //gameObject.GetComponent<LabManager>().enabled = true;
+        //gameObject.GetComponent<LabManager>().Initialize(LabData.ActivityModules);
+    }
 
     // Toggles line renderer emitted from controller
     private void toggleLineRender(bool flag)
@@ -425,21 +463,10 @@ public class loginLogic : MonoBehaviour
             sandbox.SetActive(true);
 
             // THE URL PROVIDED CURRENTLY DOES NOTHING - THIS NEEDS TO BE PROVIDED WEB-SIDE
-            string jsonPath = "http://cyberlearnar.cs.mtsu.edu/lab_json/" + labSelected;
+            string jsonPath = "http://cyberlearnar.cs.mtsu.edu/show_uploaded/JsonTest.txt"; //"http://cyberlearnar.cs.mtsu.edu/lab_json/ " + labSelected;
 
             try { StartCoroutine(DownloadFile(jsonPath, "Assets/Resources/csv bank/LabJson.json")); }
             catch { print("Cant load Lab list from url"); }
-            string jsonString = Resources.Load<TextAsset>("csv bank/LabJson").text;
-            LabDataObject LabData = new LabDataObject();
-            JsonUtility.FromJsonOverwrite(jsonString, LabData);
-
-            // media downloader here. TODO - ADD ANIMATION OR SANDBOX TO PASS TIME
-            var script = gameObject.GetComponent<MediaCatalogue>();
-            script.SetActive(true);
-            script.addToCatalogue(LabData);
-
-            // Start Lab Manager
-            // GameObject.Find("LabManager").GetComponent<LabManager>().Initialize(LabData);
 
             //disable sandbox
             // toggleLineRender(true);

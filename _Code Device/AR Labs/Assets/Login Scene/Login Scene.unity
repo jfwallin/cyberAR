@@ -2516,6 +2516,8 @@ GameObject:
   m_Component:
   - component: {fileID: 685460497}
   - component: {fileID: 685460498}
+  - component: {fileID: 685460499}
+  - component: {fileID: 685460500}
   m_Layer: 0
   m_Name: '[LOGIC]'
   m_TagString: Untagged
@@ -2563,6 +2565,33 @@ MonoBehaviour:
   lab_options: {fileID: 1283812652}
   labTemp: {fileID: 1861776993}
   sandbox: {fileID: 1775193461}
+--- !u!114 &685460499
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 685460496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e85c62ae9faf3941b877704af84a516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  done: 0
+--- !u!114 &685460500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 685460496}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 442d0e05bc05b7648bf7a4414de0daa4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  modules: []
+  instructionPrefab: {fileID: 0}
 --- !u!1 &716852239
 GameObject:
   m_ObjectHideFlags: 0

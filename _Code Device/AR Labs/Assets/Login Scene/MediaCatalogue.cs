@@ -25,10 +25,12 @@ public class MediaCatalogue : MonoBehaviour
     public Dictionary<string, Texture2D> labTextures = new Dictionary<string, Texture2D>();
     public Dictionary<string, AudioClip> labAudio = new Dictionary<string, AudioClip>();
     public Dictionary<string, string> labVideos = new Dictionary<string, string>();
+    [HideInInspector]
+    public bool done = false;
 
     public void addToCatalogue(LabDataObject data)
     {
-        StartCoroutine(DownloadLabMedia(data.subManifest));
+        StartCoroutine(DownloadLabMedia(data.Assets));
     }
 
     //Retrieve a Texture2D asset for a lab
@@ -116,8 +118,9 @@ public class MediaCatalogue : MonoBehaviour
             { "mp3", AudioType.MPEG }
         };
 
-        foreach (subManifest asset in labAssetList)
+        foreach (LabDataObject.subManifest asset in labAssetList)
         {
+            print("downloading new asset of type: " + asset.resource_type);
             string resourceKey = asset.resource_url;
             switch (asset.resource_type) //Determine type of asset to be downloaded
             {
@@ -147,5 +150,6 @@ public class MediaCatalogue : MonoBehaviour
                     break;
             }
         }
+        done = true;
     }
 }

@@ -14,6 +14,7 @@ public class LabDataObject
     public string[] ActivityModules;
     public subManifest[] Assets;
 
+    [System.Serializable]
     public class subManifest
     {
         public int resource_id;

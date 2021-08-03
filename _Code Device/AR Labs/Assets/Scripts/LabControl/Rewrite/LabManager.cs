@@ -29,7 +29,7 @@ public class LabManager : MonoBehaviour
 
 
     //    ibox = InstructionBox.Instance;
-        spawnDemoNew();
+        // spawnDemoNew();
     }
 
     public void Initialize(LabDataObject data)
