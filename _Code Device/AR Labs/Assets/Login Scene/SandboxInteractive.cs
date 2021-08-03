@@ -16,6 +16,7 @@ public class SandboxInteractive : MonoBehaviour
     
     private MLInput.Controller controller;
 
+    private Vector3 currRot;
     private Vector3 lastPos; 
     private Vector3 lastRot;
 
@@ -54,20 +55,26 @@ public class SandboxInteractive : MonoBehaviour
 
     void OnTriggerEnter(Collider other)
     {
-        inside = true;
+       
     }
 
     void OnTriggerStay(Collider other)
     {
-        if (inside && controller.TriggerValue > 0.2f)
+        if (controller.TriggerValue > 0.2f)
         {
             rig.isKinematic = true;
             this.transform.position = controller.Position;
-            float touchx, touchy, touchz;
+            float touchx, touchy, touchz, 
+                x = controller.Touch1PosAndForce.x, 
+                y = controller.Touch1PosAndForce.y, 
+                z = controller.Touch1PosAndForce.z;
+            
 
-            touchx = controller.Touch1PosAndForce.x * rSpeed % 360;
-            touchy = controller.Touch1PosAndForce.y * rSpeed % 360;
-            touchz = controller.Touch1PosAndForce.z * rSpeed * controller.Touch1PosAndForce.z > .5? -1:1 % 360;
+            touchx = x * rSpeed % 360;
+            touchy = y * rSpeed % 360;
+            // if touchforce > 30%, add or subtract z force based on where applied on the y axis
+            touchz = (z > .3f ? y >= 0 ? z : -z : 0) * rSpeed % 360;
+
             this.transform.eulerAngles += new Vector3(touchz, touchx, touchy) * Time.deltaTime;
             flag = true;
         }
@@ -76,7 +83,12 @@ public class SandboxInteractive : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        inside = false;
+        
+    }
+
+    void OnCollisionEnter(Collision collisionInfo)
+    {
+        print(collisionInfo.collider.name);
     }
     //#endif
 }
