@@ -26,9 +26,61 @@ public class MediaCatalogue : MonoBehaviour
     public Dictionary<string, AudioClip> labAudio = new Dictionary<string, AudioClip>();
     public Dictionary<string, string> labVideos = new Dictionary<string, string>();
 
-    public void addToCatalogue(LabDataObject data)
+    //Currently supported audio file types
+    Dictionary<string, AudioType> supportedAudio = new Dictionary<string, AudioType>()
+    {
+        { "wav", AudioType.WAV },
+        { "ogg", AudioType.OGGVORBIS },
+        { "mp3", AudioType.MPEG }
+    };
+
+    public void AddToCatalogue(LabDataObject data)
     {
         StartCoroutine(DownloadLabMedia(data.Assets));
+    }
+
+    //Removes a media asset from the MediaCatalogue, assetKey is the url the asset was retrieved from
+    public void RemoveMediaAsset(string assetKey)
+    {
+        //Determine type of asset to be removed
+        string mediaAssetType = assetKey.Substring(assetKey.Length - 3);
+        if (supportedAudio.ContainsKey(mediaAssetType))
+            mediaAssetType = "audio";
+        switch (mediaAssetType)
+        {
+            case: "jpg"
+                if (labTextures.ContainsKey(assetKey))
+                {
+                    labTextures.Remove(assetKey);
+                    UnityEngine.Debug.Console("Texture2D removed from MediaCatalogue.");
+                }
+            case: "audio"
+                if (labAudio.ContainsKey(assetKey))
+                {
+                    labAudio.Remove(assetKey);
+                    UnityEngine.Debug.Console("AudioClip removed from MediaCatalogue.");
+                }
+                break;
+            case: "mp4"
+                if (labVideos.ContainsKey(assetKey))
+                {
+                    labVideos.Remove(assetKey);
+                    UnityEngine.Debug.Console("Video URL removed from MediaCatalogue.");
+                }
+                break;
+            default:
+                UnityEngine.Debug.Console("ERROR: Asset not found in any dictionary.");
+                UnityEngine.Debug.Console("Asset URL: " + assetKey);
+                break;
+        }
+    }
+
+    //Removes all media assets in the MediaCatalogue
+    public void RemoveAllMediaAssets()
+    {
+        labTextures.Clear();
+        labAudio.Clear();
+        labVideos.Clear();
     }
 
     //Retrieve a Texture2D asset for a lab
@@ -36,14 +88,15 @@ public class MediaCatalogue : MonoBehaviour
     //If the Texture2D asset isn't found an error message is displayed in the debug console and a null value is returned.
     public Texture2D GetLabTexture(string textureKey) //Safe gaurds against possible runtime errors need to be implemented still
     {
-        Texture2D retrievedTexture = null;
         if (labTextures.ContainsKey(textureKey))
         {
-            retrievedTexture = labTextures[textureKey];
+            Texture2D retrievedTexture = labTextures[textureKey];
+            return retrievedTexture;
         }
         else
+        {
             UnityEngine.Debug.Log("Texture asset not found.");
-        return retrievedTexture;
+        }
     }
 
     //Retrieve an AudioClip asset for a lab
@@ -113,13 +166,6 @@ public class MediaCatalogue : MonoBehaviour
     //Downloads all the media assets for a single lab
     IEnumerator DownloadLabMedia(LabDataObject.submanifest[] labAssetList)
     {
-        //Currently supported audio file types
-        Dictionary<string, AudioType> supportedAudio = new Dictionary<string, AudioType>()
-        {
-            { "wav", AudioType.WAV },
-            { "ogg", AudioType.OGGVORBIS },
-            { "mp3", AudioType.MPEG }
-        };
 
         foreach (LabDataObject.subManifest asset in labAssetList)
         {
