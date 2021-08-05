@@ -195,6 +195,7 @@ public class loginLogic : MonoBehaviour
                     // Disable UI and Keyboard 
                     LoginUI.SetActive(false);
                     keyboard.SetActive(false);
+                    labStarter.transform.parent.gameObject.SetActive(false);
 
                     // Load Modules 
                     lab_options.SetActive(true);
@@ -208,6 +209,7 @@ public class loginLogic : MonoBehaviour
                     lab_options.SetActive(false);
 
                     // Start Lab Manager
+                    labStarter.transform.parent.gameObject.SetActive(true);
                     startLab();
                     break;
                 }
@@ -238,6 +240,14 @@ public class loginLogic : MonoBehaviour
             placed = true;
             next(); 
         }
+    }
+
+
+    // Called to change state if the state requested cannot be reached calling next();
+    public void gotoState(int state)
+    {
+        currState = state - 1;
+        next();
     }
 
 
@@ -276,10 +286,13 @@ public class loginLogic : MonoBehaviour
                 Debug.LogError(uwr.error);
             else
                 Debug.Log("File successfully downloaded and saved to " + path + "\n");
-
-            if (currState == 5) { getJson(path); }
         }
+
+        // This makes sure Media catalogue can download before starting lab
+        if (currState == 5) { getJson(path); }
     }
+
+
 
     private void getJson(string path)
     {
@@ -310,20 +323,14 @@ public class loginLogic : MonoBehaviour
         yield return null;
     }
 
+
+
     // Toggles line renderer emitted from controller
     private void toggleLineRender(bool flag)
     {
         // print("doing the dirty work [|8^(");
         controller.GetComponent<LineRenderer>().enabled = flag;
         controller.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = flag;
-    }
-
-
-    // Called to change state if the state requested cannot be reached calling next();
-    private void gotoState(int state)
-    {
-        currState = state-1;  
-        next();
     }
 
 
@@ -453,7 +460,7 @@ public class loginLogic : MonoBehaviour
         {
             // Sandbox while lab is loading
             toggleLineRender(false);
-            sandbox.SetActive(true);
+            //sandbox.SetActive(true);
 
             // THE URL PROVIDED CURRENTLY DOES NOTHING - THIS NEEDS TO BE PROVIDED WEB-SIDE
             string jsonPath = "http://cyberlearnar.cs.mtsu.edu/show_uploaded/JsonTest.txt"; //"http://cyberlearnar.cs.mtsu.edu/lab_json/ " + labSelected;

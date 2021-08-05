@@ -118,7 +118,10 @@ public class LabManager : MonoBehaviour
 
     private void EndLab()
     {
-        Application.Quit();
+        // TODO SEND MESSAGE TO LOGIN LOGIC SCRIPT
+        print("Returning to Lab Selection.");
+        GameObject.Find("[LOGIC]").GetComponent<loginLogic>().gotoState(4);
+        //Application.Quit();
     }
 /*
     void createInstructions()

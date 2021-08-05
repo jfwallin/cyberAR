@@ -40,7 +40,7 @@ public class SandboxInteractive : MonoBehaviour
     void Update()
     {
         var delta = (this.transform.position - lastPos);
-        if (flag && !delta.Equals(new Vector3())) {
+        if (flag && !delta.Equals(Vector3.zero)) {
             print(this.transform.position + " - " + lastPos + " = " + (delta / Time.deltaTime).ToString("G4"));
             rig.velocity = delta / Time.deltaTime;
             flag = true;
@@ -58,6 +58,7 @@ public class SandboxInteractive : MonoBehaviour
        
     }
 
+    // THIS WORKS - SORTA - after a couple spins, it can only spin on X axis?? 
     void OnTriggerStay(Collider other)
     {
         if (controller.TriggerValue > 0.2f)

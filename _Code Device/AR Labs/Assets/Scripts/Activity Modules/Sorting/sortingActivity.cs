@@ -212,8 +212,8 @@ namespace sortingRoutines
                 if (wrongOrder[i] != null) totalWrongAnswer++;
 
             mscale = 0.07f;
-            voffset = 0.2f;
-            createMarkers(mscale, voffset);
+            voffset = 1.2f;
+            createMarkers(GameObject.Find("[CurrentLab]").transform, mscale, voffset);
 
             // set the array to be unsorted
             isSorted = false;
@@ -247,7 +247,7 @@ namespace sortingRoutines
             gameObject.name = "sortingManager";
             buttonPrefabString = "Prefabs/BigRedButton";
             buttonPrefab = Resources.Load(buttonPrefabString) as GameObject;
-            myButton = Instantiate(buttonPrefab, new Vector3(0.0f, -0.4f, 1.5f), Quaternion.Euler(-90f, 0f, 0.0f), parentObject.transform) as GameObject;
+            myButton = Instantiate(buttonPrefab,new Vector3(0.0f, -0.4f, 1.5f), Quaternion.Euler(-90f, 0f, 0.0f), parentObject.transform) as GameObject;
             GameObject.Find("button").GetComponent<Renderer>().material.color = Color.red;
             // add the callback for OnClick
             myButton.GetComponent<MagicLeapTools.InputReceiver>().OnClick.AddListener(buttonClick);
@@ -269,7 +269,7 @@ namespace sortingRoutines
             resort();
         }
         
-        public void createMarkers(float mscale, float voffset)
+        public void createMarkers(Transform parent, float mscale, float voffset)
         { 
             
             markers = new GameObject[nObjects];
@@ -277,7 +277,7 @@ namespace sortingRoutines
             {
                 mscale = 0.07f;
                 markerPrefab = Resources.Load(markerPrefabName) as GameObject;
-                markers[i] = Instantiate(markerPrefab, sortPts[i] - new Vector3(0.0f, voffset, 0.0f), Quaternion.identity) as GameObject;
+                markers[i] = Instantiate(markerPrefab, parent.position + sortPts[i] - new Vector3(0.0f, voffset, 0.0f), Quaternion.identity, parent) as GameObject;
                 markers[i].transform.localScale = new Vector3(mscale, mscale, mscale);
                 markers[i].GetComponent<Renderer>().material.color = new Color(0.3f, 0.3f, 0.3f, 1.0f);
             }
@@ -362,7 +362,8 @@ namespace sortingRoutines
 
             // fix the lights if appropriate
             if (moduleData.restoreLights)
-                lightControl.restoreLights();
+                try { lightControl.restoreLights(); }
+                catch { Debug.Log("FIX MEEEEE"); }
 
             // we are going to clean up all the objects by hand
             //if (moduleData.destroyObjects)

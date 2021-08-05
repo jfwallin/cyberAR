@@ -78,6 +78,7 @@ public class InstructionBox : MonoBehaviour
     {
         //Set the camera for the canvas
         GetComponent<Canvas>().worldCamera = Camera.main;
+        transform.position = GameObject.Find("[UI ANCHOR]").transform.position + transform.forward;
     }
 
     void Update()
