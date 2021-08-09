@@ -1,0 +1,127 @@
+{
+    "moduleName": "Moveable Sphere Demo",
+    "specificName": "Sunlight on a basketball (part 2)",
+    "jsonFileName": "basketBallDemo3.json",
+    "prefabName": "demoPrefab",
+    "prerequisiteActivities": [],
+    "educationalObjectives": [
+        "Understand that shadows on spherical objects lead to moon phases"
+    ],
+    "instructions": [
+        "Explore how changing the location \nof the basketball changes the shadows.\n\n- Reach out to extend pointer. \n- Use the trigger to grab objects\n- Click on the red button when you are done exploring."
+    ],
+    "numRepeatsAllowed": 0,
+    "numGradableRepeatsAllowed": 0,
+    "gradingCriteria": "",
+    "currentScore": 0.0,
+    "bestScore": 0.0,
+    "completed": false,
+    "currentSubphase": 0,
+    "subphaseNames": [],
+    "urlJson": "",
+    "json": "",
+    "timeToEnd": 10,
+    "endUsingButton": true,
+    "description": "A demonstration of how light from the sun illuminates a basketball.",
+    "author": "John Wallin",
+    "authorInstitution": "Middle Tennessee State University",
+    "dateCreated": "Thu Jul  8 18:50:59 2021",
+    "introAudio": "Audio/basketball",
+    "createObjects": true,
+    "destroyObjects": true,
+    "restoreLights": true,
+    "objects": [
+        {
+            "name": "bbb",
+            "parentName": "[_DYNAMIC]",
+            "type": "Prefabs/moveableSphere",
+            "tag": "",
+            "active": true,
+            "position": {
+                "x": 0.0,
+                "y": -0.3,
+                "z": 1.0
+            },
+            "euleriAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.5,
+                "y": 0.5,
+                "z": 0.5
+            },
+            "material": "",
+            "texture": "Textures/balldimpled",
+            "textureByURL": "",
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "transmittable": false,
+            "RigidBody": {
+                "mass": 1.0,
+                "drag": 5.0,
+                "angularDrag": 0.0,
+                "isKinematic": true,
+                "useGravity": false,
+                "xConstraint": false,
+                "yConstraint": false,
+                "zConstraint": false,
+                "xRotationConstraint": true,
+                "yRotationConstraint": true,
+                "zRotationConstraint": true
+            },
+            "PointerReceiver": {
+                "draggable": true,
+                "kinematicWhileIdle": true,
+                "faceWhileDragging": false,
+                "matchWallWhileDragging": false,
+                "invertForward": false
+            },
+            "componentsToAdd": [
+                "{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0}"
+            ],
+            "newScale": true
+        },
+        {
+            "name": "Sun",
+            "parentName": "[_DYNAMIC]",
+            "type": "Prefabs/SunPrefab",
+            "tag": "",
+            "active": true,
+            "position": {
+                "x": -39.0,
+                "y": 0,
+                "z": 0
+            },
+            "euleriAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 5,
+                "y": 5,
+                "z": 5
+            },
+            "material": "",
+            "texture": "",
+            "textureByURL": "",
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "transmittable": false,
+            "RigidBody": "",
+            "PointerReceiver": "",
+            "componentsToAdd": []
+        }
+    ],
+    "useSunlight": false
+}

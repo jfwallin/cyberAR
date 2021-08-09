@@ -1,0 +1,9 @@
+{
+	"PointerReceiver": {
+		"draggable": true,
+		"kinematicWhileIdle": true,
+		"faceWhileDragging": false,
+		"matchWallWhileDragging": false,
+		"invertForward": false
+	}
+}

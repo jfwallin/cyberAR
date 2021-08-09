@@ -1,0 +1,20 @@
+{"moduleName":"duck",
+"specificName":"quacky",
+"jsonFileName":"jfile.json",
+"prefabName":"demoPrefab",
+"prerequisiteActivities":[],
+"educationalObjectives":["show that ducks are superiour","quack a joke frequently","promote duckyness everywhere","duck the responsiblity of bad grades"],
+"instructions":["click on something... anything!"],
+"numRepeatsAllowed":0,
+"numGradableRepeatsAllowed":0,
+"gradingCriteria":"",
+"currentScore":0.0,
+"bestScore":0.0
+,"completed":false,
+"currentSubphase":0,
+"subphaseNames":[],
+"urlJson":"",
+"json":"",
+"timeToEnd":-1.0,
+"endUsingButton":true
+}

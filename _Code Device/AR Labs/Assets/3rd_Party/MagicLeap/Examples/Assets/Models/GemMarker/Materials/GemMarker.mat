@@ -105,3 +105,4 @@ Material:
     - _ReflectColor: {r: 1, g: 1, b: 1, a: 0}
     - _SoftParticleFadeParams: {r: 0, g: 0, b: 0, a: 0}
     - _SpecColor: {r: 0.29803923, g: 0.29803923, b: 0.29803923, a: 1}
+  m_BuildTextureStacks: []

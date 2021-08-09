@@ -1,0 +1,164 @@
+{
+    "moduleName": "Mini Earth Moon Demo",
+    "specificName": "The view from above the Earth's north pole",
+    "jsonFileName": "miniEarthMoon.json",
+    "prefabName": "demoPrefab",
+    "prerequisiteActivities": [],
+    "educationalObjectives": [
+        "Explore how shadows are cast on the Earth and Moon as seen from above"
+    ],
+    "instructions": [
+        "This model is not to scale! \nNotice how rapidly the earth rotates \ncompared to how long it takes for the moon \nto revolve in its orbit.\n\n- Reach out to extend pointer. \n- Use the trigger to grab objects\n- Click on the red button when you are done exploring."
+    ],
+    "numRepeatsAllowed": 0,
+    "numGradableRepeatsAllowed": 0,
+    "gradingCriteria": "",
+    "currentScore": 0.0,
+    "bestScore": 0.0,
+    "completed": false,
+    "currentSubphase": 0,
+    "subphaseNames": [],
+    "urlJson": "",
+    "json": "",
+    "timeToEnd": 10,
+    "endUsingButton": true,
+    "description": "A one-meter orbit Earth-Moon model that can be viewed from above",
+    "author": "John Wallin",
+    "authorInstitution": "Middle Tennessee State University",
+    "dateCreated": "Thu Jul  8 18:50:59 2021",
+    "introAudio": "Audio/basketball",
+    "createObjects": true,
+    "destroyObjects": true,
+    "restoreLights": true,
+    "objects": [
+        {
+            "name": "Earth",
+            "parentName": "[_DYNAMIC]",
+            "type": "Prefabs/moveableSphere",
+            "tag": "",
+            "active": true,
+            "position": {
+                "x": 0.0,
+                "y": 1.0,
+                "z": 2.0
+            },
+            "euleriAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.2,
+                "y": 0.2,
+                "z": 0.2
+            },
+            "material": "",
+            "texture": "Textures/2k_earth_daymap",
+            "textureByURL": "",
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "transmittable": false,
+            "RigidBody": {
+                "mass": 1.0,
+                "drag": 5.0,
+                "angularDrag": 0.0,
+                "isKinematic": true,
+                "useGravity": false,
+                "xConstraint": false,
+                "yConstraint": false,
+                "zConstraint": false,
+                "xRotationConstraint": true,
+                "yRotationConstraint": true,
+                "zRotationConstraint": true
+            },
+            "PointerReceiver": {
+                "draggable": true,
+                "kinematicWhileIdle": true,
+                "faceWhileDragging": false,
+                "matchWallWhileDragging": false,
+                "invertForward": false
+            },
+            "componentsToAdd": [
+                "{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0}"
+            ]
+        },
+        {
+            "name": "Moon",
+            "parentName": "[_DYNAMIC]",
+            "type": "Prefabs/moveableSphere",
+            "tag": "",
+            "active": true,
+            "position": {
+                "x": 0.8,
+                "y": 1.0,
+                "z": 2.0
+            },
+            "euleriAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.05,
+                "y": 0.05,
+                "z": 0.05
+            },
+            "material": "",
+            "texture": "Textures/_k_moon",
+            "textureByURL": "",
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "transmittable": false,
+            "RigidBody": "",
+            "PointerReceiver": "",
+            "componentsToAdd": [
+                "{\"name\": \"simpleOrbit\", \"moonPosition\": {\"x\": 0.8, \"y\": 1.0, \"z\": 2.0}, \"orbitalPeriod\": 28.0, \"timeRate\": 1.0, \"orbitalScale\": 1.0, \"synchronousRotation\": true}"
+            ],
+            "parent": "Earth"
+        },
+        {
+            "name": "Sun",
+            "parentName": "[_DYNAMIC]",
+            "type": "Prefabs/SunPrefab",
+            "tag": "",
+            "active": true,
+            "position": {
+                "x": -39.0,
+                "y": 0,
+                "z": 0
+            },
+            "euleriAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 5,
+                "y": 5,
+                "z": 5
+            },
+            "material": "",
+            "texture": "",
+            "textureByURL": "",
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "transmittable": false,
+            "RigidBody": "",
+            "PointerReceiver": "",
+            "componentsToAdd": []
+        }
+    ],
+    "useSunlight": true
+}

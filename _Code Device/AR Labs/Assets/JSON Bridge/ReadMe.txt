@@ -1,3 +1,8 @@
+There are two examples. 
+1) The Example Example shows the use of two different JSONs and the CleanUp function
+2) The Solar System Example shows the use of a more complex JSON. 
+	-This would be more similar to the structure of a module.
+
 
 How to format the "Big JSON":
 

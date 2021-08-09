@@ -16,14 +16,11 @@ public class Orbit : MonoBehaviour
     private Vector3 offset;
     private GameObject centerObject;
 
-    void Awake()
-    {
-        centerObject = GameObject.Find(center);
-    }
-
     // Start is called before the first frame update
     void Start()
     {
+        centerObject = GameObject.Find(center);
+
         if (centerObject == null) //allows for no center
         {
             centerObject = gameObject;
