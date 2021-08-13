@@ -16,6 +16,7 @@ namespace demoRoutines
         private lightingControl lightControl;
         private AudioSource aud;
         private Bridge bridge;
+        private demoSequence sequencer;
 
 
         //public override void Initialize(ActivityModuleData dataIn)
@@ -45,6 +46,9 @@ namespace demoRoutines
             bridge = new Bridge();
             if (moduleData.createObjects)
                 bridge.makeObjects(moduleData.objects);
+
+            sequencer = gameObject.GetComponent<demoSequence>();
+
 
             // set the end criteria
             if (moduleData.timeToEnd > 0)

@@ -41,7 +41,7 @@ public class Bridge
 
     //makeObject goes through the json and creates the scene and all conected scripts from it.
     //We are assuming that the scene is set up with the camera, default lighting, and controller already present.
-    private void makeObject(ObjectInfo obj)
+    public void makeObject(ObjectInfo obj)
     {
         GameObject myObject;
         GameObject parent = null;

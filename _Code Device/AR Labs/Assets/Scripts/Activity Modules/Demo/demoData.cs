@@ -18,6 +18,8 @@ namespace demoRoutines
         public bool createObjects = true;
         public bool destroyObjects = true;
         public bool restoreLights = true;
+
+        public clipData[] clips;
     }
 
 }

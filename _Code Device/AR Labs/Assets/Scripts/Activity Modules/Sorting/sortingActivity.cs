@@ -102,9 +102,9 @@ namespace sortingRoutines
             jsonString = jsonData;
             JsonUtility.FromJsonOverwrite(jsonData, moduleData);
 
-            ibox = InstructionBox.Instance;
-            ibox.transform.localPosition = new Vector3(1.5f, -0.3f, 0.0f);
-            initializeIbox();
+            //ibox = InstructionBox.Instance;
+            //ibox.transform.localPosition = new Vector3(1.5f, -0.3f, 0.0f);
+            //initializeIbox();
 
             // setup the media player, lightControl, and audio player
             mPlayer = MediaPlayer.Instance;
@@ -278,6 +278,7 @@ namespace sortingRoutines
                 mscale = 0.07f;
                 markerPrefab = Resources.Load(markerPrefabName) as GameObject;
                 markers[i] = Instantiate(markerPrefab, parent.position + sortPts[i] - new Vector3(0.0f, voffset, 0.0f), Quaternion.identity, parent) as GameObject;
+                //markers[i] = Instantiate(markerPrefab, sortPts[i] - new Vector3(0.0f, voffset, 0.0f), Quaternion.identity, parentObject.transform) as GameObject;
                 markers[i].transform.localScale = new Vector3(mscale, mscale, mscale);
                 markers[i].GetComponent<Renderer>().material.color = new Color(0.3f, 0.3f, 0.3f, 1.0f);
             }

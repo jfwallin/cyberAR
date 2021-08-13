@@ -31,7 +31,9 @@ public class LabManager : MonoBehaviour
 
         //    ibox = InstructionBox.Instance;
         // spawnDemoNew();
-        labform = GameObject.Find("[CurrentLab]").transform;
+        labform = GameObject.Find("[_DYNAMIC]").transform;
+        spawnDemoNew();
+        //labform = GameObject.Find("[CurrentLab]").transform;
     }
 
     public void Initialize(LabDataObject data)
