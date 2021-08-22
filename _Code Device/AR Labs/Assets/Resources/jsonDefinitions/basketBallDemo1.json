@@ -25,11 +25,11 @@
     "description": "A demonstration of how light from the sun illuminates a basketball.",
     "author": "John Wallin",
     "authorInstitution": "Middle Tennessee State University",
-    "dateCreated": "Tue Jul  6 16:31:05 2021",
-    "introAudio": "Audio/basketball",
+    "dateCreated": "Thu Jul  8 23:19:32 2021",
+    "introAudio": "Audio/startbasketball",
     "createObjects": true,
     "destroyObjects": false,
-    "restoreLights": true,
+    "restoreLights": false,
     "objects": [
         {
             "name": "Basketball",
@@ -83,7 +83,7 @@
                 "invertForward": false
             },
             "componentsToAdd": [
-                "{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0, \"planetScale\": 1.0}"
+                "{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0}"
             ]
         },
         {

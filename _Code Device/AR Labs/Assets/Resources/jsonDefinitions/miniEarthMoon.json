@@ -25,9 +25,9 @@
     "description": "A one-meter orbit Earth-Moon model that can be viewed from above",
     "author": "John Wallin",
     "authorInstitution": "Middle Tennessee State University",
-    "dateCreated": "Tue Jul  6 16:31:05 2021",
+    "dateCreated": "Thu Jul  8 23:19:32 2021",
     "introAudio": "Audio/basketball",
-    "createObjects": false,
+    "createObjects": true,
     "destroyObjects": true,
     "restoreLights": true,
     "objects": [
@@ -83,7 +83,7 @@
                 "invertForward": false
             },
             "componentsToAdd": [
-                "{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0, \"planetScale\": 1.0}"
+                "{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0}"
             ]
         },
         {
@@ -120,7 +120,7 @@
             "RigidBody": "",
             "PointerReceiver": "",
             "componentsToAdd": [
-                "{\"name\": \"simpleOrbit\", \"moonPosition\": {\"x\": 0.8, \"y\": 1.0, \"z\": 2.0}, \"orbitalPeriod\": 28.0, \"timeRate\": 1.0, \"orbitalScale\": 1.0, \"moonScale\": 1.0, \"synchronousRotation\": true}"
+                "{\"name\": \"simpleOrbit\", \"moonPosition\": {\"x\": 0.8, \"y\": 1.0, \"z\": 2.0}, \"orbitalPeriod\": 28.0, \"timeRate\": 1.0, \"orbitalScale\": 1.0, \"synchronousRotation\": true}"
             ],
             "parent": "Earth"
         },

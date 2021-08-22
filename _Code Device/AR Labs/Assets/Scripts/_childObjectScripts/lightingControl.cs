@@ -30,10 +30,10 @@ public class lightingControl : MonoBehaviour
     private Quaternion angle;
     private Vector3 scale;
 
-    private Vector3 sunlightPosition;
-    private Quaternion sunlightAngle;
-    private Vector3 sunlightScale;
-    private float sunlightIntensity;
+    private Vector3 sunlightPosition = new Vector3(100.0f, 0.0f, 0.0f);
+    private Quaternion sunlightAngle = Quaternion.Euler(0.0f, 90.0f, 0.0f);
+    private Vector3 sunlightScale = new Vector3(3.0f, 3.0f, 3.0f);
+    private float sunlightIntensity = 2.5f;
 
     private float intensity;
     private float bounceIntensity;
@@ -41,16 +41,20 @@ public class lightingControl : MonoBehaviour
     LightType lightType;
     Color sceneColor;
 
-    public void start ()
+    public void Awake ()
     {
+        //Singleton Management, delete self if another media player exists.
+        if(_instance != null && _instance != this)
+        {
+            Destroy(this.gameObject);
+        } else
+        {
+            _instance = this;
+        }
+
         theLight = GameObject.Find("Directional Light");
         sceneLight = theLight.GetComponent<Light>();
         saveLights();
-
-        sunlightPosition = new Vector3(100.0f, 0.0f, 0.0f);
-        sunlightAngle = Quaternion.Euler(0.0f, 90.0f, 0.0f);
-        sunlightScale = new Vector3(3.0f, 3.0f, 3.0f);
-        sunlightIntensity = 2.5f;
     }
 
     public void setSunlight(Vector3 sunP, Quaternion sunQ, Vector3 sunS, float sunI)
