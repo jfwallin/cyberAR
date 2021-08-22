@@ -37,7 +37,13 @@ public class pointerReceiverClass
     public bool invertForward;
 }
 
-
+public class textProClass
+{
+    public string textField;
+    public Color32 color;
+    public float fontSize;
+    public bool wrapText;
+}
 
 [System.Serializable]
 public class ObjectInfo
@@ -58,6 +64,7 @@ public class ObjectInfo
     public float[] color ;
     public string RigidBody;
     public string PointerReceiver;
+    public string tmp;
 
     public string[] componentsToAdd; //This holds a string version of the component script JSONs
 

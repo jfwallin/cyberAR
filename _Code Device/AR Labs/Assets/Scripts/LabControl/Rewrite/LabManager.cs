@@ -86,8 +86,13 @@ public class LabManager : MonoBehaviour
 
         Debug.Log("tmpdata = " + tmpData.prefabName);
 
+        if (tmpPrefab == null)
+            Debug.Log("it is null!");
+
         //There will need to be some sort of placement routine, but for now it will be placed at 0,0,0
-        currentModuleObject = Instantiate(tmpPrefab, labform);
+        //currentModuleObject = Instantiate(tmpPrefab, labform);
+        currentModuleObject = Instantiate(tmpPrefab);
+        //currentModuleObject = GameObject.Instantiate(Resources.Load(tmpData.prefabName, typeof(GameObject)) as GameObject);
         currentModuleScript = currentModuleObject.GetComponent<ActivityModule>();
 
         //Start the module
@@ -122,8 +127,9 @@ public class LabManager : MonoBehaviour
     {
         // TODO SEND MESSAGE TO LOGIN LOGIC SCRIPT
         print("Returning to Lab Selection.");
-        GameObject.Find("[LOGIC]").GetComponent<loginLogic>().gotoState(4);
-        //Application.Quit();
+        // MODIFIDED FOR TESTING jw
+        //GameObject.Find("[LOGIC]").GetComponent<loginLogic>().gotoState(4);
+        Application.Quit();
     }
 /*
     void createInstructions()

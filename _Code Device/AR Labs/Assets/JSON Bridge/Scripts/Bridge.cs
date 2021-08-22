@@ -11,6 +11,7 @@ using System.Runtime.Versioning;
 using System.Security.Policy;
 using System.Runtime.InteropServices;
 using UnityEditor;
+using TMPro;
 
 public class Bridge
 {
@@ -45,6 +46,7 @@ public class Bridge
     {
         GameObject myObject;
         GameObject parent = null;
+        TextMeshPro textBox= null;
         if (obj.parentName != "")
         {
             parent = GameObject.Find(obj.parentName);
@@ -58,6 +60,8 @@ public class Bridge
         }
         else
         {
+
+            Debug.Log("xxxxx " + obj.name + " " + obj.type);
             myObject = dealWithType(obj.type); //possibly fixed
             myObject.name = obj.name;
             obj.newPosition = true;
@@ -75,24 +79,28 @@ public class Bridge
         if (obj.newEulerAngles)
             myObject.transform.localEulerAngles = obj.eulerAngles;
 
-        for (int i = 0; i < obj.componentsToAdd.Length; i++)
+        if (obj.componentsToAdd != null)
         {
-            //Parse once to get the name of the component
-            ComponentName cName = JsonUtility.FromJson<ComponentName>(obj.componentsToAdd[i]);
-            //Check if the component already exists (ie, the mesh renderer on aprimitive)
-            Component myComp = myObject.GetComponent(Type.GetType(cName.name));
-            if (myComp == null)
+            Debug.Log("no components to add");
+            for (int i = 0; i < obj.componentsToAdd.Length; i++)
             {
-                JsonUtility.FromJsonOverwrite(obj.componentsToAdd[i], myObject.AddComponent(Type.GetType(cName.name)));
-            }
-            else
-            {
-                JsonUtility.FromJsonOverwrite(obj.componentsToAdd[i], myComp);
+                //Parse once to get the name of the component
+                Debug.Log(i.ToString() + "   " + obj.componentsToAdd[i]);
+                ComponentName cName = JsonUtility.FromJson<ComponentName>(obj.componentsToAdd[i]);
+                //Check if the component already exists (ie, the mesh renderer on aprimitive)
+                Component myComp = myObject.GetComponent(Type.GetType(cName.name));
+                if (myComp == null)
+                {
+                    JsonUtility.FromJsonOverwrite(obj.componentsToAdd[i], myObject.AddComponent(Type.GetType(cName.name)));
+                }
+                else
+                {
+                    JsonUtility.FromJsonOverwrite(obj.componentsToAdd[i], myComp);
+                }
             }
         }
 
-
-        if (obj.parentName != "")
+            if (obj.parentName != "")
         {
             myObject.transform.parent = parent.transform;
         }
@@ -196,7 +204,10 @@ public class Bridge
                 if (rb.yRotationConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezeRotationY;
                 if (rb.zRotationConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezeRotationZ;
 
+
             }
+
+
         }
         
 
@@ -229,6 +240,51 @@ public class Bridge
             }
 
         }
+
+
+        if (obj.tmp != null)
+        {
+            textBox = myObject.GetComponent<TextMeshPro>();
+            if (textBox == null)
+            {
+                Debug.Log("no TextMeshPro");
+            }
+            else
+            {
+                textProClass tpc = new textProClass();
+                tpc.textField = textBox.text;
+                tpc.color = textBox.color;
+                tpc.fontSize = textBox.fontSize;
+                tpc.wrapText = textBox.enableWordWrapping;
+                //Debug.Log(JsonUtility.ToJson(obj));
+                //Debug.Log("TTMP  " + obj.tmp);
+                JsonUtility.FromJsonOverwrite(obj.tmp, tpc);
+
+                //Debug.Log("2TTMP  " + obj.tmp);
+                //Debug.Log("dddddd  " + tpc.textField);
+
+                textBox.SetText(tpc.textField);
+                textBox.fontSize = tpc.fontSize;
+                textBox.color = tpc.color;
+                textBox.enableWordWrapping = tpc.wrapText;
+                textBox.SetAllDirty();
+
+            }
+
+
+        }
+        else
+        {
+            Debug.Log("no meshpro");
+        }
+
+        
+       textBox = myObject.GetComponent<TextMeshPro>();
+       if (textBox != null)
+        {
+            textBox.SetAllDirty();
+        }
+
     }
 
     private void makeTransmissionObject(ObjectInfo obj)

@@ -53,7 +53,7 @@ public class simpleOrbit : MonoBehaviour
         xpos = currentDistance * Mathf.Cos(orbitTheta);
         ypos = 0.0f;
         zpos = currentDistance * Mathf.Sin(orbitTheta);
-        transform.localPosition = new Vector3(xpos, ypos, zpos) + planet.transform.position;
+        transform.localPosition = new Vector3(xpos, ypos, zpos) + planet.transform.localPosition;
 
         // if the body is in synchronous rotation (tidally locked to the planet),
         // the same face of the object always faces the planet.  It makes

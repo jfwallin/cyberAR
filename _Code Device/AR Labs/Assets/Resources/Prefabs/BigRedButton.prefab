@@ -167,6 +167,14 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!33 &1949880338128909888
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5024464371543484937}
+  m_Mesh: {fileID: 0}
 --- !u!114 &770526687
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -246,14 +254,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enableOnClick: 1
---- !u!33 &1949880338128909888
-MeshFilter:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5024464371543484937}
-  m_Mesh: {fileID: 0}
 --- !u!1001 &3934904381198824192
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -324,7 +324,7 @@ PrefabInstance:
     - target: {fileID: -927199367670048503, guid: 1b190ede42fb8bc44b19c2f9060dbeff,
         type: 3}
       propertyPath: m_Name
-      value: JW button
+      value: BigRedButton
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1b190ede42fb8bc44b19c2f9060dbeff, type: 3}

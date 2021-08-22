@@ -48,7 +48,37 @@ namespace demoRoutines
                 bridge.makeObjects(moduleData.objects);
 
             sequencer = gameObject.GetComponent<demoSequence>();
+            if (moduleData.clips != null)
+            {
 
+                Debug.Log("json data " + jsonData);
+                Debug.Log(JsonUtility.ToJson(moduleData, true));
+                Debug.Log("number of clips = " + moduleData.clips.Length);
+
+                for (int i = 0; i < moduleData.clips.Length; i++)
+                {
+                    Debug.Log("------------------------");
+                    Debug.Log("clip name " + moduleData.clips[i].clipName);
+                    Debug.Log("objects to modify = " + moduleData.clips[i].objectChanges.Length);
+                    Debug.Log("time to end =" + moduleData.clips[i].timeToEnd.ToString());
+                    //Debug.Log("jsonmods = " + moduleData.clips[i].jsonModifications);
+                    for (int j = 0; j < moduleData.clips[i].objectChanges.Length; j++)
+                    {
+                        Debug.Log("object " + j.ToString());
+                        Debug.Log("name = " + moduleData.clips[i].objectChanges[j].name);
+                        Debug.Log(" material = " + moduleData.clips[i].objectChanges[j].material);
+                        Debug.Log(" activation = " + moduleData.clips[i].objectChanges[j].activationConditions.ToString());
+                        Debug.Log("json = " + JsonUtility.ToJson(moduleData.clips[i].objectChanges[j]));
+                    }
+                }
+
+                if (sequencer == null)
+                {
+                    Debug.Log("no sequencer");
+                }
+                sequencer.makeEvents(moduleData.clips);
+                Debug.Log("sequence done");
+            }
 
             // set the end criteria
             if (moduleData.timeToEnd > 0)

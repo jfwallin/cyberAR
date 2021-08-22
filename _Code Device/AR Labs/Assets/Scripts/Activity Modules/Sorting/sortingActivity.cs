@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using System;
+using TMPro;
 
 
 
@@ -125,6 +126,17 @@ namespace sortingRoutines
             if (moduleData.createObjects)
                 bridge.makeObjects(moduleData.objects);
 
+            // test of the text
+            GameObject textGo;
+            Debug.Log("creating txt");
+            string tbox = "Prefabs/textPrefab";
+            textGo = GameObject.Instantiate(Resources.Load(tbox, typeof(GameObject)) as GameObject);
+            textGo.transform.position = new Vector3(0.0f, 1.0f, 2.0f);
+            textGo.GetComponent<TextMeshPro>().text = "duck";
+
+
+
+
             // set the end criteria
             if (moduleData.timeToEnd > 0)
                 StartCoroutine(EndByTime());
@@ -213,7 +225,8 @@ namespace sortingRoutines
 
             mscale = 0.07f;
             voffset = 1.2f;
-            createMarkers(GameObject.Find("[CurrentLab]").transform, mscale, voffset);
+            //createMarkers(GameObject.Find("[CurrentLab]").transform, mscale, voffset);
+            createMarkers(GameObject.Find("[_DYNAMIC]").transform, mscale, voffset);
 
             // set the array to be unsorted
             isSorted = false;
