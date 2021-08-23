@@ -48,6 +48,19 @@ public class demoSequence : MonoBehaviour
 
         newClip();
     }
+    private void OnDisable()
+    {
+
+        GameObject go;
+        go = GameObject.Find("brbNext");
+        //go.GetComponent<MagicLeapTools.InputReceiver>().OnSelected.RemoveAllListeners();
+        go.GetComponent<MagicLeapTools.InputReceiver>().OnSelected.RemoveAllListeners();
+        
+        go = GameObject.Find("brbPrevious");
+        go.GetComponent<MagicLeapTools.InputReceiver>().OnSelected.RemoveAllListeners();
+
+    }
+
 
     public void newClip()
     {
@@ -135,43 +148,58 @@ public class demoSequence : MonoBehaviour
         // modify gameobjects
         int conditionFlag = 1;
         modifyObjects(conditionFlag, theClip);
-        currentState = currentState + 1;
-        
+
         if (theClip.autoAdvance)
+        {
+            currentState = currentState + 1;
             newClip();
+        }
 
     }
 
     public void actionCallBack(GameObject sendingObject)
     {
-            currentState = 0;
+        currentState = 0;
         clipFinished();
     }
     public void actionNext(GameObject sendingObject)
     {
+        //GameObject go;   
+        //go = GameObject.Find("brbNext");
+        //go.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
         Debug.Log("action next!!!!!");
+        currentState = currentState + 1; // deltaI;
         // modify gameobjects
         int conditionFlag = 1;
         modifyObjects(conditionFlag, theClip);
-        currentState = currentState + 1;
         newClip();
     }
 
     public void actionPrevious(GameObject sendingObject)
     {
+        //GameObject go;   
+        //go = GameObject.Find("brbPrevious");
+        //go.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
         Debug.Log("action previous!!!!");
         // modify gameobjects
         int conditionFlag = 1;
         modifyObjects(conditionFlag, theClip);
-        currentState = currentState - 1;
+        currentState = currentState - 1; // deltaI;
         if (currentState < 0)
             currentState = 0;
         newClip();
     }
 
 
+/*
+    IEnumerator DebounceSelect()
+    {
 
-
+        deltaI = 0;
+        yield return new WaitForSeconds(1.0f);
+        deltaI = 1;
+    }
+*/
 
     IEnumerator WaitForClip(float timeDelay)
     {
