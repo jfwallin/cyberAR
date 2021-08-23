@@ -25,7 +25,7 @@
     "description": "A scale model of the Earth and Moon",
     "author": "John Wallin",
     "authorInstitution": "Middle Tennessee State University",
-    "dateCreated": "Sun Aug 22 16:23:29 2021",
+    "dateCreated": "Mon Aug 23 15:55:48 2021",
     "introAudio": "",
     "createObjects": true,
     "destroyObjects": true,
@@ -142,13 +142,13 @@
             "type": "Prefabs/textPrefab",
             "tmp": "{\"textField\": \"Next\", \"color\": [255, 255, 0, 255], \"fontSize\": 1.0, \"wrapText\": false}",
             "position": {
-                "x": 0.2,
-                "y": -0.7999999999999999,
-                "z": 1.5
-            },
-            "rotation": {
                 "x": 0.0,
                 "y": 0.0,
+                "z": 0.1
+            },
+            "eulerAngles": {
+                "x": 90,
+                "y": 180.0,
                 "z": 0.0
             },
             "scale": {
@@ -164,13 +164,13 @@
             "type": "Prefabs/textPrefab",
             "tmp": "{\"textField\": \"Previous\", \"color\": [255, 255, 0, 255], \"fontSize\": 1.0, \"wrapText\": false}",
             "position": {
-                "x": -0.2,
-                "y": -0.7999999999999999,
-                "z": 1.5
-            },
-            "rotation": {
                 "x": 0.0,
                 "y": 0.0,
+                "z": 0.1
+            },
+            "eulerAngles": {
+                "x": 90,
+                "y": 180.0,
                 "z": 0.0
             },
             "scale": {
