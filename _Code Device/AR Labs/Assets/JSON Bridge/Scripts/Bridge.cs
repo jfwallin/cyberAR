@@ -45,10 +45,6 @@ public class Bridge
         GameObject myObject;
         GameObject parent = null;
         TextMeshPro textBox= null;
-        if (obj.parentName != "")
-        {
-            parent = GameObject.Find(obj.parentName);
-        }
 
         // this allow use to modify existing objects in the scene
         myObject = GameObject.Find(obj.name);
@@ -65,7 +61,22 @@ public class Bridge
             obj.newPosition = true;
             obj.newScale = true;
             obj.newEulerAngles = true;
+            if (obj.parentName != "")
+            {
+                parent = GameObject.Find(obj.parentName);
+                myObject.transform.SetParent(parent.transform);
+            }
         }
+
+       /* if (obj.parentName != "")
+        {
+            parent = GameObject.Find(obj.parentName);
+            myObject.transform.SetParent(parent.transform);
+        }*/
+        //if (obj.parentName != "")
+        //{
+        //    myObject.transform.parent = parent.transform;
+        //}
 
         // three new key words have been added to the objectInfo class.
         // The keywords allow use to not override the postions, scales, and
@@ -98,11 +109,6 @@ public class Bridge
             }
         }
 
-            if (obj.parentName != "")
-        {
-            myObject.transform.parent = parent.transform;
-        }
-
         if (obj.tag != "")
         {
             myObject.tag = obj.tag;
@@ -117,8 +123,10 @@ public class Bridge
 
         //This block is removed in Isaac's code and dealt with in the stringJson
         //I can't quite get that working though
-        if (obj.material != "")
+        if (obj.material != "" && obj.material != null)
         {
+            Debug.Log("length " + obj.material.Length.ToString());
+            Debug.Log("in Render   -X" + obj.material + "X");
             Renderer rend = myObject.GetComponent<Renderer>();
             rend.material = Resources.Load<Material>(obj.material); //material must be in a recources folder.
         }
@@ -126,7 +134,7 @@ public class Bridge
         myObject.SetActive(obj.enabled); //sets the enabled/disabled state of the object
 
 
-        if (obj.texture != "")
+        if (obj.texture != "" )
         {
             Renderer rend = myObject.GetComponent<Renderer>();
             rend.material.mainTexture = Resources.Load<Texture2D>(obj.texture);

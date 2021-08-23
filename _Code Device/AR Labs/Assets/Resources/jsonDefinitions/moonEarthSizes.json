@@ -25,7 +25,7 @@
     "description": "A scale model of the Earth and Moon",
     "author": "John Wallin",
     "authorInstitution": "Middle Tennessee State University",
-    "dateCreated": "Sun Aug 22 00:08:34 2021",
+    "dateCreated": "Sun Aug 22 16:23:29 2021",
     "introAudio": "",
     "createObjects": true,
     "destroyObjects": true,
@@ -187,8 +187,8 @@
             "tmp": "{\"textField\": \"Earth\", \"color\": [255, 255, 0, 255], \"fontSize\": 1.0, \"wrapText\": false}",
             "position": {
                 "x": 0.0,
-                "y": 0.15,
-                "z": 1.5
+                "y": 2,
+                "z": 0.0
             },
             "eulerAngles": {
                 "x": 0.0,
@@ -196,9 +196,9 @@
                 "z": 0.0
             },
             "scale": {
-                "x": 1.0,
-                "y": 1.0,
-                "z": 1.0
+                "x": 10,
+                "y": 10,
+                "z": 10
             },
             "enabled": true,
             "parentName": "Earth",
@@ -209,8 +209,8 @@
             "tmp": "{\"textField\": \"8000 miles\", \"color\": [255, 255, 0, 255], \"fontSize\": 1.0, \"wrapText\": false}",
             "position": {
                 "x": 0.0,
-                "y": -0.15,
-                "z": 1.5
+                "y": -2,
+                "z": 0.0
             },
             "eulerAngles": {
                 "x": 0.0,
@@ -218,9 +218,9 @@
                 "z": 0.0
             },
             "scale": {
-                "x": 1.0,
-                "y": 1.0,
-                "z": 1.0
+                "x": 0.1,
+                "y": 0.1,
+                "z": 0.1
             },
             "enabled": true,
             "parentName": "Earth",
@@ -230,9 +230,9 @@
             "type": "Prefabs/textPrefab",
             "tmp": "{\"textField\": \"The Moon\", \"color\": [0, 255, 255, 0], \"fontSize\": 1, \"wrapText\": false}",
             "position": {
-                "x": 2.4,
-                "y": 0.15,
-                "z": 1.5
+                "x": 0.0,
+                "y": 4,
+                "z": 0.0
             },
             "eulerAngles": {
                 "x": 0.0,
@@ -240,9 +240,9 @@
                 "z": 0.0
             },
             "scale": {
-                "x": 1,
-                "y": 1,
-                "z": 1
+                "x": 20,
+                "y": 20,
+                "z": 20
             },
             "enabled": true,
             "parentName": "Moon",
@@ -252,13 +252,35 @@
             "type": "Prefabs/textPrefab",
             "tmp": "{\"textField\": \"2000 miles\", \"color\": [0, 255, 255, 0], \"fontSize\": 1, \"wrapText\": false}",
             "position": {
-                "x": 2.4,
-                "y": -0.15,
-                "z": 1.5
+                "x": 0.0,
+                "y": -4,
+                "z": 0.0
             },
             "eulerAngles": {
                 "x": 0.0,
-                "y": 90.0,
+                "y": -90.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 10,
+                "y": 10,
+                "z": 10
+            },
+            "enabled": true,
+            "parentName": "Moon",
+            "name": "moonSizeLabel"
+        },
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"240,000 miles\", \"color\": [0, 255, 255, 0], \"fontSize\": 1, \"wrapText\": false}",
+            "position": {
+                "x": 60,
+                "y": 0,
+                "z": 0.0
+            },
+            "eulerAngles": {
+                "x": 0.0,
+                "y": 180.0,
                 "z": 0.0
             },
             "scale": {
@@ -268,7 +290,7 @@
             },
             "enabled": true,
             "parentName": "Moon",
-            "name": "moonSizeLabel"
+            "name": "moonDistanceLabel"
         }
     ],
     "useSunlight": false,
@@ -280,25 +302,103 @@
             "autoAdvance": false,
             "goNext": "brbNext",
             "goPrevious": "brbPrevious",
-            "objectChanges": []
+            "objectChanges": [
+                {
+                    "name": "[_DYNAMIC]",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 1.5,
+                        "z": 0.0
+                    },
+                    "newPosition": true,
+                    "eulerAngle": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngle": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false
+                }
+            ]
         },
         {
             "clipName": "clip2",
             "audioClipString": "Audio/moonLab/moonLab_1_2_0",
-            "timeToEnd": 13,
+            "timeToEnd": 10,
             "autoAdvance": false,
             "goNext": "brbNext",
             "goPrevious": "brbPrevious",
-            "objectChanges": []
+            "objectChanges": [
+                {
+                    "name": "earthSizeLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngle": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngle": false,
+                    "scale": {
+                        "x": 10,
+                        "y": 10,
+                        "z": 10
+                    },
+                    "newScale": true
+                }
+            ]
         },
         {
             "clipName": "clip3",
             "audioClipString": "Audio/moonLab/moonLab_1_3_0",
-            "timeToEnd": 12,
+            "timeToEnd": 9,
             "autoAdvance": false,
             "goNext": "brbNext",
             "goPrevious": "brbPrevious",
-            "objectChanges": []
+            "objectChanges": [
+                {
+                    "name": "moonSizeLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngle": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngle": false,
+                    "scale": {
+                        "x": 20,
+                        "y": 20,
+                        "z": 20
+                    },
+                    "newScale": true
+                }
+            ]
         },
         {
             "clipName": "clip4",
@@ -307,7 +407,33 @@
             "autoAdvance": false,
             "goNext": "brbNext",
             "goPrevious": "brbPrevious",
-            "objectChanges": []
+            "objectChanges": [
+                {
+                    "name": "moonDistanceLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngle": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngle": false,
+                    "scale": {
+                        "x": 20,
+                        "y": 20,
+                        "z": 20
+                    },
+                    "newScale": true
+                }
+            ]
         },
         {
             "clipName": "clip5",
@@ -330,7 +456,7 @@
         {
             "clipName": "clip7",
             "audioClipString": "Audio/moonLab/moonLab_1_7_0",
-            "timeToEnd": 3,
+            "timeToEnd": 10,
             "autoAdvance": false,
             "goNext": "brbNext",
             "goPrevious": "brbPrevious",
@@ -339,7 +465,7 @@
         {
             "clipName": "clip8",
             "audioClipString": "Audio/moonLab/moonLab_1_8_0",
-            "timeToEnd": 10,
+            "timeToEnd": 14,
             "autoAdvance": false,
             "goNext": "brbNext",
             "goPrevious": "brbPrevious",
@@ -348,7 +474,7 @@
         {
             "clipName": "clip9",
             "audioClipString": "Audio/moonLab/moonLab_1_9_0",
-            "timeToEnd": 14,
+            "timeToEnd": 33,
             "autoAdvance": false,
             "goNext": "brbNext",
             "goPrevious": "brbPrevious",
@@ -357,7 +483,7 @@
         {
             "clipName": "clip10",
             "audioClipString": "Audio/moonLab/moonLab_1_10_0",
-            "timeToEnd": 33,
+            "timeToEnd": 9,
             "autoAdvance": false,
             "goNext": "brbNext",
             "goPrevious": "brbPrevious",
@@ -366,11 +492,87 @@
         {
             "clipName": "clip11",
             "audioClipString": "Audio/moonLab/moonLab_1_11_0",
-            "timeToEnd": 9,
+            "timeToEnd": 19,
             "autoAdvance": false,
             "goNext": "brbNext",
             "goPrevious": "brbPrevious",
-            "objectChanges": []
+            "objectChanges": [
+                {
+                    "name": "earthSizeLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngle": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngle": false,
+                    "scale": {
+                        "x": 0.1,
+                        "y": 0.1,
+                        "z": 0.1
+                    },
+                    "newScale": true
+                },
+                {
+                    "name": "moonSizeLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngle": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngle": false,
+                    "scale": {
+                        "x": 0.1,
+                        "y": 0.1,
+                        "z": 0.1
+                    },
+                    "newScale": true
+                },
+                {
+                    "name": "moonDistanceLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngle": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngle": false,
+                    "scale": {
+                        "x": 0.1,
+                        "y": 0.1,
+                        "z": 0.1
+                    },
+                    "newScale": true
+                }
+            ]
         }
     ]
 }
