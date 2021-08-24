@@ -25,7 +25,7 @@
     "description": "A scale model of the Earth and Moon",
     "author": "John Wallin",
     "authorInstitution": "Middle Tennessee State University",
-    "dateCreated": "Mon Aug 23 15:55:48 2021",
+    "dateCreated": "Tue Aug 24 00:19:51 2021",
     "introAudio": "",
     "createObjects": true,
     "destroyObjects": true,
@@ -320,7 +320,7 @@
                         "y": 0.0,
                         "z": 0.0
                     },
-                    "newEulerAngle": false,
+                    "newEulerAngles": false,
                     "scale": {
                         "x": 0.0,
                         "y": 0.0,
@@ -355,7 +355,7 @@
                         "y": 0.0,
                         "z": 0.0
                     },
-                    "newEulerAngle": false,
+                    "newEulerAngles": false,
                     "scale": {
                         "x": 10,
                         "y": 10,
@@ -390,7 +390,7 @@
                         "y": 0.0,
                         "z": 0.0
                     },
-                    "newEulerAngle": false,
+                    "newEulerAngles": false,
                     "scale": {
                         "x": 20,
                         "y": 20,
@@ -425,7 +425,7 @@
                         "y": 0.0,
                         "z": 0.0
                     },
-                    "newEulerAngle": false,
+                    "newEulerAngles": false,
                     "scale": {
                         "x": 20,
                         "y": 20,
@@ -514,7 +514,7 @@
                         "y": 0.0,
                         "z": 0.0
                     },
-                    "newEulerAngle": false,
+                    "newEulerAngles": false,
                     "scale": {
                         "x": 0.1,
                         "y": 0.1,
@@ -539,7 +539,7 @@
                         "y": 0.0,
                         "z": 0.0
                     },
-                    "newEulerAngle": false,
+                    "newEulerAngles": false,
                     "scale": {
                         "x": 0.1,
                         "y": 0.1,
@@ -564,7 +564,7 @@
                         "y": 0.0,
                         "z": 0.0
                     },
-                    "newEulerAngle": false,
+                    "newEulerAngles": false,
                     "scale": {
                         "x": 0.1,
                         "y": 0.1,
