@@ -14,6 +14,9 @@ public class clipData
     public string goCallback = "";  // on collision with this object, it executes a call back to advance
     public string goNext = "";
     public string goPrevious = "";
+    public int incrementClip = 1;
+    public int decrementClip = -1;
+
     public objectModifications[] objectChanges;
     //public string[] objectMods; 
     //public string jsonModifications;

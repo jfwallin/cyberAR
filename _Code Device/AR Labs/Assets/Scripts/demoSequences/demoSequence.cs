@@ -30,15 +30,15 @@ public class demoSequence : MonoBehaviour
         currentState = 0;
 
         // set the callbacks
+        // for clip zero, get the forward and back information
         GameObject go;
-
-        go = GameObject.Find("brbNext");
+        go = GameObject.Find(theClips[0].goNext);
         if (go != null)
         { 
             go.GetComponent<MagicLeapTools.InputReceiver>().OnSelected.AddListener(actionNext);
             //Debug.Log("Seeting next callback  "+ theClip.goNext);
         }
-        go = GameObject.Find("brbPrevious");
+        go = GameObject.Find(theClips[0].goPrevious);
         if (go != null)
         {
             Debug.Log("Seeting previous callback ");
@@ -52,12 +52,19 @@ public class demoSequence : MonoBehaviour
     {
 
         GameObject go;
-        go = GameObject.Find("brbNext");
-        //go.GetComponent<MagicLeapTools.InputReceiver>().OnSelected.RemoveAllListeners();
-        go.GetComponent<MagicLeapTools.InputReceiver>().OnSelected.RemoveAllListeners();
-        
-        go = GameObject.Find("brbPrevious");
-        go.GetComponent<MagicLeapTools.InputReceiver>().OnSelected.RemoveAllListeners();
+        go = GameObject.Find(theClips[0].goNext);
+        if (go != null)
+        {
+            //go.GetComponent<MagicLeapTools.InputReceiver>().OnSelected.RemoveAllListeners();
+            go.GetComponent<MagicLeapTools.InputReceiver>().OnSelected.RemoveAllListeners();
+        }
+
+        if (go != null)
+        {
+            go = GameObject.Find(theClips[0].goPrevious);
+            go.GetComponent<MagicLeapTools.InputReceiver>().OnSelected.RemoveAllListeners();
+        }
+
 
     }
 
@@ -92,7 +99,10 @@ public class demoSequence : MonoBehaviour
         //else
         //    timeDelay = theClip.audioClip.length;
 
-        StartCoroutine(WaitForClip(timeDelay));
+        if (timeDelay > 0)
+        {
+            StartCoroutine(WaitForClip(timeDelay));
+        }
         
     }
 
@@ -151,7 +161,7 @@ public class demoSequence : MonoBehaviour
 
         if (theClip.autoAdvance)
         {
-            currentState = currentState + 1;
+            currentState = currentState + theClip.incrementClip;
             newClip();
         }
 
@@ -168,7 +178,7 @@ public class demoSequence : MonoBehaviour
         //go = GameObject.Find("brbNext");
         //go.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
         Debug.Log("action next!!!!!");
-        currentState = currentState + 1; // deltaI;
+        currentState = currentState + theClip.incrementClip; // deltaI;
         // modify gameobjects
         int conditionFlag = 1;
         modifyObjects(conditionFlag, theClip);
@@ -184,7 +194,7 @@ public class demoSequence : MonoBehaviour
         // modify gameobjects
         int conditionFlag = 1;
         modifyObjects(conditionFlag, theClip);
-        currentState = currentState - 1; // deltaI;
+        currentState = currentState - theClip.incrementClip; // deltaI;
         if (currentState < 0)
             currentState = 0;
         newClip();

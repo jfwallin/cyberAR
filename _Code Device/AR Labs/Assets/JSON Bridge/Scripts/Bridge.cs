@@ -52,6 +52,11 @@ public class Bridge
         if (myObject != null)
         {
             Debug.Log("found object " + obj.name);
+            Debug.Log(" status " + obj.newPosition.ToString() + " " + obj.newEulerAngles.ToString());
+            Debug.Log(" status2 " + obj.position);
+            Debug.Log(" statu33 " + obj.eulerAngles);
+
+
         }
         else
         {
@@ -59,6 +64,7 @@ public class Bridge
             Debug.Log("xxxxx " + obj.name + " " + obj.type);
             myObject = dealWithType(obj.type); //possibly fixed
             myObject.name = obj.name;
+
             obj.newPosition = true;
             obj.newScale = true;
             obj.newEulerAngles = true;
@@ -264,7 +270,7 @@ public class Bridge
                 tpc.fontSize = textBox.fontSize;
                 tpc.wrapText = textBox.enableWordWrapping;
                 //Debug.Log(JsonUtility.ToJson(obj));
-                //Debug.Log("TTMP  " + obj.tmp);
+                Debug.Log("TTMP  " + obj.tmp);
                 JsonUtility.FromJsonOverwrite(obj.tmp, tpc);
 
                 //Debug.Log("2TTMP  " + obj.tmp);

@@ -25,7 +25,7 @@
     "description": "A demonstration of synchronous rotation",
     "author": "John Wallin",
     "authorInstitution": "Middle Tennessee State University",
-    "dateCreated": "Tue Aug 24 00:31:15 2021",
+    "dateCreated": "Tue Aug 24 15:31:19 2021",
     "introAudio": "",
     "createObjects": true,
     "destroyObjects": true,
@@ -200,14 +200,14 @@
             },
             "enabled": true,
             "parentName": "Moon",
-            "name": "moonLabel"
+            "name": "moonLabelTop"
         },
         {
             "type": "Prefabs/textPrefab",
             "tmp": "{\"textField\": \"2000 miles\", \"color\": [0, 255, 255, 0], \"fontSize\": 1, \"wrapText\": false}",
             "position": {
                 "x": 0.0,
-                "y": -1,
+                "y": -0.75,
                 "z": 0.0
             },
             "eulerAngles": {
@@ -216,115 +216,776 @@
                 "z": 0.0
             },
             "scale": {
-                "x": 1,
-                "y": 1,
-                "z": 1
+                "x": 1.5,
+                "y": 1.5,
+                "z": 1.5
             },
             "enabled": true,
             "parentName": "Moon",
-            "name": "moonSizeLabel"
+            "name": "moonLabelBottom"
         }
     ],
     "useSunlight": true,
     "clips": [
         {
-            "clipName": "clip1",
-            "audioClipString": "Audio/moonLab/moonLab_1_1_0",
+            "clipName": "clip0",
+            "audioClipString": "Audio/moonLab/moonLab_1_0_0",
             "timeToEnd": 14,
-            "autoAdvance": false,
+            "autoAdvance": true,
             "goNext": "brbNext",
             "goPrevious": "brbPrevious",
-            "objectChanges": []
+            "objectChanges": [
+                {
+                    "name": "[_DYNAMIC]",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 1.5,
+                        "z": 0.0
+                    },
+                    "newPosition": true,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false
+                },
+                {
+                    "name": "moonLabelTop",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"14 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                },
+                {
+                    "name": "moonLabelBottom",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Full Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                }
+            ]
+        },
+        {
+            "clipName": "clip1",
+            "timeToEnd": 3,
+            "autoAdvance": true,
+            "objectChanges": [
+                {
+                    "name": "Moon",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 1.4142135623730951,
+                        "y": 0.0,
+                        "z": 2.914213562373095
+                    },
+                    "newPosition": true,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": -45.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": true,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false
+                },
+                {
+                    "name": "moonLabelTop",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"17.5 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                },
+                {
+                    "name": "moonLabelBottom",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Waning Gibbous\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                }
+            ]
         },
         {
             "clipName": "clip2",
-            "audioClipString": "Audio/moonLab/moonLab_1_2_0",
-            "timeToEnd": 10,
-            "autoAdvance": false,
-            "goNext": "brbNext",
-            "goPrevious": "brbPrevious",
-            "objectChanges": []
+            "timeToEnd": 3,
+            "autoAdvance": true,
+            "objectChanges": [
+                {
+                    "name": "Moon",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 1.2246467991473532e-16,
+                        "y": 0.0,
+                        "z": 3.5
+                    },
+                    "newPosition": true,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": -90.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": true,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false
+                },
+                {
+                    "name": "moonLabelTop",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"21 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                },
+                {
+                    "name": "moonLabelBottom",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Third Quarter\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                }
+            ]
         },
         {
             "clipName": "clip3",
-            "audioClipString": "Audio/moonLab/moonLab_1_3_0",
-            "timeToEnd": 9,
-            "autoAdvance": false,
-            "goNext": "brbNext",
-            "goPrevious": "brbPrevious",
-            "objectChanges": []
+            "timeToEnd": 3,
+            "autoAdvance": true,
+            "objectChanges": [
+                {
+                    "name": "Moon",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": -1.414213562373095,
+                        "y": 0.0,
+                        "z": 2.914213562373095
+                    },
+                    "newPosition": true,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": -135.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": true,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false
+                },
+                {
+                    "name": "moonLabelTop",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"24.5 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                },
+                {
+                    "name": "moonLabelBottom",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Waning Crescent\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                }
+            ]
         },
         {
             "clipName": "clip4",
-            "audioClipString": "Audio/moonLab/moonLab_1_4_0",
-            "timeToEnd": 12,
-            "autoAdvance": false,
-            "goNext": "brbNext",
-            "goPrevious": "brbPrevious",
-            "objectChanges": []
+            "timeToEnd": 3,
+            "autoAdvance": true,
+            "objectChanges": [
+                {
+                    "name": "Moon",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": -2.0,
+                        "y": 0.0,
+                        "z": 1.5000000000000002
+                    },
+                    "newPosition": true,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": -180.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": true,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false
+                },
+                {
+                    "name": "moonLabelTop",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                },
+                {
+                    "name": "moonLabelBottom",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                }
+            ]
         },
         {
             "clipName": "clip5",
-            "audioClipString": "Audio/moonLab/moonLab_1_5_0",
-            "timeToEnd": 11,
-            "autoAdvance": false,
-            "goNext": "brbNext",
-            "goPrevious": "brbPrevious",
-            "objectChanges": []
+            "timeToEnd": 3,
+            "autoAdvance": true,
+            "objectChanges": [
+                {
+                    "name": "Moon",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": -1.4142135623730954,
+                        "y": 0.0,
+                        "z": 0.08578643762690508
+                    },
+                    "newPosition": true,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": -225.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": true,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false
+                },
+                {
+                    "name": "moonLabelTop",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"3.5 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                },
+                {
+                    "name": "moonLabelBottom",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Waxing Crescent\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                }
+            ]
         },
         {
             "clipName": "clip6",
-            "audioClipString": "Audio/moonLab/moonLab_1_6_0",
-            "timeToEnd": 26,
-            "autoAdvance": false,
-            "goNext": "brbNext",
-            "goPrevious": "brbPrevious",
-            "objectChanges": []
+            "timeToEnd": 3,
+            "autoAdvance": true,
+            "objectChanges": [
+                {
+                    "name": "Moon",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": -3.6739403974420594e-16,
+                        "y": 0.0,
+                        "z": -0.5
+                    },
+                    "newPosition": true,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": -270.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": true,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false
+                },
+                {
+                    "name": "moonLabelTop",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"7 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                },
+                {
+                    "name": "moonLabelBottom",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"First Quarter\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                }
+            ]
         },
         {
             "clipName": "clip7",
-            "audioClipString": "Audio/moonLab/moonLab_1_7_0",
-            "timeToEnd": 10,
-            "autoAdvance": false,
-            "goNext": "brbNext",
-            "goPrevious": "brbPrevious",
-            "objectChanges": []
+            "timeToEnd": 3,
+            "autoAdvance": true,
+            "objectChanges": [
+                {
+                    "name": "Moon",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 1.4142135623730947,
+                        "y": 0.0,
+                        "z": 0.08578643762690463
+                    },
+                    "newPosition": true,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": -315.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": true,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false
+                },
+                {
+                    "name": "moonLabelTop",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"11.5 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                },
+                {
+                    "name": "moonLabelBottom",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Waxing Gibbous\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                }
+            ]
         },
         {
             "clipName": "clip8",
-            "audioClipString": "Audio/moonLab/moonLab_1_8_0",
-            "timeToEnd": 14,
-            "autoAdvance": false,
-            "goNext": "brbNext",
-            "goPrevious": "brbPrevious",
-            "objectChanges": []
-        },
-        {
-            "clipName": "clip9",
-            "audioClipString": "Audio/moonLab/moonLab_1_9_0",
-            "timeToEnd": 33,
-            "autoAdvance": false,
-            "goNext": "brbNext",
-            "goPrevious": "brbPrevious",
-            "objectChanges": []
-        },
-        {
-            "clipName": "clip10",
-            "audioClipString": "Audio/moonLab/moonLab_1_10_0",
-            "timeToEnd": 9,
-            "autoAdvance": false,
-            "goNext": "brbNext",
-            "goPrevious": "brbPrevious",
-            "objectChanges": []
-        },
-        {
-            "clipName": "clip11",
-            "audioClipString": "Audio/moonLab/moonLab_1_11_0",
-            "timeToEnd": 19,
-            "autoAdvance": false,
-            "goNext": "brbNext",
-            "goPrevious": "brbPrevious",
-            "objectChanges": []
+            "timeToEnd": 3,
+            "autoAdvance": true,
+            "objectChanges": [
+                {
+                    "name": "Moon",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 2.0,
+                        "y": 0.0,
+                        "z": 1.4999999999999996
+                    },
+                    "newPosition": true,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": -360.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": true,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false
+                },
+                {
+                    "name": "moonLabelTop",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"14 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                },
+                {
+                    "name": "moonLabelBottom",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Full Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                }
+            ],
+            "incrementClip": -7
         }
     ]
 }
