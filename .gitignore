@@ -2,6 +2,7 @@
 #
 # Get latest from https://github.com/github/gitignore/blob/master/Unity.gitignore
 #
+
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
@@ -61,3 +62,6 @@ sysinfo.txt
 #crashlytics-build.properties #Not in other gitignore
 
 _Code Device/AR Labs/Packages/packages-lock.json
+_Code Device/AR Labs/Assets/SpaceNavigator
+_Code Device/AR Labs/Assets/SpaceNavigator/*
+_Code Device/AR Labs/Assets/SpaceNavigator.meta
