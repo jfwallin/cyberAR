@@ -22,10 +22,10 @@
     "json": "",
     "timeToEnd": 105,
     "endUsingButton": true,
-    "description": "A demonstration of synchronous rotation",
+    "description": "A demonstration of synchronous rotation of the Moon",
     "author": "John Wallin",
     "authorInstitution": "Middle Tennessee State University",
-    "dateCreated": "Tue Aug 24 18:31:13 2021",
+    "dateCreated": "Sun Aug 29 15:09:13 2021",
     "introAudio": "",
     "createObjects": true,
     "destroyObjects": true,
@@ -81,104 +81,6 @@
             "name": "Moon",
             "texture": "Textures/_k_moon",
             "componentsToAdd": []
-        },
-        {
-            "type": "Prefabs/GenericBRB",
-            "parent": "Earth",
-            "position": {
-                "x": 0.2,
-                "y": -0.7,
-                "z": 1.5
-            },
-            "eulerAngles": {
-                "x": 90,
-                "y": 180.0,
-                "z": 0.0
-            },
-            "scale": {
-                "x": 1,
-                "y": 1,
-                "z": 1
-            },
-            "name": "brbNext",
-            "color": [
-                255,
-                0,
-                0,
-                255
-            ],
-            "componentsToAdd": []
-        },
-        {
-            "type": "Prefabs/GenericBRB",
-            "parent": "Earth",
-            "position": {
-                "x": -0.2,
-                "y": -0.7,
-                "z": 1.5
-            },
-            "eulerAngles": {
-                "x": 90,
-                "y": 180.0,
-                "z": 0.0
-            },
-            "scale": {
-                "x": 1,
-                "y": 1,
-                "z": 1
-            },
-            "name": "brbPrevious",
-            "color": [
-                0,
-                0,
-                255,
-                255
-            ],
-            "componentsToAdd": []
-        },
-        {
-            "type": "Prefabs/textPrefab",
-            "tmp": "{\"textField\": \"Next\", \"color\": [255, 255, 0, 255], \"fontSize\": 1.0, \"wrapText\": false}",
-            "position": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.1
-            },
-            "eulerAngles": {
-                "x": 90,
-                "y": 180.0,
-                "z": 0.0
-            },
-            "scale": {
-                "x": 0.6,
-                "y": 0.6,
-                "z": 0.6
-            },
-            "enabled": true,
-            "parentName": "brbNext",
-            "name": "nextLabel"
-        },
-        {
-            "type": "Prefabs/textPrefab",
-            "tmp": "{\"textField\": \"Previous\", \"color\": [255, 255, 0, 255], \"fontSize\": 1.0, \"wrapText\": false}",
-            "position": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.1
-            },
-            "eulerAngles": {
-                "x": 90,
-                "y": 180.0,
-                "z": 0.0
-            },
-            "scale": {
-                "x": 0.6,
-                "y": 0.6,
-                "z": 0.6
-            },
-            "enabled": true,
-            "parentName": "brbPrevious",
-            "name": "previousLabel"
         },
         {
             "type": "Prefabs/robotIdle",
@@ -244,36 +146,245 @@
             "enabled": true,
             "parentName": "Moon",
             "name": "moonLabelBottom"
+        },
+        {
+            "type": "Prefabs/demoButtonPrefab",
+            "parentName": "[_DYNAMIC]",
+            "position": {
+                "x": 0.5,
+                "y": -0.7,
+                "z": 1.5
+            },
+            "eulerAngles": {
+                "x": 90,
+                "y": 180.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.5,
+                "y": 0.5,
+                "z": 0.5
+            },
+            "name": "brbNextModule",
+            "color": [
+                255,
+                0,
+                0,
+                255
+            ],
+            "componentsToAdd": [
+                "{\"name\": \"demoButtonActions\", \"callBackObjects\": [\"demoModule\"]}"
+            ]
+        },
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"Next\\n Module\", \"color\": [255, 255, 0, 255], \"fontSize\": 1.0, \"wrapText\": false}",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.13
+            },
+            "eulerAngles": {
+                "x": 90,
+                "y": 180.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.3,
+                "y": 0.3,
+                "z": 0.3
+            },
+            "enabled": true,
+            "parentName": "brbNextModule",
+            "name": "brbNextModuleLabel"
+        },
+        {
+            "type": "Prefabs/demoButtonPrefab",
+            "parentName": "[_DYNAMIC]",
+            "position": {
+                "x": -0.5,
+                "y": -0.7,
+                "z": 1.5
+            },
+            "eulerAngles": {
+                "x": 90,
+                "y": 180.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.5,
+                "y": 0.5,
+                "z": 0.5
+            },
+            "name": "brbPreviousModule",
+            "color": [
+                0,
+                255,
+                255,
+                255
+            ],
+            "componentsToAdd": [
+                "{\"name\": \"demoButtonActions\", \"callBackObjects\": [\"demoModule\"]}"
+            ]
+        },
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"Previous \\n Module\", \"color\": [255, 255, 0, 255], \"fontSize\": 1.0, \"wrapText\": false}",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.13
+            },
+            "eulerAngles": {
+                "x": 90,
+                "y": 180.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.3,
+                "y": 0.3,
+                "z": 0.3
+            },
+            "enabled": true,
+            "parentName": "brbPreviousModule",
+            "name": "brbPreviousModuleLabel"
+        },
+        {
+            "type": "Prefabs/demoButtonPrefab",
+            "parentName": "[_DYNAMIC]",
+            "position": {
+                "x": 0.2,
+                "y": -0.7,
+                "z": 1.5
+            },
+            "eulerAngles": {
+                "x": 90,
+                "y": 180.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1,
+                "y": 1,
+                "z": 1
+            },
+            "name": "brbNextClip",
+            "color": [
+                255,
+                0,
+                0,
+                255
+            ],
+            "componentsToAdd": [
+                "{\"name\": \"demoButtonActions\", \"callBackObjects\": [\"demoModule\"]}"
+            ]
+        },
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"Next\", \"color\": [255, 255, 0, 255], \"fontSize\": 1.0, \"wrapText\": false}",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.1
+            },
+            "eulerAngles": {
+                "x": 90,
+                "y": 180.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.6,
+                "y": 0.6,
+                "z": 0.6
+            },
+            "enabled": true,
+            "parentName": "brbNextClip",
+            "name": "brbNextClipLabel"
+        },
+        {
+            "type": "Prefabs/demoButtonPrefab",
+            "parentName": "[_DYNAMIC]",
+            "position": {
+                "x": -0.2,
+                "y": -0.7,
+                "z": 1.5
+            },
+            "eulerAngles": {
+                "x": 90,
+                "y": 180.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1,
+                "y": 1,
+                "z": 1
+            },
+            "name": "brbPreviousClip",
+            "color": [
+                255,
+                0,
+                0,
+                255
+            ],
+            "componentsToAdd": [
+                "{\"name\": \"demoButtonActions\", \"callBackObjects\": [\"demoModule\"]}"
+            ]
+        },
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"Previous\", \"color\": [255, 255, 0, 255], \"fontSize\": 1.0, \"wrapText\": false}",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.1
+            },
+            "eulerAngles": {
+                "x": 90,
+                "y": 180.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.6,
+                "y": 0.6,
+                "z": 0.6
+            },
+            "enabled": true,
+            "parentName": "brbPreviousClip",
+            "name": "brbPreviousClipLabel"
         }
     ],
     "useSunlight": true,
     "clips": [
         {
             "clipName": "clip0",
-            "audioClipString": "Audio/moonLab/moonLab_1_0_0",
-            "timeToEnd": 14,
+            "timeToEnd": 3,
             "autoAdvance": true,
             "goNext": "brbNext",
             "goPrevious": "brbPrevious",
+            "objectChanges": []
+        },
+        {
+            "clipName": "clip1",
+            "timeToEnd": 3,
+            "autoAdvance": true,
             "objectChanges": [
                 {
-                    "name": "[_DYNAMIC]",
+                    "name": "Moon",
                     "parentObject": "[DYNAMIC]",
                     "activationConditions": 0,
                     "reactiveObject": false,
                     "enable": true,
                     "position": {
-                        "x": 0.0,
-                        "y": 1.5,
-                        "z": 0.0
+                        "x": 2.0,
+                        "y": 0.0,
+                        "z": 1.5
                     },
                     "newPosition": true,
                     "eulerAngles": {
                         "x": 0.0,
-                        "y": 0.0,
+                        "y": -0.0,
                         "z": 0.0
                     },
-                    "newEulerAngles": false,
+                    "newEulerAngles": true,
                     "scale": {
                         "x": 0.0,
                         "y": 0.0,
@@ -305,7 +416,7 @@
                         "z": 0.0
                     },
                     "newScale": false,
-                    "tmp": "{\"textField\": \"14 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                    "tmp": "{\"textField\": \"14 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
                 },
                 {
                     "name": "moonLabelBottom",
@@ -331,12 +442,12 @@
                         "z": 0.0
                     },
                     "newScale": false,
-                    "tmp": "{\"textField\": \"Full Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                    "tmp": "{\"textField\": \"Full Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
                 }
             ]
         },
         {
-            "clipName": "clip1",
+            "clipName": "clip2",
             "timeToEnd": 3,
             "autoAdvance": true,
             "objectChanges": [
@@ -389,7 +500,7 @@
                         "z": 0.0
                     },
                     "newScale": false,
-                    "tmp": "{\"textField\": \"17.5 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                    "tmp": "{\"textField\": \"17.5 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
                 },
                 {
                     "name": "moonLabelBottom",
@@ -415,12 +526,12 @@
                         "z": 0.0
                     },
                     "newScale": false,
-                    "tmp": "{\"textField\": \"Waning Gibbous\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                    "tmp": "{\"textField\": \"Waning Gibbous\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
                 }
             ]
         },
         {
-            "clipName": "clip2",
+            "clipName": "clip3",
             "timeToEnd": 3,
             "autoAdvance": true,
             "objectChanges": [
@@ -473,7 +584,7 @@
                         "z": 0.0
                     },
                     "newScale": false,
-                    "tmp": "{\"textField\": \"21 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                    "tmp": "{\"textField\": \"21 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
                 },
                 {
                     "name": "moonLabelBottom",
@@ -499,12 +610,12 @@
                         "z": 0.0
                     },
                     "newScale": false,
-                    "tmp": "{\"textField\": \"Third Quarter\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                    "tmp": "{\"textField\": \"Third Quarter\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
                 }
             ]
         },
         {
-            "clipName": "clip3",
+            "clipName": "clip4",
             "timeToEnd": 3,
             "autoAdvance": true,
             "objectChanges": [
@@ -557,7 +668,7 @@
                         "z": 0.0
                     },
                     "newScale": false,
-                    "tmp": "{\"textField\": \"24.5 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                    "tmp": "{\"textField\": \"24.5 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
                 },
                 {
                     "name": "moonLabelBottom",
@@ -583,12 +694,12 @@
                         "z": 0.0
                     },
                     "newScale": false,
-                    "tmp": "{\"textField\": \"Waning Crescent\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                    "tmp": "{\"textField\": \"Waning Crescent\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
                 }
             ]
         },
         {
-            "clipName": "clip4",
+            "clipName": "clip5",
             "timeToEnd": 3,
             "autoAdvance": true,
             "objectChanges": [
@@ -641,7 +752,7 @@
                         "z": 0.0
                     },
                     "newScale": false,
-                    "tmp": "{\"textField\": \"New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                    "tmp": "{\"textField\": \"New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
                 },
                 {
                     "name": "moonLabelBottom",
@@ -667,12 +778,12 @@
                         "z": 0.0
                     },
                     "newScale": false,
-                    "tmp": "{\"textField\": \"New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                    "tmp": "{\"textField\": \"New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
                 }
             ]
         },
         {
-            "clipName": "clip5",
+            "clipName": "clip6",
             "timeToEnd": 3,
             "autoAdvance": true,
             "objectChanges": [
@@ -725,7 +836,7 @@
                         "z": 0.0
                     },
                     "newScale": false,
-                    "tmp": "{\"textField\": \"3.5 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                    "tmp": "{\"textField\": \"3.5 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
                 },
                 {
                     "name": "moonLabelBottom",
@@ -751,12 +862,12 @@
                         "z": 0.0
                     },
                     "newScale": false,
-                    "tmp": "{\"textField\": \"Waxing Crescent\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                    "tmp": "{\"textField\": \"Waxing Crescent\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
                 }
             ]
         },
         {
-            "clipName": "clip6",
+            "clipName": "clip7",
             "timeToEnd": 3,
             "autoAdvance": true,
             "objectChanges": [
@@ -809,7 +920,7 @@
                         "z": 0.0
                     },
                     "newScale": false,
-                    "tmp": "{\"textField\": \"7 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                    "tmp": "{\"textField\": \"7 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
                 },
                 {
                     "name": "moonLabelBottom",
@@ -835,12 +946,12 @@
                         "z": 0.0
                     },
                     "newScale": false,
-                    "tmp": "{\"textField\": \"First Quarter\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                    "tmp": "{\"textField\": \"First Quarter\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
                 }
             ]
         },
         {
-            "clipName": "clip7",
+            "clipName": "clip8",
             "timeToEnd": 3,
             "autoAdvance": true,
             "objectChanges": [
@@ -893,7 +1004,7 @@
                         "z": 0.0
                     },
                     "newScale": false,
-                    "tmp": "{\"textField\": \"11.5 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                    "tmp": "{\"textField\": \"11.5 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
                 },
                 {
                     "name": "moonLabelBottom",
@@ -919,94 +1030,9 @@
                         "z": 0.0
                     },
                     "newScale": false,
-                    "tmp": "{\"textField\": \"Waxing Gibbous\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
+                    "tmp": "{\"textField\": \"Waxing Gibbous\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
                 }
             ]
-        },
-        {
-            "clipName": "clip8",
-            "timeToEnd": 3,
-            "autoAdvance": true,
-            "objectChanges": [
-                {
-                    "name": "Moon",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 2.0,
-                        "y": 0.0,
-                        "z": 1.4999999999999996
-                    },
-                    "newPosition": true,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": -360.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": true,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false
-                },
-                {
-                    "name": "moonLabelTop",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false,
-                    "tmp": "{\"textField\": \"14 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
-                },
-                {
-                    "name": "moonLabelBottom",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false,
-                    "tmp": "{\"textField\": \"Full Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}"
-                }
-            ],
-            "incrementClip": -7
         }
     ]
 }

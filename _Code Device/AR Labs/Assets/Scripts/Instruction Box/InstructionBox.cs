@@ -18,7 +18,8 @@ public class InstructionBox : MonoBehaviour
                 _instance = FindObjectOfType<InstructionBox>();
                 if (_instance == null)
                 {
-                    _instance = Instantiate((GameObject)Resources.Load("Prefabs/Instruction Box"), GameObject.Find("[CurrentLab]").transform).GetComponent<InstructionBox>();
+                    _instance = Instantiate((GameObject)Resources.Load("Prefabs/Instruction Box"), GameObject.Find("[_DYNAMIC]").transform).GetComponent<InstructionBox>();
+                    //_instance = Instantiate((GameObject)Resources.Load("Prefabs/Instruction Box"), GameObject.Find("[CurrentLab]").transform).GetComponent<InstructionBox>();
                 }
             }
 
@@ -37,6 +38,8 @@ public class InstructionBox : MonoBehaviour
 
     public bool BillBoard;          //Bool to enable pointing at headpose
     private bool visible;           //Internal state tracking of visibility
+
+    private bool visiblityLocked = false; 
 
     public bool Visible { get => visible; }
     #endregion Variables
@@ -78,7 +81,7 @@ public class InstructionBox : MonoBehaviour
     {
         //Set the camera for the canvas
         GetComponent<Canvas>().worldCamera = Camera.main;
-        transform.position = GameObject.Find("[UI ANCHOR]").transform.position + transform.forward;
+        //transform.position = GameObject.Find("[UI ANCHOR]").transform.position + transform.forward;
     }
 
     void Update()
@@ -116,6 +119,8 @@ public class InstructionBox : MonoBehaviour
             title = pages[0].transform.Find("Title").GetComponent<Text>();
             content = pages[0].transform.Find("Content").GetComponent<Text>();
             tabLabel = tabs[0].transform.GetComponentInChildren<Text>();
+            tabs[0].AddComponent<MagicLeapTools.PointerReceiver>();
+            tabs[0].GetComponent<MagicLeapTools.PointerReceiver>().OnClick.AddListener(boop);
         }
         else
         {
@@ -151,6 +156,12 @@ public class InstructionBox : MonoBehaviour
     /// <param name="pageTitle">New page title and tab label</param>
     /// <param name="pageContent">New page content</param>
     /// <param name="show">Whether to show the new page once updated</param>
+    /// 
+
+    public void boop(GameObject sender)
+    {
+        Debug.Log("boop!");
+    }
     public void SetPage(int pageIndex, string pageTitle, string pageContent, bool show = false)
     {
         if (pageIndex >= pages.Count)
@@ -285,40 +296,39 @@ public class InstructionBox : MonoBehaviour
     /// <param name="fadeTime">Time it takes the fade to complete, default is 1 sec</param>
     public void ToggleVisibility(float fadeTime = 1f)
     {
-        if (visible)
-        {
-            StartCoroutine(FadeOut(fadeTime));
-            visible = false;
-        }
-        if (!visible)
-        {
-            StartCoroutine(FadeIn(fadeTime));
-            visible = true;
-        }
+        StartCoroutine(changeVis());
     }
     #endregion Public Methods
 
     #region Coroutines
-    IEnumerator FadeOut(float length)
-    {
-        float step = 1 / length;
-        for (float val = 1f; val > 0; val -= step)
-        {
-            cGroup.alpha = val;
-            yield return null;
-        }
-        gameObject.SetActive(false);
-    }
 
-    IEnumerator FadeIn(float length)
+    IEnumerator changeVis()
     {
-        float step = 1 / length;
-        for (float val = 0; val < 1; val += step)
+        if (!visiblityLocked)
         {
-            cGroup.alpha = val;
+            visiblityLocked = true;
+            if (visible)
+            {
+                visible = false;
+                cGroup.alpha = 0;
+            }
+            else
+            {
+                cGroup.alpha = 1;
+                visible = true;
+            }
+
+            // we put a wait time in and the lock flags to prevent bounce
+            // issues from happening
+            yield return new WaitForSeconds(0.5f);
+            visiblityLocked = false;
+        }
+        else
+        {
             yield return null;
         }
-        gameObject.SetActive(true);
+        
+
     }
     #endregion Coroutines
 
@@ -333,6 +343,8 @@ public class InstructionBox : MonoBehaviour
 
     public void HandleDoubleBumper()
     {
+
+        Debug.Log("Visibilty toggle");
         ToggleVisibility();
     }
     #endregion Event Handlers

@@ -17,7 +17,7 @@ namespace demoRoutines
         private AudioSource aud;
         private Bridge bridge;
         private demoSequence sequencer;
-
+        private InstructionBox ibox;
 
         //public override void Initialize(ActivityModuleData dataIn)
         public override void Initialize(string jsonData)
@@ -34,6 +34,10 @@ namespace demoRoutines
             
             aud = gameObject.GetComponent<AudioSource>();
 
+            gameObject.name = "demoModule";
+            //ibox = InstructionBox.Instance;
+            //ibox.AddPage("test", "this is a big test", true);
+
             // play the introAudio
             aud.clip = Resources.Load<AudioClip>(moduleData.introAudio);
             aud.Play();
@@ -46,6 +50,7 @@ namespace demoRoutines
             bridge = new Bridge();
             if (moduleData.createObjects)
                 bridge.makeObjects(moduleData.objects);
+
 
             sequencer = gameObject.GetComponent<demoSequence>();
             if (moduleData.clips != null)
@@ -84,6 +89,7 @@ namespace demoRoutines
             if (moduleData.timeToEnd > 0)
                 StartCoroutine(EndByTime());
         }
+
 
         public override void EndOfModule()
         {

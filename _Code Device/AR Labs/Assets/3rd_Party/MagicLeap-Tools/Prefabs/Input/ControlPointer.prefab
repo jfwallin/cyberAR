@@ -51,6 +51,8 @@ LineRenderer:
   m_MotionVectors: 0
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -234,85 +236,84 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handedness: 0
   followControl: 0
-  events:
-    OnControlConnected:
-      m_PersistentCalls:
-        m_Calls: []
-    OnControlDisconnected:
-      m_PersistentCalls:
-        m_Calls: []
-    OnTriggerPressBegan:
-      m_PersistentCalls:
-        m_Calls: []
-    OnTriggerDown:
-      m_PersistentCalls:
-        m_Calls: []
-    OnDoubleTrigger:
-      m_PersistentCalls:
-        m_Calls: []
-    OnTriggerUp:
-      m_PersistentCalls:
-        m_Calls: []
-    OnTriggerPressEnded:
-      m_PersistentCalls:
-        m_Calls: []
-    OnTriggerHold:
-      m_PersistentCalls:
-        m_Calls: []
-    OnTriggerMove:
-      m_PersistentCalls:
-        m_Calls: []
-    OnHomeButtonTap:
-      m_PersistentCalls:
-        m_Calls: []
-    OnDoubleHome:
-      m_PersistentCalls:
-        m_Calls: []
-    OnBumperDown:
-      m_PersistentCalls:
-        m_Calls: []
-    OnDoubleBumper:
-      m_PersistentCalls:
-        m_Calls: []
-    OnBumperUp:
-      m_PersistentCalls:
-        m_Calls: []
-    OnBumperHold:
-      m_PersistentCalls:
-        m_Calls: []
-    OnTouchDown:
-      m_PersistentCalls:
-        m_Calls: []
-    OnDoubleTap:
-      m_PersistentCalls:
-        m_Calls: []
-    OnTouchUp:
-      m_PersistentCalls:
-        m_Calls: []
-    OnTouchMove:
-      m_PersistentCalls:
-        m_Calls: []
-    OnTouchRadialMove:
-      m_PersistentCalls:
-        m_Calls: []
-    OnTouchHold:
-      m_PersistentCalls:
-        m_Calls: []
-    OnForceTouchDown:
-      m_PersistentCalls:
-        m_Calls: []
-    OnForceTouchUp:
-      m_PersistentCalls:
-        m_Calls: []
-    OnTouchBeganMoving:
-      m_PersistentCalls:
-        m_Calls: []
-    OnSwipe:
-      m_PersistentCalls:
-        m_Calls: []
-    OnTapped:
-      m_PersistentCalls:
-        m_Calls: []
+  OnControlConnected:
+    m_PersistentCalls:
+      m_Calls: []
+  OnControlDisconnected:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTriggerPressBegan:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTriggerDown:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDoubleTrigger:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTriggerUp:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTriggerPressEnded:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTriggerHold:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTriggerMove:
+    m_PersistentCalls:
+      m_Calls: []
+  OnHomeButtonTap:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDoubleHome:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBumperDown:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDoubleBumper:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBumperUp:
+    m_PersistentCalls:
+      m_Calls: []
+  OnBumperHold:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTouchDown:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDoubleTap:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTouchUp:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTouchMove:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTouchRadialMove:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTouchHold:
+    m_PersistentCalls:
+      m_Calls: []
+  OnForceTouchDown:
+    m_PersistentCalls:
+      m_Calls: []
+  OnForceTouchUp:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTouchBeganMoving:
+    m_PersistentCalls:
+      m_Calls: []
+  OnSwipe:
+    m_PersistentCalls:
+      m_Calls: []
+  OnTapped:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7235541112672725360
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,7 +321,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7235541112672725370}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f2647cb0351ee0149906d03334d7f4e5, type: 3}
   m_Name: 
@@ -444,6 +445,8 @@ MeshRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -468,6 +471,7 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!114 &133811597517664741
 MonoBehaviour:
   m_ObjectHideFlags: 0

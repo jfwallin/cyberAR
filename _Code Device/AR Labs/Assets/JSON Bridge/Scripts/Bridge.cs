@@ -52,16 +52,10 @@ public class Bridge
         if (myObject != null)
         {
             Debug.Log("found object " + obj.name);
-            Debug.Log(" status " + obj.newPosition.ToString() + " " + obj.newEulerAngles.ToString());
-            Debug.Log(" status2 " + obj.position);
-            Debug.Log(" statu33 " + obj.eulerAngles);
-
-
         }
         else
         {
-
-            Debug.Log("xxxxx " + obj.name + " " + obj.type);
+            Debug.Log("creating " + obj.name + " " + obj.type);
             myObject = dealWithType(obj.type); //possibly fixed
             myObject.name = obj.name;
 
@@ -97,13 +91,14 @@ public class Bridge
 
         if (obj.componentsToAdd != null)
         {
-            Debug.Log("no components to add");
+            //Debug.Log("components to add " + obj.componentsToAdd.Length.ToString());
             for (int i = 0; i < obj.componentsToAdd.Length; i++)
             {
                 //Parse once to get the name of the component
-                Debug.Log(i.ToString() + "   " + obj.componentsToAdd[i]);
                 ComponentName cName = JsonUtility.FromJson<ComponentName>(obj.componentsToAdd[i]);
                 //Check if the component already exists (ie, the mesh renderer on aprimitive)
+                //Debug.Log(i.ToString() + "   " + obj.componentsToAdd[i]);
+                //Debug.Log("cname " + cName.name); 
                 Component myComp = myObject.GetComponent(Type.GetType(cName.name));
                 if (myComp == null)
                 {
@@ -270,7 +265,7 @@ public class Bridge
                 tpc.fontSize = textBox.fontSize;
                 tpc.wrapText = textBox.enableWordWrapping;
                 //Debug.Log(JsonUtility.ToJson(obj));
-                Debug.Log("TTMP  " + obj.tmp);
+                //Debug.Log("TTMP  " + obj.tmp);
                 JsonUtility.FromJsonOverwrite(obj.tmp, tpc);
 
                 //Debug.Log("2TTMP  " + obj.tmp);

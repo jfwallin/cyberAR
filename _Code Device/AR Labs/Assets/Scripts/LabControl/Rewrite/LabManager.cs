@@ -10,6 +10,7 @@ public class LabManager : MonoBehaviour
     [SerializeField]
     private string[] modules;
     private int index = 0;
+    private int indexIncrement = 1;
     private GameObject currentModuleObject;
     private ActivityModule currentModuleScript;
 
@@ -18,8 +19,7 @@ public class LabManager : MonoBehaviour
     private GameObject instructionHolder;
     private GameObject instructionCanvas;
 
-    //    private InstructionBox ibox;
-
+    private InstructionBox ibox;
     private Transform labform;
 
     public void Start()
@@ -29,11 +29,10 @@ public class LabManager : MonoBehaviour
         // create instances of media player prefab here
 
 
-        //    ibox = InstructionBox.Instance;
+        //ibox = InstructionBox.Instance;
         // spawnDemoNew();
         labform = GameObject.Find("[_DYNAMIC]").transform;
         spawnDemoNew();
-        //labform = GameObject.Find("[CurrentLab]").transform;
     }
 
     public void Initialize(LabDataObject data)
@@ -62,7 +61,7 @@ public class LabManager : MonoBehaviour
     public void Initialize(string[] moduleData)
     {
         // this creates the instruction canvas
-        //createInstructions();
+        createInstructions();
 
         //Initialize data
         modules = moduleData;
@@ -85,15 +84,13 @@ public class LabManager : MonoBehaviour
         //Load prefab from resources
         GameObject tmpPrefab = (GameObject)Resources.Load($"Prefabs/{tmpData.prefabName}");
 
-        Debug.Log("tmpdata = " + tmpData.prefabName);
-
         if (tmpPrefab == null)
             Debug.Log("it is null!");
+        else
+            Debug.Log("tmpdata = " + tmpData.prefabName);
 
         //There will need to be some sort of placement routine, but for now it will be placed at 0,0,0
-        //currentModuleObject = Instantiate(tmpPrefab, labform);
-        currentModuleObject = Instantiate(tmpPrefab);
-        //currentModuleObject = GameObject.Instantiate(Resources.Load(tmpData.prefabName, typeof(GameObject)) as GameObject);
+        currentModuleObject = Instantiate(tmpPrefab, labform);
         currentModuleScript = currentModuleObject.GetComponent<ActivityModule>();
 
         //Start the module
@@ -102,7 +99,10 @@ public class LabManager : MonoBehaviour
  
     public void ModuleComplete()
     {
-        index++;
+        index = index + indexIncrement;
+        if (index < 0)
+            index = 0;
+
         if (index < modules.Length)
         {
             StartCoroutine(NewModule());
@@ -114,6 +114,26 @@ public class LabManager : MonoBehaviour
         }
     }
 
+    public void nextModuleCallback()
+    {
+        Debug.Log("next Module ---------------------------------------------------------------");
+        indexIncrement = 1;
+        ModuleComplete();
+    }
+
+    public void previousModuleCallback()
+    {
+        indexIncrement = -1;
+        ModuleComplete();
+
+    }
+
+    public void endLabCallback()
+    {
+        Debug.Log("endLab callback");
+            //Destroy(currentModuleObject);
+            //EndLab();
+    }
     IEnumerator NewModule()
     {
         yield return new WaitForSeconds(1.0f);
@@ -121,8 +141,6 @@ public class LabManager : MonoBehaviour
         SpawnModule();
 
     }
-
-
 
     private void EndLab()
     {
@@ -132,16 +150,20 @@ public class LabManager : MonoBehaviour
         //GameObject.Find("[LOGIC]").GetComponent<loginLogic>().gotoState(4);
         Application.Quit();
     }
-/*
     void createInstructions()
     {
-        /*
         instructionHolder = Instantiate(instructionPrefab, new Vector3(-0.3f, 1.5f, 1.0f), Quaternion.Euler(0.0f, 180.0f, 0.0f));
-        //instructionHolder = Instantiate(instructionPrefab, new Vector3(0.3f, -0.2f, -1.0f), Quaternion.Euler(0.0f, 180.0f, 0.0f));
         instructionCanvas = GameObject.Find("MainInstructions");
         instructionCanvas.GetComponent<Text>().text = "Test Text";
-        
 
+
+        FindObjectOfType<MagicLeapTools.ControlInput>().OnDoubleBumper.AddListener(InstructionBox.Instance.HandleDoubleBumper); //responds to double bumper to appear and disappear
+
+
+        //FindObjectOfType<MagicLeapTools.ControlInput>().OnDoubleBumper.AddListener(InstructionBox.Instance.HandleDoubleBumper); //responds to double bumper to appear and disappear
+        //FindObjectOfType<MagicLeapTools.ControlInput>().OnDoubleBumper.AddListener(InstructionBox.Instance.HandleDoubleBumper); //responds to double bumper to appear and disappear
+
+        //ibox.GetComponent<MagicLeapTools.InputReceiver>(). OnSelected.RemoveAllListeners();
         //InstructionBox.Instance.transform.position = new Vector3(-0.3f, 1.5f, 1.0f); //Creates instance, places it. by default it points at the user
         //FindObjectOfType<MagicLeapTools.ControlInput>().OnDoubleBumper.AddListener(InstructionBox.Instance.HandleDoubleBumper); //responds to double bumper to appear and disappear
     }
@@ -165,5 +187,4 @@ public class LabManager : MonoBehaviour
         InstructionBox.Instance.AddPage("Objectives", eobj, true); //Creates tab for the educational objectives and shows it.
 
     }
-*/
 }

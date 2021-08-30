@@ -15,6 +15,12 @@ public class demoSequence : MonoBehaviour
     private Bridge bridge;
     private GameObject parentObj;
 
+    private string actionNextClipName = "NextClip";
+    private string actionPreviousClipName = "PreviousClip";
+    private string actionNextModuleName = "NextModule";
+    private string actionPreviousModuleName = "PreviousModule";
+    private string actionEndApplicationName = "EndApplication";
+
 
     public void ParseJson(string data)
     {
@@ -29,49 +35,11 @@ public class demoSequence : MonoBehaviour
         theClips = sequenceData;
         currentState = 0;
 
-        // set the callbacks
-        // for clip zero, get the forward and back information
-        GameObject go;
-        go = GameObject.Find(theClips[0].goNext);
-        if (go != null)
-        { 
-            go.GetComponent<MagicLeapTools.InputReceiver>().OnSelected.AddListener(actionNext);
-            //Debug.Log("Seeting next callback  "+ theClip.goNext);
-        }
-        go = GameObject.Find(theClips[0].goPrevious);
-        if (go != null)
-        {
-            Debug.Log("Seeting previous callback ");
-            
-            go.GetComponent<MagicLeapTools.InputReceiver>().OnSelected.AddListener(actionPrevious);
-        }
-
         newClip();
     }
-    private void OnDisable()
-    {
-
-        GameObject go;
-        go = GameObject.Find(theClips[0].goNext);
-        if (go != null)
-        {
-            //go.GetComponent<MagicLeapTools.InputReceiver>().OnSelected.RemoveAllListeners();
-            go.GetComponent<MagicLeapTools.InputReceiver>().OnSelected.RemoveAllListeners();
-        }
-
-        if (go != null)
-        {
-            go = GameObject.Find(theClips[0].goPrevious);
-            go.GetComponent<MagicLeapTools.InputReceiver>().OnSelected.RemoveAllListeners();
-        }
-
-
-    }
-
 
     public void newClip()
     {
-        Debug.Log("new clips!!!! " + currentState.ToString());
        if (currentState < theClips.Length)
         {
             Debug.Log("current clip " + currentState.ToString());
@@ -87,6 +55,9 @@ public class demoSequence : MonoBehaviour
     public void processClip(clipData theClip)
     {
 
+        Debug.Log("process clip  " + currentState.ToString() + 
+            "  timetoend=" + theClip.timeToEnd.ToString() + " *****************************");
+
         // modify gameobject
         int conditionFlag = 0;
         modifyObjects(conditionFlag, theClip);
@@ -94,17 +65,36 @@ public class demoSequence : MonoBehaviour
         // set up a time delay  if that is appropriate
         float timeDelay;
         timeDelay = theClip.timeToEnd;
-        //if (theClip.timeToEnd > 0)
-        //    timeDelay = theClip.timeToEnd;
-        //else
-        //    timeDelay = theClip.audioClip.length;
 
         if (timeDelay > 0)
         {
             StartCoroutine(WaitForClip(timeDelay));
         }
-        
     }
+
+    public void clipFinished()
+    {
+        // modify gameobjects
+        int conditionFlag = 1;
+        modifyObjects(conditionFlag, theClip);
+
+
+        Debug.Log("clip finished ....");
+        if (theClip.autoAdvance)
+        {
+            incrementClip();
+            newClip();
+        }
+    }
+
+
+    public void incrementClip()
+    {
+        currentState = currentState + 1;
+        if (currentState > theClips.Length - 1)
+            currentState = theClips.Length - 1;
+    }
+
 
     public void modifyObjects(int conditionFlag, clipData theClip)
     {
@@ -114,7 +104,10 @@ public class demoSequence : MonoBehaviour
         {
             activationConditions = theClip.objectChanges[i].activationConditions;
 
-            Debug.Log("PROCESSING CLIP " + theClip.clipName + "  activation " + activationConditions.ToString());
+            Debug.Log("PROCESSING CLIP " + theClip.clipName + "   "+ theClip.objectChanges[i].name + "  " +   
+                " object # " + i.ToString() + "  activation " + activationConditions.ToString() + 
+                " conditionFlag=" + conditionFlag.ToString());
+          
             if (activationConditions == conditionFlag)
             {
                 //JsonUtility.FromJsonOverwrite(theClip.objectChanges[i].jsonModifications, objectMods);
@@ -128,7 +121,6 @@ public class demoSequence : MonoBehaviour
                     parentObj = GameObject.Find(objectMods.parentName);
                     if (parentObj == null)
                     {
-                        Debug.Log("parent object = NULL!!!!" + objectMods.name + "  " + theClip.clipName);
                         parentObj = GameObject.Find("[_DYNAMIC]");
                     }
                     Transform[] trs = parentObj.GetComponentsInChildren<Transform>(true);
@@ -146,70 +138,11 @@ public class demoSequence : MonoBehaviour
                     GameObject.Find(objectMods.name).SetActive(false);
                 }
                 else
-                    Debug.Log("here we go!!!!");
                     bridge.makeObject(objectMods as ObjectInfo);
             }
-
         }
-
-    }
-    public void clipFinished()
-    {
-        // modify gameobjects
-        int conditionFlag = 1;
-        modifyObjects(conditionFlag, theClip);
-
-        if (theClip.autoAdvance)
-        {
-            currentState = currentState + theClip.incrementClip;
-            newClip();
-        }
-
     }
 
-    public void actionCallBack(GameObject sendingObject)
-    {
-        currentState = 0;
-        clipFinished();
-    }
-    public void actionNext(GameObject sendingObject)
-    {
-        //GameObject go;   
-        //go = GameObject.Find("brbNext");
-        //go.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
-        Debug.Log("action next!!!!!");
-        currentState = currentState + theClip.incrementClip; // deltaI;
-        // modify gameobjects
-        int conditionFlag = 1;
-        modifyObjects(conditionFlag, theClip);
-        newClip();
-    }
-
-    public void actionPrevious(GameObject sendingObject)
-    {
-        //GameObject go;   
-        //go = GameObject.Find("brbPrevious");
-        //go.GetComponent<UnityEngine.EventSystems.EventSystem>().SetSelectedGameObject(null);
-        Debug.Log("action previous!!!!");
-        // modify gameobjects
-        int conditionFlag = 1;
-        modifyObjects(conditionFlag, theClip);
-        currentState = currentState - theClip.incrementClip; // deltaI;
-        if (currentState < 0)
-            currentState = 0;
-        newClip();
-    }
-
-
-/*
-    IEnumerator DebounceSelect()
-    {
-
-        deltaI = 0;
-        yield return new WaitForSeconds(1.0f);
-        deltaI = 1;
-    }
-*/
 
     IEnumerator WaitForClip(float timeDelay)
     {
@@ -218,12 +151,77 @@ public class demoSequence : MonoBehaviour
         if (aud.clip != null)
             aud.Play();
 
+        Debug.Log("TTIME DELAY " + timeDelay.ToString() + "*********************************************************************************************");
+
         yield return new WaitForSeconds(timeDelay);
         clipFinished();
     }
 
+   
+    public void actionCallBack(GameObject sendingObject)
+    {
+        Debug.Log("actioncallback from " + sendingObject.name + "++++++++++++++++++++++++++++");
+        if (sendingObject.name.IndexOf(actionNextClipName) >= 0)
+            actionNextClip();
+        else if (sendingObject.name.IndexOf(actionPreviousClipName) >= 0)
+            actionPreviousClip ();
+        else if (sendingObject.name.IndexOf(actionNextModuleName) >= 0)
+            actionNextModule();
+        else if (sendingObject.name.IndexOf(actionPreviousModuleName) >= 0)
+            actionPreviousModule();
+        else if (sendingObject.name.IndexOf(actionEndApplicationName) >= 0)
+            actionEndApplication();
+        else
+            Debug.Log("unknown callback!");
+    }
+
+    public void actionNextClip()
+    {
+        Debug.Log("action next!!!!!-----------------------------------------------------------");
+
+        // modify gameobjects
+        int conditionFlag = 1;
+        modifyObjects(conditionFlag, theClip);
+       
+        Debug.Log("new clips!!!! " + currentState.ToString());
+
+        incrementClip();
+        StopAllCoroutines();
+        newClip();
+    }
+
+    public void actionPreviousClip ()
+    {
+        Debug.Log("action previous!!!!------------------------------------------------");
+
+        // modify gameobjects
+        int conditionFlag = 1;
+        modifyObjects(conditionFlag, theClip);
+
+        currentState = currentState - 1; 
+        if (currentState < 0)
+            currentState = 0;
+        StopAllCoroutines();
+        newClip();
+    }
+
+    public void actionNextModule()
+    {
+
+        Debug.Log("previous module");
+        GameObject.Find("Manager").GetComponent<LabManager>().nextModuleCallback();
+    }
+    public void actionPreviousModule()
+    {
+        Debug.Log("action next module");
+        GameObject.Find("Manager").GetComponent<LabManager>().previousModuleCallback();
+
+    }
 
 
+    public void actionEndApplication()
+    {
 
+    }
 }
 
