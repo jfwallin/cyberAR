@@ -62,6 +62,8 @@ public class ObjectInfo
     public string texture = "";
     public string textureByURL = "";
     public float[] color ;
+    public string childName = null;
+    public float[] childColor = null;
     public string RigidBody;
     public string PointerReceiver;
     public string tmp;

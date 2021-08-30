@@ -6,8 +6,8 @@ using System;
 [System.Serializable]
 public class checkAngle : MonoBehaviour
 {
-    public float azmTarget= 0;
-    public float azmTolerance = 90;
+    public float azmTarget= 45;
+    public float azmTolerance = 40;
     public float altTarget = -30;
     public float altTolerance = 30;
     public string audioClipSuccess = null;
@@ -54,8 +54,6 @@ public class checkAngle : MonoBehaviour
 
         float alt = Mathf.Atan2(basketballDirection[1], basketballXZ) * Mathf.Rad2Deg;
 
-        Debug.Log("angle = " + yAngle3.ToString() );
-        Debug.Log("alt = " + alt.ToString() );
 
 
         float azmDiff = yAngle3 - azmTarget;
@@ -64,6 +62,9 @@ public class checkAngle : MonoBehaviour
         float altDiff = alt - altTarget;
         altDiff = (altDiff + 180.0f) % 360.0f - 180.0f;
 
+        Debug.Log("angle = " + yAngle3.ToString() + " alt = " + alt.ToString()
+            + " az diff=" + azmDiff.ToString() + "  alt diff=" + altDiff.ToString());
+
         bool inBounds = false;
         if (Math.Abs(altDiff) < altTolerance && Mathf.Abs(azmDiff) < azmTolerance)
             inBounds = true; 
@@ -71,6 +72,7 @@ public class checkAngle : MonoBehaviour
         if (inBounds)
         {
             Debug.Log("in bounds!!!!!");
+            StartCoroutine(WaitForClip(3.0f));
         }
         else
         {
@@ -78,5 +80,22 @@ public class checkAngle : MonoBehaviour
         }
     }
 
+
+    IEnumerator WaitForClip(float timeDelay)
+    {
+
+
+        AudioSource  aud = gameObject.GetComponent<AudioSource>();
+        string aclip = "Audio/moonLab/Mixkit-game-bonus-reached-2065";
+
+        aud.clip = Resources.Load<AudioClip>(aclip);
+
+        if (aud.clip != null)
+            aud.Play();
+
+        Debug.Log("TTIME DELAY " + timeDelay.ToString() + "*********************************************************************************************");
+
+        yield return new WaitForSeconds(timeDelay);
+    }
 
 }

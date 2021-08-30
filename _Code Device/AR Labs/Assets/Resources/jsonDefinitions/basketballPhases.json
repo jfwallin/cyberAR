@@ -25,7 +25,7 @@
     "description": "A demonstration of how moon phases occur",
     "author": "John Wallin",
     "authorInstitution": "Middle Tennessee State University",
-    "dateCreated": "Sun Aug 29 16:46:15 2021",
+    "dateCreated": "Mon Aug 30 13:57:01 2021",
     "introAudio": "",
     "createObjects": true,
     "destroyObjects": true,
@@ -99,7 +99,7 @@
             },
             "componentsToAdd": [
                 "{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 2000}",
-                "{\"name\": \"checkAngle\", \"audioClipSuccess\": null, \"minYangle\": 0, \"maxYangle\": 90, \"minZangle\": -30, \"maxZangle\": 30}"
+                "{\"name\": \"checkAngle\", \"audioClipSuccess\": null, \"azmTarget\": 0, \"azmTolerance\": 30, \"altTarget\": 0, \"altTolerance\": 30}"
             ],
             "parent": "[_DYNAMIC]"
         },
@@ -130,7 +130,14 @@
             ],
             "componentsToAdd": [
                 "{\"name\": \"demoButtonActions\", \"callBackObjects\": [\"demoModule\"]}"
-            ]
+            ],
+            "childColor": [
+                0,
+                255,
+                0,
+                255
+            ],
+            "childName": "button"
         },
         {
             "type": "Prefabs/textPrefab",

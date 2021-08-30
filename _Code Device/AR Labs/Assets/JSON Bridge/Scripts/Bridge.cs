@@ -157,6 +157,16 @@ public class Bridge
             }
         }
 
+        if (obj.childColor != null && obj.childName != "" )
+        {
+            if (obj.childColor.Length == 4)
+            {
+                GameObject childObj = GameObject.Find(obj.childName);
+                Renderer rend = childObj.GetComponent<Renderer>();
+                rend.material.SetColor("_Color", new Color(obj.childColor[0], obj.childColor[1], obj.childColor[2], obj.childColor[3])); //, obj.color[3]));
+
+            }
+        }
 
 
         if (obj.RigidBody!= null)
