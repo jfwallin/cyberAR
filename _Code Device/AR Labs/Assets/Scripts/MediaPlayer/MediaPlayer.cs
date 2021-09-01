@@ -30,7 +30,7 @@ public class MediaPlayer : MonoBehaviour
     }
 
     //Helper class
-    public MediaDownload.MediaCatalogue media = null;
+    public MediaCatalogue media = null;
     //public MediaCatalogue media = null;
 
     //Componenet References
@@ -70,7 +70,7 @@ public class MediaPlayer : MonoBehaviour
 
         if (media == null)
         {
-            media = MediaDownload.MediaCatalogue.Instance;
+            media = MediaCatalogue.Instance;
         }
     }
 
@@ -105,7 +105,7 @@ public class MediaPlayer : MonoBehaviour
         //Store callback reference for later
         localCallBack = CallBack;
         //Display the media, different depending on filetype
-        switch (item.mediaType)
+        switch (item.resource_type)
         {
             case MediaType.Audio:
                 //Don't play new audio if something else is already playing
@@ -119,7 +119,7 @@ public class MediaPlayer : MonoBehaviour
                     audioSource.enabled = true;
 
                     //Get and set audio clip
-                    audioSource.clip = media.GetLabAudioClip(new Tuple<int, int>(item.labID, item.resourceId));
+                    audioSource.clip = media.GetLabAudioClip(item.resource_url);
                     audioSource.Play();
 
                     //Callback invocation condition is checked in the update loop
@@ -139,7 +139,7 @@ public class MediaPlayer : MonoBehaviour
                     videoPlayer.enabled = true;
 
                     //Get and set video clip
-                    videoPlayer.url = media.GetLabVideoURL(new Tuple<int, int>(item.labID, item.resourceId));
+                    videoPlayer.url = media.GetLabVideoURL(item.resource_url);
                     videoPlayer.Play();
 
                     //Subscribe handler function to respond to when the end of the video is reached.
@@ -157,7 +157,7 @@ public class MediaPlayer : MonoBehaviour
                 imageDisplay.enabled = true;
 
                 //Get the texture, construct the sprite.
-                Texture2D tex = media.GetLabTexture(new Tuple<int, int>(item.labID, item.resourceId));
+                Texture2D tex = media.GetLabTexture(item.resource_url);
                 imageDisplay.sprite = Sprite.Create(tex, new Rect(0f, 0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100);
 
                 //Immediately invoke callback

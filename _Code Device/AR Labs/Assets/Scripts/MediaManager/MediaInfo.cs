@@ -9,7 +9,7 @@ public enum MediaType { Audio, Video, Image }
 [System.Serializable]
 public class MediaInfo
 {
-    public int labID;
-    public int resourceId;
-    public MediaType mediaType;
+    public int resource_id;
+    public string resource_url;
+    public MediaType resource_type;
 }

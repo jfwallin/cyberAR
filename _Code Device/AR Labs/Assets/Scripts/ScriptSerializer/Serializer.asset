@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfe592c831882b04a94886383d9cc628, type: 3}
   m_Name: Serializer
   m_EditorClassIdentifier: 
-  ObjectToSerialize: 2
+  ObjectToSerialize: 1
   labData:
     Lab_ID: 
     Author: 
@@ -23,31 +23,53 @@ MonoBehaviour:
     ActivityModules: []
     Assets: []
   mCEData:
-    moduleName: 
+    moduleName: Multiple Choice Exercise
     jsonFileName: 
-    description: 
-    author: 
-    authorInstitution: 
-    dateCreated: 
+    description: Students are shown an image of the moon along with an auditory description
+      and then asked to identify the name of the phase.
+    author: Isaac Shirk
+    authorInstitution: Middle Tennessee State University
+    dateCreated: 9/1/2021
     prerequisiteActivities: []
-    prefabName: 
-    specificName: 
-    educationalObjectives: []
-    instructions: []
+    prefabName: MCQ/MultipleChoiceQuestion
+    specificName: Moon Phase Identification
+    educationalObjectives:
+    - Students should be able to correctly identify the name of a moon phase from
+      an image of the moon.
+    instructions:
+    - Examine the image and listen to the audio describing it. Then use the pointer
+      to point at and select and answer (using the trigger on the back of the controller).
+      Submit your answer by pointing at and pressing the "Submit" button.
     introMediaIDs: []
     outroMediaIDs: []
-    numRepeatsAllowed: 0
-    numGradableRepeatsAllowed: 0
-    gradingCriteria: 
+    numRepeatsAllowed: -1
+    numGradableRepeatsAllowed: -1
+    gradingCriteria: Only one correct answer per question, graded  by (number correct
+      / total questions).
     currentScore: 0
     bestScore: 0
     completed: 0
     currentSubphase: 0
     subphaseNames: []
-    questions: []
+    questions:
+    - referenceMedia:
+      - resource_id: 0
+        resource_url: http://cyberlearnar.cs.mtsu.edu/show_uploaded/full_moon_unlabeled.jpeg
+        resource_type: 2
+      answerCorrectMedia: []
+      answerIncorrectMedia: []
+      question: 
+      randomizeOrder: 0
+      allowMultiSelect: 0
+      numberOfOptionsFromPool: 0
+      answerOptions: []
+      correctOptionsIndices: 
     answerPool: []
   mCQData:
-    referenceMedia: []
+    referenceMedia:
+    - resource_id: 0
+      resource_url: 
+      resource_type: 0
     answerCorrectMedia: []
     answerIncorrectMedia: []
     question: 

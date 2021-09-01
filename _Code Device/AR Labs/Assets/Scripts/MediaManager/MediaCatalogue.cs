@@ -108,7 +108,7 @@ public class MediaCatalogue : MonoBehaviour
     }
 
     //Downloads all the media assets for a single lab
-    IEnumerator DownloadLabMedia(LabDataObject.subManifest[] labAssetList)
+    IEnumerator DownloadLabMedia(MediaInfo[] labAssetList)
     {
         //Currently supported audio file types
         Dictionary<string, AudioType> supportedAudio = new Dictionary<string, AudioType>()
@@ -118,17 +118,17 @@ public class MediaCatalogue : MonoBehaviour
             { "mp3", AudioType.MPEG }
         };
 
-        foreach (LabDataObject.subManifest asset in labAssetList)
+        foreach (MediaInfo asset in labAssetList)
         {
             print("downloading new asset of type: " + asset.resource_type);
             string resourceKey = asset.resource_url;
             switch (asset.resource_type) //Determine type of asset to be downloaded
             {
-                case "image":
+                case MediaType.Image:
                     if(labTextures.ContainsKey(resourceKey) == false)
                         yield return StartCoroutine(DownloadTexture(resourceKey));
                     break;
-                case "audio":
+                case MediaType.Audio:
                     if(labAudio.ContainsKey(resourceKey) == false)
                     {
                         //Determine file name and audio type
@@ -144,7 +144,7 @@ public class MediaCatalogue : MonoBehaviour
                         yield return StartCoroutine(DownloadAudio(resourceKey, audioFileType));
                     }
                     break;
-                case "video":
+                case MediaType.Video:
                     if (labVideos.ContainsKey(resourceKey) == false)
                         labVideos.Add(resourceKey, asset.resource_url);
                     break;
