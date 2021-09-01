@@ -16,7 +16,7 @@ public class MediaCatalogue : MonoBehaviour
                 _instance = new MediaCatalogue();
             }
 
-            return Instance;
+            return _instance;
         }
     }
 
