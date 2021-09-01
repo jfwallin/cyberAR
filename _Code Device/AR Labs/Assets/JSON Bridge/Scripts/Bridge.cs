@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
 using System;
 using MagicLeapTools;
@@ -14,6 +15,8 @@ using UnityEditor;
 using TMPro;
 public class Bridge
 {
+    static string canvasText;
+
     //ParseJson can be called from outside the class to trigger the methods included here
     public void ParseJson(string data)
     {
@@ -161,9 +164,16 @@ public class Bridge
         {
             if (obj.childColor.Length == 4)
             {
-                GameObject childObj = GameObject.Find(obj.childName);
-                Renderer rend = childObj.GetComponent<Renderer>();
-                rend.material.SetColor("_Color", new Color(obj.childColor[0], obj.childColor[1], obj.childColor[2], obj.childColor[3])); //, obj.color[3]));
+                Transform trans = myObject.transform;
+                Transform childTrans = trans.Find(obj.childName);
+                if (childTrans != null)
+                {
+                    Debug.Log(" changing colors on " + obj.childName + "  " + obj.name + " &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+                    GameObject childObj = childTrans.gameObject;
+                    Renderer rend = childObj.GetComponent<Renderer>();
+                    rend.material.SetColor("_Color", new Color(obj.childColor[0], obj.childColor[1], obj.childColor[2], obj.childColor[3])); //, obj.color[3]));
+
+                }
 
             }
         }
@@ -259,6 +269,13 @@ public class Bridge
 
         }
 
+        if (obj.canvasText !=null)
+        {
+            Text tt = myObject.GetComponent<Text>();
+            canvasText = obj.canvasText;
+            tt.text = obj.canvasText;
+
+        }
 
         if (obj.tmp != null)
         {
@@ -270,6 +287,7 @@ public class Bridge
             else
             {
                 textProClass tpc = new textProClass();
+                Debug.Log("TEXT = " + textBox.text);
                 tpc.textField = textBox.text;
                 tpc.color = textBox.color;
                 tpc.fontSize = textBox.fontSize;

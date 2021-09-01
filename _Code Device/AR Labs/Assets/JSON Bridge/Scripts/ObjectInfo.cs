@@ -66,6 +66,7 @@ public class ObjectInfo
     public float[] childColor = null;
     public string RigidBody;
     public string PointerReceiver;
+    public string canvasText = null;
     public string tmp;
 
     public string[] componentsToAdd; //This holds a string version of the component script JSONs

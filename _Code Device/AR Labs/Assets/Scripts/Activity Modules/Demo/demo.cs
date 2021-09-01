@@ -17,7 +17,7 @@ namespace demoRoutines
         private AudioSource aud;
         private Bridge bridge;
         private demoSequence sequencer;
-        private InstructionBox ibox;
+        //private InstructionBox ibox;
 
         //public override void Initialize(ActivityModuleData dataIn)
         public override void Initialize(string jsonData)

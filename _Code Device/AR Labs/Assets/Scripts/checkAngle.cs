@@ -11,6 +11,7 @@ public class checkAngle : MonoBehaviour
     public float altTarget = -30;
     public float altTolerance = 30;
     public string audioClipSuccess = null;
+    public string[] callBackObjects;
 
     private GameObject demoObject;
     private MagicLeapTools.PointerReceiver _pointerReceiver;
@@ -96,6 +97,22 @@ public class checkAngle : MonoBehaviour
         Debug.Log("TTIME DELAY " + timeDelay.ToString() + "*********************************************************************************************");
 
         yield return new WaitForSeconds(timeDelay);
+        
+
+        for (int i = 0; i < callBackObjects.Length; i++)
+        {
+            demoObject = GameObject.Find(callBackObjects[i]);
+            if (demoObject != null)
+            {
+                demoObject.GetComponent<demoSequence>().actionCallBack(gameObject);
+            }
+            else
+                Debug.Log("no callback object ->" + callBackObjects[i]);
+        }
+
     }
+
+
+
 
 }

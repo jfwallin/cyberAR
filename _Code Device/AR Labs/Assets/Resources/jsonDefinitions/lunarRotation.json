@@ -20,12 +20,12 @@
     "subphaseNames": [],
     "urlJson": "",
     "json": "",
-    "timeToEnd": 105,
+    "timeToEnd": 2000,
     "endUsingButton": true,
     "description": "A demonstration of synchronous rotation of the Moon",
     "author": "John Wallin",
     "authorInstitution": "Middle Tennessee State University",
-    "dateCreated": "Sun Aug 29 15:09:13 2021",
+    "dateCreated": "Wed Sep  1 00:35:35 2021",
     "introAudio": "",
     "createObjects": true,
     "destroyObjects": true,
@@ -105,7 +105,7 @@
         },
         {
             "type": "Prefabs/textPrefab",
-            "tmp": "{\"textField\": \"The Moon \\n is green\", \"color\": [0, 255, 255, 0], \"fontSize\": 1, \"wrapText\": false}",
+            "tmp": "{\"textField\": \"14 days after \\n New Moon\", \"color\": [0, 255, 255, 0], \"fontSize\": 1, \"wrapText\": false}",
             "position": {
                 "x": 0.0,
                 "y": 1,
@@ -127,7 +127,7 @@
         },
         {
             "type": "Prefabs/textPrefab",
-            "tmp": "{\"textField\": \"2000 miles\", \"color\": [0, 255, 255, 0], \"fontSize\": 1, \"wrapText\": false}",
+            "tmp": "{\"textField\": \"Full Moon\", \"color\": [0, 255, 255, 0], \"fontSize\": 1, \"wrapText\": false}",
             "position": {
                 "x": 0.0,
                 "y": -0.75,
@@ -148,12 +148,56 @@
             "name": "moonLabelBottom"
         },
         {
-            "type": "Prefabs/demoButtonPrefab",
-            "parentName": "[_DYNAMIC]",
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"Introduction\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}",
             "position": {
-                "x": 0.5,
-                "y": -0.7,
+                "x": 0.0,
+                "y": 0.6,
                 "z": 1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.6,
+                "y": 0.6,
+                "z": 0.6
+            },
+            "enabled": true,
+            "parentName": "[_DYNAMIC]",
+            "name": "taskLabel"
+        },
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"Synchronous Rotation\", \"color\": [255, 255, 255, 255], \"fontSize\": 1.0, \"wrapText\": false}",
+            "position": {
+                "x": 0.0,
+                "y": 0.75,
+                "z": 1.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.6,
+                "y": 0.6,
+                "z": 0.6
+            },
+            "enabled": true,
+            "parentName": "[_DYNAMIC]",
+            "name": "sectionLabel"
+        },
+        {
+            "type": "Prefabs/demoButtonPrefab",
+            "parentName": "sectionLabel",
+            "position": {
+                "x": 1.0,
+                "y": 0,
+                "z": 0
             },
             "eulerAngles": {
                 "x": 90,
@@ -161,9 +205,9 @@
                 "z": 0.0
             },
             "scale": {
-                "x": 0.5,
-                "y": 0.5,
-                "z": 0.5
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
             },
             "name": "brbNextModule",
             "color": [
@@ -174,7 +218,14 @@
             ],
             "componentsToAdd": [
                 "{\"name\": \"demoButtonActions\", \"callBackObjects\": [\"demoModule\"]}"
-            ]
+            ],
+            "childColor": [
+                0,
+                255,
+                255,
+                255
+            ],
+            "childName": "button"
         },
         {
             "type": "Prefabs/textPrefab",
@@ -190,9 +241,9 @@
                 "z": 0.0
             },
             "scale": {
-                "x": 0.3,
-                "y": 0.3,
-                "z": 0.3
+                "x": 0.6,
+                "y": 0.6,
+                "z": 0.6
             },
             "enabled": true,
             "parentName": "brbNextModule",
@@ -200,11 +251,11 @@
         },
         {
             "type": "Prefabs/demoButtonPrefab",
-            "parentName": "[_DYNAMIC]",
+            "parentName": "sectionLabel",
             "position": {
-                "x": -0.5,
-                "y": -0.7,
-                "z": 1.5
+                "x": -1.0,
+                "y": 0,
+                "z": 0
             },
             "eulerAngles": {
                 "x": 90,
@@ -212,20 +263,27 @@
                 "z": 0.0
             },
             "scale": {
-                "x": 0.5,
-                "y": 0.5,
-                "z": 0.5
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
             },
             "name": "brbPreviousModule",
             "color": [
+                255,
+                0,
+                0,
+                255
+            ],
+            "componentsToAdd": [
+                "{\"name\": \"demoButtonActions\", \"callBackObjects\": [\"demoModule\"]}"
+            ],
+            "childColor": [
                 0,
                 255,
                 255,
                 255
             ],
-            "componentsToAdd": [
-                "{\"name\": \"demoButtonActions\", \"callBackObjects\": [\"demoModule\"]}"
-            ]
+            "childName": "button"
         },
         {
             "type": "Prefabs/textPrefab",
@@ -241,9 +299,9 @@
                 "z": 0.0
             },
             "scale": {
-                "x": 0.3,
-                "y": 0.3,
-                "z": 0.3
+                "x": 0.6,
+                "y": 0.6,
+                "z": 0.6
             },
             "enabled": true,
             "parentName": "brbPreviousModule",
@@ -251,11 +309,11 @@
         },
         {
             "type": "Prefabs/demoButtonPrefab",
-            "parentName": "[_DYNAMIC]",
+            "parentName": "taskLabel",
             "position": {
-                "x": 0.2,
-                "y": -0.7,
-                "z": 1.5
+                "x": 0.5,
+                "y": 0,
+                "z": 0
             },
             "eulerAngles": {
                 "x": 90,
@@ -276,7 +334,14 @@
             ],
             "componentsToAdd": [
                 "{\"name\": \"demoButtonActions\", \"callBackObjects\": [\"demoModule\"]}"
-            ]
+            ],
+            "childColor": [
+                0,
+                255,
+                0,
+                255
+            ],
+            "childName": "button"
         },
         {
             "type": "Prefabs/textPrefab",
@@ -302,11 +367,11 @@
         },
         {
             "type": "Prefabs/demoButtonPrefab",
-            "parentName": "[_DYNAMIC]",
+            "parentName": "taskLabel",
             "position": {
-                "x": -0.2,
-                "y": -0.7,
-                "z": 1.5
+                "x": -0.5,
+                "y": 0,
+                "z": 0
             },
             "eulerAngles": {
                 "x": 90,
@@ -356,35 +421,53 @@
     "clips": [
         {
             "clipName": "clip0",
-            "timeToEnd": 3,
-            "autoAdvance": true,
-            "goNext": "brbNext",
-            "goPrevious": "brbPrevious",
-            "objectChanges": []
-        },
-        {
-            "clipName": "clip1",
-            "timeToEnd": 3,
+            "timeToEnd": 10,
             "autoAdvance": true,
             "objectChanges": [
                 {
-                    "name": "Moon",
+                    "name": "MainInstructions",
                     "parentObject": "[DYNAMIC]",
                     "activationConditions": 0,
                     "reactiveObject": false,
                     "enable": true,
                     "position": {
-                        "x": 2.0,
-                        "y": 0.0,
-                        "z": 1.5
-                    },
-                    "newPosition": true,
-                    "eulerAngles": {
                         "x": 0.0,
-                        "y": -0.0,
+                        "y": 0.0,
                         "z": 0.0
                     },
-                    "newEulerAngles": true,
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "canvasText": "In the lab handout, go to the section on Synchronous \n rotation.  Go through all the Moon Phases using \nthe Next and Previous buttons.  In the lab handout, \ndraw a stick figure showing the direction \nit is facing on at each phase. "
+                },
+                {
+                    "name": "brbPreviousClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
                     "scale": {
                         "x": 0.0,
                         "y": 0.0,
@@ -393,7 +476,7 @@
                     "newScale": false
                 },
                 {
-                    "name": "moonLabelTop",
+                    "name": "brbNextClip",
                     "parentObject": "[DYNAMIC]",
                     "activationConditions": 0,
                     "reactiveObject": false,
@@ -411,15 +494,14 @@
                     },
                     "newEulerAngles": false,
                     "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
+                        "x": 0.01,
+                        "y": 0.01,
+                        "z": 0.01
                     },
-                    "newScale": false,
-                    "tmp": "{\"textField\": \"14 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
+                    "newScale": true
                 },
                 {
-                    "name": "moonLabelBottom",
+                    "name": "brbNextModule",
                     "parentObject": "[DYNAMIC]",
                     "activationConditions": 0,
                     "reactiveObject": false,
@@ -437,600 +519,18 @@
                     },
                     "newEulerAngles": false,
                     "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false,
-                    "tmp": "{\"textField\": \"Full Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
-                }
-            ]
-        },
-        {
-            "clipName": "clip2",
-            "timeToEnd": 3,
-            "autoAdvance": true,
-            "objectChanges": [
-                {
-                    "name": "Moon",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 1.4142135623730951,
-                        "y": 0.0,
-                        "z": 2.914213562373095
-                    },
-                    "newPosition": true,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": -45.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": true,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false
-                },
-                {
-                    "name": "moonLabelTop",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false,
-                    "tmp": "{\"textField\": \"17.5 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
-                },
-                {
-                    "name": "moonLabelBottom",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false,
-                    "tmp": "{\"textField\": \"Waning Gibbous\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
-                }
-            ]
-        },
-        {
-            "clipName": "clip3",
-            "timeToEnd": 3,
-            "autoAdvance": true,
-            "objectChanges": [
-                {
-                    "name": "Moon",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 1.2246467991473532e-16,
-                        "y": 0.0,
-                        "z": 3.5
-                    },
-                    "newPosition": true,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": -90.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": true,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false
-                },
-                {
-                    "name": "moonLabelTop",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false,
-                    "tmp": "{\"textField\": \"21 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
-                },
-                {
-                    "name": "moonLabelBottom",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false,
-                    "tmp": "{\"textField\": \"Third Quarter\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
-                }
-            ]
-        },
-        {
-            "clipName": "clip4",
-            "timeToEnd": 3,
-            "autoAdvance": true,
-            "objectChanges": [
-                {
-                    "name": "Moon",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": -1.414213562373095,
-                        "y": 0.0,
-                        "z": 2.914213562373095
-                    },
-                    "newPosition": true,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": -135.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": true,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false
-                },
-                {
-                    "name": "moonLabelTop",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false,
-                    "tmp": "{\"textField\": \"24.5 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
-                },
-                {
-                    "name": "moonLabelBottom",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false,
-                    "tmp": "{\"textField\": \"Waning Crescent\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
-                }
-            ]
-        },
-        {
-            "clipName": "clip5",
-            "timeToEnd": 3,
-            "autoAdvance": true,
-            "objectChanges": [
-                {
-                    "name": "Moon",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": -2.0,
-                        "y": 0.0,
-                        "z": 1.5000000000000002
-                    },
-                    "newPosition": true,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": -180.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": true,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false
-                },
-                {
-                    "name": "moonLabelTop",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false,
-                    "tmp": "{\"textField\": \"New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
-                },
-                {
-                    "name": "moonLabelBottom",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false,
-                    "tmp": "{\"textField\": \"New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
-                }
-            ]
-        },
-        {
-            "clipName": "clip6",
-            "timeToEnd": 3,
-            "autoAdvance": true,
-            "objectChanges": [
-                {
-                    "name": "Moon",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": -1.4142135623730954,
-                        "y": 0.0,
-                        "z": 0.08578643762690508
-                    },
-                    "newPosition": true,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": -225.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": true,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false
-                },
-                {
-                    "name": "moonLabelTop",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false,
-                    "tmp": "{\"textField\": \"3.5 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
-                },
-                {
-                    "name": "moonLabelBottom",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false,
-                    "tmp": "{\"textField\": \"Waxing Crescent\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
-                }
-            ]
-        },
-        {
-            "clipName": "clip7",
-            "timeToEnd": 3,
-            "autoAdvance": true,
-            "objectChanges": [
-                {
-                    "name": "Moon",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": -3.6739403974420594e-16,
-                        "y": 0.0,
-                        "z": -0.5
-                    },
-                    "newPosition": true,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": -270.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": true,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false
-                },
-                {
-                    "name": "moonLabelTop",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false,
-                    "tmp": "{\"textField\": \"7 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
-                },
-                {
-                    "name": "moonLabelBottom",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false,
-                    "tmp": "{\"textField\": \"First Quarter\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
-                }
-            ]
-        },
-        {
-            "clipName": "clip8",
-            "timeToEnd": 3,
-            "autoAdvance": true,
-            "objectChanges": [
-                {
-                    "name": "Moon",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 1.4142135623730947,
-                        "y": 0.0,
-                        "z": 0.08578643762690463
-                    },
-                    "newPosition": true,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": -315.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": true,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false
-                },
-                {
-                    "name": "moonLabelTop",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false,
-                    "tmp": "{\"textField\": \"11.5 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
-                },
-                {
-                    "name": "moonLabelBottom",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false,
-                    "tmp": "{\"textField\": \"Waxing Gibbous\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
+                        "x": 0.01,
+                        "y": 0.01,
+                        "z": 0.01
+                    },
+                    "newScale": true,
+                    "childColor": [
+                        255,
+                        0,
+                        0,
+                        255
+                    ],
+                    "childName": "button"
                 }
             ]
         }

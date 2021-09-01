@@ -19,7 +19,7 @@ public class LabManager : MonoBehaviour
     private GameObject instructionHolder;
     private GameObject instructionCanvas;
 
-    private InstructionBox ibox;
+    //private InstructionBox ibox;
     private Transform labform;
 
     public void Start()
@@ -61,7 +61,7 @@ public class LabManager : MonoBehaviour
     public void Initialize(string[] moduleData)
     {
         // this creates the instruction canvas
-        createInstructions();
+        //createInstructions();
 
         //Initialize data
         modules = moduleData;
@@ -152,7 +152,8 @@ public class LabManager : MonoBehaviour
     }
     void createInstructions()
     {
-        instructionHolder = Instantiate(instructionPrefab, new Vector3(-0.3f, 1.5f, 1.0f), Quaternion.Euler(0.0f, 180.0f, 0.0f));
+        //GameObject root = GameObject.Find("Dynamic");
+        instructionHolder = Instantiate(instructionPrefab, new Vector3(0.0f, -0.3f, 2.0f), Quaternion.Euler(0.0f, 180.0f, 0.0f));
         instructionCanvas = GameObject.Find("MainInstructions");
         instructionCanvas.GetComponent<Text>().text = "Test Text";
 

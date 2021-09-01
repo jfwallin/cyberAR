@@ -164,13 +164,15 @@ public class demoSequence : MonoBehaviour
         if (sendingObject.name.IndexOf(actionNextClipName) >= 0)
             actionNextClip();
         else if (sendingObject.name.IndexOf(actionPreviousClipName) >= 0)
-            actionPreviousClip ();
+            actionPreviousClip();
         else if (sendingObject.name.IndexOf(actionNextModuleName) >= 0)
             actionNextModule();
         else if (sendingObject.name.IndexOf(actionPreviousModuleName) >= 0)
             actionPreviousModule();
         else if (sendingObject.name.IndexOf(actionEndApplicationName) >= 0)
             actionEndApplication();
+        else if (sendingObject.name.IndexOf("basketball") >= 0)
+            actionNextClip();
         else
             Debug.Log("unknown callback!");
     }
