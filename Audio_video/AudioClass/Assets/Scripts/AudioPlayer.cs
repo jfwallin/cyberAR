@@ -60,22 +60,34 @@ public class AudioPlayer : MonoBehaviour
                     print($"audio length {audio.clip.length}");
                     StartCoroutine(waitAudio(audio.clip.length));
                     // new WaitForSeconds(audio.clip.length);
-                   //writer.WriteLine($"Audio file {MediaName} played at {System.DateTime.Now} ");
-                    testWrite.WriteToString(dataType, System.DateTime.Now.ToString(), MediaName, "Audio", "Other inormation");
-                   //writer.Close();
+                   
+                    testWrite.WriteToString(dataType,  MediaName, "Audio");
+
+                 
 
                 }
                 break;
             case MCQ.Video:
                 if (myVideoPlayer.isPlaying == false && audio.isPlaying == false)
                 {
+                    dataType = InputType.info;
+                    testWrite.WriteToString(dataType, "Inofrmation", "Student_First_Name", "Sam", "LastName", "Brown", "Lab number", "Lab4", "Topic", "Physics");
+                    dataType = InputType.Media;
                     audio.Stop();
-                  //  print($"thsi is a test for write script{JustWrite.number}");
                     myVideoPlayer.Stop();
                     myVideoPlayer.clip = Resources.Load<VideoClip>("Video/" + MediaName);
                     myVideoPlayer.Play();
                     myVideoPlayer.loopPointReached += EndReached;
-                    testWrite.WriteToString(dataType, System.DateTime.Now.ToString(), MediaName, "Video");
+                    testWrite.WriteToString(dataType,  MediaName, "Video");
+                    //This part is to test the information part 
+                   
+                    dataType = InputType.MCQ;
+                    testWrite.WriteToString(dataType, 5.ToString(), "A"); 
+                    dataType = InputType.TFQ;
+                    testWrite.WriteToString(dataType, 4.ToString(), "F");
+                    dataType = InputType.OrderQ;
+                    testWrite.WriteToString(dataType, 6.ToString(), "C", "D", "A", "B");
+                    dataType = InputType.Media;
                 }
 
 
