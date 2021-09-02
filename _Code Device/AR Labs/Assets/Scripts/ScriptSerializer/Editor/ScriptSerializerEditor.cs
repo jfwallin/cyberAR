@@ -7,14 +7,15 @@ using UnityEditor;
 public class ScriptSerializerEditor : Editor
 {
     public override void OnInspectorGUI()
-    {
-        //base.OnInspectorGUI();
-
+    { 
+        ScriptSerializer serializer = (ScriptSerializer)target;
         DrawDefaultInspector();
-        ScriptSerializer myTarget = (ScriptSerializer)target;
+
         if (GUILayout.Button("Serialize Script"))
         {
-            myTarget.SerializeScript();
+            serializer.SerializeScript();
         }
+
+        GUILayout.TextArea(serializer.serializedScript);
     }
 }

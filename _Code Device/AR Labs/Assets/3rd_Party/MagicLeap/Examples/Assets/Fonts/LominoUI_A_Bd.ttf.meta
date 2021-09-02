@@ -1,7 +1,5 @@
 fileFormatVersion: 2
 guid: 9c9078c06443df049a2830962f9dd5ef
-timeCreated: 1517943548
-licenseType: Pro
 TrueTypeFontImporter:
   externalObjects: {}
   serializedVersion: 4
@@ -10,7 +8,6 @@ TrueTypeFontImporter:
   characterSpacing: 0
   characterPadding: 1
   includeFontData: 1
-  fontName: Lomino UI App
   fontNames:
   - Lomino UI App
   fallbackFontReferences:
@@ -27,6 +24,7 @@ TrueTypeFontImporter:
   fontRenderingMode: 0
   ascentCalculationMode: 1
   useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
   userData: 
   assetBundleName: 
   assetBundleVariant: 

@@ -12,103 +12,73 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfe592c831882b04a94886383d9cc628, type: 3}
   m_Name: Serializer
   m_EditorClassIdentifier: 
-  data:
-    moduleName: Multiple Choice Question
-    specificName: Moon Phase Identification MCQ
+  ObjectToSerialize: 1
+  labData:
+    Lab_ID: 
+    Author: 
+    CourseName: 
+    EstimatedLength: 
+    NumModules: 
+    Objectives: []
+    ActivityModules: []
+    Assets: []
+  mCEData:
+    moduleName: Multiple Choice Exercise
+    jsonFileName: 
+    description: Students are shown an image of the moon along with an auditory description
+      and then asked to identify the name of the phase.
+    author: Isaac Shirk
+    authorInstitution: Middle Tennessee State University
+    dateCreated: 9/1/2021
     prerequisiteActivities: []
-    educationalObjectives: []
-    instructions: []
+    prefabName: MCQ/MultipleChoiceQuestion
+    specificName: Moon Phase Identification
+    educationalObjectives:
+    - Students should be able to correctly identify the name of a moon phase from
+      an image of the moon.
+    instructions:
+    - Examine the image and listen to the audio describing it. Then use the pointer
+      to point at and select and answer (using the trigger on the back of the controller).
+      Submit your answer by pointing at and pressing the "Submit" button.
+    introMediaIDs: []
+    outroMediaIDs: []
     numRepeatsAllowed: -1
     numGradableRepeatsAllowed: -1
-    gradingCriteria: 
+    gradingCriteria: Only one correct answer per question, graded  by (number correct
+      / total questions).
     currentScore: 0
     bestScore: 0
     completed: 0
     currentSubphase: 0
     subphaseNames: []
     questions:
-    - question: What is the name of this phase of the moon?
-      randomizeOrder: 1
+    - referenceMedia:
+      - resource_id: 0
+        resource_url: http://cyberlearnar.cs.mtsu.edu/show_uploaded/full_moon_unlabeled.jpeg
+        resource_type: 2
+      answerCorrectMedia: []
+      answerIncorrectMedia: []
+      question: 
+      randomizeOrder: 0
       allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - Full Moon
-      correctOptionsIndices: 00000000
-    - question: What is the name of this phase of the moon?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - Waning Gibbous
-      correctOptionsIndices: 00000000
-    - question: What is the name of this phase of the moon?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - Third Quarter
-      correctOptionsIndices: 00000000
-    - question: What is the name of this phase of the moon?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - Waning Crescent
-      correctOptionsIndices: 00000000
-    - question: What is the name of this phase of the moon?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - New Moon
-      correctOptionsIndices: 00000000
-    - question: What is the name of this phase of the moon?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - Waxing Crescent
-      correctOptionsIndices: 00000000
-    - question: What is the name of this phase of the moon?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - First Quarter
-      correctOptionsIndices: 00000000
-    - question: What is the name of this phase of the moon?
-      randomizeOrder: 1
-      allowMultiSelect: 0
-      numberOfOptionsFromPool: 3
-      answerOptions:
-      - Waxing Gibbous
-      correctOptionsIndices: 00000000
-    answerPool:
-    - New Moon
-    - Waxing Crescent
-    - First Quarter
-    - Waxing Gibbous
-    - Full Moon
-    - Waning Gibbous
-    - Third Quarter
-    - Waning Crescent
-  serializedScript: '{"moduleName":"Multiple Choice Question","specificName":"Moon
-    Phase Identification MCQ","prerequisiteActivities":[],"educationalObjectives":[],"instructions":[],"numRepeatsAllowed":-1,"numGradableRepeatsAllowed":-1,"gradingCriteria":"","currentScore":0.0,"bestScore":0.0,"completed":false,"currentSubphase":0,"subphaseNames":[],"questions":[{"question":"What
-    is the name of this phase of the moon?","randomizeOrder":true,"allowMultiSelect":false,"numberOfOptionsFromPool":3,"answerOptions":["Full
-    Moon"],"correctOptionsIndices":[0]},{"question":"What is the name of this phase
-    of the moon?","randomizeOrder":true,"allowMultiSelect":false,"numberOfOptionsFromPool":3,"answerOptions":["Waning
-    Gibbous"],"correctOptionsIndices":[0]},{"question":"What is the name of this
-    phase of the moon?","randomizeOrder":true,"allowMultiSelect":false,"numberOfOptionsFromPool":3,"answerOptions":["Third
-    Quarter"],"correctOptionsIndices":[0]},{"question":"What is the name of this
-    phase of the moon?","randomizeOrder":true,"allowMultiSelect":false,"numberOfOptionsFromPool":3,"answerOptions":["Waning
-    Crescent"],"correctOptionsIndices":[0]},{"question":"What is the name of this
-    phase of the moon?","randomizeOrder":true,"allowMultiSelect":false,"numberOfOptionsFromPool":3,"answerOptions":["New
-    Moon"],"correctOptionsIndices":[0]},{"question":"What is the name of this phase
-    of the moon?","randomizeOrder":true,"allowMultiSelect":false,"numberOfOptionsFromPool":3,"answerOptions":["Waxing
-    Crescent"],"correctOptionsIndices":[0]},{"question":"What is the name of this
-    phase of the moon?","randomizeOrder":true,"allowMultiSelect":false,"numberOfOptionsFromPool":3,"answerOptions":["First
-    Quarter"],"correctOptionsIndices":[0]},{"question":"What is the name of this
-    phase of the moon?","randomizeOrder":true,"allowMultiSelect":false,"numberOfOptionsFromPool":3,"answerOptions":["Waxing
-    Gibbous"],"correctOptionsIndices":[0]}],"answerPool":["New Moon","Waxing Crescent","First
-    Quarter","Waxing Gibbous","Full Moon","Waning Gibbous","Third Quarter","Waning
-    Crescent"]}'
+      numberOfOptionsFromPool: 0
+      answerOptions: []
+      correctOptionsIndices: 
+    answerPool: []
+  mCQData:
+    referenceMedia:
+    - resource_id: 0
+      resource_url: 
+      resource_type: 0
+    answerCorrectMedia: []
+    answerIncorrectMedia: []
+    question: 
+    randomizeOrder: 0
+    allowMultiSelect: 0
+    numberOfOptionsFromPool: 0
+    answerOptions: []
+    correctOptionsIndices: 
+  serializedScript: "{\n    \"referenceMedia\": [],\n    \"answerCorrectMedia\":
+    [],\n    \"answerIncorrectMedia\": [],\n    \"question\": \"\",\n    \"randomizeOrder\":
+    false,\n    \"allowMultiSelect\": false,\n    \"numberOfOptionsFromPool\": 0,\n   
+    \"answerOptions\": [],\n    \"correctOptionsIndices\": []\n}"

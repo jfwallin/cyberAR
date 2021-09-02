@@ -1,29 +1,40 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.IO;
-using MagicLeapTools;
-using System.Runtime.CompilerServices;
-using System.CodeDom;
 using System;
+using MagicLeapTools;
+//using System.Runtime.CompilerServices;
+//using System.CodeDom;
 using System.Collections.Specialized;
 using System.Runtime.Versioning;
 using System.Security.Policy;
 using System.Runtime.InteropServices;
 using UnityEditor;
-
+using TMPro;
 public class Bridge
 {
+    static string canvasText;
+
     //ParseJson can be called from outside the class to trigger the methods included here
     public void ParseJson(string data)
     {
         makeScene(JsonUtility.FromJson<ObjectInfoCollection>(data));
     }
 
+    public void makeObjects(ObjectInfo[] objectList)
+    {
+        foreach (ObjectInfo obj in objectList)
+        {
+            if (obj.transmittable == false) makeObject(obj);
+            else if (obj.transmittable == true) makeTransmissionObject(obj);
+        }
+    }
 
     private void makeScene(ObjectInfoCollection info)
     {
-        //In the event that transmission obects need to be created this will send each to thier apropriet category
+        //In the event that transmission objects need to be created this will send each to thier apropriet category
         foreach (ObjectInfo obj in info.objects)
         {
             if (obj.transmittable == false) makeObject(obj);
@@ -33,41 +44,74 @@ public class Bridge
 
     //makeObject goes through the json and creates the scene and all conected scripts from it.
     //We are assuming that the scene is set up with the camera, default lighting, and controller already present.
-    private void makeObject(ObjectInfo obj)
+    public void makeObject(ObjectInfo obj)
     {
         GameObject myObject;
         GameObject parent = null;
-        if (obj.parentName != "")
+        TextMeshPro textBox= null;
+
+        // this allow use to modify existing objects in the scene
+        myObject = GameObject.Find(obj.name);
+        if (myObject != null)
+        {
+            Debug.Log("found object " + obj.name);
+        }
+        else
+        {
+            Debug.Log("creating " + obj.name + " " + obj.type);
+            myObject = dealWithType(obj.type); //possibly fixed
+            myObject.name = obj.name;
+
+            obj.newPosition = true;
+            obj.newScale = true;
+            obj.newEulerAngles = true;
+            if (obj.parentName != "")
+            {
+                parent = GameObject.Find(obj.parentName);
+                myObject.transform.SetParent(parent.transform);
+            }
+        }
+
+       /* if (obj.parentName != "")
         {
             parent = GameObject.Find(obj.parentName);
-        }
+            myObject.transform.SetParent(parent.transform);
+        }*/
+        //if (obj.parentName != "")
+        //{
+        //    myObject.transform.parent = parent.transform;
+        //}
 
-        myObject = dealWithType(obj.type); //possibly fixed
-        myObject.name = obj.name;
+        // three new key words have been added to the objectInfo class.
+        // The keywords allow use to not override the postions, scales, and
+        // orientation of an existing object if we don't want to do that.
+        if (obj.newPosition)
+            myObject.transform.localPosition = obj.position;
+        if (obj.newScale)
+            myObject.transform.localScale = obj.scale;
+        if (obj.newEulerAngles)
+            myObject.transform.localEulerAngles = obj.eulerAngles;
 
-        for (int i = 0; i < obj.componentsToAdd.Length; i++)
+        if (obj.componentsToAdd != null)
         {
-            //Parse once to get the name of the component
-            ComponentName cName = JsonUtility.FromJson<ComponentName>(obj.componentsToAdd[i]);
-            //Check if the component already exists (ie, the mesh renderer on aprimitive)
-            Component myComp = myObject.GetComponent(Type.GetType(cName.name));
-            if (myComp == null)
+            //Debug.Log("components to add " + obj.componentsToAdd.Length.ToString());
+            for (int i = 0; i < obj.componentsToAdd.Length; i++)
             {
-                JsonUtility.FromJsonOverwrite(obj.componentsToAdd[i], myObject.AddComponent(Type.GetType(cName.name)));
+                //Parse once to get the name of the component
+                ComponentName cName = JsonUtility.FromJson<ComponentName>(obj.componentsToAdd[i]);
+                //Check if the component already exists (ie, the mesh renderer on aprimitive)
+                //Debug.Log(i.ToString() + "   " + obj.componentsToAdd[i]);
+                //Debug.Log("cname " + cName.name); 
+                Component myComp = myObject.GetComponent(Type.GetType(cName.name));
+                if (myComp == null)
+                {
+                    JsonUtility.FromJsonOverwrite(obj.componentsToAdd[i], myObject.AddComponent(Type.GetType(cName.name)));
+                }
+                else
+                {
+                    JsonUtility.FromJsonOverwrite(obj.componentsToAdd[i], myComp);
+                }
             }
-            else
-            {
-                JsonUtility.FromJsonOverwrite(obj.componentsToAdd[i], myComp);
-            }
-        }
-
-
-        myObject.transform.position = obj.position;
-        myObject.transform.localScale = obj.scale;
-        //myObject.transform.eulerAngles = obj.eulerAngles;
-        if (obj.parentName != "")
-        {
-            myObject.transform.parent = parent.transform;
         }
 
         if (obj.tag != "")
@@ -77,21 +121,25 @@ public class Bridge
             // manually added to the base scene
         }
 
-        // the default is active
-        myObject.SetActive(obj.active);
+        
 
         //myObject.GetComponent<PointerReceiver>().Clicked)
 
 
         //This block is removed in Isaac's code and dealt with in the stringJson
         //I can't quite get that working though
-        if (obj.material != "")
+        if (obj.material != "" && obj.material != null)
         {
+            Debug.Log("length " + obj.material.Length.ToString());
+            Debug.Log("in Render   -X" + obj.material + "X");
             Renderer rend = myObject.GetComponent<Renderer>();
             rend.material = Resources.Load<Material>(obj.material); //material must be in a recources folder.
         }
 
-        if (obj.texture != "")
+        myObject.SetActive(obj.enabled); //sets the enabled/disabled state of the object
+
+
+        if (obj.texture != "" )
         {
             Renderer rend = myObject.GetComponent<Renderer>();
             rend.material.mainTexture = Resources.Load<Texture2D>(obj.texture);
@@ -112,17 +160,29 @@ public class Bridge
             }
         }
 
+        if (obj.childColor != null && obj.childName != "" )
+        {
+            if (obj.childColor.Length == 4)
+            {
+                Transform trans = myObject.transform;
+                Transform childTrans = trans.Find(obj.childName);
+                if (childTrans != null)
+                {
+                    Debug.Log(" changing colors on " + obj.childName + "  " + obj.name + " &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+                    GameObject childObj = childTrans.gameObject;
+                    Renderer rend = childObj.GetComponent<Renderer>();
+                    rend.material.SetColor("_Color", new Color(obj.childColor[0], obj.childColor[1], obj.childColor[2], obj.childColor[3])); //, obj.color[3]));
+
+                }
+
+            }
+        }
 
 
         if (obj.RigidBody!= null)
         {
-
             Rigidbody mycomp = myObject.GetComponent<Rigidbody>();
-            if (mycomp == null)
-            {
-                Debug.Log("no rigidbody");
-            }
-            else
+            if (mycomp != null)
             {
                 // create a new helper class for rigidbody components
                 rigidBodyClass rb = new rigidBodyClass();
@@ -172,7 +232,10 @@ public class Bridge
                 if (rb.yRotationConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezeRotationY;
                 if (rb.zRotationConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezeRotationZ;
 
+
             }
+
+
         }
         
 
@@ -205,6 +268,59 @@ public class Bridge
             }
 
         }
+
+        if (obj.canvasText !=null)
+        {
+            Text tt = myObject.GetComponent<Text>();
+            canvasText = obj.canvasText;
+            tt.text = obj.canvasText;
+
+        }
+
+        if (obj.tmp != null)
+        {
+            textBox = myObject.GetComponent<TextMeshPro>();
+            if (textBox == null)
+            {
+                Debug.Log("no TextMeshPro");
+            }
+            else
+            {
+                textProClass tpc = new textProClass();
+                Debug.Log("TEXT = " + textBox.text);
+                tpc.textField = textBox.text;
+                tpc.color = textBox.color;
+                tpc.fontSize = textBox.fontSize;
+                tpc.wrapText = textBox.enableWordWrapping;
+                //Debug.Log(JsonUtility.ToJson(obj));
+                //Debug.Log("TTMP  " + obj.tmp);
+                JsonUtility.FromJsonOverwrite(obj.tmp, tpc);
+
+                //Debug.Log("2TTMP  " + obj.tmp);
+                //Debug.Log("dddddd  " + tpc.textField);
+
+                textBox.SetText(tpc.textField);
+                textBox.fontSize = tpc.fontSize;
+                textBox.color = tpc.color;
+                textBox.enableWordWrapping = tpc.wrapText;
+                textBox.SetAllDirty();
+
+            }
+
+
+        }
+        else
+        {
+            Debug.Log("no meshpro");
+        }
+
+        
+       textBox = myObject.GetComponent<TextMeshPro>();
+       if (textBox != null)
+        {
+            textBox.SetAllDirty();
+        }
+
     }
 
     private void makeTransmissionObject(ObjectInfo obj)

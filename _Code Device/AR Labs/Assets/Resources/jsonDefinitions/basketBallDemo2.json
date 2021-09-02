@@ -1,14 +1,14 @@
 {
     "moduleName": "Moveable Sphere Demo",
-    "specificName": "Sunlight on a basketball",
-    "jsonFileName": "basketBallDemo.json",
+    "specificName": "Sunlight on a basketball (part 2)",
+    "jsonFileName": "basketBallDemo2.json",
     "prefabName": "demoPrefab",
     "prerequisiteActivities": [],
     "educationalObjectives": [
         "Understand that shadows on spherical objects lead to moon phases"
     ],
     "instructions": [
-        "Notice how the lighted part of the basketball always faces the same direction."
+        "Explore how changing the location \nof the basketball changes the shadows.\n\n- Reach out to extend pointer. \n- Use the trigger to grab objects\n- Click on the red button when you are done exploring."
     ],
     "numRepeatsAllowed": 0,
     "numGradableRepeatsAllowed": 0,
@@ -20,36 +20,54 @@
     "subphaseNames": [],
     "urlJson": "",
     "json": "",
-    "timeToEnd": 5,
+    "timeToEnd": 10,
     "endUsingButton": true,
     "description": "A demonstration of how light from the sun illuminates a basketball.",
     "author": "John Wallin",
     "authorInstitution": "Middle Tennessee State University",
-    "dateCreated": "Sun Jul  4 16:10:10 2021",
+    "dateCreated": "Thu Jul  8 23:19:32 2021",
+    "introAudio": "Audio/Basketball",
+    "createObjects": true,
+    "destroyObjects": true,
+    "restoreLights": true,
     "objects": [
         {
-            "prefab": "moveableSphere",
-            "position": [
-                0.0,
-                -0.3,
+            "name": "Basketball",
+            "parentName": "[_DYNAMIC]",
+            "type": "Prefabs/moveableSphere",
+            "tag": "",
+            "active": true,
+            "position": {
+                "x": 0.0,
+                "y": -0.3,
+                "z": 1.0
+            },
+            "euleriAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.2,
+                "y": 0.5,
+                "z": 1.0
+            },
+            "material": "",
+            "texture": "Textures/balldimpled",
+            "textureByURL": "",
+            "color": [
+                1.0,
+                1.0,
+                1.0,
                 1.0
             ],
-            "scale": [
-                0.5,
-                0.5,
-                0.5
-            ],
-            "name": "Basketball",
-            "texture": "balldimpled",
-            "componentsToAdd": [
-                "{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 3.0}"
-            ],
+            "transmittable": false,
             "RigidBody": {
                 "mass": 1.0,
                 "drag": 5.0,
                 "angularDrag": 0.0,
                 "isKinematic": true,
-                "useGravity": true,
+                "useGravity": false,
                 "xConstraint": false,
                 "yConstraint": false,
                 "zConstraint": false,
@@ -63,7 +81,47 @@
                 "faceWhileDragging": false,
                 "matchWallWhileDragging": false,
                 "invertForward": false
-            }
+            },
+            "componentsToAdd": [
+                "{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0}"
+            ],
+            "newScale": true
+        },
+        {
+            "name": "Sun",
+            "parentName": "[_DYNAMIC]",
+            "type": "Prefabs/SunPrefab",
+            "tag": "",
+            "active": true,
+            "position": {
+                "x": -39.0,
+                "y": 0,
+                "z": 0
+            },
+            "euleriAngles": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 5,
+                "y": 5,
+                "z": 5
+            },
+            "material": "",
+            "texture": "",
+            "textureByURL": "",
+            "color": [
+                1.0,
+                1.0,
+                1.0,
+                1.0
+            ],
+            "transmittable": false,
+            "RigidBody": "",
+            "PointerReceiver": "",
+            "componentsToAdd": []
         }
-    ]
+    ],
+    "useSunlight": true
 }

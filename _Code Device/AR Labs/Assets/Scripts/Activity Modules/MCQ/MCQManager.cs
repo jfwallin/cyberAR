@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -59,13 +59,8 @@ namespace MCQ
 
             Debug.Log("Initialize called on the MCQManager");
             //Set necessary references
-            if (initData is MCExerciseData)
-                exerciseData = (MCExerciseData)initData;
-            else
-            {
-                Debug.LogError("Could not cast ActivityModuleData into MCExerciseData, disabling script");
-                enabled = false;
-            }
+            exerciseData = new MCExerciseData();
+            JsonUtility.FromJsonOverwrite(jsonData, exerciseData);
             mPlayer = MediaPlayer.Instance;
 
             //Initilize some internal state
@@ -180,15 +175,12 @@ namespace MCQ
         public override void EndOfModule()
         {
             Debug.Log("MC finished!");
-            GameObject go = GameObject.Find("Lab Control");
-            go.GetComponent<LabControl>().MCCompleted();
+            FindObjectOfType<LabManager>().ModuleComplete();
         }
 
-        //public override ActivityModuleData SaveState()
         public override string SaveState()
         {
-            //   return exerciseData;
-            return "";
+            return JsonUtility.ToJson(exerciseData);
         }
         #endregion //Public Functions
 

@@ -20,12 +20,12 @@
     "subphaseNames": [],
     "urlJson": "",
     "json": "",
-    "timeToEnd": 250,
+    "timeToEnd": 10,
     "endUsingButton": true,
     "description": "A demonstration of how light from the sun illuminates a basketball.",
     "author": "John Wallin",
     "authorInstitution": "Middle Tennessee State University",
-    "dateCreated": "Mon Jul  5 18:07:24 2021",
+    "dateCreated": "Tue Jul  6 11:06:10 2021",
     "objects": [
         {
             "name": "Basketball",
@@ -79,7 +79,7 @@
                 "invertForward": false
             },
             "componentsToAdd": [
-                "{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 3.0}"
+                "{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 1.0, \"planetScale\": 1.0}"
             ]
         },
         {
@@ -89,7 +89,7 @@
             "tag": "",
             "active": true,
             "position": {
-                "x": 39.0,
+                "x": -39.0,
                 "y": 0,
                 "z": 0
             },
@@ -116,99 +116,6 @@
             "RigidBody": "",
             "PointerReceiver": "",
             "componentsToAdd": []
-        },
-        {
-            "name": "Earth",
-            "parentName": "[_DYNAMIC]",
-            "type": "Prefabs/moveableSphere",
-            "tag": "",
-            "active": true,
-            "position": {
-                "x": 0.0,
-                "y": 1.0,
-                "z": 2.0
-            },
-            "euleriAngles": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            },
-            "scale": {
-                "x": 0.2,
-                "y": 0.2,
-                "z": 0.2
-            },
-            "material": "",
-            "texture": "Textures/2k_earth_daymap",
-            "textureByURL": "",
-            "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ],
-            "transmittable": false,
-            "RigidBody": {
-                "mass": 1.0,
-                "drag": 5.0,
-                "angularDrag": 0.0,
-                "isKinematic": true,
-                "useGravity": false,
-                "xConstraint": false,
-                "yConstraint": false,
-                "zConstraint": false,
-                "xRotationConstraint": true,
-                "yRotationConstraint": true,
-                "zRotationConstraint": true
-            },
-            "PointerReceiver": {
-                "draggable": true,
-                "kinematicWhileIdle": true,
-                "faceWhileDragging": false,
-                "matchWallWhileDragging": false,
-                "invertForward": false
-            },
-            "componentsToAdd": [
-                "{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 3.0}"
-            ]
-        },
-        {
-            "name": "Moon",
-            "parentName": "[_DYNAMIC]",
-            "type": "Prefabs/moveableSphere",
-            "tag": "",
-            "active": true,
-            "position": {
-                "x": 1.0,
-                "y": 1.0,
-                "z": 2.0
-            },
-            "euleriAngles": {
-                "x": 0.0,
-                "y": 0.0,
-                "z": 0.0
-            },
-            "scale": {
-                "x": 0.05,
-                "y": 0.05,
-                "z": 0.05
-            },
-            "material": "",
-            "texture": "Textures/_k_moon.jpg",
-            "textureByURL": "",
-            "color": [
-                1.0,
-                1.0,
-                1.0,
-                1.0
-            ],
-            "transmittable": false,
-            "RigidBody": "",
-            "PointerReceiver": "",
-            "componentsToAdd": [
-                "{\"name\": \"simpleOrbit\", \"moonPosition\": {\"x\": 1.0, \"y\": 1.0, \"z\": 2.0}, \"orbitalPeriod\": 20, \"timeRate\": 1.0, \"orbitalScale\": 1.0, \"moonScale\": 1.0, \"synchronousRotation\": true}"
-            ],
-            "parent": "Earth"
         }
     ],
     "useSunlight": true

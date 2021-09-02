@@ -12,6 +12,7 @@ public class ActivityModuleData
     // module description data
     public string moduleName;
     public string jsonFileName;
+    [Multiline]
     public string description;
     public string author;
     public string authorInstitution;

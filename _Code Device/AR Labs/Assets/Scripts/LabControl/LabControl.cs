@@ -83,7 +83,7 @@ public class LabControl : MonoBehaviour
         //Play intro video
         string[] mediaCallInfo = new string[] { "moonphase-intro", 1.ToString() /*MediaType.Video.ToString()*/ };
         MediaInfo startLabMedia = new MediaInfo();
-        startLabMedia.mediaType = MediaType.Video;
+        startLabMedia.resource_type = MediaType.Video;
         //startLabMedia.id = ????
         aPlayer.PlayMedia(startLabMedia, spawnMC);
     }

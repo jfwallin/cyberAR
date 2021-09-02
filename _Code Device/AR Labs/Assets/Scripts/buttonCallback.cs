@@ -42,7 +42,7 @@ public class buttonCallback : MonoBehaviour
         if (sorter != null)
         {
             if (enableOnClick)
-                sorter.GetComponent<sortingActivity>().feedbackOnOrder();
+                sorter.GetComponent<sortingRoutines.sortingActivity>().feedbackOnOrder();
             /*
              * string typeString = "sortingActivity";
         System.Type type = System.Type.GetType(typeString);

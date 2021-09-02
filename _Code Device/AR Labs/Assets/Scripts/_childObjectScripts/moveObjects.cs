@@ -109,7 +109,7 @@ public class moveObjects : MonoBehaviour
     public float[,] angleCoefficients = new float[ndim, ndim];
 
     private MagicLeapTools.InputReceiver _inputReceiver;
-    public bool enableHandleDrag = true;
+    //public bool enableHandleDrag = true;
 
     #endregion // Variables
 
@@ -121,35 +121,7 @@ public class moveObjects : MonoBehaviour
             Debug.Log("input receiver not found");
 
     }
-
-    private void OnEnable()
-    {
-        if (enableHandleDrag)
-            _inputReceiver.OnDragEnd.AddListener(HandleOnClick);
-
-    }
-
-    private void OnDisable()
-    {
-        if (enableHandleDrag)
-            _inputReceiver.OnDragEnd.RemoveListener(HandleOnClick);
-
-    }
-
-    private void HandleOnClick(GameObject sender)
-    {
-
-        GameObject sorter = GameObject.Find("sortingManager");
-
-        if (sorter != null)
-            sorter.GetComponent<sortingActivity>().resort();
-
-    }
-
-
     #endregion // private functions
-
-
 
 
     #region Public Functions
