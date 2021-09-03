@@ -17,6 +17,8 @@ namespace demoRoutines
         private AudioSource aud;
         private Bridge bridge;
         private demoSequence sequencer;
+
+        private bool callBackActive = false;
         //private InstructionBox ibox;
 
         //public override void Initialize(ActivityModuleData dataIn)
@@ -102,12 +104,38 @@ namespace demoRoutines
                 lightControl.restoreLights();   
             
             if (moduleData.destroyObjects)
-                bridge.CleanUp(jsonString); 
-            FindObjectOfType<LabManager>().ModuleComplete();
+                bridge.CleanUp(jsonString);
+
+            GameObject dynamic = GameObject.Find("[_DYNAMIC]");
+            foreach (Transform child in dynamic.transform)
+            {
+                if (child.gameObject.name != "instructionCanvas" && child.gameObject.name != "MainInstruction")
+                {
+                    GameObject.Destroy(child.gameObject);
+                }
+            }
+            if (callBackActive == false)
+                FindObjectOfType<LabManager>().ModuleComplete();
 
 
         }
 
+
+        public void nextModuleCallback()
+        {
+            callBackActive = true;
+            EndOfModule();
+            FindObjectOfType<LabManager>().nextModuleCallback();
+        }
+
+        public void previousModuleCallback()
+
+        {
+            callBackActive = true;
+            EndOfModule();
+            FindObjectOfType<LabManager>().previousModuleCallback();
+            
+        }
 
         public override string SaveState()
         {

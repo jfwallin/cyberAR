@@ -1,0 +1,2007 @@
+{
+    "moduleName": "The View From Above the North Pole",
+    "specificName": "The View From Above the North Pole",
+    "jsonFileName": "northpoleview.json",
+    "prefabName": "demoPrefab",
+    "prerequisiteActivities": [],
+    "educationalObjectives": [
+        "Students will understand how moon phases appear from above the North Pole of Earth"
+    ],
+    "instructions": [
+        "In the lab handout, go to the section on the\n'The View from Above the North Pole.'  Once again, explore all \nthe Moon Phases using the Next and Previous buttons.  \n\nIn the lab handout, sketch how the shadows on the Earth and Moon\nappear from above the North Pole of Earth.  This is an unusual\nperspective, but it helps clarify some of the diagrams you might\nhave seen in the textbook.\n\nWhen you finish looking at all the moon phases, a red Next Module\nwill appear.  Click on this button to go to the next module in this lab."
+    ],
+    "numRepeatsAllowed": 0,
+    "numGradableRepeatsAllowed": 0,
+    "gradingCriteria": "",
+    "currentScore": 0.0,
+    "bestScore": 0.0,
+    "completed": false,
+    "currentSubphase": 0,
+    "subphaseNames": [],
+    "urlJson": "",
+    "json": "",
+    "timeToEnd": 2000,
+    "endUsingButton": true,
+    "description": "Moon phases as seen from above the North Pole of Earth",
+    "author": "John Wallin",
+    "authorInstitution": "Middle Tennessee State University",
+    "dateCreated": "Thu Sep  2 15:07:26 2021",
+    "introAudio": "",
+    "createObjects": true,
+    "destroyObjects": true,
+    "restoreLights": true,
+    "objects": [
+        {
+            "type": "Prefabs/SunPrefab",
+            "position": {
+                "x": -39.0,
+                "y": 0,
+                "z": 0
+            },
+            "scale": {
+                "x": 5,
+                "y": 5,
+                "z": 5
+            },
+            "name": "Sun",
+            "parent": "[_DYNAMIC]",
+            "componentsToAdd": []
+        },
+        {
+            "type": "Prefabs/clickableSphere",
+            "position": {
+                "x": 0.0,
+                "y": -0.7,
+                "z": 1.5
+            },
+            "scale": {
+                "x": 0.2,
+                "y": 0.2,
+                "z": 0.2
+            },
+            "name": "Earth",
+            "parent": "[_DYNAMIC]",
+            "texture": "Textures/2k_earth_daymap",
+            "componentsToAdd": [
+                "{\"name\": \"simpleRotation\", \"timeRate\": 1.0, \"rotationTime\": 2.0}"
+            ]
+        },
+        {
+            "type": "Prefabs/clickableSphere",
+            "parent": "[_DYNAMIC]",
+            "position": {
+                "x": 0.5,
+                "y": -0.7,
+                "z": 1.5
+            },
+            "scale": {
+                "x": 0.08,
+                "y": 0.08,
+                "z": 0.08
+            },
+            "name": "Moon",
+            "texture": "Textures/_k_moon",
+            "componentsToAdd": []
+        },
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"14 days after \\n New Moon\", \"color\": [0, 255, 255, 0], \"fontSize\": 1.0, \"wrapText\": false}",
+            "position": {
+                "x": 1.0,
+                "y": 0,
+                "z": 0.0
+            },
+            "eulerAngles": {
+                "x": 90.0,
+                "y": 90.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 2,
+                "y": 2,
+                "z": 2
+            },
+            "enabled": true,
+            "parentName": "Moon",
+            "name": "moonLabelTop"
+        },
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"Full Moon\", \"color\": [0, 255, 255, 0], \"fontSize\": 1.0, \"wrapText\": false}",
+            "position": {
+                "x": -0.75,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "eulerAngles": {
+                "x": 90.0,
+                "y": 90.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.5,
+                "y": 1.5,
+                "z": 1.5
+            },
+            "enabled": true,
+            "parentName": "Moon",
+            "name": "moonLabelBottom"
+        },
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"Introduction\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false}",
+            "position": {
+                "x": 0.0,
+                "y": 0.6,
+                "z": 2.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.6,
+                "y": 0.6,
+                "z": 0.6
+            },
+            "enabled": true,
+            "parentName": "[_DYNAMIC]",
+            "name": "taskLabel"
+        },
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"The View From Above the North Pole\", \"color\": [255, 255, 255, 255], \"fontSize\": 1.0, \"wrapText\": false}",
+            "position": {
+                "x": 0.0,
+                "y": 0.75,
+                "z": 2.5
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.6,
+                "y": 0.6,
+                "z": 0.6
+            },
+            "enabled": true,
+            "parentName": "[_DYNAMIC]",
+            "name": "sectionLabel"
+        },
+        {
+            "type": "Prefabs/demoButtonPrefab",
+            "parentName": "sectionLabel",
+            "position": {
+                "x": 1.0,
+                "y": 0,
+                "z": 0
+            },
+            "eulerAngles": {
+                "x": 90,
+                "y": 180.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "name": "brbNextModule",
+            "color": [
+                255,
+                0,
+                0,
+                255
+            ],
+            "componentsToAdd": [
+                "{\"name\": \"demoButtonActions\", \"callBackObjects\": [\"demoModule\"]}"
+            ],
+            "childColor": [
+                0,
+                255,
+                255,
+                255
+            ],
+            "childName": "button"
+        },
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"Next\\n Module\", \"color\": [255, 255, 0, 255], \"fontSize\": 1.0, \"wrapText\": false}",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.13
+            },
+            "eulerAngles": {
+                "x": 90,
+                "y": 180.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.6,
+                "y": 0.6,
+                "z": 0.6
+            },
+            "enabled": true,
+            "parentName": "brbNextModule",
+            "name": "brbNextModuleLabel"
+        },
+        {
+            "type": "Prefabs/demoButtonPrefab",
+            "parentName": "sectionLabel",
+            "position": {
+                "x": -1.0,
+                "y": 0,
+                "z": 0
+            },
+            "eulerAngles": {
+                "x": 90,
+                "y": 180.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "name": "brbPreviousModule",
+            "color": [
+                255,
+                0,
+                0,
+                255
+            ],
+            "componentsToAdd": [
+                "{\"name\": \"demoButtonActions\", \"callBackObjects\": [\"demoModule\"]}"
+            ],
+            "childColor": [
+                0,
+                255,
+                255,
+                255
+            ],
+            "childName": "button"
+        },
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"Previous \\n Module\", \"color\": [255, 255, 0, 255], \"fontSize\": 1.0, \"wrapText\": false}",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.13
+            },
+            "eulerAngles": {
+                "x": 90,
+                "y": 180.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.6,
+                "y": 0.6,
+                "z": 0.6
+            },
+            "enabled": true,
+            "parentName": "brbPreviousModule",
+            "name": "brbPreviousModuleLabel"
+        },
+        {
+            "type": "Prefabs/demoButtonPrefab",
+            "parentName": "taskLabel",
+            "position": {
+                "x": 0.5,
+                "y": 0,
+                "z": 0
+            },
+            "eulerAngles": {
+                "x": 90,
+                "y": 180.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1,
+                "y": 1,
+                "z": 1
+            },
+            "name": "brbNextClip",
+            "color": [
+                255,
+                0,
+                0,
+                255
+            ],
+            "componentsToAdd": [
+                "{\"name\": \"demoButtonActions\", \"callBackObjects\": [\"demoModule\"]}"
+            ],
+            "childColor": [
+                0,
+                255,
+                0,
+                255
+            ],
+            "childName": "button"
+        },
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"Next\", \"color\": [255, 255, 0, 255], \"fontSize\": 1.0, \"wrapText\": false}",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.1
+            },
+            "eulerAngles": {
+                "x": 90,
+                "y": 180.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.6,
+                "y": 0.6,
+                "z": 0.6
+            },
+            "enabled": true,
+            "parentName": "brbNextClip",
+            "name": "brbNextClipLabel"
+        },
+        {
+            "type": "Prefabs/demoButtonPrefab",
+            "parentName": "taskLabel",
+            "position": {
+                "x": -0.5,
+                "y": 0,
+                "z": 0
+            },
+            "eulerAngles": {
+                "x": 90,
+                "y": 180.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1,
+                "y": 1,
+                "z": 1
+            },
+            "name": "brbPreviousClip",
+            "color": [
+                255,
+                0,
+                0,
+                255
+            ],
+            "componentsToAdd": [
+                "{\"name\": \"demoButtonActions\", \"callBackObjects\": [\"demoModule\"]}"
+            ],
+            "childColor": [
+                0,
+                255,
+                0,
+                255
+            ],
+            "childName": "button"
+        },
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"Previous\", \"color\": [255, 255, 0, 255], \"fontSize\": 1.0, \"wrapText\": false}",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.1
+            },
+            "eulerAngles": {
+                "x": 90,
+                "y": 180.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.6,
+                "y": 0.6,
+                "z": 0.6
+            },
+            "enabled": true,
+            "parentName": "brbPreviousClip",
+            "name": "brbPreviousClipLabel"
+        }
+    ],
+    "useSunlight": true,
+    "clips": [
+        {
+            "clipName": "clip0",
+            "timeToEnd": 28,
+            "autoAdvance": true,
+            "objectChanges": [
+                {
+                    "name": "MainInstructions",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "canvasText": "In the lab handout, go to the section on the\n'The View from Above the North Pole.'  Once again, explore all \nthe Moon Phases using the Next and Previous buttons.  \n\nIn the lab handout, sketch how the shadows on the Earth and Moon\nappear from above the North Pole of Earth.  This is an unusual\nperspective, but it helps clarify some of the diagrams you might\nhave seen in the textbook.\n\nWhen you finish looking at all the moon phases, a red Next Module\nwill appear.  Click on this button to go to the next module in this lab."
+                },
+                {
+                    "name": "brbPreviousClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.01,
+                        "y": 0.01,
+                        "z": 0.01
+                    },
+                    "newScale": true
+                },
+                {
+                    "name": "brbNextClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 1,
+                        "y": 1,
+                        "z": 1
+                    },
+                    "newScale": true
+                },
+                {
+                    "name": "brbNextModule",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.01,
+                        "y": 0.01,
+                        "z": 0.01
+                    },
+                    "newScale": true
+                }
+            ],
+            "audioClipString": "Audio/moonLab/moonLab_6_0_0"
+        },
+        {
+            "clipName": "clip1",
+            "timeToEnd": 3,
+            "autoAdvance": false,
+            "objectChanges": [
+                {
+                    "name": "Moon",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.5,
+                        "y": -0.7,
+                        "z": 1.5
+                    },
+                    "newPosition": true,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": -0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": true,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false
+                },
+                {
+                    "name": "moonLabelTop",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"14 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
+                },
+                {
+                    "name": "moonLabelBottom",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Full Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": null}"
+                },
+                {
+                    "name": "taskLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Full Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "brbPreviousClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 1,
+                        "y": 1,
+                        "z": 1
+                    },
+                    "newScale": true
+                },
+                {
+                    "name": "brbNextClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 1,
+                        "y": 1,
+                        "z": 1
+                    },
+                    "newScale": true
+                },
+                {
+                    "name": "brbNextModule",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.01,
+                        "y": 0.01,
+                        "z": 0.01
+                    },
+                    "newScale": true
+                }
+            ]
+        },
+        {
+            "clipName": "clip2",
+            "timeToEnd": 3,
+            "autoAdvance": false,
+            "objectChanges": [
+                {
+                    "name": "Moon",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.3535533905932738,
+                        "y": -0.7,
+                        "z": 1.8535533905932737
+                    },
+                    "newPosition": true,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": -45.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": true,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false
+                },
+                {
+                    "name": "moonLabelTop",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"17.5 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "moonLabelBottom",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Waning Gibbous\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "taskLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Waning Gibbous\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "brbPreviousClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 1,
+                        "y": 1,
+                        "z": 1
+                    },
+                    "newScale": true
+                },
+                {
+                    "name": "brbNextClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 1,
+                        "y": 1,
+                        "z": 1
+                    },
+                    "newScale": true
+                },
+                {
+                    "name": "brbNextModule",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.01,
+                        "y": 0.01,
+                        "z": 0.01
+                    },
+                    "newScale": true
+                }
+            ]
+        },
+        {
+            "clipName": "clip3",
+            "timeToEnd": 3,
+            "autoAdvance": false,
+            "objectChanges": [
+                {
+                    "name": "Moon",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 3.061616997868383e-17,
+                        "y": -0.7,
+                        "z": 2.0
+                    },
+                    "newPosition": true,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": -90.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": true,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false
+                },
+                {
+                    "name": "moonLabelTop",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"21 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "moonLabelBottom",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Third Quarter\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "taskLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Third Quarter\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "brbPreviousClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 1,
+                        "y": 1,
+                        "z": 1
+                    },
+                    "newScale": true
+                },
+                {
+                    "name": "brbNextClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 1,
+                        "y": 1,
+                        "z": 1
+                    },
+                    "newScale": true
+                },
+                {
+                    "name": "brbNextModule",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.01,
+                        "y": 0.01,
+                        "z": 0.01
+                    },
+                    "newScale": true
+                }
+            ]
+        },
+        {
+            "clipName": "clip4",
+            "timeToEnd": 3,
+            "autoAdvance": false,
+            "objectChanges": [
+                {
+                    "name": "Moon",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": -0.35355339059327373,
+                        "y": -0.7,
+                        "z": 1.8535533905932737
+                    },
+                    "newPosition": true,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": -135.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": true,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false
+                },
+                {
+                    "name": "moonLabelTop",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"24.5 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "moonLabelBottom",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Waning Crescent\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "taskLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Waning Crescent\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "brbPreviousClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 1,
+                        "y": 1,
+                        "z": 1
+                    },
+                    "newScale": true
+                },
+                {
+                    "name": "brbNextClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 1,
+                        "y": 1,
+                        "z": 1
+                    },
+                    "newScale": true
+                },
+                {
+                    "name": "brbNextModule",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.01,
+                        "y": 0.01,
+                        "z": 0.01
+                    },
+                    "newScale": true
+                }
+            ]
+        },
+        {
+            "clipName": "clip5",
+            "timeToEnd": 3,
+            "autoAdvance": false,
+            "objectChanges": [
+                {
+                    "name": "Moon",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": -0.5,
+                        "y": -0.7,
+                        "z": 1.5
+                    },
+                    "newPosition": true,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": -180.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": true,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false
+                },
+                {
+                    "name": "moonLabelTop",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "moonLabelBottom",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "taskLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "brbPreviousClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 1,
+                        "y": 1,
+                        "z": 1
+                    },
+                    "newScale": true
+                },
+                {
+                    "name": "brbNextClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 1,
+                        "y": 1,
+                        "z": 1
+                    },
+                    "newScale": true
+                },
+                {
+                    "name": "brbNextModule",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.01,
+                        "y": 0.01,
+                        "z": 0.01
+                    },
+                    "newScale": true
+                }
+            ]
+        },
+        {
+            "clipName": "clip6",
+            "timeToEnd": 3,
+            "autoAdvance": false,
+            "objectChanges": [
+                {
+                    "name": "Moon",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": -0.35355339059327384,
+                        "y": -0.7,
+                        "z": 1.1464466094067263
+                    },
+                    "newPosition": true,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": -225.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": true,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false
+                },
+                {
+                    "name": "moonLabelTop",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"3.5 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "moonLabelBottom",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Waxing Crescent\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "taskLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Waxing Crescent\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "brbPreviousClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 1,
+                        "y": 1,
+                        "z": 1
+                    },
+                    "newScale": true
+                },
+                {
+                    "name": "brbNextClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 1,
+                        "y": 1,
+                        "z": 1
+                    },
+                    "newScale": true
+                },
+                {
+                    "name": "brbNextModule",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.01,
+                        "y": 0.01,
+                        "z": 0.01
+                    },
+                    "newScale": true
+                }
+            ]
+        },
+        {
+            "clipName": "clip7",
+            "timeToEnd": 3,
+            "autoAdvance": false,
+            "objectChanges": [
+                {
+                    "name": "Moon",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": -9.184850993605148e-17,
+                        "y": -0.7,
+                        "z": 1.0
+                    },
+                    "newPosition": true,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": -270.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": true,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false
+                },
+                {
+                    "name": "moonLabelTop",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"7 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "moonLabelBottom",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"First Quarter\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "taskLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"First Quarter\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "brbPreviousClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 1,
+                        "y": 1,
+                        "z": 1
+                    },
+                    "newScale": true
+                },
+                {
+                    "name": "brbNextClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 1,
+                        "y": 1,
+                        "z": 1
+                    },
+                    "newScale": true
+                },
+                {
+                    "name": "brbNextModule",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.01,
+                        "y": 0.01,
+                        "z": 0.01
+                    },
+                    "newScale": true
+                }
+            ]
+        },
+        {
+            "clipName": "clip8",
+            "timeToEnd": 3,
+            "autoAdvance": false,
+            "objectChanges": [
+                {
+                    "name": "Moon",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.3535533905932737,
+                        "y": -0.7,
+                        "z": 1.146446609406726
+                    },
+                    "newPosition": true,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": -315.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": true,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false
+                },
+                {
+                    "name": "moonLabelTop",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"11.5 days after \\n New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "moonLabelBottom",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Waxing Gibbous\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "taskLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Waxing Gibbous\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "brbPreviousClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 1,
+                        "y": 1,
+                        "z": 1
+                    },
+                    "newScale": true
+                },
+                {
+                    "name": "brbNextClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.01,
+                        "y": 0.01,
+                        "z": 0.01
+                    },
+                    "newScale": true
+                },
+                {
+                    "name": "brbNextModule",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 1,
+                        "y": 1,
+                        "z": 1
+                    },
+                    "newScale": true,
+                    "childColor": [
+                        255,
+                        0,
+                        0,
+                        255
+                    ],
+                    "childName": "button"
+                }
+            ],
+            "audioClipString": "Audio/moonLab/moonLab_3_1_0"
+        }
+    ]
+}

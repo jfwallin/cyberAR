@@ -211,12 +211,17 @@ public class demoSequence : MonoBehaviour
     {
 
         Debug.Log("previous module");
-        GameObject.Find("Manager").GetComponent<LabManager>().nextModuleCallback();
+        //GameObject.Find("Manager").GetComponent<LabManager>().nextModuleCallback();
+        GameObject go1 = GameObject.Find("demoModule");
+        go1.GetComponent<demoRoutines.demo>().nextModuleCallback();
+             
     }
     public void actionPreviousModule()
     {
         Debug.Log("action next module");
-        GameObject.Find("Manager").GetComponent<LabManager>().previousModuleCallback();
+        //GameObject.Find("Manager").GetComponent<LabManager>().previousModuleCallback();
+        GameObject go1 = GameObject.Find("demoModule");
+        go1.GetComponent<demoRoutines.demo>().previousModuleCallback();
 
     }
 

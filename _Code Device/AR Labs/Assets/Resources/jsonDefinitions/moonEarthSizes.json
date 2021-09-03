@@ -5,10 +5,10 @@
     "prefabName": "demoPrefab",
     "prerequisiteActivities": [],
     "educationalObjectives": [
-        "Students will learn the relative scale of objects in the Earth Moon System"
+        "Students will learn the relative scale of objects in the Earth-Moon System"
     ],
     "instructions": [
-        "NA"
+        "You can navigate through this module by\nclicking on the buttons floating above the Earth.  Select\nthe button with the laser and click on it with the trigger\nto activate a button.\n\nNext button - move forward in the module\nPrevious button - to repeat a previous section\n\nWhen you have completed the simulation, you will be asked\nto answer the questions in the lab handout.  Remember,\nyou can always go back if you miss some information.\n\nWhen you are done, click the Red Next Module Button.\n"
     ],
     "numRepeatsAllowed": 0,
     "numGradableRepeatsAllowed": 0,
@@ -20,12 +20,12 @@
     "subphaseNames": [],
     "urlJson": "",
     "json": "",
-    "timeToEnd": 1000,
+    "timeToEnd": 2000,
     "endUsingButton": true,
     "description": "A scale model of the Earth and Moon",
     "author": "John Wallin",
     "authorInstitution": "Middle Tennessee State University",
-    "dateCreated": "Wed Sep  1 15:48:24 2021",
+    "dateCreated": "Thu Sep  2 15:09:37 2021",
     "introAudio": "",
     "createObjects": true,
     "destroyObjects": true,
@@ -200,7 +200,7 @@
             "position": {
                 "x": 0.0,
                 "y": 0.6,
-                "z": 1.5
+                "z": 2.5
             },
             "rotation": {
                 "x": 0.0,
@@ -222,7 +222,7 @@
             "position": {
                 "x": 0.0,
                 "y": 0.75,
-                "z": 1.5
+                "z": 2.5
             },
             "rotation": {
                 "x": 0.0,
@@ -242,7 +242,7 @@
             "type": "Prefabs/demoButtonPrefab",
             "parentName": "sectionLabel",
             "position": {
-                "x": 1.0,
+                "x": 1.2,
                 "y": 0,
                 "z": 0
             },
@@ -300,7 +300,7 @@
             "type": "Prefabs/demoButtonPrefab",
             "parentName": "sectionLabel",
             "position": {
-                "x": -1.0,
+                "x": -1.2,
                 "y": 0,
                 "z": 0
             },
@@ -358,7 +358,7 @@
             "type": "Prefabs/demoButtonPrefab",
             "parentName": "taskLabel",
             "position": {
-                "x": 0.5,
+                "x": 1,
                 "y": 0,
                 "z": 0
             },
@@ -416,7 +416,7 @@
             "type": "Prefabs/demoButtonPrefab",
             "parentName": "taskLabel",
             "position": {
-                "x": -0.5,
+                "x": -1,
                 "y": 0,
                 "z": 0
             },
@@ -471,7 +471,7 @@
             "name": "brbPreviousClipLabel"
         }
     ],
-    "useSunlight": false,
+    "useSunlight": true,
     "clips": [
         {
             "clipName": "clip1",
@@ -479,6 +479,32 @@
             "timeToEnd": 14,
             "autoAdvance": false,
             "objectChanges": [
+                {
+                    "name": "taskLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"1 inch= 1000 miles\", \"color\": [0, 255, 255, 0], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
                 {
                     "name": "[_DYNAMIC]",
                     "parentObject": "[DYNAMIC]",
@@ -503,6 +529,32 @@
                         "z": 0.0
                     },
                     "newScale": false
+                },
+                {
+                    "name": "MainInstructions",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "canvasText": "You can navigate through this module by\nclicking on the buttons floating above the Earth.  Select\nthe button with the laser and click on it with the trigger\nto activate a button.\n\nNext button - move forward in the module\nPrevious button - to repeat a previous section\n\nWhen you have completed the simulation, you will be asked\nto answer the questions in the lab handout.  Remember,\nyou can always go back if you miss some information.\n\nWhen you are done, click the Red Next Module Button.\n"
                 },
                 {
                     "name": "brbPreviousClip",
@@ -587,6 +639,32 @@
             "timeToEnd": 10,
             "autoAdvance": false,
             "objectChanges": [
+                {
+                    "name": "taskLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"1 inch= 1000 miles\", \"color\": [0, 255, 255, 0], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
                 {
                     "name": "earthSizeLabel",
                     "parentObject": "[DYNAMIC]",
@@ -696,6 +774,32 @@
             "autoAdvance": false,
             "objectChanges": [
                 {
+                    "name": "taskLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Moon is 1/4 the Diameter of Earth\", \"color\": [0, 255, 255, 0], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
                     "name": "moonSizeLabel",
                     "parentObject": "[DYNAMIC]",
                     "activationConditions": 0,
@@ -803,6 +907,32 @@
             "timeToEnd": 12,
             "autoAdvance": false,
             "objectChanges": [
+                {
+                    "name": "taskLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Moon is 1/4 the Diameter of Earth\", \"color\": [0, 255, 255, 0], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
                 {
                     "name": "moonDistanceLabel",
                     "parentObject": "[DYNAMIC]",
@@ -912,6 +1042,32 @@
             "autoAdvance": false,
             "objectChanges": [
                 {
+                    "name": "taskLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"The orbit 30 times Earth's diameter\", \"color\": [0, 255, 255, 0], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
                     "name": "brbPreviousClip",
                     "parentObject": "[DYNAMIC]",
                     "activationConditions": 0,
@@ -994,6 +1150,32 @@
             "timeToEnd": 26,
             "autoAdvance": false,
             "objectChanges": [
+                {
+                    "name": "taskLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"The Sun would be about 270 ft away\", \"color\": [0, 255, 255, 0], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
                 {
                     "name": "brbPreviousClip",
                     "parentObject": "[DYNAMIC]",
@@ -1078,6 +1260,32 @@
             "autoAdvance": false,
             "objectChanges": [
                 {
+                    "name": "taskLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"2 seconds = one day\", \"color\": [0, 255, 255, 0], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
                     "name": "brbPreviousClip",
                     "parentObject": "[DYNAMIC]",
                     "activationConditions": 0,
@@ -1160,6 +1368,32 @@
             "timeToEnd": 14,
             "autoAdvance": false,
             "objectChanges": [
+                {
+                    "name": "taskLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"56 seconds = 4 weeks\", \"color\": [0, 255, 255, 0], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
                 {
                     "name": "brbPreviousClip",
                     "parentObject": "[DYNAMIC]",
@@ -1244,6 +1478,32 @@
             "autoAdvance": false,
             "objectChanges": [
                 {
+                    "name": "taskLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Explore the animation\", \"color\": [0, 255, 255, 0], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
                     "name": "brbPreviousClip",
                     "parentObject": "[DYNAMIC]",
                     "activationConditions": 0,
@@ -1327,6 +1587,32 @@
             "autoAdvance": false,
             "objectChanges": [
                 {
+                    "name": "taskLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Explore the animation\", \"color\": [0, 255, 255, 0], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
                     "name": "brbPreviousClip",
                     "parentObject": "[DYNAMIC]",
                     "activationConditions": 0,
@@ -1409,6 +1695,32 @@
             "timeToEnd": 19,
             "autoAdvance": false,
             "objectChanges": [
+                {
+                    "name": "taskLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Work on the handout\", \"color\": [0, 255, 255, 0], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
                 {
                     "name": "earthSizeLabel",
                     "parentObject": "[DYNAMIC]",
