@@ -1,10 +1,15 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Video;
 
 public class videoplayer2 : MonoBehaviour
 {
+    public string path = "Assets/Resources/test.txt";
+    //Write some text to the test.txt file
+    //Create instance of WrtieToFile
+    public WrtieToFile writeToFile ;
 
     public string VideoName { set; get; }
     public int Flag { set; get; }
@@ -14,11 +19,15 @@ public class videoplayer2 : MonoBehaviour
     // get video name from control switch
     public void StartV(string VideoName)
     {
+       // StreamWriter writer = new StreamWriter(path, true);
         this.VideoName = VideoName;
         myVideoPlayer = GetComponent<VideoPlayer>();
         if (VideoName != null)
 
             print($"I recieve a signal {VideoName} and Flag is {Flag}");
+     //  writeToFile.WriteString(VideoName, System.DateTime.Now.ToString());
+       // writer.WriteLine($"I recieve a signal {VideoName} and time is {System.DateTime.Now}");
+       // writer.Close();
         if (Flag != 1)
         {
             Flag = 1;

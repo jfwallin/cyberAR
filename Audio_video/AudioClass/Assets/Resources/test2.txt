@@ -1,0 +1,13 @@
+Information Student_First_Name is Sam
+Information LastName is Brown
+Information Lab number is Lab4
+Information Topic is Physics
+Time now is:  9/2/2021 11:22:34 AMIt took  5.310249 second to finish 
+"Media Type": "moonphase-final" is "Video"
+It took  0.005330086 second to finish 
+MC_5: "A"
+It took  0.001045704 second to finish 
+TF_4: "F"
+It took  0.0009436607 second to finish 
+OQ_6:" C D A B"
+It took  0.001086235 second to finish 

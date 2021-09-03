@@ -4,36 +4,25 @@ using System.IO;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-//using UnityEditor;
+using UnityEditor;
 
-public class WriteToFile : MonoBehaviour
+public class WrtieToFile : WriteAtEnd
 {
-  
-   //[UnityEditor.MenuItem("Tools/Write file")]
-    public void WriteString(string[] array )
+
+    //public string path = "Assets/Resources/test2.txt";
+   
+    
+    public override void WriteToString(string type, string name, string info="NULL" , string test="NULL" )
     {
-        string path = "Assets/Resources/test.txt";
-
+        string Path = "Assets/Resources/test2.txt";
         //Write some text to the test.txt file
-        StreamWriter writer = new StreamWriter(path, true);
-        writer.WriteLine($"Question number {(array[0])} is {array[1]}");
-        // writer.WriteLine("Test Line Two");
-
-       // var input = gameObject.GetComponent<InputField>();
-        //var se = new InputField.SubmitEvent();
-        //se.AddListener(SubmitName);
-        //input.onEndEdit = se;
-
+        StreamWriter writer = new StreamWriter(Path, true);
+       // Console.WriteLine("write to String has been called");
+        writer.WriteLine($"inside WriteToFile {name} is {type}");
         writer.Close();
-
-        //Re-import the file to update the reference in the editor
-       // UnityEditor.AssetDatabase.ImportAsset(path);
-       // TextAsset asset = (TextAsset)Resources.Load("test");
-
-        //Print the text from the file
-       // Debug.Log(asset.text);
     }
 
+    /*
  //  [UnityEditor.MenuItem("Tools/Read file")]
    public  void ReadString()
     {
@@ -45,6 +34,6 @@ public class WriteToFile : MonoBehaviour
         reader.Close();
     }
 
-
+    */
    
 }
