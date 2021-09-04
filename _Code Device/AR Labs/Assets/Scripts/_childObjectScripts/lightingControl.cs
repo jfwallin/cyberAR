@@ -96,8 +96,8 @@ public class lightingControl : MonoBehaviour
 
     public void sunlight()
     {
-        theLight.transform.position = sunlightPosition;
-        theLight.transform.rotation = sunlightAngle;
+        theLight.transform.localPosition = sunlightPosition;
+        theLight.transform.localRotation = sunlightAngle;
         theLight.transform.localScale = sunlightScale;
 
         sceneLight.intensity = sunlightIntensity;

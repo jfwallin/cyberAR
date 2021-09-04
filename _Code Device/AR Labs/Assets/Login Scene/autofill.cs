@@ -38,6 +38,8 @@ public class autofill : MonoBehaviour
         crnLabs = pullCSV();
         sort(names);
 
+        Debug.Log("pulled!");
+
         // Print out User and crn data to make sure everything is loading in properly 
         // foreach (string crn in crnLabs.Keys) { string outtie = ""; foreach (string str in crnLabs[crn].Keys) { outtie += str + " "; } print(outtie);  }
         
@@ -125,6 +127,8 @@ public class autofill : MonoBehaviour
     // Can only be called after the user is authenticated -> throws error if cant find CRN provided for authenticated user in Dictionary
     public List<string> getLabs(string usr)
     {
+
+        Debug.Log("user " + usr);
         string crn = "0000000";  // Guest crn: seven 0s
         try { 
             crn = users.Find(x => x.usr.Equals(usr)).crn; 
@@ -132,7 +136,10 @@ public class autofill : MonoBehaviour
         { 
             Debug.Log("CSV not loaded, or forced next();");
         }
+        Debug.Log("cnr = " + crn);
 
+        crnLabs = pullCSV();
+        Debug.Log("pulledd sadfljks");
         try { 
             return crnLabs[crn]; 
         } catch 
@@ -155,6 +162,7 @@ public class autofill : MonoBehaviour
         string namesPath = "csv bank/test_names";
         string crnPath = "csv bank/crn_to_labs";
 
+
         // Get String array of the lines and read them off
         string[] lines = Resources.Load<TextAsset>(namesPath).text.Split('\n');
 
@@ -164,13 +172,17 @@ public class autofill : MonoBehaviour
             // Split into columns
             string[] columns = lines[i].Split(',');
 
-            // Add names into autofill list and create new User(username, passowrd, crn)
-            names.Add(columns[0].Trim());
-            users.Add(new User(columns[0].Trim(), columns[4].Trim(), columns[2].Trim()));
+            if (columns.Length == 5)
+            {
+                // Add names into autofill list and create new User(username, passowrd, crn)
+                names.Add(columns[0].Trim());
+                users.Add(new User(columns[0].Trim(), columns[4].Trim(), columns[2].Trim()));
+            }
         }
 
         // Load in CRN - Lab/JsonUrl dictionary
         lines = Resources.Load<TextAsset>(crnPath).text.Split('\n');
+        Debug.Log(" crn " + crnPath + lines.Length.ToString());
 
         // 0: CRN, Odd: Lab Name, Even: JsonUrl associated with lab
         for (int i = 1; i < lines.Length; i++)  // Skips labeling row

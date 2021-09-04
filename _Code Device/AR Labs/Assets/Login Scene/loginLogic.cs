@@ -9,7 +9,8 @@ public class loginLogic : MonoBehaviour
     #region Public Variables
     [Header("Toggle Downloading")]
     [Tooltip("This toggle allows for use of immediate local files instead of pulling them from the web")]
-    public bool useLocalFiles = false;
+    public bool useLocalFiles = true;
+    //public bool useLocalFiles = false;
 
     [Header("GameObjects")]
     public GameObject controller;
@@ -206,6 +207,7 @@ public class loginLogic : MonoBehaviour
             case (int)state.lab_initiation: // Insantiate lab: 5
                 {
                     // Disable all UI
+                    Debug.Log("doing the case of lab_initialize");
                     lab_options.SetActive(false);
 
                     // Start Lab Manager
@@ -301,11 +303,18 @@ public class loginLogic : MonoBehaviour
         path = path.Substring(0, path.Length - 5);
 
         string jsonString = Resources.Load<TextAsset>(path).text;
-        LabDataObject LabData = new LabDataObject();
-        JsonUtility.FromJsonOverwrite(jsonString, LabData);
+        if (useLocalFiles)   // this was added to override the media file downloads
+        {
 
-        // pass info to Media Catalogue and Lab Manager
-        StartCoroutine(Catalogue(LabData));
+        }
+        else
+        {
+            LabDataObject LabData = new LabDataObject();
+            JsonUtility.FromJsonOverwrite(jsonString, LabData);
+
+            // pass info to Media Catalogue and Lab Manager
+            StartCoroutine(Catalogue(LabData));
+        }
     }
 
     IEnumerator Catalogue(LabDataObject LabData)
@@ -438,6 +447,8 @@ public class loginLogic : MonoBehaviour
     // Instantiates the lab selected
     private void startLab()
     {
+
+        Debug.Log("in startLab ="+labSelected.ToString());
         // If exit is selected from the list, End program here
         if (labSelected.ToUpper().Equals("EXIT")) 
         {
@@ -465,9 +476,33 @@ public class loginLogic : MonoBehaviour
             // THE URL PROVIDED CURRENTLY DOES NOTHING - THIS NEEDS TO BE PROVIDED WEB-SIDE
             string jsonPath = "http://cyberlearnar.cs.mtsu.edu/show_uploaded/JsonTest.txt"; //"http://cyberlearnar.cs.mtsu.edu/lab_json/ " + labSelected;
 
-            try { StartCoroutine(DownloadFile(jsonPath, "Assets/Resources/csv bank/LabJson.json")); }
-            catch { print("Cant load Lab list from url"); }
+            //try { StartCoroutine(DownloadFile(jsonPath, "Assets/Resources/csv bank/LabJson.json")); }
+            //catch { print("Cant load Lab list from url"); }
 
+            Debug.Log(" starting that json get region");
+            GameObject go = GameObject.Find("[_DYNAMIC]");
+            if (go == null)
+            {
+                Debug.Log("no dynamic!");
+            }
+            {
+                go.transform.eulerAngles = new Vector3(0, Camera.main.transform.eulerAngles.y, 0);
+                float yangle = Camera.main.transform.eulerAngles.y;
+
+                float offset = 1.5f;  // distance in front of camera for the scene
+                float dx = offset * Mathf.Cos(yangle * Mathf.Deg2Rad);
+                float dy = offset * Mathf.Sin(yangle * Mathf.Deg2Rad);
+                Debug.Log("ANGLE " + yangle.ToString() + "  dx,dy " + dx.ToString() + dy.ToString());
+                go.transform.position = Camera.main.transform.position ;
+                //GameObject light = GameObject.Find("Directional Light");
+                //if (light == null) Debug.Log("no light");
+                //light.transform.eulerAngles = new Vector3(0.0f, yangle, 0.0f);
+                
+                //go.transform.position = Camera.main.transform.position + dx*Vector3.left + -0.4f * Vector3.up + dz* Vector3.forward;
+                controller.GetComponent<LineRenderer>().enabled = true;
+                controller.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
+                go.GetComponent<LabManager>().spawnDemoNew();
+            }
             //disable sandbox
             // toggleLineRender(true);
             // sandbox.SetActive(false);

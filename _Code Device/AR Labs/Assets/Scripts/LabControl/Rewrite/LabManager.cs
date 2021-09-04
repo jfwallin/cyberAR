@@ -30,16 +30,17 @@ public class LabManager : MonoBehaviour
 
 
         //ibox = InstructionBox.Instance;
-        // spawnDemoNew();
         labform = GameObject.Find("[_DYNAMIC]").transform;
-        spawnDemoNew();
+        //spawnDemoNew();
     }
 
     public void Initialize(LabDataObject data)
     {
         modules = data.ActivityModules;
 
-        SpawnModule();
+        //SpawnModule();
+        spawnDemoNew();
+
     }
 
 
@@ -55,6 +56,7 @@ public class LabManager : MonoBehaviour
         Debug.Log("modules loaded = " + modules.Length.ToString());
 
         Initialize(modules);
+        SpawnModule();   
     }
 
 // --------------------------------------------------------
