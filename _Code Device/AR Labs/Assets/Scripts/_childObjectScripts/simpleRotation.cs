@@ -24,7 +24,7 @@ public class simpleRotation : MonoBehaviour
     void Update()
     {
         rotationTheta = -rotationRate * Time.time * timeRate;
-        transform.eulerAngles = new Vector3(0.0f, rotationTheta * 180.0f / Mathf.PI, 0.0f);
+        transform.localEulerAngles = new Vector3(0.0f, rotationTheta * 180.0f / Mathf.PI, 0.0f);
 
     }
 }

@@ -54,11 +54,11 @@ public class Bridge
         myObject = GameObject.Find(obj.name);
         if (myObject != null)
         {
-            Debug.Log("found object " + obj.name);
+            //Debug.Log("found object " + obj.name);
         }
         else
         {
-            Debug.Log("creating " + obj.name + " " + obj.type);
+            //Debug.Log("creating " + obj.name + " " + obj.type);
             myObject = dealWithType(obj.type); //possibly fixed
             myObject.name = obj.name;
 
@@ -130,8 +130,8 @@ public class Bridge
         //I can't quite get that working though
         if (obj.material != "" && obj.material != null)
         {
-            Debug.Log("length " + obj.material.Length.ToString());
-            Debug.Log("in Render   -X" + obj.material + "X");
+            //Debug.Log("length " + obj.material.Length.ToString());
+            //Debug.Log("in Render   -X" + obj.material + "X");
             Renderer rend = myObject.GetComponent<Renderer>();
             rend.material = Resources.Load<Material>(obj.material); //material must be in a recources folder.
         }
@@ -168,7 +168,7 @@ public class Bridge
                 Transform childTrans = trans.Find(obj.childName);
                 if (childTrans != null)
                 {
-                    Debug.Log(" changing colors on " + obj.childName + "  " + obj.name + " &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
+                    //Debug.Log(" changing colors on " + obj.childName + "  " + obj.name + " &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
                     GameObject childObj = childTrans.gameObject;
                     Renderer rend = childObj.GetComponent<Renderer>();
                     rend.material.SetColor("_Color", new Color(obj.childColor[0], obj.childColor[1], obj.childColor[2], obj.childColor[3])); //, obj.color[3]));
@@ -246,7 +246,7 @@ public class Bridge
             MagicLeapTools.PointerReceiver mycomp = myObject.GetComponent<PointerReceiver>();
             if (mycomp == null)
             {
-                Debug.Log("no Pointer Receiver");
+                //Debug.Log("no Pointer Receiver");
             }
             else
             {
@@ -282,12 +282,12 @@ public class Bridge
             textBox = myObject.GetComponent<TextMeshPro>();
             if (textBox == null)
             {
-                Debug.Log("no TextMeshPro");
+                //Debug.Log("no TextMeshPro");
             }
             else
             {
                 textProClass tpc = new textProClass();
-                Debug.Log("TEXT = " + textBox.text);
+                //Debug.Log("TEXT = " + textBox.text);
                 tpc.textField = textBox.text;
                 tpc.color = textBox.color;
                 tpc.fontSize = textBox.fontSize;
@@ -311,7 +311,7 @@ public class Bridge
         }
         else
         {
-            Debug.Log("no meshpro");
+           // Debug.Log("no meshpro");
         }
 
         

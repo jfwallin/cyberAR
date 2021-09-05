@@ -38,7 +38,7 @@ public class autofill : MonoBehaviour
         crnLabs = pullCSV();
         sort(names);
 
-        Debug.Log("pulled!");
+        //Debug.Log("pulled!");
 
         // Print out User and crn data to make sure everything is loading in properly 
         // foreach (string crn in crnLabs.Keys) { string outtie = ""; foreach (string str in crnLabs[crn].Keys) { outtie += str + " "; } print(outtie);  }
@@ -86,10 +86,10 @@ public class autofill : MonoBehaviour
 
             // Check if pass is correct
             bool authenticated = user.pas.Equals(pas);
-            Debug.Log("Username: " + usr + ", Password: " + pas + "\n\t    Authenticated: " + authenticated);
+            //Debug.Log("Username: " + usr + ", Password: " + pas + "\n\t    Authenticated: " + authenticated);
             return authenticated;
         } catch  {
-            print("Authentication Failed: Invalid Username");
+            //print("Authentication Failed: Invalid Username");
             return false;
         }
     }
@@ -128,23 +128,22 @@ public class autofill : MonoBehaviour
     public List<string> getLabs(string usr)
     {
 
-        Debug.Log("user " + usr);
+       // Debug.Log("user " + usr);
         string crn = "0000000";  // Guest crn: seven 0s
         try { 
             crn = users.Find(x => x.usr.Equals(usr)).crn; 
         } catch 
         { 
-            Debug.Log("CSV not loaded, or forced next();");
+        //    Debug.Log("CSV not loaded, or forced next();");
         }
-        Debug.Log("cnr = " + crn);
+        //Debug.Log("cnr = " + crn);
 
         crnLabs = pullCSV();
-        Debug.Log("pulledd sadfljks");
         try { 
             return crnLabs[crn]; 
         } catch 
         { 
-            print("CRN Dictionary is missing, returning a blank dicitonary"); 
+        //    print("CRN Dictionary is missing, returning a blank dicitonary"); 
             return new List<string>(){ "guest" }; 
         }
     }
@@ -182,7 +181,7 @@ public class autofill : MonoBehaviour
 
         // Load in CRN - Lab/JsonUrl dictionary
         lines = Resources.Load<TextAsset>(crnPath).text.Split('\n');
-        Debug.Log(" crn " + crnPath + lines.Length.ToString());
+        //Debug.Log(" crn " + crnPath + lines.Length.ToString());
 
         // 0: CRN, Odd: Lab Name, Even: JsonUrl associated with lab
         for (int i = 1; i < lines.Length; i++)  // Skips labeling row

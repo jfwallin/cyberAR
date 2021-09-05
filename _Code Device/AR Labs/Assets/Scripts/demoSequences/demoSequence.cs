@@ -42,12 +42,12 @@ public class demoSequence : MonoBehaviour
     {
        if (currentState < theClips.Length)
         {
-            Debug.Log("current clip " + currentState.ToString());
+            //Debug.Log("current clip " + currentState.ToString());
             theClip = theClips[currentState];
             processClip(theClip);
         } else
         {
-            Debug.Log(" no more clips!!!");
+            //Debug.Log(" no more clips!!!");
         }
     }
 
@@ -55,8 +55,8 @@ public class demoSequence : MonoBehaviour
     public void processClip(clipData theClip)
     {
 
-        Debug.Log("process clip  " + currentState.ToString() + 
-            "  timetoend=" + theClip.timeToEnd.ToString() + " *****************************");
+        //Debug.Log("process clip  " + currentState.ToString() + 
+        //    "  timetoend=" + theClip.timeToEnd.ToString() + " *****************************");
 
         // modify gameobject
         int conditionFlag = 0;
@@ -79,7 +79,7 @@ public class demoSequence : MonoBehaviour
         modifyObjects(conditionFlag, theClip);
 
 
-        Debug.Log("clip finished ....");
+        //Debug.Log("clip finished ....");
         if (theClip.autoAdvance)
         {
             incrementClip();
@@ -104,14 +104,14 @@ public class demoSequence : MonoBehaviour
         {
             activationConditions = theClip.objectChanges[i].activationConditions;
 
-            Debug.Log("PROCESSING CLIP " + theClip.clipName + "   "+ theClip.objectChanges[i].name + "  " +   
-                " object # " + i.ToString() + "  activation " + activationConditions.ToString() + 
-                " conditionFlag=" + conditionFlag.ToString());
+            //Debug.Log("PROCESSING CLIP " + theClip.clipName + "   "+ theClip.objectChanges[i].name + "  " +   
+            //    " object # " + i.ToString() + "  activation " + activationConditions.ToString() + 
+            //    " conditionFlag=" + conditionFlag.ToString());
           
             if (activationConditions == conditionFlag)
             {
                 //JsonUtility.FromJsonOverwrite(theClip.objectChanges[i].jsonModifications, objectMods);
-                Debug.Log(JsonUtility.ToJson(theClip.objectChanges[i], true));
+                //Debug.Log(JsonUtility.ToJson(theClip.objectChanges[i], true));
                 objectMods = theClip.objectChanges[i];
 
                 // if we are reactivating an inactive object, we need to find it from the 
@@ -151,7 +151,7 @@ public class demoSequence : MonoBehaviour
         if (aud.clip != null)
             aud.Play();
 
-        Debug.Log("TTIME DELAY " + timeDelay.ToString() + "*********************************************************************************************");
+        //Debug.Log("TTIME DELAY " + timeDelay.ToString() + "*********************************************************************************************");
 
         yield return new WaitForSeconds(timeDelay);
         clipFinished();
@@ -160,7 +160,7 @@ public class demoSequence : MonoBehaviour
    
     public void actionCallBack(GameObject sendingObject)
     {
-        Debug.Log("actioncallback from " + sendingObject.name + "++++++++++++++++++++++++++++");
+        //Debug.Log("actioncallback from " + sendingObject.name + "++++++++++++++++++++++++++++");
         if (sendingObject.name.IndexOf(actionNextClipName) >= 0)
             actionNextClip();
         else if (sendingObject.name.IndexOf(actionPreviousClipName) >= 0)
@@ -179,13 +179,13 @@ public class demoSequence : MonoBehaviour
 
     public void actionNextClip()
     {
-        Debug.Log("action next!!!!!-----------------------------------------------------------");
+        //Debug.Log("action next!!!!!-----------------------------------------------------------");
 
         // modify gameobjects
         int conditionFlag = 1;
         modifyObjects(conditionFlag, theClip);
        
-        Debug.Log("new clips!!!! " + currentState.ToString());
+        //Debug.Log("new clips!!!! " + currentState.ToString());
 
         incrementClip();
         StopAllCoroutines();
@@ -194,7 +194,7 @@ public class demoSequence : MonoBehaviour
 
     public void actionPreviousClip ()
     {
-        Debug.Log("action previous!!!!------------------------------------------------");
+        //Debug.Log("action previous!!!!------------------------------------------------");
 
         // modify gameobjects
         int conditionFlag = 1;

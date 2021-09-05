@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using System;
 
 public class loginLogic : MonoBehaviour
 {
@@ -30,6 +31,12 @@ public class loginLogic : MonoBehaviour
 
     public GameObject sandbox;
     public GameObject labStarter;
+
+    public AudioClip welcomeAudio;
+    public AudioClip placementAudio;
+    public AudioClip loginAudio;
+    public AudioClip labselectAudio;
+
     #endregion
 
     #region Private Variables 
@@ -42,14 +49,16 @@ public class loginLogic : MonoBehaviour
     private bool playAnimation = true;
     private bool setAnimationAnchor = true;
 
-    private int currState = -1; 
+    private AudioSource aud;
+
+    private int currState = -1;
     private enum state
-    { 
+    {
         placement,
         usr_entry,
         pass_entry,
         authentication,
-        lab_selection, 
+        lab_selection,
         lab_initiation,
         end_of_states
     }
@@ -65,6 +74,10 @@ public class loginLogic : MonoBehaviour
         StartCoroutine(DownloadFile("http://cyberlearnar.cs.mtsu.edu/show_uploaded/crn_to_labs.csv", "Assets/Resources/csv bank/crn_to_labs.csv"));
         StartCoroutine(DownloadFile("http://cyberlearnar.cs.mtsu.edu/labs", "Assets/Resources/csv bank/allLabs.json"));
         allLabs = Resources.Load<TextAsset>("csv bank/allLabs").text;
+
+        aud = GetComponent<AudioSource>();
+        StartCoroutine(WaitForClip(welcomeAudio));
+
         intro.SetActive(true);
         toggleLineRender(false);
     }
@@ -78,8 +91,8 @@ public class loginLogic : MonoBehaviour
         {
             toggleLineRender(false);
             setAnimationAnchor = false;
-            intro.transform.position = Camera.main.transform.position + Camera.main.transform.rotation * new Vector3(0, 0, 5); 
-            intro.transform.eulerAngles = new Vector3(0,Camera.main.transform.eulerAngles.y,0);
+            intro.transform.position = Camera.main.transform.position + Camera.main.transform.rotation * new Vector3(0, 0, 5);
+            intro.transform.eulerAngles = new Vector3(0, Camera.main.transform.eulerAngles.y, 0);
         }
 
         // After initial animation, this will initiate placement scene, then the login screen 
@@ -100,13 +113,13 @@ public class loginLogic : MonoBehaviour
             // Same as realign() - CONSIDERING REWORK
             anchor.transform.position = controller.transform.position;
             anchor.transform.eulerAngles = new Vector3(0, Camera.main.transform.eulerAngles.y, 0);
-        } 
+        }
     }
     #endregion
 
     #region Public Events
     // OnHomeButtonDown() realigns UI to position of controller and angle head is pointing
-    public void realign()  
+    public void realign()
     {
         print("Realigning UI.");
         anchor.transform.position = controller.transform.position;
@@ -123,10 +136,12 @@ public class loginLogic : MonoBehaviour
     {
         print("Current state: " + (state)(++currState) + "\n========================");
 
-        switch (currState)  
+        switch (currState)
         {
             case (int)state.placement: // Placement scene: 0
                 {
+                    StartCoroutine(WaitForClip(placementAudio));
+                    
                     // disable linerenderer and MTSU model to look cleaner
                     toggleLineRender(false);
                     intro.gameObject.transform.GetChild(0).gameObject.SetActive(false);
@@ -142,6 +157,10 @@ public class loginLogic : MonoBehaviour
 
             case (int)state.usr_entry: // User Entry: 1
                 {
+
+                    StopCoroutine(WaitForClip(placementAudio));
+                    StartCoroutine(WaitForClip(loginAudio));
+
                     // Cleanup placement object
                     toggleLineRender(true);
                     placement_prop.SetActive(false);
@@ -193,6 +212,8 @@ public class loginLogic : MonoBehaviour
 
             case (int)state.lab_selection: // Lab selection: 4
                 {
+                    StopCoroutine(WaitForClip(loginAudio));
+                    StartCoroutine(WaitForClip(labselectAudio));
                     // Disable UI and Keyboard 
                     LoginUI.SetActive(false);
                     keyboard.SetActive(false);
@@ -207,7 +228,7 @@ public class loginLogic : MonoBehaviour
             case (int)state.lab_initiation: // Insantiate lab: 5
                 {
                     // Disable all UI
-                    Debug.Log("doing the case of lab_initialize");
+                   // Debug.Log("doing the case of lab_initialize");
                     lab_options.SetActive(false);
 
                     // Start Lab Manager
@@ -216,8 +237,8 @@ public class loginLogic : MonoBehaviour
                     break;
                 }
 
-                // Catch if looped and extends past defined states 
-                // returns back to placement scene
+            // Catch if looped and extends past defined states 
+            // returns back to placement scene
             default:
                 {
                     // Disable lab selection
@@ -240,7 +261,7 @@ public class loginLogic : MonoBehaviour
         {
             print("Scene has been placed\n");
             placed = true;
-            next(); 
+            next();
         }
     }
 
@@ -274,8 +295,8 @@ public class loginLogic : MonoBehaviour
     IEnumerator DownloadFile(string webpath, string path)
     {
         if (useLocalFiles && System.IO.File.Exists(path))
-        { 
-            print("File: " + path.Substring(path.LastIndexOf("/")+1) + " exists and will not be pulled from the website.");
+        {
+            print("File: " + path.Substring(path.LastIndexOf("/") + 1) + " exists and will not be pulled from the website.");
             yield return null;
         }
 
@@ -316,6 +337,20 @@ public class loginLogic : MonoBehaviour
             StartCoroutine(Catalogue(LabData));
         }
     }
+
+
+    IEnumerator WaitForClip(AudioClip aclip)
+    {
+        aud.clip = aclip;
+
+        if (aud.clip != null)
+            aud.Play();
+        yield return new WaitForSeconds(aud.clip.length);
+      
+    }
+
+
+
 
     IEnumerator Catalogue(LabDataObject LabData)
     {
@@ -389,7 +424,7 @@ public class loginLogic : MonoBehaviour
         newlab.transform.GetChild(1).GetComponent<Text>().text = description;
 
         // This makes the Panel name the lab's unique identifier not the title
-        newlab.name = lab.Equals("Exit") ? lab : "Lab: " + lab; 
+        newlab.name = lab.Equals("Exit") ? lab : "Lab: " + lab;
         newlab.SetActive(true);
         return newlab;
     }
@@ -414,7 +449,7 @@ public class loginLogic : MonoBehaviour
         try
         {
             temp = allLabs.Substring(allLabs.IndexOf("\"lab_id\":" + labId) + 23 + labId.Length);
-            temp = temp.Substring(0,temp.IndexOf("\""));
+            temp = temp.Substring(0, temp.IndexOf("\""));
         }
         catch { print("No Name found on the website for lab: " + labId); temp = "Lab title not found on site"; }
         return temp;
@@ -428,15 +463,15 @@ public class loginLogic : MonoBehaviour
         try
         {
             temp = allLabs.Substring(0, allLabs.IndexOf("\"lab_id\":" + labId) - 2);
-            temp = temp.Substring(temp.LastIndexOf("\"lab_description\":\"")+19);
+            temp = temp.Substring(temp.LastIndexOf("\"lab_description\":\"") + 19);
         }
-        catch { print("No description found on the website for lab: " +labId); temp = "Lab description not found on site"; }
+        catch { print("No description found on the website for lab: " + labId); temp = "Lab description not found on site"; }
         return temp;
     }
 
 
     // Called when a lab is clicked on; sets value of (string) labSelected
-    private void setLab(string lab) 
+    private void setLab(string lab)
     {
         labSelected = lab;
         print("Lab Selected: " + format(labSelected) + "\n");
@@ -448,23 +483,23 @@ public class loginLogic : MonoBehaviour
     private void startLab()
     {
 
-        Debug.Log("in startLab ="+labSelected.ToString());
+        //Debug.Log("in startLab =" + labSelected.ToString());
         // If exit is selected from the list, End program here
-        if (labSelected.ToUpper().Equals("EXIT")) 
+        if (labSelected.ToUpper().Equals("EXIT"))
         {
-            print("Exit tab selected; Exiting application");
-        #if UNITY_EDITOR
+          //  print("Exit tab selected; Exiting application");
+#if UNITY_EDITOR
             UnityEditor.EditorApplication.isPlaying = false;
-        #else
+#else
             Application.Quit();
-        #endif
-        } 
+#endif
+        }
 
         // If no lab has been selected (forced next()), returns to lab selection
-        else if (labSelected.Equals("none")) 
+        else if (labSelected.Equals("none"))
         {
             print("No lab selected; returning to lab selection");
-            gotoState((int)state.lab_selection); 
+            gotoState((int)state.lab_selection);
         }
 
         else
@@ -479,11 +514,11 @@ public class loginLogic : MonoBehaviour
             //try { StartCoroutine(DownloadFile(jsonPath, "Assets/Resources/csv bank/LabJson.json")); }
             //catch { print("Cant load Lab list from url"); }
 
-            Debug.Log(" starting that json get region");
+           // Debug.Log(" starting that json get region");
             GameObject go = GameObject.Find("[_DYNAMIC]");
             if (go == null)
             {
-                Debug.Log("no dynamic!");
+                //Debug.Log("no dynamic!");
             }
             {
                 go.transform.eulerAngles = new Vector3(0, Camera.main.transform.eulerAngles.y, 0);
@@ -492,12 +527,12 @@ public class loginLogic : MonoBehaviour
                 float offset = 1.5f;  // distance in front of camera for the scene
                 float dx = offset * Mathf.Cos(yangle * Mathf.Deg2Rad);
                 float dy = offset * Mathf.Sin(yangle * Mathf.Deg2Rad);
-                Debug.Log("ANGLE " + yangle.ToString() + "  dx,dy " + dx.ToString() + dy.ToString());
-                go.transform.position = Camera.main.transform.position ;
+                go.transform.position = Camera.main.transform.position - Vector3.up * 0.2f;
+                
                 //GameObject light = GameObject.Find("Directional Light");
                 //if (light == null) Debug.Log("no light");
                 //light.transform.eulerAngles = new Vector3(0.0f, yangle, 0.0f);
-                
+
                 //go.transform.position = Camera.main.transform.position + dx*Vector3.left + -0.4f * Vector3.up + dz* Vector3.forward;
                 controller.GetComponent<LineRenderer>().enabled = true;
                 controller.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
@@ -508,5 +543,5 @@ public class loginLogic : MonoBehaviour
             // sandbox.SetActive(false);
         }
     }
-#endregion
+    #endregion
 }

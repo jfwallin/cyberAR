@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
 using System;
 using System.IO;
 
@@ -49,11 +50,37 @@ public class LabManager : MonoBehaviour
 
         // this is a temporary way to load a json file
         //string jsonpath = "C:/Users/jfwal/OneDrive/Documents/GitHub/cyberAR/_Code Device/AR Labs/Assets/Resources/jsonDefinitions/";
-        string jsonpath = "Assets/Resources/jsonDefinitions/";
-        string fname = "demo10.json";
-        string fpath = jsonpath + fname;
-        modules = System.IO.File.ReadAllLines(fpath);
-        Debug.Log("modules loaded = " + modules.Length.ToString());
+        //string jsonpath = "Assets/Resources/jsonDefinitions/";
+        //string fname = "demo10.json";
+        //string fpath = jsonpath + fname;
+        //modules = System.IO.File.ReadAllLines(fpath);
+
+
+        string jdata = Resources.Load<TextAsset>("jsonDefinitions/demo10").text;
+        string[] modulesList = jdata.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
+
+        // this is a kludge to problems associated with end of the file issues
+        // and random linefeeds within list of json files.  The splitting routine
+        // often adds a zero size module at the end of the file.  I will copy
+        // over any modules with length > 10 (a somewhat arbitrary choice)
+        // into the final array of modules.  This problem doesn't occur when you
+        // use the ReadAllLines option, but this is not available if you 
+        // are using a string array from a downloaded file or a Resource load.
+        int nonzero = 0;
+        for (int i = 0; i < modulesList.Length; i++)
+            if (modulesList[i].Length > 10)
+                nonzero = nonzero + 1;
+
+        int j = 0;
+        string[] modules = new string[nonzero];
+        for (int i = 0; i < modulesList.Length; i++)
+        {
+            if (modulesList[i].Length > 10)
+            {
+                modules[j] = modulesList[i];
+                j = j + 1;
+            }
+        }
 
         Initialize(modules);
         SpawnModule();   
@@ -74,7 +101,7 @@ public class LabManager : MonoBehaviour
 
     private void SpawnModule()
     {
-        Debug.Log("spawning module #" + index.ToString());
+        //Debug.Log("spawning module #" + index.ToString());
 
         //Deserialize JSON to get the prefab name
         ActivityModuleData tmpData = new ActivityModuleData();
@@ -86,10 +113,10 @@ public class LabManager : MonoBehaviour
         //Load prefab from resources
         GameObject tmpPrefab = (GameObject)Resources.Load($"Prefabs/{tmpData.prefabName}");
 
-        if (tmpPrefab == null)
-            Debug.Log("it is null!");
-        else
-            Debug.Log("tmpdata = " + tmpData.prefabName);
+     //   if (tmpPrefab == null)
+     //       Debug.Log("it is null!");
+     //   else
+     //       Debug.Log("tmpdata = " + tmpData.prefabName);
 
         //There will need to be some sort of placement routine, but for now it will be placed at 0,0,0
         currentModuleObject = Instantiate(tmpPrefab, labform);
@@ -118,7 +145,7 @@ public class LabManager : MonoBehaviour
 
     public void nextModuleCallback()
     {
-        Debug.Log("next Module ---------------------------------------------------------------");
+     //   Debug.Log("next Module ---------------------------------------------------------------");
         indexIncrement = 1;
         ModuleComplete();
     }
@@ -132,9 +159,9 @@ public class LabManager : MonoBehaviour
 
     public void endLabCallback()
     {
-        Debug.Log("endLab callback");
-            //Destroy(currentModuleObject);
-            //EndLab();
+      //  Debug.Log("endLab callback");
+        index = modules.Length - 1;  // set the end
+        ModuleComplete();
     }
     IEnumerator NewModule()
     {
@@ -147,10 +174,10 @@ public class LabManager : MonoBehaviour
     private void EndLab()
     {
         // TODO SEND MESSAGE TO LOGIN LOGIC SCRIPT
-        print("Returning to Lab Selection.");
+      //  print("Returning to Lab Selection.");
         // MODIFIDED FOR TESTING jw
-        //GameObject.Find("[LOGIC]").GetComponent<loginLogic>().gotoState(4);
-        Application.Quit();
+        GameObject.Find("[LOGIC]").GetComponent<loginLogic>().gotoState(4);
+        //Application.Quit();
     }
     void createInstructions()
     {

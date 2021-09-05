@@ -26,7 +26,7 @@ public class simpleOrbit : MonoBehaviour
         
         // determine the displacement between the objects and set that as the 
         // orbital distance
-        Vector3 displacement = moonPosition - planet.transform.position;
+        Vector3 displacement = moonPosition - planet.transform.localPosition;
         orbitalDistance = Mathf.Sqrt(Vector3.Dot(displacement, displacement));
 
         // set the orbital rate and angle
@@ -53,6 +53,7 @@ public class simpleOrbit : MonoBehaviour
         xpos = currentDistance * Mathf.Cos(orbitTheta);
         ypos = 0.0f;
         zpos = currentDistance * Mathf.Sin(orbitTheta);
+        //transform.position = new Vector3(xpos, ypos, zpos) + planet.transform.position;
         transform.localPosition = new Vector3(xpos, ypos, zpos) + planet.transform.localPosition;
 
         // if the body is in synchronous rotation (tidally locked to the planet),
@@ -60,7 +61,8 @@ public class simpleOrbit : MonoBehaviour
         // sense to handle that here rather than in a rotation script separtely
         if (synchronousRotation)
         {
-            transform.eulerAngles = new Vector3(0.0f, -orbitTheta * 180.0f / Mathf.PI + 180.0f, 0.0f);
+            transform.localEulerAngles = new Vector3(0.0f, -orbitTheta * 180.0f / Mathf.PI + 180.0f, 0.0f);
+            //transform.localEulerAngles = new Vector3(0.0f, -orbitTheta * 180.0f / Mathf.PI + 180.0f, 0.0f);
         }
 
 

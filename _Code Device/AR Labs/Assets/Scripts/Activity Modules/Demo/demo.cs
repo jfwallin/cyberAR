@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Networking;
 using System.IO;
 
+using UnityEngine.UI;
+
 
 namespace demoRoutines
 {
@@ -24,7 +26,7 @@ namespace demoRoutines
         //public override void Initialize(ActivityModuleData dataIn)
         public override void Initialize(string jsonData)
         {
-            Debug.Log("starting the f module");
+            //Debug.Log("starting the f module");
             // save the json string into a private variable
             moduleData = new demoData();
             jsonString = jsonData;
@@ -58,6 +60,7 @@ namespace demoRoutines
             if (moduleData.clips != null)
             {
 
+                /*
                 Debug.Log("json data " + jsonData);
                 Debug.Log(JsonUtility.ToJson(moduleData, true));
                 Debug.Log("number of clips = " + moduleData.clips.Length);
@@ -75,7 +78,7 @@ namespace demoRoutines
                         Debug.Log("name = " + moduleData.clips[i].objectChanges[j].name);
                         Debug.Log(" material = " + moduleData.clips[i].objectChanges[j].material);
                         Debug.Log(" activation = " + moduleData.clips[i].objectChanges[j].activationConditions.ToString());
-                        Debug.Log("json = " + JsonUtility.ToJson(moduleData.clips[i].objectChanges[j]));
+                       // Debug.Log("json = " + JsonUtility.ToJson(moduleData.clips[i].objectChanges[j]));
                     }
                 }
 
@@ -83,8 +86,9 @@ namespace demoRoutines
                 {
                     Debug.Log("no sequencer");
                 }
+                */
                 sequencer.makeEvents(moduleData.clips);
-                Debug.Log("sequence done");
+                //Debug.Log("sequence done");
             }
 
             // set the end criteria
@@ -96,9 +100,9 @@ namespace demoRoutines
         public override void EndOfModule()
         {
             string jdata = JsonUtility.ToJson(moduleData, true);
-            Debug.Log(jdata);
+            //Debug.Log(jdata);
             string odata = JsonUtility.ToJson(moduleData.objects, true);
-            Debug.Log(odata);
+            //Debug.Log(odata);
 
             if (moduleData.restoreLights)
                 lightControl.restoreLights();   
@@ -109,11 +113,16 @@ namespace demoRoutines
             GameObject dynamic = GameObject.Find("[_DYNAMIC]");
             foreach (Transform child in dynamic.transform)
             {
-                if (child.gameObject.name != "instructionCanvas" && child.gameObject.name != "MainInstruction")
+                if (child.gameObject.name != "instructionCanvas"
+                    && child.gameObject.name != "MainInstruction"
+                    && child.gameObject.name != "Directional Light" 
+                    && child.gameObject.name != "Point Light")
                 {
                     GameObject.Destroy(child.gameObject);
                 }
             }
+
+            GameObject.Find("MainInstructions").GetComponent<Text>().text = "";
             if (callBackActive == false)
                 FindObjectOfType<LabManager>().ModuleComplete();
 

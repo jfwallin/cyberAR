@@ -698,7 +698,7 @@ PlayerSettings:
     m_ModelFolderPath: 
     m_PortalFolderPath: 
   luminCert:
-    m_CertPath: C:/Users/nrk2t/Documents/GitHub/cyberAR/_Code Device/MoonPhaseLab/summer2021.cert
+    m_CertPath: C:/Users/jfwal/MagicLeap/certificates/isaac/ardev.cert
     m_SignPackage: 1
   luminIsChannelApp: 0
   luminVersion:
