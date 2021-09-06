@@ -1,0 +1,1141 @@
+{
+    "moduleName": "Introduction to the Earth and Moon",
+    "specificName": "Recap to the Earth Moon System",
+    "jsonFileName": "finalsummary.json",
+    "prefabName": "demoPrefab",
+    "prerequisiteActivities": [],
+    "educationalObjectives": [
+        "NA"
+    ],
+    "instructions": [
+        ""
+    ],
+    "numRepeatsAllowed": 0,
+    "numGradableRepeatsAllowed": 0,
+    "gradingCriteria": "",
+    "currentScore": 0.0,
+    "bestScore": 0.0,
+    "completed": false,
+    "currentSubphase": 0,
+    "subphaseNames": [],
+    "urlJson": "",
+    "json": "",
+    "timeToEnd": 2000,
+    "endUsingButton": true,
+    "description": "Summary of the Lab",
+    "author": "John Wallin",
+    "authorInstitution": "Middle Tennessee State University",
+    "dateCreated": "Sun Sep  5 22:25:02 2021",
+    "introAudio": "",
+    "createObjects": true,
+    "destroyObjects": true,
+    "restoreLights": true,
+    "objects": [
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"The Earth and Moon\", \"color\": [255, 255, 0, 255], \"fontSize\": 1.5, \"wrapText\": false}",
+            "position": {
+                "x": 0.0,
+                "y": 0.5,
+                "z": 1.6
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "enabled": true,
+            "parentName": "[_DYNAMIC]",
+            "name": "title"
+        },
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"Learned about Sizes and Scales\", \"color\": [255, 255, 0, 255], \"fontSize\": 0.65, \"wrapText\": false}",
+            "position": {
+                "x": 0.0,
+                "y": 0.30000000000000004,
+                "z": 1.6
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "enabled": true,
+            "parentName": "[_DYNAMIC]",
+            "name": "line0"
+        },
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"Determined how the Moon Rotates\", \"color\": [255, 255, 0, 255], \"fontSize\": 0.65, \"wrapText\": false}",
+            "position": {
+                "x": 0.0,
+                "y": 0.2,
+                "z": 1.6
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "enabled": true,
+            "parentName": "[_DYNAMIC]",
+            "name": "line1"
+        },
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"View from the Earth\", \"color\": [255, 255, 0, 255], \"fontSize\": 0.65, \"wrapText\": false}",
+            "position": {
+                "x": 0.0,
+                "y": 0.09999999999999998,
+                "z": 1.6
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "enabled": true,
+            "parentName": "[_DYNAMIC]",
+            "name": "line2"
+        },
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"View from the Moon\", \"color\": [255, 255, 0, 255], \"fontSize\": 0.65, \"wrapText\": false}",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 1.6
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "enabled": true,
+            "parentName": "[_DYNAMIC]",
+            "name": "line3"
+        },
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"View from Above the North Pole\", \"color\": [255, 255, 0, 255], \"fontSize\": 0.65, \"wrapText\": false}",
+            "position": {
+                "x": 0.0,
+                "y": -0.09999999999999998,
+                "z": 1.6
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "enabled": true,
+            "parentName": "[_DYNAMIC]",
+            "name": "line4"
+        },
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"Reproduce Moon Phases on a Basketball\", \"color\": [255, 255, 0, 255], \"fontSize\": 0.65, \"wrapText\": false}",
+            "position": {
+                "x": 0.0,
+                "y": -0.20000000000000007,
+                "z": 1.6
+            },
+            "rotation": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "enabled": true,
+            "parentName": "[_DYNAMIC]",
+            "name": "line5"
+        },
+        {
+            "type": "Prefabs/tinySphere",
+            "parent": "[_DYNAMIC]",
+            "position": {
+                "x": -0.75,
+                "y": 0.30000000000000004,
+                "z": 1.6
+            },
+            "scale": {
+                "x": 0.05,
+                "y": 0.05,
+                "z": 0.05
+            },
+            "name": "markerBall1",
+            "color": [
+                255,
+                0,
+                0,
+                255
+            ],
+            "componentsToAdd": []
+        },
+        {
+            "type": "Prefabs/tinySphere",
+            "parent": "[_DYNAMIC]",
+            "position": {
+                "x": -0.75,
+                "y": 0.2,
+                "z": 1.6
+            },
+            "scale": {
+                "x": 0.05,
+                "y": 0.05,
+                "z": 0.05
+            },
+            "name": "markerBall2",
+            "color": [
+                255,
+                0,
+                0,
+                255
+            ],
+            "componentsToAdd": []
+        },
+        {
+            "type": "Prefabs/tinySphere",
+            "parent": "[_DYNAMIC]",
+            "position": {
+                "x": -0.75,
+                "y": 0.09999999999999998,
+                "z": 1.6
+            },
+            "scale": {
+                "x": 0.05,
+                "y": 0.05,
+                "z": 0.05
+            },
+            "name": "markerBall3",
+            "color": [
+                255,
+                0,
+                0,
+                255
+            ],
+            "componentsToAdd": []
+        },
+        {
+            "type": "Prefabs/tinySphere",
+            "parent": "[_DYNAMIC]",
+            "position": {
+                "x": -0.75,
+                "y": 0.0,
+                "z": 1.6
+            },
+            "scale": {
+                "x": 0.05,
+                "y": 0.05,
+                "z": 0.05
+            },
+            "name": "markerBall4",
+            "color": [
+                255,
+                0,
+                0,
+                255
+            ],
+            "componentsToAdd": []
+        },
+        {
+            "type": "Prefabs/tinySphere",
+            "parent": "[_DYNAMIC]",
+            "position": {
+                "x": -0.75,
+                "y": -0.09999999999999998,
+                "z": 1.6
+            },
+            "scale": {
+                "x": 0.05,
+                "y": 0.05,
+                "z": 0.05
+            },
+            "name": "markerBall5",
+            "color": [
+                255,
+                0,
+                0,
+                255
+            ],
+            "componentsToAdd": []
+        },
+        {
+            "type": "Prefabs/tinySphere",
+            "parent": "[_DYNAMIC]",
+            "position": {
+                "x": -0.75,
+                "y": -0.20000000000000007,
+                "z": 1.6
+            },
+            "scale": {
+                "x": 0.05,
+                "y": 0.05,
+                "z": 0.05
+            },
+            "name": "markerBall6",
+            "color": [
+                255,
+                0,
+                0,
+                255
+            ],
+            "componentsToAdd": []
+        },
+        {
+            "type": "Prefabs/demoButtonPrefab",
+            "parentName": "title",
+            "position": {
+                "x": 1.0,
+                "y": 0,
+                "z": 0
+            },
+            "eulerAngles": {
+                "x": 90,
+                "y": 180.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "name": "brbNextModule",
+            "color": [
+                255,
+                0,
+                0,
+                255
+            ],
+            "componentsToAdd": [
+                "{\"name\": \"demoButtonActions\", \"callBackObjects\": [\"demoModule\"]}"
+            ],
+            "childColor": [
+                0,
+                255,
+                255,
+                255
+            ],
+            "childName": "button"
+        },
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"End \\nThe Lab\", \"color\": [255, 255, 0, 255], \"fontSize\": 1.0, \"wrapText\": false}",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.13
+            },
+            "eulerAngles": {
+                "x": 90,
+                "y": 180.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.6,
+                "y": 0.6,
+                "z": 0.6
+            },
+            "enabled": true,
+            "parentName": "brbNextModule",
+            "name": "brbNextModuleLabel"
+        },
+        {
+            "type": "Prefabs/demoButtonPrefab",
+            "parentName": "title",
+            "position": {
+                "x": -1.0,
+                "y": 0,
+                "z": 0
+            },
+            "eulerAngles": {
+                "x": 90,
+                "y": 180.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 1.0,
+                "y": 1.0,
+                "z": 1.0
+            },
+            "name": "brbPreviousModule",
+            "color": [
+                255,
+                0,
+                0,
+                255
+            ],
+            "componentsToAdd": [
+                "{\"name\": \"demoButtonActions\", \"callBackObjects\": [\"demoModule\"]}"
+            ],
+            "childColor": [
+                0,
+                255,
+                255,
+                255
+            ],
+            "childName": "button"
+        },
+        {
+            "type": "Prefabs/textPrefab",
+            "tmp": "{\"textField\": \"Previous Module\", \"color\": [255, 255, 0, 255], \"fontSize\": 1.0, \"wrapText\": false}",
+            "position": {
+                "x": 0.0,
+                "y": 0.0,
+                "z": 0.13
+            },
+            "eulerAngles": {
+                "x": 90,
+                "y": 180.0,
+                "z": 0.0
+            },
+            "scale": {
+                "x": 0.6,
+                "y": 0.6,
+                "z": 0.6
+            },
+            "enabled": true,
+            "parentName": "brbPreviousModule",
+            "name": "brbPreviousModuleLabel"
+        }
+    ],
+    "useSunlight": true,
+    "clips": [
+        {
+            "clipName": "clip0",
+            "audioClipString": "Audio/moonLab/moonLab_7_0_0",
+            "timeToEnd": 5.5,
+            "autoAdvance": true,
+            "objectChanges": [
+                {
+                    "name": "MainInstructions",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "canvasText": ""
+                }
+            ]
+        },
+        {
+            "clipName": "clip1",
+            "audioClipString": "Audio/moonLab/moonLab_7_1_0",
+            "timeToEnd": 7,
+            "autoAdvance": true,
+            "objectChanges": [
+                {
+                    "name": "line1",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "color": [
+                        0,
+                        255,
+                        0,
+                        255
+                    ]
+                },
+                {
+                    "name": "markerBall1",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "color": [
+                        0,
+                        255,
+                        0,
+                        255
+                    ]
+                },
+                {
+                    "name": "line1",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 1,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "color": [
+                        0,
+                        255,
+                        0,
+                        255
+                    ]
+                },
+                {
+                    "name": "markerBall1",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 1,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "color": [
+                        255,
+                        0,
+                        0,
+                        255
+                    ]
+                }
+            ]
+        },
+        {
+            "clipName": "clip2",
+            "audioClipString": "Audio/moonLab/moonLab_7_2_0",
+            "timeToEnd": 6,
+            "autoAdvance": true,
+            "objectChanges": [
+                {
+                    "name": "line2",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "color": [
+                        0,
+                        255,
+                        0,
+                        255
+                    ]
+                },
+                {
+                    "name": "markerBall2",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "color": [
+                        0,
+                        255,
+                        0,
+                        255
+                    ]
+                },
+                {
+                    "name": "line2",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 1,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "color": [
+                        0,
+                        255,
+                        0,
+                        255
+                    ]
+                },
+                {
+                    "name": "markerBall2",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 1,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "color": [
+                        255,
+                        0,
+                        0,
+                        255
+                    ]
+                }
+            ]
+        },
+        {
+            "clipName": "clip3",
+            "audioClipString": "Audio/moonLab/moonLab_7_3_0",
+            "timeToEnd": 6,
+            "autoAdvance": true,
+            "objectChanges": [
+                {
+                    "name": "line3",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "color": [
+                        0,
+                        255,
+                        0,
+                        255
+                    ]
+                },
+                {
+                    "name": "markerBall3",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "color": [
+                        0,
+                        255,
+                        0,
+                        255
+                    ]
+                },
+                {
+                    "name": "line3",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 1,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "color": [
+                        0,
+                        255,
+                        0,
+                        255
+                    ]
+                },
+                {
+                    "name": "markerBall3",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 1,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "color": [
+                        255,
+                        0,
+                        0,
+                        255
+                    ]
+                }
+            ]
+        },
+        {
+            "clipName": "clip4",
+            "audioClipString": "Audio/moonLab/moonLab_7_4_0",
+            "timeToEnd": 5,
+            "autoAdvance": true,
+            "objectChanges": [
+                {
+                    "name": "line4",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "color": [
+                        0,
+                        255,
+                        0,
+                        255
+                    ]
+                },
+                {
+                    "name": "markerBall4",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "color": [
+                        0,
+                        255,
+                        0,
+                        255
+                    ]
+                },
+                {
+                    "name": "line4",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 1,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "color": [
+                        0,
+                        255,
+                        0,
+                        255
+                    ]
+                },
+                {
+                    "name": "markerBall4",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 1,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "color": [
+                        255,
+                        0,
+                        0,
+                        255
+                    ]
+                }
+            ]
+        },
+        {
+            "clipName": "clip5",
+            "audioClipString": "Audio/moonLab/moonLab_7_5_0",
+            "timeToEnd": 6,
+            "autoAdvance": true,
+            "objectChanges": [
+                {
+                    "name": "line5",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "color": [
+                        0,
+                        255,
+                        0,
+                        255
+                    ]
+                },
+                {
+                    "name": "markerBall5",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "color": [
+                        0,
+                        255,
+                        0,
+                        255
+                    ]
+                },
+                {
+                    "name": "line5",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 1,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "color": [
+                        0,
+                        255,
+                        0,
+                        255
+                    ]
+                },
+                {
+                    "name": "markerBall5",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 1,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "color": [
+                        255,
+                        0,
+                        0,
+                        255
+                    ]
+                }
+            ]
+        },
+        {
+            "clipName": "clip6",
+            "audioClipString": "Audio/moonLab/moonLab_7_6_0",
+            "timeToEnd": 12,
+            "autoAdvance": false,
+            "objectChanges": []
+        }
+    ]
+}
