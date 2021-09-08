@@ -25,7 +25,7 @@
     "description": "A student challenge demonstrate their knowledge of moon phases",
     "author": "John Wallin",
     "authorInstitution": "Middle Tennessee State University",
-    "dateCreated": "Sun Sep  5 22:27:04 2021",
+    "dateCreated": "Mon Sep  6 12:24:45 2021",
     "introAudio": "",
     "createObjects": true,
     "destroyObjects": true,
@@ -510,6 +510,143 @@
             ]
         },
         {
+            "clipName": "clip3",
+            "audioClipString": "Audio/moonLab/moonLab_2_3_0",
+            "timeToEnd": 6,
+            "autoAdvance": false,
+            "objectChanges": [
+                {
+                    "name": "taskLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "basketball",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "componentsToAdd": [
+                        "{\"name\": \"checkAngle\", \"audioClipSuccess\": null, \"azmTarget\": 0, \"azmTolerance\": 30, \"altTarget\": 0, \"altTolerance\": 30}"
+                    ]
+                },
+                {
+                    "name": "brbPreviousClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false
+                },
+                {
+                    "name": "brbNextClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 1,
+                        "y": 1,
+                        "z": 1
+                    },
+                    "newScale": true
+                },
+                {
+                    "name": "brbNextModule",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false
+                }
+            ]
+        },
+        {
             "clipName": "clip9",
             "audioClipString": "Audio/moonLab/moonLab_2_9_0",
             "timeToEnd": 6,
@@ -567,6 +704,143 @@
                     "newScale": false,
                     "componentsToAdd": [
                         "{\"name\": \"checkAngle\", \"audioClipSuccess\": null, \"azmTarget\": 270, \"azmTolerance\": 30, \"altTarget\": 0, \"altTolerance\": 30}"
+                    ]
+                },
+                {
+                    "name": "brbPreviousClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false
+                },
+                {
+                    "name": "brbNextClip",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 1,
+                        "y": 1,
+                        "z": 1
+                    },
+                    "newScale": true
+                },
+                {
+                    "name": "brbNextModule",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false
+                }
+            ]
+        },
+        {
+            "clipName": "clip4",
+            "audioClipString": "Audio/moonLab/moonLab_2_4_0",
+            "timeToEnd": 6,
+            "autoAdvance": false,
+            "objectChanges": [
+                {
+                    "name": "taskLabel",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "tmp": "{\"textField\": \"Waxing Crescent\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                },
+                {
+                    "name": "basketball",
+                    "parentObject": "[DYNAMIC]",
+                    "activationConditions": 0,
+                    "reactiveObject": false,
+                    "enable": true,
+                    "position": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newPosition": false,
+                    "eulerAngles": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newEulerAngles": false,
+                    "scale": {
+                        "x": 0.0,
+                        "y": 0.0,
+                        "z": 0.0
+                    },
+                    "newScale": false,
+                    "componentsToAdd": [
+                        "{\"name\": \"checkAngle\", \"audioClipSuccess\": null, \"azmTarget\": 45, \"azmTolerance\": 30, \"altTarget\": 0, \"altTolerance\": 30}"
                     ]
                 },
                 {
@@ -784,8 +1058,8 @@
             ]
         },
         {
-            "clipName": "clip6",
-            "audioClipString": "Audio/moonLab/moonLab_2_6_0",
+            "clipName": "clip8",
+            "audioClipString": "Audio/moonLab/moonLab_2_8_0",
             "timeToEnd": 6,
             "autoAdvance": false,
             "objectChanges": [
@@ -813,7 +1087,7 @@
                         "z": 0.0
                     },
                     "newScale": false,
-                    "tmp": "{\"textField\": \"Waxing Gibbous\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                    "tmp": "{\"textField\": \"Waning Gibbous\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
                 },
                 {
                     "name": "basketball",
@@ -840,144 +1114,7 @@
                     },
                     "newScale": false,
                     "componentsToAdd": [
-                        "{\"name\": \"checkAngle\", \"audioClipSuccess\": null, \"azmTarget\": 135, \"azmTolerance\": 30, \"altTarget\": 0, \"altTolerance\": 30}"
-                    ]
-                },
-                {
-                    "name": "brbPreviousClip",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false
-                },
-                {
-                    "name": "brbNextClip",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 1,
-                        "y": 1,
-                        "z": 1
-                    },
-                    "newScale": true
-                },
-                {
-                    "name": "brbNextModule",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false
-                }
-            ]
-        },
-        {
-            "clipName": "clip3",
-            "audioClipString": "Audio/moonLab/moonLab_2_3_0",
-            "timeToEnd": 6,
-            "autoAdvance": false,
-            "objectChanges": [
-                {
-                    "name": "taskLabel",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false,
-                    "tmp": "{\"textField\": \"New Moon\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
-                },
-                {
-                    "name": "basketball",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false,
-                    "componentsToAdd": [
-                        "{\"name\": \"checkAngle\", \"audioClipSuccess\": null, \"azmTarget\": 0, \"azmTolerance\": 30, \"altTarget\": 0, \"altTolerance\": 30}"
+                        "{\"name\": \"checkAngle\", \"audioClipSuccess\": null, \"azmTarget\": 225, \"azmTolerance\": 30, \"altTarget\": 0, \"altTolerance\": 30}"
                     ]
                 },
                 {
@@ -1332,8 +1469,8 @@
             ]
         },
         {
-            "clipName": "clip4",
-            "audioClipString": "Audio/moonLab/moonLab_2_4_0",
+            "clipName": "clip6",
+            "audioClipString": "Audio/moonLab/moonLab_2_6_0",
             "timeToEnd": 6,
             "autoAdvance": false,
             "objectChanges": [
@@ -1361,7 +1498,7 @@
                         "z": 0.0
                     },
                     "newScale": false,
-                    "tmp": "{\"textField\": \"Waxing Crescent\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
+                    "tmp": "{\"textField\": \"Waxing Gibbous\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
                 },
                 {
                     "name": "basketball",
@@ -1388,144 +1525,7 @@
                     },
                     "newScale": false,
                     "componentsToAdd": [
-                        "{\"name\": \"checkAngle\", \"audioClipSuccess\": null, \"azmTarget\": 45, \"azmTolerance\": 30, \"altTarget\": 0, \"altTolerance\": 30}"
-                    ]
-                },
-                {
-                    "name": "brbPreviousClip",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false
-                },
-                {
-                    "name": "brbNextClip",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 1,
-                        "y": 1,
-                        "z": 1
-                    },
-                    "newScale": true
-                },
-                {
-                    "name": "brbNextModule",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false
-                }
-            ]
-        },
-        {
-            "clipName": "clip8",
-            "audioClipString": "Audio/moonLab/moonLab_2_8_0",
-            "timeToEnd": 6,
-            "autoAdvance": false,
-            "objectChanges": [
-                {
-                    "name": "taskLabel",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false,
-                    "tmp": "{\"textField\": \"Waning Gibbous\", \"color\": [255, 255, 255, 255], \"fontSize\": 1, \"wrapText\": false, \"parentObject\": \"[_DYNAMIC]\"}"
-                },
-                {
-                    "name": "basketball",
-                    "parentObject": "[DYNAMIC]",
-                    "activationConditions": 0,
-                    "reactiveObject": false,
-                    "enable": true,
-                    "position": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newPosition": false,
-                    "eulerAngles": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newEulerAngles": false,
-                    "scale": {
-                        "x": 0.0,
-                        "y": 0.0,
-                        "z": 0.0
-                    },
-                    "newScale": false,
-                    "componentsToAdd": [
-                        "{\"name\": \"checkAngle\", \"audioClipSuccess\": null, \"azmTarget\": 225, \"azmTolerance\": 30, \"altTarget\": 0, \"altTolerance\": 30}"
+                        "{\"name\": \"checkAngle\", \"audioClipSuccess\": null, \"azmTarget\": 135, \"azmTolerance\": 30, \"altTarget\": 0, \"altTolerance\": 30}"
                     ]
                 },
                 {
