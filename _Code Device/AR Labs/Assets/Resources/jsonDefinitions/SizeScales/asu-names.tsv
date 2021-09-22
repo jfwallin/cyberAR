@@ -1,0 +1,87 @@
+#
+#   VizieR Astronomical Server vizier.u-strasbg.fr
+#    Date: 2021-09-21T18:47:35 [V1.99+ (14-Oct-2013)]
+#   In case of problem, please report to:	cds-question@unistra.fr
+#
+#
+#Coosys	J2000:	eq_FK5 J2000
+#INFO	votable-version=1.99+ (14-Oct-2013)	
+#INFO	-ref=VIZ614a28a91e7daf	
+#INFO	-out.max=50	
+#INFO	queryParameters=12	
+#-oc.form=dec
+#-out.max=50
+#-out.add=_r
+#-out.add=_RAJ,_DEJ
+#-out.add=_RA*-c.eq,_DE*-c.eq
+#-sort=_r
+#-order=I
+#-out.src=V/53A/names
+#-nav=cat:V/53A&tab:{V/53A/names}&key:source=V/53A&HTTPPRM:&&-ref=VIZ614a28a91e7daf&-out.max=50&-out.form=HTML Table&-out.add=_r&-out.add=_RAJ,_DEJ&-out.add=_RA*-c.eq,_DE*-c.eq&-sort=_r&-oc.form=sexa&-order=I&-out=HR&-out=Name&-file=.&-meta.ucd=0&-meta=0&-usenav=1&-bmark=POST&-out.src=V/53A/names
+#-source=V/53A/names
+#-out=HR
+#-out=Name
+#
+
+#RESOURCE=yCat_5053
+#Name: V/53A
+#Title: Catalogue of the Brightest Stars (Ochsenbein+ 1988)
+#Table	V_53A_names:
+#Name: V/53A/names
+#Title: Star names / Noms des etoiles
+#Column	HR	(I4)	Bright Star number	[ucd=]
+#Column	Name	(a12)	Common name of the star / Nom usuel	[ucd=]
+HR	Name
+ 	
+----	------------
+ 897	Acamar
+ 472	Achernar
+4730	Acrux
+2618	Adara
+5267	Agena
+5191	Alcaid
+5062	Alcor
+1165	Alcyone
+1457	Aldebaran
+8162	Alderamin
+  39	Algenib
+ 936	Algol
+2421	Alhena
+4905	Alioth
+ 603	Almach
+8425	Alnair
+1903	Alnilam
+3748	Alphard
+5793	Alphecca
+  15	Alpheratz
+7602	Alshain
+7557	Altair
+6134	Antares
+5340	Arcturus
+1865	Arneb
+1178	Atlas
+1790	Bellatrix
+2061	Betelgeuse
+2326	Canopus
+1708	Capella
+  21	Caph
+2890	Castor
+7924	Deneb
+4534	Denebola
+4301	Dubhe
+1142	Electra
+1791	Elnath
+8308	Enif
+6705	Etamin
+8728	Fomalhaut
+ 617	Hamal
+5506	Izar
+5563	Kochab
+1149	Maia
+8781	Markab
+4660	Megrez
+ 911	Menkar
+4295	Merak
+1156	Merope
+1852	Mintaka
+
