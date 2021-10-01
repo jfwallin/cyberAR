@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.0030326298, g: 0.006091421, b: 0.014031965, a: 1}
+  m_IndirectSpecularColor: {r: 0.0030172754, g: 0.0060913647, b: 0.014057818, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2565,6 +2565,10 @@ MonoBehaviour:
   labTemp: {fileID: 1861776993}
   sandbox: {fileID: 1775193461}
   labStarter: {fileID: 2101949135}
+  welcomeAudio: {fileID: 0}
+  placementAudio: {fileID: 0}
+  loginAudio: {fileID: 0}
+  labselectAudio: {fileID: 0}
 --- !u!1 &716852239
 GameObject:
   m_ObjectHideFlags: 0
@@ -12100,6 +12104,8 @@ GameObject:
   - component: {fileID: 2101949136}
   - component: {fileID: 2101949138}
   - component: {fileID: 2101949137}
+  - component: {fileID: 2101949140}
+  - component: {fileID: 2101949139}
   m_Layer: 0
   m_Name: '[_DYNAMIC]'
   m_TagString: Untagged
@@ -12135,6 +12141,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modules: []
   instructionPrefab: {fileID: 0}
+  loggerExit: {fileID: 0}
 --- !u!114 &2101949138
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12148,6 +12155,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   done: 0
+--- !u!114 &2101949139
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101949135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96a0c19e6d707b74f9def00ebf828b30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flag: 1
+  startTime: 0
+  currentTime: 0
+  usedTime: 0
+  lastTimeInterval: 0
+  Path: Assets/Resources/test2.txt
+--- !u!114 &2101949140
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2101949135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9a23b3860020bf44e8b31e4899c98f16, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myFile: Assets/Resources/test2.txt
+  uploading: 0
 --- !u!1 &2127033899
 GameObject:
   m_ObjectHideFlags: 0

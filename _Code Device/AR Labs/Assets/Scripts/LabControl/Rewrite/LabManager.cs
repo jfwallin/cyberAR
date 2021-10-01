@@ -23,6 +23,9 @@ public class LabManager : MonoBehaviour
     //private InstructionBox ibox;
     private Transform labform;
 
+    [SerializeField]
+    private LabExit loggerExit;
+
     public void Start()
     {
         // ultimately - we might use Initialize externally 
@@ -33,14 +36,18 @@ public class LabManager : MonoBehaviour
         //ibox = InstructionBox.Instance;
         labform = GameObject.Find("[_DYNAMIC]").transform;
         //spawnDemoNew();
+        if (loggerExit == null)
+        {
+            loggerExit = GetComponent<LabExit>();
+        }
     }
 
     public void Initialize(LabDataObject data)
     {
         modules = data.ActivityModules;
 
-        //SpawnModule();
-        spawnDemoNew();
+        SpawnModule();
+        //spawnDemoNew();
 
     }
 
@@ -176,9 +183,16 @@ public class LabManager : MonoBehaviour
         // TODO SEND MESSAGE TO LOGIN LOGIC SCRIPT
       //  print("Returning to Lab Selection.");
         // MODIFIDED FOR TESTING jw
-        GameObject.Find("[LOGIC]").GetComponent<loginLogic>().gotoState(4);
+
+        loggerExit.SubmitLog(OnDoneSubmitting);
         //Application.Quit();
     }
+
+    private void OnDoneSubmitting()
+    {
+        GameObject.Find("[LOGIC]").GetComponent<loginLogic>().gotoState(4);
+    }
+
     void createInstructions()
     {
         //GameObject root = GameObject.Find("Dynamic");

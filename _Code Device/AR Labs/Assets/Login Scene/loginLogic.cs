@@ -509,12 +509,13 @@ public class loginLogic : MonoBehaviour
             //sandbox.SetActive(true);
 
             // THE URL PROVIDED CURRENTLY DOES NOTHING - THIS NEEDS TO BE PROVIDED WEB-SIDE
-            string jsonPath = "http://cyberlearnar.cs.mtsu.edu/show_uploaded/JsonTest.txt"; //"http://cyberlearnar.cs.mtsu.edu/lab_json/ " + labSelected;
+            string jsonPath = "http://cyberlearnar.cs.mtsu.edu/show_uploaded/moon_lab.json";
+            //"http://cyberlearnar.cs.mtsu.edu/show_uploaded/JsonTest.txt"; //"http://cyberlearnar.cs.mtsu.edu/lab_json/ " + labSelected;
 
             //try { StartCoroutine(DownloadFile(jsonPath, "Assets/Resources/csv bank/LabJson.json")); }
             //catch { print("Cant load Lab list from url"); }
 
-           // Debug.Log(" starting that json get region");
+            // Debug.Log(" starting that json get region");
             GameObject go = GameObject.Find("[_DYNAMIC]");
             if (go == null)
             {

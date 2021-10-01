@@ -12,29 +12,31 @@ using System;
 public class LabExit : MonoBehaviour
 {
     public string myFile = "Assets/Resources/test2.txt";// this need to be cj=hange to be the same file name as the write 
+    [HideInInspector]
     public bool uploading = false;
     // thi method will be called upon stopping the lab
-    void OnApplicationQuit()
-    {
-        // upload method is called
-        StartCoroutine(Upload());
-        // time stamp to the log file 
-         Debug.Log("Application ending after " + Time.time + " seconds and time is" + DateTime.Now.ToString());
+    //void OnApplicationQuit()
+    //{
+    //    // upload method is called
+    //    StartCoroutine(Upload());
+    //    // time stamp to the log file 
+    //     Debug.Log("Application ending after " + Time.time + " seconds and time is" + DateTime.Now.ToString());
 
 
-    }
-    public void SubmitLog()
+    //}
+
+    public void SubmitLog(Action onDoneUploading)
     {
         uploading = true;
         // upload method is called
-        StartCoroutine(Upload());
+        StartCoroutine(Upload(onDoneUploading));
         // time stamp to the log file 
         Debug.Log("Application ending after " + Time.time + " seconds and time is" + DateTime.Now.ToString());
     }
 
 
     //method used to upload file to the web
-    IEnumerator Upload()
+    IEnumerator Upload(Action doneUploading)
     {
 
         //Convert the file into binary
@@ -60,6 +62,8 @@ public class LabExit : MonoBehaviour
         {
             Debug.Log("Form upload complete!");
         }
+
+        doneUploading.Invoke();
 
        
     }
