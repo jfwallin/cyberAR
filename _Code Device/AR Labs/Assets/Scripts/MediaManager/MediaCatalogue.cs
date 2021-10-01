@@ -71,8 +71,61 @@ public class MediaCatalogue : MonoBehaviour
         if (labVideos.ContainsKey(videoKey))
             retrievedVideoURL = labVideos[videoKey];
         else
-            UnityEngine.Debug.Log("Video URL not found.");
+            UnityEngine.Debug.Log("Video file not found.");
         return retrievedVideoURL;
+    }
+
+    //Removes a specified downloaded resource from the Catalogue
+    public void DeleteDownloadedMediaAsset(string resourceKey)
+    {
+        if (labTextures.ContainsKey(resourceKey))
+            labTextures.Remove(resourceKey);
+        else if (labAudio.ContainsKey(resourceKey))
+            labAudio.Remove(resourceKey);
+        else if (labVideos.ContainsKey(resourceKey))
+        {
+            File.Delete(labVideos[resourceKey]); //Delete video file from disk
+            labVideos.Remove(resourceKey); //Remove entry from dictionary
+        }
+        else
+            UnityEngine.Debug.Log("Resource not found.");
+    }
+
+    //Clears all downloaded assets of a specific media type
+    //mediaType should be set to "image", "audio", or "video"
+    //passing "video" will delete all downloaded video files from disk
+    public void DeleteDownloadedMediaType(string mediaType)
+    {
+        switch (mediaType)
+        {
+            case "image":
+                labTextures.Clear();
+                break;
+            case "audio":
+                labAudio.Clear();
+                break;
+            case "video":
+                Dictionary<string, string>.ValueCollection videoFilePaths = labVideos.Values; //Get a collection of filepaths for all downloaded video files
+                foreach (string videoFilePath in videoFilePaths)
+                {
+                    File.Delete(videoFilePath); //Delete each video file from disk
+                }
+                labVideos.Clear(); //Clear the labVideos dictionary
+                break;
+        }
+    }
+
+    //Clears all downloaded media asset dictionaries and deletes all downloaded video files that are saved to disk
+    public void DeleteAllDownloadedMediaAssets()
+    {
+        labTextures.Clear();
+        labAudio.Clear();
+        Dictionary<string, string>.ValueCollection videoFilePaths = labVideos.Values; //Get a collection of filepaths for all downloaded video files
+        foreach (string videoFilePath in videoFilePaths)
+        {
+            File.Delete(videoFilePath); //Delete each video file from disk
+        }
+        labVideos.Clear(); //Clear teh labVideos dictionary
     }
 
     //Downloads an image file, creates a Texutre2D asset, and stores the asset in the labTextures dictionary
@@ -104,6 +157,28 @@ public class MediaCatalogue : MonoBehaviour
             }
             else
                 labAudio.Add(url, DownloadHandlerAudioClip.GetContent(uwr));
+        }
+    }
+
+    IEnumerator DownloadVideo(string url)
+    {
+        using (UnityWebRequest uwr = UnityWebRequest.Get(url))
+        {
+            yield return uwr.SendWebRequest();
+            if (uwr.isNetworkError || uwr.isHttpError)
+            {
+                UnityEngine.Debug.Log(uwr.error);
+                UnityEngine.Debug.Log(url);
+            }
+            else
+            {
+                int index = url.LastIndexOf("/");
+                index += 1;
+                string filename = url.Substring(index);
+                string videoPath = Application.dataPath + "/" + filename;    //Path to downloaded video file
+                File.WriteAllBytes(videoPath, uwr.downloadHandler.data); //Save video file to disk
+                labVideos.Add(url, videoPath); //Add path to video to the videos dictionary
+            }
         }
     }
 
@@ -146,10 +221,12 @@ public class MediaCatalogue : MonoBehaviour
                     break;
                 case MediaType.Video:
                     if (labVideos.ContainsKey(resourceKey) == false)
-                        labVideos.Add(resourceKey, asset.resource_url);
+                        yield return StartCoroutine(DownloadVideo(resourceKey));
                     break;
             }
         }
         done = true;
     }
+
+
 }
