@@ -45,7 +45,14 @@ public class MediaCatalogue : MonoBehaviour
             
         }
         else
-            Debug.Log("Texture asset not found.");
+        {
+            string avail = "";
+            foreach(string s in labTextures.Keys)
+            {
+                avail += $", {s}";
+            }
+            Debug.Log($"Texture asset not found. Used key was: { textureKey}, Available Texture keys:\n{avail},\nSize of dictionary: {labTextures.Count}");
+        }
         return retrievedTexture;
     }
 
@@ -87,7 +94,10 @@ public class MediaCatalogue : MonoBehaviour
                 UnityEngine.Debug.Log(url);
             }
             else
+            {
+                print($"Added texture to catalogue, key: {url}");
                 labTextures.Add(url, DownloadHandlerTexture.GetContent(uwr));
+            }
         }
     }
 

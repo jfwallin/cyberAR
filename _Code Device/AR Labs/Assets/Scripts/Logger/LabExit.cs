@@ -64,7 +64,5 @@ public class LabExit : MonoBehaviour
         }
 
         doneUploading.Invoke();
-
-       
     }
 }

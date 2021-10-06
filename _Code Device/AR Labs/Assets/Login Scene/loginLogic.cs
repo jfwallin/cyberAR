@@ -11,33 +11,30 @@ public class loginLogic : MonoBehaviour
     [Header("Toggle Downloading")]
     [Tooltip("This toggle allows for use of immediate local files instead of pulling them from the web")]
     public bool useLocalFiles = true;
-    //public bool useLocalFiles = false;
 
     [Header("GameObjects")]
-    public GameObject controller;
-    public GameObject intro;
-    public GameObject placement_prop;
-    public GameObject anchor;
+    public GameObject controller;      //Used to set placement object, and access pointer renderer
+    public GameObject intro;           //Intro animation UI
+    public GameObject placement_prop;  //Shown during the placement phase to identify the anchor point
+    public GameObject anchor;          //Root transform of anchored content.
 
-    public GameObject LoginUI;
-    public GameObject guestButton;
-    public GameObject usr;
-    public GameObject pas;
-    public GameObject loading;
-    public GameObject keyboard;
+    public GameObject LoginUI;         //UI panel for login
+    public GameObject guestButton;     //Button to automatically login as a guest
+    public GameObject usr;             //Username UI text field
+    public GameObject pas;             //Password UI text field
+    public GameObject loading;         //
+    public GameObject keyboard;        //VR keyboard, used for text input
 
-    public GameObject lab_options;
-    public GameObject labTemp;
+    public GameObject lab_options;     //UI containing list of labs that are clicked to select
+    public GameObject labTemp;         //
 
-    public GameObject sandbox;
-    public GameObject labStarter;
+    public GameObject labStarter;      //
 
-    public AudioClip welcomeAudio;
-    public AudioClip placementAudio;
-    public AudioClip loginAudio;
-    public AudioClip labselectAudio;
-
-    #endregion
+    public AudioClip welcomeAudio;     //Played when the application starts
+    public AudioClip placementAudio;   //Played during the placement phase
+    public AudioClip loginAudio;       //Audio played during login
+    public AudioClip labselectAudio;   //Played when a lab is selected
+    #endregion Public Variables
 
     #region Private Variables 
     private List<GameObject> labList;
@@ -62,28 +59,30 @@ public class loginLogic : MonoBehaviour
         lab_initiation,
         end_of_states
     }
-    #endregion
+    #endregion Private Variables
 
     #region MonoBehaviour
-
-    // Start is called before the first frame update
     void Start()
     {
+        //Variable initializations
         labList = new List<GameObject>();
+        aud = GetComponent<AudioSource>();
+
+        //list of unique id, name, CRN, instructor, and password
         StartCoroutine(DownloadFile("http://cyberlearnar.cs.mtsu.edu/show_uploaded/test_names.csv", "Assets/Resources/csv bank/test_names.csv"));
+        //Lists of CRN numbers and their corresponding lab ids
         StartCoroutine(DownloadFile("http://cyberlearnar.cs.mtsu.edu/show_uploaded/crn_to_labs.csv", "Assets/Resources/csv bank/crn_to_labs.csv"));
+        //List of Lab descriptions, titles, and ids
         StartCoroutine(DownloadFile("http://cyberlearnar.cs.mtsu.edu/labs", "Assets/Resources/csv bank/allLabs.json"));
+
+        //An array of lab descriptions an ids, used to generate lab options to be selected, will need to be pulled from the server.
         allLabs = Resources.Load<TextAsset>("csv bank/allLabs").text;
 
-        aud = GetComponent<AudioSource>();
         StartCoroutine(WaitForClip(welcomeAudio));
-
         intro.SetActive(true);
         toggleLineRender(false);
     }
 
-
-    // Update is called once per frame
     void Update()
     {
         // After Start, sets intro position - such that it exists in worldspace and isn't bound to head movemnet
@@ -96,8 +95,7 @@ public class loginLogic : MonoBehaviour
         }
 
         // After initial animation, this will initiate placement scene, then the login screen 
-        // intro.active throws warning, but don't trust the stinky computer
-        if (playAnimation && intro.active && intro.gameObject.transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
+        if (playAnimation && intro.activeSelf && intro.gameObject.transform.GetChild(0).GetComponent<Animator>().GetCurrentAnimatorStateInfo(0).IsName("Idle"))
         {
             // prevents update from checking if intro is playing every frame
             playAnimation = false;
@@ -107,34 +105,36 @@ public class loginLogic : MonoBehaviour
             next();
         }
 
-        // place the scene object to set the coordinant system
-        if (placement_prop.active && !placed)
+        // place the scene object to set the coordinate system
+        if (placement_prop.activeSelf && !placed)
         {
             // Same as realign() - CONSIDERING REWORK
             anchor.transform.position = controller.transform.position;
             anchor.transform.eulerAngles = new Vector3(0, Camera.main.transform.eulerAngles.y, 0);
         }
     }
-    #endregion
+    #endregion Monobehaviour
 
     #region Public Events
-    // OnHomeButtonDown() realigns UI to position of controller and angle head is pointing
+    /// <summary>
+    /// Moves the anchor root object to match the position and orientaion of the controller.
+    /// Intended to be bound to OnHomeButtonDown()
+    /// </summary>
     public void realign()
     {
         print("Realigning UI.");
         anchor.transform.position = controller.transform.position;
         anchor.transform.eulerAngles = new Vector3(0, Camera.main.transform.eulerAngles.y, 0);
-
-        // change orientation of starfield
-        // **Starfield disabled for now due to incapatibility**
-        // GameObject.Find("Starfield").transform.eulerAngles = new Vector3(0, Camera.main.transform.eulerAngles.y, 0);
     }
 
-
-    // Keep the flow of events involving the Login UI
+    /// <summary>
+    /// Manages transitions to new states via switch and state enum, auto increments by 1
+    /// </summary>
     public void next()
     {
-        print("Current state: " + (state)(++currState) + "\n========================");
+        //Increments internal state variable
+        currState++;
+        print("Current state: " + (state)(currState) + "\n========================");
 
         switch (currState)
         {
@@ -157,7 +157,6 @@ public class loginLogic : MonoBehaviour
 
             case (int)state.usr_entry: // User Entry: 1
                 {
-
                     StopCoroutine(WaitForClip(placementAudio));
                     StartCoroutine(WaitForClip(loginAudio));
 
@@ -253,14 +252,18 @@ public class loginLogic : MonoBehaviour
     }
 
 
-    // Anchors scene to location of controller 
+    /// <summary>
+    /// Sets "placed" flag, anchor Gameobject position stops being updated, effectively "placing" it.
+    /// Bound to trigger in the controller script.
+    /// </summary>
     public void place()
     {
         // Ensures that prop isn't anchored before the placement scene
-        if (placement_prop.active && !placed)
+        if (placement_prop.activeSelf && !placed)
         {
             print("Scene has been placed\n");
             placed = true;
+            //Move on to username entry
             next();
         }
     }
@@ -274,7 +277,10 @@ public class loginLogic : MonoBehaviour
     }
 
 
-    // Called to automatically log in as "guest"
+    /// <summary>
+    /// Called to automatically log in as "guest",
+    /// Linked to Guest button in login UI
+    /// </summary>
     public void guestLogin()
     {
         print("Guest button hit; logging in as Guest user.");
@@ -322,8 +328,9 @@ public class loginLogic : MonoBehaviour
         // crop the path 
         path = path.Substring(path.IndexOf("es/") + 3);
         path = path.Substring(0, path.Length - 5);
-
+        print($"Lab Json cropped path: {path}");
         string jsonString = Resources.Load<TextAsset>(path).text;
+        print($"Loaded lab json from file, json string is: {jsonString}");
         if (useLocalFiles)   // this was added to override the media file downloads
         {
 
@@ -345,7 +352,7 @@ public class loginLogic : MonoBehaviour
 
         if (aud.clip != null)
             aud.Play();
-        yield return new WaitForSeconds(aud.clip.length);
+        yield return new WaitForSeconds(aud.clip != null ? aud.clip.length : 0.0f);
       
     }
 
@@ -379,18 +386,20 @@ public class loginLogic : MonoBehaviour
 
 
     // Calls script in autofill to authenticate based on usr/pas logged 
+    /// <summary>
+    /// Authenticates enter user and pswd against what is stored in "test_names.csv"
+    /// </summary>
     private void authenticate(string usr, string pas) {
         if (this.usr.GetComponent<autofill>().authenticate(usr, pas))
             gotoState((int)state.lab_selection);
         else
             gotoState((int)state.usr_entry);
-
-        // One-line alternative
-        // gotoState((int)(this.usr.GetComponent<autofill>().authenticate(usr, pas)) ? state.modules : state.usr_entry);
     }
 
-
     // Instantiates UP TO 5 lab options that are clickable and load 
+    /// <summary>
+    /// Creates list of labs to select. Currently pulls list from csv file of possible labs linked to a user
+    /// </summary>
     private void setLabs()
     {
         // pull labs as a Dictionary <string lab_name, string jsonUrl> 
@@ -504,16 +513,16 @@ public class loginLogic : MonoBehaviour
 
         else
         {
-            // Sandbox while lab is loading
             toggleLineRender(false);
-            //sandbox.SetActive(true);
 
-            // THE URL PROVIDED CURRENTLY DOES NOTHING - THIS NEEDS TO BE PROVIDED WEB-SIDE
+            // The URL is currently hardcoded
             string jsonPath = "http://cyberlearnar.cs.mtsu.edu/show_uploaded/moon_lab.json";
             //"http://cyberlearnar.cs.mtsu.edu/show_uploaded/JsonTest.txt"; //"http://cyberlearnar.cs.mtsu.edu/lab_json/ " + labSelected;
 
-            //try { StartCoroutine(DownloadFile(jsonPath, "Assets/Resources/csv bank/LabJson.json")); }
-            //catch { print("Cant load Lab list from url"); }
+            //Tries to download json lab description. Hands lab data object to media catalogue for it to initialize
+            //Then hands it to Lab Manager to start the lab.
+            try { StartCoroutine(DownloadFile(jsonPath, "Assets/Resources/csv bank/LabJson.json")); }
+            catch { print("Cant load Lab list from url"); }
 
             // Debug.Log(" starting that json get region");
             GameObject go = GameObject.Find("[_DYNAMIC]");
@@ -521,7 +530,9 @@ public class loginLogic : MonoBehaviour
             {
                 //Debug.Log("no dynamic!");
             }
+            else
             {
+                //Placing _DYNAMIC GameObject
                 go.transform.eulerAngles = new Vector3(0, Camera.main.transform.eulerAngles.y, 0);
                 float yangle = Camera.main.transform.eulerAngles.y;
 
@@ -529,19 +540,13 @@ public class loginLogic : MonoBehaviour
                 float dx = offset * Mathf.Cos(yangle * Mathf.Deg2Rad);
                 float dy = offset * Mathf.Sin(yangle * Mathf.Deg2Rad);
                 go.transform.position = Camera.main.transform.position - Vector3.up * 0.2f;
-                
-                //GameObject light = GameObject.Find("Directional Light");
-                //if (light == null) Debug.Log("no light");
-                //light.transform.eulerAngles = new Vector3(0.0f, yangle, 0.0f);
 
-                //go.transform.position = Camera.main.transform.position + dx*Vector3.left + -0.4f * Vector3.up + dz* Vector3.forward;
                 controller.GetComponent<LineRenderer>().enabled = true;
                 controller.transform.GetChild(0).GetComponent<MeshRenderer>().enabled = true;
-                go.GetComponent<LabManager>().spawnDemoNew();
+
+
+                //go.GetComponent<LabManager>().spawnDemoNew();
             }
-            //disable sandbox
-            // toggleLineRender(true);
-            // sandbox.SetActive(false);
         }
     }
     #endregion

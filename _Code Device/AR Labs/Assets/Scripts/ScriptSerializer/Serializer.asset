@@ -27,19 +27,20 @@ MonoBehaviour:
       description and then asked to identify the name of the phase.",     "author":
       "Isaac Shirk",     "authorInstitution": "Middle Tennessee State University",    
       "dateCreated": "9/1/2021",     "prerequisiteActivities": [],     "prefabName":
-      "MCQ/MultipleChoiceQuestion",     "specificName": "Moon Phase Identification",    
-      "educationalObjectives": [         "Students should be able to correctly identify
-      the name of a moon phase from an image of the moon."     ],     "instructions":
-      [         "Examine the image and listen to the audio describing it. Then use
-      the pointer to point at and select and answer (using the trigger on the back
-      of the controller). Submit your answer by pointing at and pressing the \"Submit\"
-      button."     ],     "introMediaIDs": [],     "outroMediaIDs": [],     "numRepeatsAllowed":
-      -1,     "numGradableRepeatsAllowed": -1,     "gradingCriteria": "Only one correct
-      answer per question, graded  by (number correct / total questions).",     "currentScore":
-      0.0,     "bestScore": 0.0,     "completed": false,     "currentSubphase": 0,    
-      "subphaseNames": [],     "questions": [         {             "referenceMedia":
-      [                 {                     "resource_id": 0,                    
-      "resource_url": "http://cyberlearnar.cs.mtsu.edu/show_uploaded/full_moon_unlabeled.jpeg",                    
+      "ActivityModules/MCQ/MultipleChoiceQuestion",     "specificName": "Moon Phase
+      Identification",     "educationalObjectives": [         "Students should be
+      able to correctly identify the name of a moon phase from an image of the moon."    
+      ],     "instructions": [         "Examine the image and listen to the audio
+      describing it. Then use the pointer to point at and select and answer (using
+      the trigger on the back of the controller). Submit your answer by pointing
+      at and pressing the \"Submit\" button."     ],     "introMediaIDs": [],    
+      "outroMediaIDs": [],     "numRepeatsAllowed": -1,     "numGradableRepeatsAllowed":
+      -1,     "gradingCriteria": "Only one correct answer per question, graded  by
+      (number correct / total questions).",     "currentScore": 0.0,     "bestScore":
+      0.0,     "completed": false,     "currentSubphase": 0,     "subphaseNames":
+      [],     "questions": [         {             "referenceMedia": [                
+      {                     "resource_id": 0,                     "resource_url":
+      "http://cyberlearnar.cs.mtsu.edu/show_uploaded/full_moon_unlabeled.jpeg",                    
       "resource_type": 2                 },                 {                    
       "resource_id": 0,                     "resource_url": "http://cyberlearnar.cs.mtsu.edu/show_uploaded/full_moon_question.wav",                    
       "resource_type": 0                 }             ],             "answerCorrectMedia":
@@ -78,7 +79,7 @@ MonoBehaviour:
     authorInstitution: Middle Tennessee State University
     dateCreated: 9/1/2021
     prerequisiteActivities: []
-    prefabName: MCQ/MultipleChoiceQuestion
+    prefabName: ActivityModules/MCQ/MultipleChoiceQuestion
     specificName: Moon Phase Identification
     educationalObjectives:
     - Students should be able to correctly identify the name of a moon phase from
@@ -152,7 +153,7 @@ MonoBehaviour:
     along with an auditory description and then asked to identify the name of the
     phase.\\\",     \\\"author\\\": \\\"Isaac Shirk\\\",     \\\"authorInstitution\\\":
     \\\"Middle Tennessee State University\\\",     \\\"dateCreated\\\": \\\"9/1/2021\\\",    
-    \\\"prerequisiteActivities\\\": [],     \\\"prefabName\\\": \\\"MCQ/MultipleChoiceQuestion\\\",    
+    \\\"prerequisiteActivities\\\": [],     \\\"prefabName\\\": \\\"ActivityModules/MCQ/MultipleChoiceQuestion\\\",    
     \\\"specificName\\\": \\\"Moon Phase Identification\\\",     \\\"educationalObjectives\\\":
     [         \\\"Students should be able to correctly identify the name of a moon
     phase from an image of the moon.\\\"     ],     \\\"instructions\\\": [        

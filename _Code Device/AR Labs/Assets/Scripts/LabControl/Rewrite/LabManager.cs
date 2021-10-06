@@ -112,14 +112,16 @@ public class LabManager : MonoBehaviour
 
         //Deserialize JSON to get the prefab name
         ActivityModuleData tmpData = new ActivityModuleData();
+        print($"Json Labmodule: {modules[index]}");
         JsonUtility.FromJsonOverwrite(modules[index], tmpData);
 
         // update the student instructions, objectives, and nav screen
         //updateInstructions(tmpData);
 
+        print($"Prefab for module filepath: Prefabs/{tmpData.prefabName}");
         //Load prefab from resources
         GameObject tmpPrefab = (GameObject)Resources.Load($"Prefabs/{tmpData.prefabName}");
-
+        print($"tmpPrefab for module is null: {tmpPrefab == null}");
      //   if (tmpPrefab == null)
      //       Debug.Log("it is null!");
      //   else
