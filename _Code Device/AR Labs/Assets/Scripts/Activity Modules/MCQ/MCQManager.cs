@@ -270,6 +270,8 @@ namespace MCQ
                     continueButton.gameObject.SetActive(true);
                 }
             }
+
+            TestWrite.Instance.WriteToString(InputType.MCQ, currentQuestionIndex.ToString(), $"Question {currentQuestionIndex} answered correctly: {correct}");
         }
 
         /// <summary>
@@ -308,6 +310,8 @@ namespace MCQ
         /// <param name="answers">Array of answer options to dispaly</param>
         private void DisplayNextQuestion(MCQData questionData, string[] answers)
         {
+            TestWrite.Instance.WriteToString(InputType.MCQ, currentQuestionIndex.ToString(), $"Displaying question {currentQuestionIndex}");
+
             //Display question text
             questionText.text = questionData.question;
 

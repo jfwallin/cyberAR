@@ -8,6 +8,50 @@ using UnityEngine;
 public enum InputType { info, Media, Debug, MCQ, TFQ, SAQ, OrderQ}
 public class TestWrite : MonoBehaviour
 {
+    //Singleton access
+    private static TestWrite _instance;
+    public static TestWrite Instance
+    {
+        get
+        {
+            //Check if there is already an instance assigned
+            if (_instance == null)
+            {
+                //Try to find an existing catalogue, assign it if found
+                TestWrite search = FindObjectOfType<TestWrite>();
+                if (search != null)
+                {
+                    _instance = search;
+                }
+                else //Could find no existing catalogue
+                {
+                    //Try to find the LabManager, add it to that same GameObject
+                    GameObject go = GameObject.FindObjectOfType<LabManager>()?.gameObject;
+                    if (go != null)
+                    {
+                        _instance = go.AddComponent<TestWrite>();
+                    }
+                    else //Could not find a lab manager, try the "_DYNAMIC" object instead
+                    {
+                        //Try to find the [_DYNAMIC] GameObject, attach
+                        GameObject dyn = GameObject.Find("[_DYNAMIC]");
+                        if (dyn != null)
+                        {
+                            _instance = go.AddComponent<TestWrite>();
+                        }
+                        else //Can't Find _DYNAMIC either
+                        {
+                            Debug.LogError("Could not find object to attach MediaCatalogue to. returning null");
+                        }
+                    }
+                }
+            }
+
+            return _instance;
+        }
+    }
+
+
     //Counter to use as hash key
     public int flag = 1; // This flag used to start th connection to the server
     public static int infoCount = 1; 
@@ -21,6 +65,20 @@ public class TestWrite : MonoBehaviour
     public float usedTime;
     public float lastTimeInterval = 0.0f;
     public string Path = "Assets/Resources/test2.txt";// this need to be change to be "Assets/Resources/" + varaible name such as id or student name
+
+    public void Awake()
+    {
+        //Check if there is already another instance, destroy self if that is the case
+        if ((_instance != null && _instance != this))
+        {
+            Destroy(this);
+        }
+        else //Only instance
+        {
+            _instance = this;
+        }
+    }
+
     public void start()
     {
         WriteToString( 0, "null");
@@ -65,7 +123,7 @@ public class TestWrite : MonoBehaviour
             // such as First name , Last name, ID, Lab name, and other information
             case InputType.info: 
                 for (int i = 0; i < other.Length-1; i+=2)
-                myfile.WriteLine($"Information {other[i]} is {other[i+1]}");
+                    myfile.WriteLine($"Information {other[i]} is {other[i+1]}");
                 myfile.WriteLine($"Time now is:  { DateTime.Now.ToString()}It took  {usedTime} second to finish ");
                 //could use a loop to read all data from the array
                 /*

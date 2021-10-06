@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using UnityEngine.Assertions;
 using System;
 
 public class loginLogic : MonoBehaviour
@@ -49,6 +50,8 @@ public class loginLogic : MonoBehaviour
     private AudioSource aud;
 
     private int currState = -1;
+    [SerializeField]
+    private TestWrite logger;
     private enum state
     {
         placement,
@@ -62,6 +65,11 @@ public class loginLogic : MonoBehaviour
     #endregion Private Variables
 
     #region MonoBehaviour
+    private void Awake()
+    {
+        Assert.IsNotNull(logger);
+    }
+
     void Start()
     {
         //Variable initializations
@@ -391,7 +399,11 @@ public class loginLogic : MonoBehaviour
     /// </summary>
     private void authenticate(string usr, string pas) {
         if (this.usr.GetComponent<autofill>().authenticate(usr, pas))
+        {
+            string[] userInfo = new string[] { usr, pas };
+            logger.WriteToString(InputType.info, "", userInfo);
             gotoState((int)state.lab_selection);
+        }
         else
             gotoState((int)state.usr_entry);
     }

@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -11,12 +12,53 @@ public class MediaCatalogue : MonoBehaviour
     {
         get
         {
+            //Check if there is already an instance assigned
             if(_instance == null)
             {
-                _instance = new MediaCatalogue();
+                //Try to find an existing catalogue, assign it if found
+                MediaCatalogue search = FindObjectOfType<MediaCatalogue>();
+                if(search != null)
+                {
+                    _instance = search;
+                }
+                else //Could find no existing catalogue
+                {
+                    //Try to find the LabManager, add it to that same GameObject
+                    GameObject go = GameObject.FindObjectOfType<LabManager>()?.gameObject;
+                    if(go != null)
+                    {
+                        _instance = go.AddComponent<MediaCatalogue>();
+                    }
+                    else //Could not find a lab manager, try the "_DYNAMIC" object instead
+                    {
+                        //Try to find the [_DYNAMIC] GameObject, attach
+                        GameObject dyn = GameObject.Find("[_DYNAMIC]");
+                        if(dyn != null)
+                        {
+                            _instance = go.AddComponent<MediaCatalogue>();
+                        }
+                        else //Can't Find _DYNAMIC either
+                        {
+                            Debug.LogError("Could not find object to attach MediaCatalogue to. returning null");
+                        }
+                    }
+                }
             }
 
             return _instance;
+        }
+    }
+
+    public void Awake()
+    {
+        //Check if there is already another instance, destroy self if that is the case
+        if((_instance != null && _instance != this))
+        {
+            Destroy(this);
+        }
+        else //Only instance
+        {
+            _instance = this;
         }
     }
 
