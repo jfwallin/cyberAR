@@ -201,6 +201,9 @@ public class loginLogic : MonoBehaviour
 
             case (int)state.authentication: // Authentication: 3
                 {
+                    // Disable User entry
+                    usr.SetActive(false);
+
                     // Cleanup in-case authentication fails
                     usr.GetComponent<autofill>().refreshText();
                     keyboard.GetComponent<VRKeyboard.Utils.KeyboardManager>().resetText();
@@ -213,7 +216,8 @@ public class loginLogic : MonoBehaviour
 
 
                     // THE AUTHENTICATION GOES HERE
-                    authenticate(usr.transform.GetChild(0).GetComponent<Text>().text, pas.transform.GetChild(0).GetComponent<Text>().text);
+                    // authenticate(usr.transform.GetChild(0).GetComponent<Text>().text, pas.transform.GetChild(0).GetComponent<Text>().text);
+                    authenticate(usr.transform.GetChild(0).GetComponent<Text>().text);
                     break;
                 }
 
@@ -397,7 +401,7 @@ public class loginLogic : MonoBehaviour
     /// <summary>
     /// Authenticates enter user and pswd against what is stored in "test_names.csv"
     /// </summary>
-    private void authenticate(string usr, string pas) {
+    private void authenticate(string usr, string pas="0") {
         if (this.usr.GetComponent<autofill>().authenticate(usr, pas))
         {
             string[] userInfo = new string[] { usr, pas };

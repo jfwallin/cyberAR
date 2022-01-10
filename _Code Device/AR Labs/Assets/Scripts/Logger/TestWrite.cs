@@ -8,6 +8,7 @@ using UnityEngine;
 public enum InputType { info, Media, Debug, MCQ, TFQ, SAQ, OrderQ}
 public class TestWrite : MonoBehaviour
 {
+    #region Variables
     //Singleton access
     private static TestWrite _instance;
     public static TestWrite Instance
@@ -51,64 +52,63 @@ public class TestWrite : MonoBehaviour
         }
     }
 
-
-    //Counter to use as hash key
-    public int flag = 1; // This flag used to start th connection to the server
-    public static int infoCount = 1; 
-    public static int mediaCount = 1;
-    public static int debugCount = 1;
-
-
     //Using time stamps to track how long it take to perform each step
     public float startTime = 0.0f;
     public float currentTime;
     public float usedTime;
     public float lastTimeInterval = 0.0f;
-    public string Path = "Assets/Resources/test2.txt";// this need to be change to be "Assets/Resources/" + varaible name such as id or student name
+    //This will be updated once the student logs in to cointain the student's id
+    public string Path = "Assets/Resources/";
+    #endregion Variables
 
+    #region Unity Methods
     public void Awake()
     {
-        //Check if there is already another instance, destroy self if that is the case
+        //If not the only instance
         if ((_instance != null && _instance != this))
         {
+            //Destroy self, leave exisitng instance
             Destroy(this);
         }
         else //Only instance
         {
+            //Assign self as the instance
             _instance = this;
         }
     }
 
-    public void start()
+    public void Start()
     {
-        WriteToString( 0, "null");
+        //Connect to the website immediately.
         StartCoroutine(Connect());
-       // time stamp to the log file 
-        //print("Application make connect at " + Time.time + " seconds and time is" + DateTime.Now.ToString());
+    }
+    #endregion Unity Methods
+
+    #region Public Methods
+    /// <summary>
+    /// Sets the filepath using the passed user ID, prints a first line
+    /// </summary>
+    /// <param name="id">The id entered by the user</param>
+    public void InitializeLog(string id)
+    {
+        Path = Path + id + "_" + System.DateTime.Now + ".txt";
+        appendToLog($"\n\nLog file for student M{id}.\nCurrent Time: {System.DateTime.Now}\n");
     }
 
-    // Main write information menthod
-    //Take at least two input up to as many .... input
-    // first input is a enum InputType { info, Media, Debug, MC, TF ...}
-    // info for inprmation such as login information
-    // Medai for media inofrmation
-    // Debug for debug
-    //Second input depend on the InputType
-    //Third input is any optional string values 
+    public void labSelected(string labName)
+    {
+        appendToLog($"The lab selected is: {labName}.");
+    }
+
+    /// <summary>
+    /// Writes information to the log, depends on what type of information.
+    /// </summary>
+    /// <param name="type">Type of information to log, possibilities are:
+    /// Info, Media, Debug, MCQ,TFQ, SAQ, OrderedQ</param>
+    /// <param name="name">Depends on input type</param>
+    /// <param name="other">Extra optional strings to print</param>
     public void WriteToString(InputType type, string name, params string[] other )
     {
-        // for the first this called a conncetion method to the server will be called
-        if (flag == 1)
-           {
-            StartCoroutine(Connect());
-           // print("Application make connect at " + Time.time + " seconds and time is" + DateTime.Now.ToString());
-            flag = 0;
-           }
-        // string Path = "Assets/Resources/test2.txt";
-        //  if (type == InputType.info)
-        //    Path = "Assets/Resources/TXT/" + other[0] + other[1] + ".txt";
-        // StreamWriter writer = new StreamWriter(Path, true);
-
         //Open file for writting append if exists
         StreamWriter myfile = File.AppendText(Path);
         //Get the input type and teh current time            
@@ -179,37 +179,63 @@ public class TestWrite : MonoBehaviour
         }
         myfile.Close();
     }
+    #endregion Public Methods
 
-   
-
-  // Make connection to the server by providing email and password
-IEnumerator Connect()
-{
-    print($"Connect called at { DateTime.Now.ToString()} ");
-  
-    //create a webForm object
-    WWWForm form = new WWWForm();
-    ///
-    //add login information the form
-    form.AddField("email", "rafet.al-tobasei@mtsu.edu");
-    form.AddField("password", "DNkZOY");
-    form.AddField("username", "rafet.al-tobasei@mtsu.edu");
-
-   //submit information the server 
-    UnityWebRequest www = UnityWebRequest.Post("http://cyberlearnar.cs.mtsu.edu/login", form);
-
-    yield return www.SendWebRequest();
-
-    if (www.result != UnityWebRequest.Result.Success)
+    #region Private Methods
+    /// <summary>
+    /// Writes a line to the log file
+    /// </summary>
+    /// <param name="line">Line to be appended to the log</param>
+    private void appendToLog(string line)
     {
-        Debug.Log(www.error);
+        StreamWriter myfile = File.AppendText(Path);
+        myfile.WriteLine(line);
+        myfile.Close();
     }
-    else
+
+    /// <summary>
+    /// Writes an array of strings to the log one line at a time. 
+    /// </summary>
+    /// <param name="lines">Array of lines written to the log file</param>
+    private void appendToLog(string[] lines)
     {
-        print("Form upload complete!");
+        StreamWriter myfile = File.AppendText(Path);
+        foreach(string line in lines)
+        {
+            myfile.WriteLine(line);
+        }
+        myfile.Close();
     }
-   
 
-}
+    // Make connection to the server by providing email and password
+    /// <summary>
+    /// Connect to cyberlearnar server with email and password
+    /// </summary>
+    private IEnumerator Connect()
+    {
+        print($"Connect called at { DateTime.Now.ToString()} ");
+      
+        //create a webForm object
+        WWWForm form = new WWWForm();
 
+        //add login information the form
+        form.AddField("email", "rafet.al-tobasei@mtsu.edu");
+        form.AddField("password", "DNkZOY");
+        form.AddField("username", "rafet.al-tobasei@mtsu.edu");
+
+       //submit information the server 
+        UnityWebRequest www = UnityWebRequest.Post("http://cyberlearnar.cs.mtsu.edu/login", form);
+
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            print("Form upload complete!");
+        }
+    }
+    #endregion Private Methods
 }
