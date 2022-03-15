@@ -44,6 +44,8 @@ public class WavHandler
         _rawAudioSamples = new byte[_subchunk2Size];
         Array.Copy(data, 28 + _subchunk1Size, _rawAudioSamples, 0,  _rawAudioSamples.Length);
         _scaledAudioSamples = ScaleAudioSamples();
+        _corruptionDetected = false;
+        IntegrityCheck();
     }
 
     // Parses unscaled audio data, grabs each sample, and passes to ScaleSample() 
@@ -104,7 +106,7 @@ public class WavHandler
 
     private void IntegrityCheck()
     {
-        // Check Chunk and Subchunk IDs
+        // Check chunk and subchunk IDs
         if (_chunkID != "RIFF")
             _corruptionDetected = true;
         else if (_format != "WAVE")
