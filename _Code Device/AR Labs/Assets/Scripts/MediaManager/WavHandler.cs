@@ -23,6 +23,7 @@ public class WavHandler
     private int _subchunk2Size; // Number of bytes of audio samples
     private byte[] _rawAudioSamples; // Unscaled audio samples in bytes
     private float[] _scaledAudioSamples; // Audio samples scaled down to be used in Unity
+    private bool _corruptionDetected; // Indicates whether the file failed the integrity check or not
 
     public WavHandler(byte[] data)
     {
@@ -101,6 +102,30 @@ public class WavHandler
         return scaledSample;
     }
 
+    private void IntegrityCheck()
+    {
+        // Check Chunk and Subchunk IDs
+        if (_chunkID != "RIFF")
+            _corruptionDetected = true;
+        else if (_format != "WAVE")
+            _corruptionDetected = true;
+        else if (_subchunk1ID != "fmt ")
+            _corruptionDetected = true;
+        else if (_subchunk2ID != "data")
+            _corruptionDetected = true;
+
+        // Check chunk and subchunk sizes
+        else if (_wavData.Length != (_chunkSize + 8))
+            _corruptionDetected = true;
+        else if (_chunkSize != (20 + _subchunk1Size + _subchunk2Size))
+            _corruptionDetected = true;
+        else if (_subchunk1Size != (_chunkSize - _subchunk2Size - 20))
+            _corruptionDetected = true;
+        else if (_subchunk2Size != (_chunkSize - _subchunk1Size - 20))
+            _corruptionDetected = true;
+
+    }
+
     // Getters
     public byte[] GetWavData() { return _wavData; }
     public string GetChunkID() { return _chunkID; }
@@ -118,4 +143,5 @@ public class WavHandler
     public int GetSubchunk2Size() { return _subchunk2Size; }
     public byte[] GetRawAudioSamples() { return _rawAudioSamples; }
     public float[] GetScaledAudioSamples() { return _scaledAudioSamples; }
+    public bool CheckFileIntegrity() { return !_corruptionDetected; }
 }
