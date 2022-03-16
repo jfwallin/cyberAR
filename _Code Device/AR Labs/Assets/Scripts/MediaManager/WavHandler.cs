@@ -70,7 +70,7 @@ public class WavHandler
                     unscaledSample = BitConverter.ToInt16(_rawAudioSamples, unscaledSamplesIndex);
                     break;
                 case 32:
-                    unscaledSample = BitConverter.ToInt32(_rawAudioSamples, scaledSamplesIndex);
+                    unscaledSample = BitConverter.ToInt32(_rawAudioSamples, unscaledSamplesIndex);
                     break;
                 default:
                     Debug.Log("Unsupported bit depth (only supports 8, 16, and 32)");
@@ -145,5 +145,6 @@ public class WavHandler
     public int GetSubchunk2Size() { return _subchunk2Size; }
     public byte[] GetRawAudioSamples() { return _rawAudioSamples; }
     public float[] GetScaledAudioSamples() { return _scaledAudioSamples; }
+    public int GetScaledAudioSamplesLength() { return _scaledAudioSamples.Length; }
     public bool CheckFileIntegrity() { return !_corruptionDetected; }
 }
