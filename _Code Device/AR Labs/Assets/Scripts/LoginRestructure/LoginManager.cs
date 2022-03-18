@@ -10,6 +10,11 @@ public struct LabInfo
     public string id;
     public string name;
     public string description;
+
+    public override string ToString()
+    {
+        return $"lab id: {id}\n  name: {name}\n  desc: {description}";
+    }
 }
 
 public class LoginManager : MonoBehaviour
@@ -47,13 +52,15 @@ public class LoginManager : MonoBehaviour
     private float authTimeout = 15f;   //Used to limit waiting for Authenticate to be ready
     [SerializeField]
     private float labParseTimeout = 15f;//Used to limit waiting for lab parsing to be done
+
     [SerializeField]
     const string LABS_URL = "http://cyberlearnar.cs.mtsu.edu/labs";
+    //const string LABS_URL = "http://cyberlearnar.cs.mtsu.edu/show_uploaded_labs";
     [SerializeField]
     const string LABS_FILEPATH = "login/allLabs";
     [Tooltip("Name of lab gets appended with .json, used to attempt to download json for the lab")]
     [SerializeField]
-    const string LAB_JSON_BASE_URL = "http://cyberlearnar.cs.mtsu.edu/show_uploaded/";
+    const string LAB_JSON_BASE_URL = "http://cyberlearnar.cs.mtsu.edu/show_uploaded/lab_";
     [Tooltip("Relative to the Resources folder, where all individual lab JSONS are downloaded")]
     [SerializeField]
     const string LAB_JSON_BASE_FILEPATH = "lab_jsons/";
@@ -71,6 +78,7 @@ public class LoginManager : MonoBehaviour
     // Used to track current internal state of login scene
     private state currentState = state.introduction;
 
+    private string entity;
     private bool placed = false;       //Whether the user has placed the scene anchor
     private bool labsReady = false;    //Whether the list of labs has been downloaded and parsed
     private List<GameObject> uiLabList;//The current list of labs the user can select from
@@ -95,12 +103,14 @@ public class LoginManager : MonoBehaviour
         Assert.IsNotNull(labOptions);
         Assert.IsNotNull(labTemp);
         Assert.IsNotNull(labStarter);
-        Assert.IsNotNull(logger);
-        Assert.IsNotNull(labStarter);
+        Assert.IsNotNull(auth);
     }
 
     private void Start()
     {
+        entity = this.GetType().ToString();
+        logger = TestWrite.Instance;
+        logger.InfoLog(entity, "Login Scene Starting....");
         // Setup keyboard
         keyboard.transform.Find("Content").Find("Keys").Find("row4").Find("Enter").GetComponent<Button>()
             .onClick.AddListener(() => PinEntered());
@@ -130,6 +140,7 @@ public class LoginManager : MonoBehaviour
         {
             case state.placement:
                 {
+                    logger.InfoLog(entity, "Started placement");
                     HidePointer();
                     // Hide the intro animation
                     // introAnimation.gameObject.transform.GetChild(0).gameObject.SetActive(false);
@@ -146,12 +157,13 @@ public class LoginManager : MonoBehaviour
                     StartCoroutine(AlignUIWithController());
                     // Bind the place function to the trigger
                     controller.GetComponent<ControlInput>().OnTriggerDown.AddListener(Place);
-                    
+
                     // WE NOW WAIT UNTIL A TRIGGER PRESS TO GO ON TO pin_entry
                     break;
                 }
             case state.pin_entry:
                 {
+                    logger.InfoLog(entity, "Started Pin Entry");
                     ShowPointer();
                     // Hide placement object
                     placementProp.SetActive(false);
@@ -169,6 +181,7 @@ public class LoginManager : MonoBehaviour
                 }
             case state.authentication:
                 {
+                    logger.InfoLog(entity, "Started Authenticating pin");
                     // Disable pin entry
                     pin.SetActive(false);
                     keyboard.SetActive(false);
@@ -188,6 +201,7 @@ public class LoginManager : MonoBehaviour
                 }
             case state.lab_selection:
                 {
+                    logger.InfoLog(entity, "Started lab selection");
                     // Disable Login UI and keyboard
                     loginUI.SetActive(false);
                     keyboard.SetActive(false);
@@ -213,6 +227,7 @@ public class LoginManager : MonoBehaviour
                 }
             case state.lab_initiation:
                 {
+                    logger.InfoLog(entity, "Started lab Initiaion");
                     // Disable all UI
                     labOptions.SetActive(false);
 
@@ -239,6 +254,7 @@ public class LoginManager : MonoBehaviour
     /// </summary>
     private void Place()
     {
+        logger.InfoLog(entity, "Lab has been placed");
         // Unbind place function from trigger
         controller.GetComponent<ControlInput>().OnTriggerDown.RemoveListener(Place);
         // Set placed flag, and move to the next state
@@ -251,6 +267,7 @@ public class LoginManager : MonoBehaviour
     /// </summary>
     private void ParseLabs()
     {
+        logger.InfoLog(entity, "Parsing labs");
         // Trim leading and trailing [{}]
         string labsString = Resources.Load<TextAsset>(LABS_FILEPATH).text.Trim(new char[] { '[', '{', '}', ']' });
         // Split by },{ which only occurs between labs in the list
@@ -268,7 +285,7 @@ public class LoginManager : MonoBehaviour
             // Find id
             string idSeach = "\"lab_id\":";
             int idLoc = lab.IndexOf(idSeach) + idSeach.Length;
-            tmpLabInfo.id = lab.Substring(idLoc, lab.IndexOf(",", idLoc) - idLoc - 1);
+            tmpLabInfo.id = lab.Substring(idLoc, lab.IndexOf(",", idLoc) - idLoc);
 
             // Find name
             string nameSearch = "\"lab_title\":\"";
@@ -277,6 +294,8 @@ public class LoginManager : MonoBehaviour
 
             labInfoList.Add(tmpLabInfo);
         }
+        // Log the successful parse
+        logger.InfoLog(entity, $"Finished parsing labs:\n{labInfoList}");
 
         labsReady = true;
     }
@@ -286,6 +305,7 @@ public class LoginManager : MonoBehaviour
     /// </summary>
     private void GenerateLabListUI()
     {
+        logger.InfoLog(entity, "Generating lab selection buttons");
         // Generate 5 lab buttons, or less if the list of available labs is short
         int i = 0;
         while(i < 5 && i < labInfoList.Count)
@@ -325,6 +345,7 @@ public class LoginManager : MonoBehaviour
 
     private void InitializeLabManager(LabDataObject labData)
     {
+        logger.InfoLog(entity, "Initializing Lab Manager");
         LabManager lm = labStarter.GetComponent<LabManager>();
         lm.enabled = true;
         lm.Initialize(labData.ActivityModules);
@@ -337,6 +358,14 @@ public class LoginManager : MonoBehaviour
         controller.GetComponent<LineRenderer>().enabled = flag;
         controller.GetComponentInChildren<MeshRenderer>().enabled = flag;
     }
+    private void ExitApplication()
+    {
+#if UNITY_EDITOR
+        UnityEditor.EditorApplication.isPlaying = false;
+#else
+        Application.Quit();
+#endif
+    }
     #endregion Private Methods
 
     #region Coroutines
@@ -346,6 +375,7 @@ public class LoginManager : MonoBehaviour
     /// </summary>
     private IEnumerator SetupIntroAnimation()
     {
+        logger.InfoLog(entity, "Starting intro animation, waiting till it completes");
         // Go ahead and start the animation
         introAnimation.SetActive(true);
 
@@ -408,6 +438,7 @@ public class LoginManager : MonoBehaviour
             if (countdown <= 0)
             {
                 Debug.LogError($"Authentication timed out, waited {authTimeout} seconds.");
+                logger.InfoLog(entity, $"Authentication timed out, waited {authTimeout} seconds.");
                 ChangeStateTo(state.pin_entry);
                 // Exit the coroutine
                 yield break;
@@ -417,10 +448,11 @@ public class LoginManager : MonoBehaviour
         // If Auth is ready, authenticate the pin
         if(auth.AuthenticatePin(pin))
         {
-            // Get the user's name and mnumber
-            string[] userInfo = new string[] { auth.PinToName(pin), auth.PinToMNum(pin) };
-            // Initialize logger with the retrieved info
-            logger.WriteToString(InputType.info, "", userInfo);
+            string studentName = auth.PinToName(pin);
+            string mNum = auth.PinToMNum(pin);
+            // Initialize the logger with the student information
+            logger.InitializeLog(studentName, mNum);
+            logger.InfoLog(entity, $"Student authenticated: {studentName}, M{mNum}");
             // Go to lab selection state
             ChangeStateTo(state.lab_selection);
         }
@@ -442,6 +474,7 @@ public class LoginManager : MonoBehaviour
             if(countdown <= 0)
             {
                 Debug.LogError($"Lab Parsing timed out, waited ${labParseTimeout} seconds. STOPPING");
+                logger.InfoLog(entity, $"Lab Parsing timed out, waited ${labParseTimeout} seconds. STOPPING");
                 yield break;
             }
         }
@@ -464,6 +497,7 @@ public class LoginManager : MonoBehaviour
     /// </summary>
     public void PinEntered()
     {
+        logger.InfoLog(entity, "Pin Entered");
         ChangeStateTo(state.authentication);
     }
 
@@ -472,6 +506,7 @@ public class LoginManager : MonoBehaviour
     /// </summary>
     public void LabComplete()
     {
+        logger.InfoLog(entity, "Lab marked complete, returning to lab selection");
         ChangeStateTo(state.lab_selection);
     }    
     #endregion Public Callbacks
@@ -502,21 +537,20 @@ public class LoginManager : MonoBehaviour
     {
         // Set the current selected lab to match the passed id
         selectedLab = labInfoList.Find(x => x.id == labID);
+        // Log what lab was selected
+        logger.InfoLog(entity, $"Lab Selected: {selectedLab.id}, {selectedLab.name}");
         // Transition to next state
         ChangeStateTo(state.lab_initiation);
     }
 
     /// <summary>
-    /// Called by the exit button on the lab selection screen, causes the application to quit
+    /// Called by the exit button on the lab selection screen, starts uploading log before quitting
     /// </summary>
     private void ExitSelected()
     {
-        Debug.Log("Exit button selected, exiting application");
-#if UNITY_EDITOR
-        UnityEditor.EditorApplication.isPlaying = false;
-#else
-        Application.Quit();
-#endif
+        Debug.Log("Exit button selected");
+        logger.InfoLog(entity, "Exit button selected");
+        logger.SubmitLog(LogSubmitted);
     }
 
     /// <summary>
@@ -545,6 +579,14 @@ public class LoginManager : MonoBehaviour
         {
             Debug.LogError("LabJSON failed to download. stopping");
         }
+    }
+
+    /// <summary>
+    /// Called by the logger once the file is finished uploading
+    /// </summary>
+    private void LogSubmitted()
+    {
+        ExitApplication();
     }
     #endregion Private Event Handlers
 }

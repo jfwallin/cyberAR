@@ -58,7 +58,10 @@ public class TestWrite : MonoBehaviour
     public float usedTime;
     public float lastTimeInterval = 0.0f;
     //This will be updated once the student logs in to cointain the student's id
-    public string Path = "Assets/Resources/";
+    public string LogPath = "Assets/Resources/";
+    private string logFilname = "";
+    private bool initialized = false;
+    private string preInitLogs = "";
     #endregion Variables
 
     #region Unity Methods
@@ -89,15 +92,36 @@ public class TestWrite : MonoBehaviour
     /// Sets the filepath using the passed user ID, prints a first line
     /// </summary>
     /// <param name="id">The id entered by the user</param>
-    public void InitializeLog(string id)
+    public void InitializeLog(string name, string mNum)
     {
-        Path = Path + id + "_" + System.DateTime.Now + ".txt";
-        appendToLog($"\n\nLog file for student M{id}.\nCurrent Time: {System.DateTime.Now}\n");
+        // Set the path of the log to be a unique combo of student infor and current date
+        logFilname = mNum + "_" + System.DateTime.Now.ToString("MM-dd-yyyy_HH:mm") + ".txt";
+        LogPath = LogPath + logFilname;
+        // Mark the time at which the log was initialized.
+        startTime = Time.time;
+        initialized = true;
+        // Add initiliazation statement to the log
+        appendToLog($"\n\nLog file for student: {name},  M{mNum}.\nCurrent Time: {System.DateTime.Now}\n");
+        // Put in all the logs that were cached prior to initialization
+        appendToLog(preInitLogs);
     }
 
-    public void labSelected(string labName)
+    /// <summary>
+    /// Adds information item to the log, prefaced by the time since the log was initialized,
+    /// and the entity that sent the information. formatting is left to the sender
+    /// </summary>
+    /// <param name="entity">name of the component that sent the log request</param>
+    /// <param name="information">information to be added to the log, preformatted by sender</param>
+    public void InfoLog(string entity, string information)
     {
-        appendToLog($"The lab selected is: {labName}.");
+        if(initialized)
+        {
+            appendToLog($"{Time.time - startTime} | {entity.ToUpper()} : information");
+        }
+        else // Log path not yet initialized, so store line to be added later
+        {
+            preInitLogs += $"{Time.time - startTime} | {entity.ToUpper()} : information\n";
+        }
     }
 
     /// <summary>
@@ -110,7 +134,7 @@ public class TestWrite : MonoBehaviour
     public void WriteToString(InputType type, string name, params string[] other )
     {
         //Open file for writting append if exists
-        StreamWriter myfile = File.AppendText(Path);
+        StreamWriter myfile = File.AppendText(LogPath);
         //Get the input type and teh current time            
         InputType TYPE = (InputType)type;
         currentTime = Time.realtimeSinceStartup;
@@ -179,6 +203,16 @@ public class TestWrite : MonoBehaviour
         }
         myfile.Close();
     }
+
+    public void SubmitLog(Action onDoneUploading)
+    {
+        StartCoroutine(Upload(onDoneUploading));
+        InfoLog(name,
+            $"Application ending after {Time.time - startTime} seconds, " +
+            $"time is now {DateTime.Now.ToString("HH:mm")}");
+        Debug.Log($"Application ending after {Time.time - startTime} seconds, " +
+            $"time is now {DateTime.Now.ToString("HH:mm")}");
+    }
     #endregion Public Methods
 
     #region Private Methods
@@ -188,18 +222,18 @@ public class TestWrite : MonoBehaviour
     /// <param name="line">Line to be appended to the log</param>
     private void appendToLog(string line)
     {
-        StreamWriter myfile = File.AppendText(Path);
+        StreamWriter myfile = File.AppendText(LogPath);
         myfile.WriteLine(line);
         myfile.Close();
     }
 
     /// <summary>
-    /// Writes an array of strings to the log one line at a time. 
+    /// Writes an array of strings to the log one line at a time
     /// </summary>
     /// <param name="lines">Array of lines written to the log file</param>
     private void appendToLog(string[] lines)
     {
-        StreamWriter myfile = File.AppendText(Path);
+        StreamWriter myfile = File.AppendText(LogPath);
         foreach(string line in lines)
         {
             myfile.WriteLine(line);
@@ -236,6 +270,34 @@ public class TestWrite : MonoBehaviour
         {
             print("Form upload complete!");
         }
+    }
+
+    private IEnumerator Upload(Action doneUploading)
+    {
+        //Convert the file into binary
+        byte[] txtByte = File.ReadAllBytes(LogPath); //("Assets/Resources/test2.txt");
+        //create a webForm object
+        WWWForm form = new WWWForm();
+
+        //public void AddBinaryData(string fieldName, byte[] contents, string fileName = null, string mimeType = null);
+        //this function to upload files and images to a web server application.
+        //Note that the data is read from the contents of byte array and not from a file.
+        //The fileName parameter is for telling the server what filename to use when saving the uploaded file.
+        form.AddBinaryData("file", txtByte, logFilname, "txt");
+
+        //// submit file to server
+        UnityWebRequest www = UnityWebRequest.Post("http://cyberlearnar.cs.mtsu.edu/upload_file", form);
+        yield return www.SendWebRequest();
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Debug.Log("Form upload complete!");
+        }
+
+        doneUploading.Invoke();
     }
     #endregion Private Methods
 }

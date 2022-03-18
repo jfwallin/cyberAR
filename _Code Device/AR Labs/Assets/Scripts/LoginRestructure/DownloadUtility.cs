@@ -43,6 +43,9 @@ public class DownloadUtility : MonoBehaviour
             return _instance;
         }
     }
+
+    private TestWrite logger;  //reference to logger that prints writes information to file
+    private string entity;     //name of this script, gets sent to the logger
     #endregion Variables
 
     #region Unity Methods
@@ -61,6 +64,12 @@ public class DownloadUtility : MonoBehaviour
             _instance = this;
         }
     }
+
+    public void Start()
+    {
+        logger = TestWrite.Instance;
+        entity = this.GetType().ToString();
+    }
     #endregion Unity Methods
 
     /// <summary>
@@ -71,6 +80,7 @@ public class DownloadUtility : MonoBehaviour
     /// <param name="callback">function to call once the download is complete</param>
     public void DownloadFile(string url, string path, System.Action<int> callback)
     {
+        logger.InfoLog(entity, $"Starting download of file ${path} from url: {url}");
         StartCoroutine(downloadRoutine(url, "Assets/Resources/" + path, callback));
     }
 
@@ -82,12 +92,14 @@ public class DownloadUtility : MonoBehaviour
         yield return uwr.SendWebRequest();
         if (uwr.result != UnityWebRequest.Result.Success)
         {
+            logger.InfoLog(entity, $"Download of {path} failed with error:\n{uwr.error}");
             Debug.LogError(uwr.error);
             // Invoke callback w/-1, telling client the download failed
             callback.Invoke(-1);
         }
         else
         {
+            logger.InfoLog(entity, $"Successfully downloaded {path}");
             Debug.Log("File successfully downloaded and saved to " + path + "\n");
             // Invoke callback w/0, telling client the download succeeded
             callback.Invoke(0);

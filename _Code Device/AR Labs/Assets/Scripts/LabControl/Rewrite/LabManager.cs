@@ -23,32 +23,30 @@ public class LabManager : MonoBehaviour
     //private InstructionBox ibox;
     private Transform labform;
 
-    [SerializeField]
-    private LabExit loggerExit;
+    private TestWrite logger;
+    private string entity;
 
     public void Start()
     {
         // ultimately - we might use Initialize externally 
         // For now - we will manually read in the json.
         // create instances of media player prefab here
+        entity = this.GetType().ToString();
+        logger = TestWrite.Instance;
 
 
         //ibox = InstructionBox.Instance;
         labform = GameObject.Find("[CURRENT_LAB]").transform;
         //spawnDemoNew();
-        if (loggerExit == null)
-        {
-            loggerExit = GetComponent<LabExit>();
-        }
     }
 
     public void Initialize(LabDataObject data)
     {
+        logger.InfoLog(entity, "Initializing lab");
         modules = data.ActivityModules;
 
         SpawnModule();
         //spawnDemoNew();
-
     }
 
 
@@ -96,6 +94,7 @@ public class LabManager : MonoBehaviour
 // --------------------------------------------------------
     public void Initialize(string[] moduleData)
     {
+        logger.InfoLog(entity, "Initializing lab");
         // this creates the instruction canvas
         //createInstructions();
 
@@ -186,15 +185,9 @@ public class LabManager : MonoBehaviour
       //  print("Returning to Lab Selection.");
         // MODIFIDED FOR TESTING jw
 
-        loggerExit.SubmitLog(OnDoneSubmitting);
         //Application.Quit();
-    }
-
-    private void OnDoneSubmitting()
-    {
         GameObject.Find("[LOGIC]").GetComponent<LoginManager>().LabComplete();
     }
-
     void createInstructions()
     {
         //GameObject root = GameObject.Find("Dynamic");

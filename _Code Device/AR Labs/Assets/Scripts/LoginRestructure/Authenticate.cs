@@ -26,6 +26,8 @@ public class Authenticate : MonoBehaviour
     private List<pin_id_record> ids = null;
     // Whether the file has been parsed
     private bool authReady = false;
+    private TestWrite logger;
+    private string entity;
     public bool Ready
     {
         get { return authReady; }
@@ -35,6 +37,9 @@ public class Authenticate : MonoBehaviour
     #region Unity Methods
     void Start()
     {
+        entity = this.GetType().ToString();
+        logger = TestWrite.Instance;
+        logger.InfoLog(name, "Starting pin-csv download");
         // Get the most recent csv file downloaded
         DownloadUtility.Instance.DownloadFile(PIN_ID_CSV_URL, PIN_ID_CSV_FILEPATH + ".csv", downloadComplete);
     }
@@ -46,6 +51,7 @@ public class Authenticate : MonoBehaviour
     /// </summary>
     public void ParseCSV()
     {
+        logger.InfoLog(name, "Starting to parse csv file");
         // Create new list of pin_id_records
         ids = new List<pin_id_record>();
 
@@ -71,6 +77,7 @@ public class Authenticate : MonoBehaviour
             ids.Add(newUsr);
         }
 
+        logger.InfoLog(name, "Csvs parsef");
         // Set flag to allow auth queries
         authReady = true;
     }
@@ -127,6 +134,7 @@ public class Authenticate : MonoBehaviour
         }
         else // Download failed
         {
+            logger.InfoLog(name, "PinCSV file failed to download, Cannot authenticate pins");
             Debug.LogError("PinCSV file failed to download, Cannot authenticate pins");
         }
     }
