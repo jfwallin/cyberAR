@@ -20,17 +20,23 @@ public class Authenticate : MonoBehaviour
 {
     #region Variables
     // Used to download and store pin csv file
-    const string pin_id_csv_url = "http://cyberlearnar.cs.mtsu.edu/show_uploaded/pin_ids.csv";
-    const string pin_id_csv_filepath = "login/pin_ids";
+    const string PIN_ID_CSV_URL = "http://cyberlearnar.cs.mtsu.edu/show_uploaded/pin_ids.csv";
+    const string PIN_ID_CSV_FILEPATH = "login/pin_ids";
     // Runtime holds the pins and ids, used to authenticate user logins
     private List<pin_id_record> ids = null;
+    // Whether the file has been parsed
+    private bool authReady = false;
+    public bool Ready
+    {
+        get { return authReady; }
+    }
     #endregion Variables
 
     #region Unity Methods
     void Start()
     {
         // Get the most recent csv file downloaded
-        DownloadUtility.Instance.DownloadFile(pin_id_csv_url, pin_id_csv_filepath + ".csv", downloadComplete);
+        DownloadUtility.Instance.DownloadFile(PIN_ID_CSV_URL, PIN_ID_CSV_FILEPATH + ".csv", downloadComplete);
     }
     #endregion Unity Methods
 
@@ -44,7 +50,7 @@ public class Authenticate : MonoBehaviour
         ids = new List<pin_id_record>();
 
         // Open csv as raw text, split into row entries
-        string[] records = Resources.Load<TextAsset>(pin_id_csv_filepath).text.Split('\n');
+        string[] records = Resources.Load<TextAsset>(PIN_ID_CSV_FILEPATH).text.Split('\n');
 
         // Loop over the entries, skip the header row
         for (int i = 1; i < records.Length; i++)
@@ -64,6 +70,9 @@ public class Authenticate : MonoBehaviour
             // Add record to ids list
             ids.Add(newUsr);
         }
+
+        // Set flag to allow auth queries
+        authReady = true;
     }
 
     /// <summary>
@@ -110,9 +119,16 @@ public class Authenticate : MonoBehaviour
     /// <summary>
     /// Called by DownloadUtility once the file is stored. Starts the csv parse
     /// </summary>
-    private void downloadComplete()
+    private void downloadComplete(int rc)
     {
-        ParseCSV();
+        if(rc == 0)
+        {
+            ParseCSV();
+        }
+        else // Download failed
+        {
+            Debug.LogError("PinCSV file failed to download, Cannot authenticate pins");
+        }
     }
     #endregion Event Handlers
 }

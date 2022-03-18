@@ -9,6 +9,11 @@ using UnityEngine.Networking;
 public class DownloadUtility : MonoBehaviour
 {
     #region Variables
+    // Local File Toggle
+    [Header("Toggle Downloading")]
+    [Tooltip("This toggle allows for use of local files instead of pulling them from the web")]
+    public bool useLocalFiles = false;
+
     // Singelton implementation
     private static DownloadUtility _instance;
     public static DownloadUtility Instance
@@ -64,23 +69,28 @@ public class DownloadUtility : MonoBehaviour
     /// <param name="url">endpoint to download file from</param>
     /// <param name="path">filepath to store at, relative to resources folder</param>
     /// <param name="callback">function to call once the download is complete</param>
-    public void DownloadFile(string url, string path, System.Action callback)
+    public void DownloadFile(string url, string path, System.Action<int> callback)
     {
         StartCoroutine(downloadRoutine(url, "Assets/Resources/" + path, callback));
     }
 
-    private IEnumerator downloadRoutine(string url, string path, System.Action callback)
+    private IEnumerator downloadRoutine(string url, string path, System.Action<int> callback)
     {
         // Download code taken from Nico's work
         var uwr = new UnityWebRequest(url, UnityWebRequest.kHttpVerbGET);
         uwr.downloadHandler = new DownloadHandlerFile(path);
         yield return uwr.SendWebRequest();
         if (uwr.result != UnityWebRequest.Result.Success)
+        {
             Debug.LogError(uwr.error);
+            // Invoke callback w/-1, telling client the download failed
+            callback.Invoke(-1);
+        }
         else
+        {
             Debug.Log("File successfully downloaded and saved to " + path + "\n");
-        
-        // Download complete, notify original program
-        callback.Invoke();
+            // Invoke callback w/0, telling client the download succeeded
+            callback.Invoke(0);
+        }
     }
 }

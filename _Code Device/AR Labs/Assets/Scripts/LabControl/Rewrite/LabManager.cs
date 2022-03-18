@@ -34,7 +34,7 @@ public class LabManager : MonoBehaviour
 
 
         //ibox = InstructionBox.Instance;
-        labform = GameObject.Find("[_DYNAMIC]").transform;
+        labform = GameObject.Find("[CURRENT_LAB]").transform;
         //spawnDemoNew();
         if (loggerExit == null)
         {
@@ -192,7 +192,7 @@ public class LabManager : MonoBehaviour
 
     private void OnDoneSubmitting()
     {
-        GameObject.Find("[LOGIC]").GetComponent<loginLogic>().gotoState(4);
+        GameObject.Find("[LOGIC]").GetComponent<LoginManager>().LabComplete();
     }
 
     void createInstructions()

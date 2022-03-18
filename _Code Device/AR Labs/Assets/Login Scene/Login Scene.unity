@@ -2524,6 +2524,7 @@ GameObject:
   - component: {fileID: 685460497}
   - component: {fileID: 685460498}
   - component: {fileID: 685460499}
+  - component: {fileID: 685460500}
   m_Layer: 0
   m_Name: '[LOGIC]'
   m_TagString: Untagged
@@ -2672,6 +2673,31 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &685460500
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 685460496}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: decd71b4d87a510428bbbeb1dd8f702b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  controller: {fileID: 0}
+  introAnimation: {fileID: 0}
+  placementProp: {fileID: 0}
+  anchor: {fileID: 0}
+  LoginUI: {fileID: 0}
+  guestButton: {fileID: 0}
+  usr: {fileID: 0}
+  pas: {fileID: 0}
+  loading: {fileID: 0}
+  keyboard: {fileID: 0}
+  labOptions: {fileID: 0}
+  labTemp: {fileID: 0}
+  labStarter: {fileID: 0}
 --- !u!1 &716852239
 GameObject:
   m_ObjectHideFlags: 0
@@ -3715,7 +3741,9 @@ MonoBehaviour:
   m_ItemImage: {fileID: 0}
   m_Value: 1
   m_Options:
-    m_Options: []
+    m_Options:
+    - m_Text: 
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
