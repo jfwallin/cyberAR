@@ -22,12 +22,15 @@ public class Authenticate : MonoBehaviour
     // Used to download and store pin csv file
     const string PIN_ID_CSV_URL = "http://cyberlearnar.cs.mtsu.edu/show_uploaded/pin_ids.csv";
     const string PIN_ID_CSV_FILEPATH = "login/pin_ids";
+
     // Runtime holds the pins and ids, used to authenticate user logins
     private List<pin_id_record> ids = null;
+
     // Whether the file has been parsed
     private bool authReady = false;
-    private TestWrite logger;
-    private string entity;
+    
+    private LabLogger logger; // Logger used to write info to file
+    private string entity;    // Name of this class as a string, initialized in start
     public bool Ready
     {
         get { return authReady; }
@@ -38,8 +41,8 @@ public class Authenticate : MonoBehaviour
     void Start()
     {
         entity = this.GetType().ToString();
-        logger = TestWrite.Instance;
-        logger.InfoLog(name, "Starting pin-csv download");
+        logger = LabLogger.Instance;
+        logger.InfoLog(entity, "Trace", "Starting pin-csv download");
         // Get the most recent csv file downloaded
         DownloadUtility.Instance.DownloadFile(PIN_ID_CSV_URL, PIN_ID_CSV_FILEPATH + ".csv", downloadComplete);
     }
@@ -51,7 +54,7 @@ public class Authenticate : MonoBehaviour
     /// </summary>
     public void ParseCSV()
     {
-        logger.InfoLog(name, "Starting to parse csv file");
+        logger.InfoLog(entity, "Trace", "Starting to parse csv file");
         // Create new list of pin_id_records
         ids = new List<pin_id_record>();
 
@@ -77,7 +80,7 @@ public class Authenticate : MonoBehaviour
             ids.Add(newUsr);
         }
 
-        logger.InfoLog(name, "Csvs parsef");
+        logger.InfoLog(entity, "Trace", "Csvs parsed");
         // Set flag to allow auth queries
         authReady = true;
     }
@@ -134,7 +137,7 @@ public class Authenticate : MonoBehaviour
         }
         else // Download failed
         {
-            logger.InfoLog(name, "PinCSV file failed to download, Cannot authenticate pins");
+            logger.InfoLog(entity, "Error", "PinCSV file failed to download, Cannot authenticate pins");
             Debug.LogError("PinCSV file failed to download, Cannot authenticate pins");
         }
     }

@@ -11,6 +11,7 @@ public struct LabInfo
     public string name;
     public string description;
 
+    // Test comment
     public override string ToString()
     {
         return $"lab id: {id}\n  name: {name}\n  desc: {description}";
@@ -40,10 +41,9 @@ public class LoginManager : MonoBehaviour
     public GameObject labTemp;         //Used to clone and make new lab selection buttons
     public GameObject labStarter;      //The object holding
 
+
     // Private Variables
     [Header("Other Necessary Components")]
-    [SerializeField]
-    private TestWrite logger;          //Used to log data about the user session
     [SerializeField]
     private Authenticate auth;         //Used to authenticate pin logins
 
@@ -53,16 +53,10 @@ public class LoginManager : MonoBehaviour
     [SerializeField]
     private float labParseTimeout = 15f;//Used to limit waiting for lab parsing to be done
 
-    [SerializeField]
     const string LABS_URL = "http://cyberlearnar.cs.mtsu.edu/labs";
     //const string LABS_URL = "http://cyberlearnar.cs.mtsu.edu/show_uploaded_labs";
-    [SerializeField]
     const string LABS_FILEPATH = "login/allLabs";
-    [Tooltip("Name of lab gets appended with .json, used to attempt to download json for the lab")]
-    [SerializeField]
     const string LAB_JSON_BASE_URL = "http://cyberlearnar.cs.mtsu.edu/show_uploaded/lab_";
-    [Tooltip("Relative to the Resources folder, where all individual lab JSONS are downloaded")]
-    [SerializeField]
     const string LAB_JSON_BASE_FILEPATH = "lab_jsons/";
 
     private enum state
@@ -78,7 +72,9 @@ public class LoginManager : MonoBehaviour
     // Used to track current internal state of login scene
     private state currentState = state.introduction;
 
-    private string entity;
+    private string entity;             //Name of this class, as a string. init in Start
+    private LabLogger logger;          //Used to log data about the user session, init in Start
+
     private bool placed = false;       //Whether the user has placed the scene anchor
     private bool labsReady = false;    //Whether the list of labs has been downloaded and parsed
     private List<GameObject> uiLabList;//The current list of labs the user can select from
@@ -104,15 +100,19 @@ public class LoginManager : MonoBehaviour
         Assert.IsNotNull(labTemp);
         Assert.IsNotNull(labStarter);
         Assert.IsNotNull(auth);
+
+        // Variable initializations
+        entity = this.GetType().ToString();
+        logger = LabLogger.Instance;
+        labInfoList = new List<LabInfo>();
+        uiLabList = new List<GameObject>();
     }
 
     private void Start()
     {
-        entity = this.GetType().ToString();
-        logger = TestWrite.Instance;
-        logger.InfoLog(entity, "Login Scene Starting....");
+        logger.InfoLog(entity, "Trace", "Login Scene Starting....");
         // Setup keyboard
-        keyboard.transform.Find("Content").Find("Keys").Find("row4").Find("Enter").GetComponent<Button>()
+        keyboard.transform.Find("Content").Find("keys").Find("row4").Find("Enter").GetComponent<Button>()
             .onClick.AddListener(() => PinEntered());
 
         // Make sure controller isn't visible
@@ -140,7 +140,7 @@ public class LoginManager : MonoBehaviour
         {
             case state.placement:
                 {
-                    logger.InfoLog(entity, "Started placement");
+                    logger.InfoLog(entity, "Trace", "Started placement");
                     HidePointer();
                     // Hide the intro animation
                     // introAnimation.gameObject.transform.GetChild(0).gameObject.SetActive(false);
@@ -163,7 +163,7 @@ public class LoginManager : MonoBehaviour
                 }
             case state.pin_entry:
                 {
-                    logger.InfoLog(entity, "Started Pin Entry");
+                    logger.InfoLog(entity, "Trace", "Started Pin Entry");
                     ShowPointer();
                     // Hide placement object
                     placementProp.SetActive(false);
@@ -181,7 +181,7 @@ public class LoginManager : MonoBehaviour
                 }
             case state.authentication:
                 {
-                    logger.InfoLog(entity, "Started Authenticating pin");
+                    logger.InfoLog(entity, "Trace", "Started Authenticating pin");
                     // Disable pin entry
                     pin.SetActive(false);
                     keyboard.SetActive(false);
@@ -201,7 +201,7 @@ public class LoginManager : MonoBehaviour
                 }
             case state.lab_selection:
                 {
-                    logger.InfoLog(entity, "Started lab selection");
+                    logger.InfoLog(entity, "Trace", "Started lab selection");
                     // Disable Login UI and keyboard
                     loginUI.SetActive(false);
                     keyboard.SetActive(false);
@@ -227,7 +227,7 @@ public class LoginManager : MonoBehaviour
                 }
             case state.lab_initiation:
                 {
-                    logger.InfoLog(entity, "Started lab Initiaion");
+                    logger.InfoLog(entity, "Trace", "Started lab Initiaion");
                     // Disable all UI
                     labOptions.SetActive(false);
 
@@ -254,7 +254,7 @@ public class LoginManager : MonoBehaviour
     /// </summary>
     private void Place()
     {
-        logger.InfoLog(entity, "Lab has been placed");
+        logger.InfoLog(entity, "Trace", "Lab has been placed");
         // Unbind place function from trigger
         controller.GetComponent<ControlInput>().OnTriggerDown.RemoveListener(Place);
         // Set placed flag, and move to the next state
@@ -267,7 +267,7 @@ public class LoginManager : MonoBehaviour
     /// </summary>
     private void ParseLabs()
     {
-        logger.InfoLog(entity, "Parsing labs");
+        logger.InfoLog(entity, "Trace", "Parsing labs");
         // Trim leading and trailing [{}]
         string labsString = Resources.Load<TextAsset>(LABS_FILEPATH).text.Trim(new char[] { '[', '{', '}', ']' });
         // Split by },{ which only occurs between labs in the list
@@ -295,7 +295,7 @@ public class LoginManager : MonoBehaviour
             labInfoList.Add(tmpLabInfo);
         }
         // Log the successful parse
-        logger.InfoLog(entity, $"Finished parsing labs:\n{labInfoList}");
+        logger.InfoLog(entity, "Trace", $"Finished parsing labs:\n{labInfoList}");
 
         labsReady = true;
     }
@@ -305,7 +305,7 @@ public class LoginManager : MonoBehaviour
     /// </summary>
     private void GenerateLabListUI()
     {
-        logger.InfoLog(entity, "Generating lab selection buttons");
+        logger.InfoLog(entity, "Trace", "Generating lab selection buttons");
         // Generate 5 lab buttons, or less if the list of available labs is short
         int i = 0;
         while(i < 5 && i < labInfoList.Count)
@@ -345,7 +345,7 @@ public class LoginManager : MonoBehaviour
 
     private void InitializeLabManager(LabDataObject labData)
     {
-        logger.InfoLog(entity, "Initializing Lab Manager");
+        logger.InfoLog(entity, "Trace", "Initializing Lab Manager");
         LabManager lm = labStarter.GetComponent<LabManager>();
         lm.enabled = true;
         lm.Initialize(labData.ActivityModules);
@@ -357,7 +357,12 @@ public class LoginManager : MonoBehaviour
     {
         controller.GetComponent<LineRenderer>().enabled = flag;
         controller.GetComponentInChildren<MeshRenderer>().enabled = flag;
+        logger.InfoLog(entity, "Pointer Visibility", flag.ToString());
     }
+
+    /// <summary>
+    /// Called to end the lab entirely, different behaivour depending on execution environment
+    /// </summary>
     private void ExitApplication()
     {
 #if UNITY_EDITOR
@@ -375,7 +380,7 @@ public class LoginManager : MonoBehaviour
     /// </summary>
     private IEnumerator SetupIntroAnimation()
     {
-        logger.InfoLog(entity, "Starting intro animation, waiting till it completes");
+        logger.InfoLog(entity, "Trace", "Starting intro animation, waiting till it completes");
         // Go ahead and start the animation
         introAnimation.SetActive(true);
 
@@ -438,7 +443,7 @@ public class LoginManager : MonoBehaviour
             if (countdown <= 0)
             {
                 Debug.LogError($"Authentication timed out, waited {authTimeout} seconds.");
-                logger.InfoLog(entity, $"Authentication timed out, waited {authTimeout} seconds.");
+                logger.InfoLog(entity, "Error", $"Authentication timed out, waited {authTimeout} seconds.");
                 ChangeStateTo(state.pin_entry);
                 // Exit the coroutine
                 yield break;
@@ -452,7 +457,7 @@ public class LoginManager : MonoBehaviour
             string mNum = auth.PinToMNum(pin);
             // Initialize the logger with the student information
             logger.InitializeLog(studentName, mNum);
-            logger.InfoLog(entity, $"Student authenticated: {studentName}, M{mNum}");
+            logger.InfoLog(entity, "Trace", $"Student authenticated: {studentName}, M{mNum}");
             // Go to lab selection state
             ChangeStateTo(state.lab_selection);
         }
@@ -474,7 +479,7 @@ public class LoginManager : MonoBehaviour
             if(countdown <= 0)
             {
                 Debug.LogError($"Lab Parsing timed out, waited ${labParseTimeout} seconds. STOPPING");
-                logger.InfoLog(entity, $"Lab Parsing timed out, waited ${labParseTimeout} seconds. STOPPING");
+                logger.InfoLog(entity, "Error", $"Lab Parsing timed out, waited ${labParseTimeout} seconds. STOPPING");
                 yield break;
             }
         }
@@ -497,7 +502,7 @@ public class LoginManager : MonoBehaviour
     /// </summary>
     public void PinEntered()
     {
-        logger.InfoLog(entity, "Pin Entered");
+        logger.InfoLog(entity, "Trace", "Pin Entered");
         ChangeStateTo(state.authentication);
     }
 
@@ -506,7 +511,7 @@ public class LoginManager : MonoBehaviour
     /// </summary>
     public void LabComplete()
     {
-        logger.InfoLog(entity, "Lab marked complete, returning to lab selection");
+        logger.InfoLog(entity, "Trace", "Lab marked complete, returning to lab selection");
         ChangeStateTo(state.lab_selection);
     }    
     #endregion Public Callbacks
@@ -538,7 +543,7 @@ public class LoginManager : MonoBehaviour
         // Set the current selected lab to match the passed id
         selectedLab = labInfoList.Find(x => x.id == labID);
         // Log what lab was selected
-        logger.InfoLog(entity, $"Lab Selected: {selectedLab.id}, {selectedLab.name}");
+        logger.InfoLog(entity, "Trace", $"Lab Selected: {selectedLab.id}, {selectedLab.name}");
         // Transition to next state
         ChangeStateTo(state.lab_initiation);
     }
@@ -549,7 +554,7 @@ public class LoginManager : MonoBehaviour
     private void ExitSelected()
     {
         Debug.Log("Exit button selected");
-        logger.InfoLog(entity, "Exit button selected");
+        logger.InfoLog(entity, "Trace", "Exit button selected");
         logger.SubmitLog(LogSubmitted);
     }
 

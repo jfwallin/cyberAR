@@ -52,16 +52,13 @@ public class TestWrite : MonoBehaviour
         }
     }
 
-    //Using time stamps to track how long it take to perform each step
-    public float startTime = 0.0f;
-    public float currentTime;
-    public float usedTime;
-    public float lastTimeInterval = 0.0f;
-    //This will be updated once the student logs in to cointain the student's id
-    public string LogPath = "Assets/Resources/";
-    private string logFilname = "";
-    private bool initialized = false;
-    private string preInitLogs = "";
+    private string LogPath = "Assets/Resources/"; // Log filepath, will be updated with student's name and id
+    private string logFilname = "";              // Name of the logfile, will have student's name and id
+    private bool initialized = false;            // Whether the student has logged in, and the log initialized
+    private string preInitLogs = "";             // All logs made pre-Init, will be added to the actualy log on Init
+    private float initTime = 0.0f;               // Time the log was initialized with student's name and id
+    private float prevTime = 0.0f;               // Time of the last log call
+    private float connectionTimer = 0.0f;        // Tracks how long since last connection attempt, as to prevent a timout
     #endregion Variables
 
     #region Unity Methods
@@ -85,6 +82,16 @@ public class TestWrite : MonoBehaviour
         //Connect to the website immediately.
         StartCoroutine(Connect());
     }
+
+    public void Update()
+    {
+        // Reconnect to the arlabs website after a timeout occurs
+        connectionTimer += Time.deltaTime;
+        if (connectionTimer > 3600)
+        {
+            Connect();
+        }
+    }
     #endregion Unity Methods
 
     #region Public Methods
@@ -98,7 +105,8 @@ public class TestWrite : MonoBehaviour
         logFilname = mNum + "_" + System.DateTime.Now.ToString("MM-dd-yyyy_HH:mm") + ".txt";
         LogPath = LogPath + logFilname;
         // Mark the time at which the log was initialized.
-        startTime = Time.time;
+        initTime = Time.time;
+        prevTime = initTime;
         initialized = true;
         // Add initiliazation statement to the log
         appendToLog($"\n\nLog file for student: {name},  M{mNum}.\nCurrent Time: {System.DateTime.Now}\n");
@@ -112,15 +120,20 @@ public class TestWrite : MonoBehaviour
     /// </summary>
     /// <param name="entity">name of the component that sent the log request</param>
     /// <param name="information">information to be added to the log, preformatted by sender</param>
-    public void InfoLog(string entity, string information)
+    public void InfoLog(string entity, string tag, string information)
     {
+        string curTime = System.DateTime.Now.ToString("HH:mm");
+        string relTime = $"{Time.time - initTime}";
+        // CURTIME, RELTIME | ENTITY, TAG : INFO
+        string log = $"{curTime}, {relTime} | {entity.ToUpper()}, {tag.ToUpper()} : {information}";
+
         if(initialized)
         {
-            appendToLog($"{Time.time - startTime} | {entity.ToUpper()} : information");
+            appendToLog(log);
         }
         else // Log path not yet initialized, so store line to be added later
         {
-            preInitLogs += $"{Time.time - startTime} | {entity.ToUpper()} : information\n";
+            preInitLogs += log + "\n";
         }
     }
 
@@ -137,9 +150,9 @@ public class TestWrite : MonoBehaviour
         StreamWriter myfile = File.AppendText(LogPath);
         //Get the input type and teh current time            
         InputType TYPE = (InputType)type;
-        currentTime = Time.realtimeSinceStartup;
-        usedTime = currentTime -lastTimeInterval ;
-        lastTimeInterval = currentTime;
+        float currentTime = Time.realtimeSinceStartup;
+        float usedTime = currentTime -prevTime ;
+        prevTime = currentTime;
         //based on type select teh output format
         switch (TYPE)
         {
@@ -207,10 +220,10 @@ public class TestWrite : MonoBehaviour
     public void SubmitLog(Action onDoneUploading)
     {
         StartCoroutine(Upload(onDoneUploading));
-        InfoLog(name,
-            $"Application ending after {Time.time - startTime} seconds, " +
+        InfoLog(this.GetType().ToString(), "Trace",
+            $"Application ending after {Time.time - initTime} seconds, " +
             $"time is now {DateTime.Now.ToString("HH:mm")}");
-        Debug.Log($"Application ending after {Time.time - startTime} seconds, " +
+        Debug.Log($"Application ending after {Time.time - initTime} seconds, " +
             $"time is now {DateTime.Now.ToString("HH:mm")}");
     }
     #endregion Public Methods
@@ -241,7 +254,6 @@ public class TestWrite : MonoBehaviour
         myfile.Close();
     }
 
-    // Make connection to the server by providing email and password
     /// <summary>
     /// Connect to cyberlearnar server with email and password
     /// </summary>

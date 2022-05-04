@@ -8,6 +8,7 @@ using System.IO;
 
 public class LabManager : MonoBehaviour
 {
+    #region Variables
     [SerializeField]
     private string[] modules;
     private int index = 0;
@@ -23,32 +24,45 @@ public class LabManager : MonoBehaviour
     //private InstructionBox ibox;
     private Transform labform;
 
-    private TestWrite logger;
+    private LabLogger logger;
     private string entity;
+    #endregion Variables
 
+    #region Unity Methods
     public void Start()
     {
-        // ultimately - we might use Initialize externally 
-        // For now - we will manually read in the json.
-        // create instances of media player prefab here
         entity = this.GetType().ToString();
-        logger = TestWrite.Instance;
+        logger = LabLogger.Instance;
 
 
         //ibox = InstructionBox.Instance;
         labform = GameObject.Find("[CURRENT_LAB]").transform;
         //spawnDemoNew();
     }
+    #endregion Unity Methods
 
+    #region Public Methods
     public void Initialize(LabDataObject data)
     {
-        logger.InfoLog(entity, "Initializing lab");
+        logger.InfoLog(entity, "Trace", "Initializing lab");
         modules = data.ActivityModules;
 
         SpawnModule();
         //spawnDemoNew();
     }
 
+    public void Initialize(string[] moduleData)
+    {
+        logger.InfoLog(entity, "Trace", "Initializing lab");
+        // this creates the instruction canvas
+        //createInstructions();
+
+        //Initialize data
+        modules = moduleData;
+
+        //Start Lab
+        SpawnModule();
+    }
 
     public void spawnDemoNew()
     {
@@ -90,21 +104,9 @@ public class LabManager : MonoBehaviour
         Initialize(modules);
         SpawnModule();   
     }
+    #endregion Public Methods
 
-// --------------------------------------------------------
-    public void Initialize(string[] moduleData)
-    {
-        logger.InfoLog(entity, "Initializing lab");
-        // this creates the instruction canvas
-        //createInstructions();
-
-        //Initialize data
-        modules = moduleData;
-
-        //Start Lab
-        SpawnModule();
-    }
-
+    #region Private Methods
     private void SpawnModule()
     {
         //Debug.Log("spawning module #" + index.ToString());
@@ -133,59 +135,15 @@ public class LabManager : MonoBehaviour
         //Start the module
         currentModuleScript.Initialize(modules[index]);
     }
- 
-    public void ModuleComplete()
-    {
-        index = index + indexIncrement;
-        if (index < 0)
-            index = 0;
-
-        if (index < modules.Length)
-        {
-            StartCoroutine(NewModule());
-        }
-        else
-        {
-            Destroy(currentModuleObject);
-            EndLab();
-        }
-    }
-
-    public void nextModuleCallback()
-    {
-     //   Debug.Log("next Module ---------------------------------------------------------------");
-        indexIncrement = 1;
-        ModuleComplete();
-    }
-
-    public void previousModuleCallback()
-    {
-        indexIncrement = -1;
-        ModuleComplete();
-
-    }
-
-    public void endLabCallback()
-    {
-      //  Debug.Log("endLab callback");
-        index = modules.Length - 1;  // set the end
-        ModuleComplete();
-    }
-    IEnumerator NewModule()
-    {
-        yield return new WaitForSeconds(1.0f);
-        Destroy(currentModuleObject);
-        SpawnModule();
-
-    }
-
+    /// <summary>
+    /// Called when the lab manager identifies that the lab is out of modules.
+    /// </summary>
     private void EndLab()
     {
-        // TODO SEND MESSAGE TO LOGIN LOGIC SCRIPT
-      //  print("Returning to Lab Selection.");
-        // MODIFIDED FOR TESTING jw
-
-        //Application.Quit();
+        // Get rid of current module objects and references
+        Destroy(currentModuleObject);
+        currentModuleScript = null;
+        // Notify the login manager that the lab is completed
         GameObject.Find("[LOGIC]").GetComponent<LoginManager>().LabComplete();
     }
     void createInstructions()
@@ -207,7 +165,6 @@ public class LabManager : MonoBehaviour
         //FindObjectOfType<MagicLeapTools.ControlInput>().OnDoubleBumper.AddListener(InstructionBox.Instance.HandleDoubleBumper); //responds to double bumper to appear and disappear
     }
 
-    //Should module specific changes to the instruction box be done in the module code?
     void updateInstructions(ActivityModuleData tmpData)
     {
         // case the current data activity module data into a local variable
@@ -226,4 +183,55 @@ public class LabManager : MonoBehaviour
         InstructionBox.Instance.AddPage("Objectives", eobj, true); //Creates tab for the educational objectives and shows it.
 
     }
+    #endregion Private Methods
+
+    #region Event Handlers
+    public void ModuleComplete()
+    {
+        index = index + indexIncrement;
+        if (index < 0)
+            index = 0;
+
+        logger.InfoLog(entity, "Trace", $"Moving to module at index {index}");
+
+        if (index < modules.Length)
+        {
+            StartCoroutine(NewModule());
+        }
+        else
+        {
+            Destroy(currentModuleObject);
+            EndLab();
+        }
+    }
+
+    public void nextModuleCallback()
+    {
+        indexIncrement = 1;
+        ModuleComplete();
+    }
+
+    public void previousModuleCallback()
+    {
+        indexIncrement = -1;
+        ModuleComplete();
+    }
+
+    public void endLabCallback()
+    {
+        index = modules.Length - 1;
+        ModuleComplete();
+    }
+    #endregion Event Handlers
+
+    #region Coroutines
+    IEnumerator NewModule()
+    {
+        yield return new WaitForSeconds(1.0f);
+        Destroy(currentModuleObject);
+        SpawnModule();
+
+    }
+    #endregion Coroutines
+
 }

@@ -44,7 +44,7 @@ public class DownloadUtility : MonoBehaviour
         }
     }
 
-    private TestWrite logger;  //reference to logger that prints writes information to file
+    private LabLogger logger;  //reference to logger that prints writes information to file
     private string entity;     //name of this script, gets sent to the logger
     #endregion Variables
 
@@ -63,15 +63,13 @@ public class DownloadUtility : MonoBehaviour
             // Assign self as the instance
             _instance = this;
         }
-    }
 
-    public void Start()
-    {
-        logger = TestWrite.Instance;
+        logger = LabLogger.Instance;
         entity = this.GetType().ToString();
     }
     #endregion Unity Methods
 
+    #region Public Methods
     /// <summary>
     /// Called by any other code to download a file
     /// </summary>
@@ -80,10 +78,23 @@ public class DownloadUtility : MonoBehaviour
     /// <param name="callback">function to call once the download is complete</param>
     public void DownloadFile(string url, string path, System.Action<int> callback)
     {
-        logger.InfoLog(entity, $"Starting download of file ${path} from url: {url}");
-        StartCoroutine(downloadRoutine(url, "Assets/Resources/" + path, callback));
+        if(!useLocalFiles)
+        {
+            logger.InfoLog(entity, "Trace", $"Starting download of file ${path} from url: {url}");
+            StartCoroutine(downloadRoutine(url, "Assets/Resources/" + path, callback));
+        }
+        else // Use local files
+        {
+            // Check if the local file is there
+            if(Resources.Load(path.Substring(0, path.LastIndexOf("."))) != null)
+                callback.Invoke(0); // Local file exists
+            else // There is no local file
+                callback.Invoke(-1); // Local file does not exist
+        }
     }
+    #endregion Public Methods
 
+    #region Coroutines
     private IEnumerator downloadRoutine(string url, string path, System.Action<int> callback)
     {
         // Download code taken from Nico's work
@@ -92,17 +103,18 @@ public class DownloadUtility : MonoBehaviour
         yield return uwr.SendWebRequest();
         if (uwr.result != UnityWebRequest.Result.Success)
         {
-            logger.InfoLog(entity, $"Download of {path} failed with error:\n{uwr.error}");
+            logger.InfoLog(entity, "Trace", $"Download of {path} failed with error:\n{uwr.error}");
             Debug.LogError(uwr.error);
             // Invoke callback w/-1, telling client the download failed
             callback.Invoke(-1);
         }
         else
         {
-            logger.InfoLog(entity, $"Successfully downloaded {path}");
+            logger.InfoLog(entity, "Trace", $"Successfully downloaded {path}");
             Debug.Log("File successfully downloaded and saved to " + path + "\n");
             // Invoke callback w/0, telling client the download succeeded
             callback.Invoke(0);
         }
     }
+    #endregion Coroutines
 }
