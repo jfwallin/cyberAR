@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.IO;
+using System.IO.Compression;
+
+//csc.rsp file required for System.IO.Compression.dll file (found in assets folder)
 
 public class MediaCatalogue : MonoBehaviour
 {
@@ -85,7 +89,7 @@ public class MediaCatalogue : MonoBehaviour
         else if (labVideos.ContainsKey(resourceKey))
         {
             File.Delete(labVideos[resourceKey]); // Delete video file from disk
-            labVideos.Remove(resourceKey); // Remove entry from dictionary
+            labVideos.Remove(resourceKey);       // Remove entry from dictionary
         }
         else
             UnityEngine.Debug.Log("Resource not found.");
@@ -160,6 +164,7 @@ public class MediaCatalogue : MonoBehaviour
         }
     }
 
+    // Downloads url endpoint of mp4 file and saves the url endpoint to disk.
     IEnumerator DownloadVideo(string url)
     {
         using (UnityWebRequest uwr = UnityWebRequest.Get(url))
@@ -182,7 +187,59 @@ public class MediaCatalogue : MonoBehaviour
         }
     }
 
+    // Creates Unity media assets (Texture2D/AudioClip) from a downloaded zip file
+    // Downloads a zip file containing JPEG or WAVE files, unzips in memory, and processes each entry in the zip file
+    // Untested
+    IEnumerator DownloadZipFile(string url)
+    {
+        using (UnityWebRequest uwr = UnityWebRequest.Get(url))
+        {
+            yield return uwr.SendWebRequest();
+            if (uwr.isNetworkError || uwr.isHttpError)
+                Debug.Log(uwr.error);
+            else
+            {
+                Stream data = new MemoryStream(uwr.downloadHandler.data);
+                Stream unzippedEntryStream;
+                ZipArchive archive = new ZipArchive(data);
 
+                // Process each zipped raw media asset in the zip file
+                foreach (ZipArchiveEntry entry in archive.Entries)
+                {
+                    Debug.Log(entry.Name);
+
+                    // Determine extension of raw media asset file
+                    int index = entry.Name.LastIndexOf('.');
+                    string extension = entry.Name.Substring(index + 1);
+
+                    unzippedEntryStream = entry.Open();                      // Open a zipped entry contained in the zip file
+                    MemoryStream unzippedMemoryStream = new MemoryStream();  // Convert the Stream to a MemoryStream
+                    unzippedEntryStream.CopyTo(unzippedMemoryStream);        // Copy the Stream to the MemoryStream (necessary to use ToArray() method)
+                    byte[] unzippedData = unzippedMemoryStream.ToArray();    // Convert the MemoryStream to a byte array
+
+                    // Determine the file type of the unzipped media asset, create the appropriate Unity media asset, & add the new Unity media asset to the appropriate dictionary
+                    switch (extension)
+                    {
+                        case "jpg":
+                            Texture2D unzippedTexture = new Texture2D(2, 2);
+                            unzippedTexture.LoadImage(unzippedData);
+                            labTextures.Add(entry.Name, unzippedTexture);
+                            break;
+                        case "wav":
+                            WavHandler wav = new WavHandler(unzippedData);
+                            AudioClip unzippedAudioClip = AudioClip.Create(entry.Name, wav.GetAudioSamplesLength(), wav.GetNumChannels(), wav.GetFrequency(), false);
+                            unzippedAudioClip.SetData(wav.GetScaledAudioSamples(), 0);
+                            labAudio.Add(entry.Name, unzippedAudioClip);
+                            break;
+                        default:
+                            Debug.Log("Unsupported media asset file type.");
+                            Debug.Log("Supported media asset file types: JPEG and WAVE.");
+                            break;
+                    }
+                }
+            }
+        }
+    }
 
     // Downloads all the media assets for a single lab
     IEnumerator DownloadLabMedia(MediaInfo[] labAssetList)
@@ -224,6 +281,9 @@ public class MediaCatalogue : MonoBehaviour
                 case MediaType.Video:
                     if (labVideos.ContainsKey(resourceKey) == false)
                         yield return StartCoroutine(DownloadVideo(resourceKey));
+                    break;
+                case MediaType.Zip: // Untested and will need to add Zip to the MediaType on server side
+                    yield return StartCoroutine(DownloadZipFile(resourceKey));
                     break;
             }
         }
