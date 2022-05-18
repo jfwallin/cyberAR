@@ -111,9 +111,6 @@ public class LoginManager : MonoBehaviour
     private void Start()
     {
         logger.InfoLog(entity, "Trace", "Login Scene Starting....");
-        // Setup keyboard
-        keyboard.transform.Find("Content").Find("keys").Find("row4").Find("Enter").GetComponent<Button>()
-            .onClick.AddListener(() => PinEntered());
 
         // Make sure controller isn't visible
         HidePointer();
@@ -157,7 +154,7 @@ public class LoginManager : MonoBehaviour
                     StartCoroutine(AlignUIWithController());
                     // Bind the place function to the trigger
                     controller.GetComponent<ControlInput>().OnTriggerDown.AddListener(Place);
-
+                    
                     // WE NOW WAIT UNTIL A TRIGGER PRESS TO GO ON TO pin_entry
                     break;
                 }
@@ -460,6 +457,11 @@ public class LoginManager : MonoBehaviour
             logger.InfoLog(entity, "Trace", $"Student authenticated: {studentName}, M{mNum}");
             // Go to lab selection state
             ChangeStateTo(state.lab_selection);
+        }
+        else // Pin was not authenticated
+        {
+            logger.InfoLog(entity, "Trace", "Pin failed to authenticate");
+            ChangeStateTo(state.pin_entry);
         }
     }
 

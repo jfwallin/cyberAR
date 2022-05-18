@@ -65,7 +65,7 @@ public class Authenticate : MonoBehaviour
         for (int i = 1; i < records.Length; i++)
         {
             // Split row into fields
-            string[] fields = records[i].Split(',');
+            string[] fields = records[i].Trim().Split(',');
 
             // Create new struct to store read data
             pin_id_record newUsr;
@@ -80,6 +80,12 @@ public class Authenticate : MonoBehaviour
             ids.Add(newUsr);
         }
 
+        if (Debug.isDebugBuild)
+        {
+            foreach (pin_id_record id in ids)
+                Debug.Log(id.pin);
+        }
+
         logger.InfoLog(entity, "Trace", "Csvs parsed");
         // Set flag to allow auth queries
         authReady = true;
@@ -92,7 +98,8 @@ public class Authenticate : MonoBehaviour
     /// <returns>true if the pin is found, false if not</returns>
     public bool AuthenticatePin(string pin)
     {
-        return ids.Exists(x => x.pin == pin);
+        logger.InfoLog(entity, "Trace", $"Attempting to authenticate pin: {pin}");
+        return ids.Exists(x => { Debug.Log($"pin :{pin}:, length : {pin.Length}, x.pin :{x.pin}:, length : {x.pin.Length}, x.pin == pin :{x.pin==pin}:"); return x.pin == pin; });
     }
 
     /// <summary>

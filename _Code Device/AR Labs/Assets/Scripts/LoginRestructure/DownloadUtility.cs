@@ -104,14 +104,12 @@ public class DownloadUtility : MonoBehaviour
         if (uwr.result != UnityWebRequest.Result.Success)
         {
             logger.InfoLog(entity, "Trace", $"Download of {path} failed with error:\n{uwr.error}");
-            Debug.LogError(uwr.error);
             // Invoke callback w/-1, telling client the download failed
             callback.Invoke(-1);
         }
         else
         {
             logger.InfoLog(entity, "Trace", $"Successfully downloaded {path}");
-            Debug.Log("File successfully downloaded and saved to " + path + "\n");
             // Invoke callback w/0, telling client the download succeeded
             callback.Invoke(0);
         }

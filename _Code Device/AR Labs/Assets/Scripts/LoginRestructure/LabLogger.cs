@@ -39,13 +39,16 @@ public class LabLogger : MonoBehaviour
         }
     }
 
-    private string LogPath = "Assets/Resources/Logs/";// Log filepath, will be updated with student's name and id
+    private string LogPath = @"Assets\Resources\Logs\";// Log filepath, will be updated with student's name and id
     private string logFilname = "";              // Name of the logfile, will have student's name and id
     private bool initialized = false;            // Whether the student has logged in, and the log initialized
+    private bool submitted = false;              // Whether the log for the current session has been submitted
     private string preInitLogs = "";             // All logs made pre-Init, will be added to the actual log on Init
-    private float startTime = 0.0f;               // Time the logger started
+    private float startTime = 0.0f;              // Time the logger started
     private float connectionTimer = 0.0f;        // Tracks how long since last connection attempt, as to prevent a timout
 
+    [SerializeField]
+    private bool printLogsToConsole = true;
     [SerializeField]
     private bool saveLogsLocally = false;
     [SerializeField]
@@ -112,6 +115,7 @@ public class LabLogger : MonoBehaviour
     /// and the entity that sent the information. formatting is left to the sender
     /// </summary>
     /// <param name="entity">name of the component that sent the log request</param>
+    /// <param name="tag">descriptive tag for the info, used to make parsing for specific info easier</param>
     /// <param name="information">information to be added to the log, preformatted by sender</param>
     public void InfoLog(string entity, string tag, string information)
     {
@@ -121,13 +125,13 @@ public class LabLogger : MonoBehaviour
         string log = $"{curTime}, {relTime} | {entity.ToUpper()}, {tag.ToUpper()} : {information}";
 
         if(initialized)
-        {
             appendToLog(log);
-        }
         else // Log path not yet initialized, so store line to be added later
-        {
             preInitLogs += log + "\n";
-        }
+
+        // Print log to console if flag is set, and not final build
+        if (Debug.isDebugBuild && printLogsToConsole)
+            Debug.Log(log);
     }
 
     /// <summary>
@@ -146,7 +150,7 @@ public class LabLogger : MonoBehaviour
             appendToLog(preInitLogs);
         }
 
-        // Upload the files when it is not a development build, or when it is, and the upload flag is set
+        // Upload the files when it is a final build, or when it is a debug build with upload flag
         if(!Debug.isDebugBuild || (Debug.isDebugBuild && uploadLogs))
         {
             StartCoroutine(Upload(onDoneSubmitting));
@@ -155,16 +159,14 @@ public class LabLogger : MonoBehaviour
                 $"time is now {DateTime.Now.ToString("HH:mm")}");
             Debug.Log($"Application ending after {Time.time - startTime} seconds, " +
                 $"time is now {DateTime.Now.ToString("HH:mm")}");
-        }    
-        else // Not uploading logs
-        {
-            // local log files are always created by default.
-            // Do not delete them if it is a development build with the "saveLocalLogs" flag set
-            // Only delete local logs here if we are not trying to upload them first, in which case they will
-            // be deleted after the upload is finished
-            if(!Debug.isDebugBuild || (Debug.isDebugBuild && !saveLogsLocally))
-                deleteLocalLogs();
         }
+
+        // Delete local logs only if non-debug final build, or debug build without save local flag
+        if (!Debug.isDebugBuild || (Debug.isDebugBuild && !saveLogsLocally))
+            deleteLocalLogs();
+
+        // Mark log as submitted
+        submitted = true;
     }
     #endregion Public Methods
 
@@ -205,7 +207,7 @@ public class LabLogger : MonoBehaviour
         form.AddField("password", "DNkZOY");
         form.AddField("username", "rafet.al-tobasei@mtsu.edu");
 
-       //submit information the server 
+        //submit information the server 
         UnityWebRequest www = UnityWebRequest.Post("http://cyberlearnar.cs.mtsu.edu/login", form);
 
         yield return www.SendWebRequest();
@@ -255,4 +257,17 @@ public class LabLogger : MonoBehaviour
         doneUploading.Invoke();
     }
     #endregion Coroutines
+
+    #region Event Handlers
+    /// <summary>
+    /// Called when the application closes to submit logs. uploading doesn't work, 
+    /// but it does force pre-init logs to be added to a file.
+    /// </summary>
+    private void OnApplicationQuit()
+    {
+        // Only try to submit logs if it hasn't been done already
+        if (!submitted)
+            SubmitLog(() => {}) ; // Empty lambda b/c the app closes, no callback needed
+    }
+    #endregion Event Handlers
 }
