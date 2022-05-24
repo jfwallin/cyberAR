@@ -47,13 +47,19 @@ public class LabLogger : MonoBehaviour
     private bool submitted = false;              // Whether the log for the current session has been submitted
     private float startTime = 0.0f;              // Time the logger started
     private float connectionTimer = 0.0f;        // Tracks how long since last connection attempt, as to prevent a timout
-
+    
+    [SerializeField]
+    private bool uploadLogs = true;
+#if UNITY_EDITOR
+    [SerializeField]
+    private bool uploadAndStop = false;
+#endif
     [SerializeField]
     private bool printLogsToConsole = true;
     [SerializeField]
     private bool saveLogsLocally = false;
     [SerializeField]
-    private bool uploadLogs = true;
+    private int numberOfLogsStored = 3;
     #endregion Variables
 
     #region Unity Methods
@@ -67,7 +73,7 @@ public class LabLogger : MonoBehaviour
         }
         else // Only instance
         {
-            // Assign self as the instance
+            // Assign self as the singleton instance
             _instance = this;
         }
 
@@ -84,8 +90,20 @@ public class LabLogger : MonoBehaviour
         // Connect to the website immediately, if we are going to upload
         if(uploadLogs)
             StartCoroutine(Connect());
+
         // Log where the files should be saving to
         InfoLog("LOGGER", "TRACE", $"Saving files to persistent data path: {logFileInfo.FullName}");
+
+        // Delete any extra logs
+        DirectoryInfo logDirectoryInfo = new DirectoryInfo(logPath);
+        FileInfo[] files = logDirectoryInfo.GetFiles();
+        // Sort array, most recent logs first
+        Array.Sort(files, (f1, f2) => f2.CreationTime.CompareTo(f1.CreationTime));
+        if(numberOfLogsStored != -1 && files.Length > numberOfLogsStored)
+        {
+            for(int i=files.Length-1; i>=numberOfLogsStored; i--)
+                files[i].Delete();
+        }
     }
 
     public void Update()
@@ -98,6 +116,15 @@ public class LabLogger : MonoBehaviour
             {
                 StartCoroutine(Connect());
             }
+
+#if UNITY_EDITOR
+            // Only in the editor, check if we should upload the logs and stop
+            if(uploadAndStop)
+            {
+                uploadAndStop = false;
+                StartCoroutine(Upload(finishedUploadEditor));
+            }
+#endif
         }
     }
     #endregion Unity Methods
@@ -132,8 +159,8 @@ public class LabLogger : MonoBehaviour
     /// <param name="information">information to be added to the log, preformatted by sender</param>
     public void InfoLog(string entity, string tag, string information)
     {
-        string curTime = System.DateTime.Now.ToString("HH:mm");
-        string relTime = $"{Time.time - startTime}";
+        string curTime = System.DateTime.Now.ToString("HH:mm:ss");
+        string relTime = $"{Mathf.Round((Time.time-startTime)*100f)/100f}";
         // CURTIME, RELTIME | ENTITY, TAG : INFO
         string log = $"{entity.ToUpper()}, {tag.ToUpper()} | {curTime}, {relTime} : {information}\n";
         appendToLog(log);
@@ -256,4 +283,16 @@ public class LabLogger : MonoBehaviour
         doneUploading.Invoke();
     }
     #endregion Coroutines
+#if UNITY_EDITOR
+
+    #region Event Handlers
+    /// <summary>
+    /// Stops the editor after the log is uploaded
+    /// </summary>
+    private void finishedUploadEditor()
+    {
+        UnityEditor.EditorApplication.isPlaying = false;
+    }
+    #endregion Event Handlers
+#endif
 }
