@@ -1,4 +1,5 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.IO;
@@ -39,11 +40,11 @@ public class LabLogger : MonoBehaviour
         }
     }
 
-    private string LogPath = @"Assets\Resources\Logs\";// Log filepath, will be updated with student's name and id
-    private string logFilname = "";              // Name of the logfile, will have student's name and id
-    private bool initialized = false;            // Whether the student has logged in, and the log initialized
+    private FileInfo logFileInfo;
+    private string logPath = "";                 // Log filepath, will be updated with student's name and id
+    private string logFileName = "";             // Name of the logfile, will have student's name and id
+    private bool initialized = false;            // Tracks whether the log file has been renamed w/ the M number
     private bool submitted = false;              // Whether the log for the current session has been submitted
-    private string preInitLogs = "";             // All logs made pre-Init, will be added to the actual log on Init
     private float startTime = 0.0f;              // Time the logger started
     private float connectionTimer = 0.0f;        // Tracks how long since last connection attempt, as to prevent a timout
 
@@ -58,25 +59,33 @@ public class LabLogger : MonoBehaviour
     #region Unity Methods
     public void Awake()
     {
-        //If not the only instance
+        // If not the only instance
         if ((_instance != null && _instance != this))
         {
-            //Destroy self, leave exisitng instance
+            // Destroy self, leave exisitng instance
             Destroy(this);
         }
-        else //Only instance
+        else // Only instance
         {
-            //Assign self as the instance
+            // Assign self as the instance
             _instance = this;
         }
+
+        // Initialize file w/ persistentData path
+        logPath = Path.Combine(Application.persistentDataPath, "Logs");
+        logFileName = System.DateTime.Now.ToString("MM-dd-yyyy_HH.mm")+".txt";
+        logFileInfo = new FileInfo(Path.Combine(logPath, logFileName));
+        logFileInfo.Directory.Create();
     }
 
     public void Start()
     {
         startTime = Time.time;
-        //Connect to the website immediately, if we are going to upload
+        // Connect to the website immediately, if we are going to upload
         if(uploadLogs)
             StartCoroutine(Connect());
+        // Log where the files should be saving to
+        InfoLog("LOGGER", "TRACE", $"Saving files to persistent data path: {logFileInfo.FullName}");
     }
 
     public void Update()
@@ -100,14 +109,18 @@ public class LabLogger : MonoBehaviour
     /// <param name="id">The id entered by the user</param>
     public void InitializeLog(string name, string mNum)
     {
+        // Only rename if the log hasn't already been renamed
+        if (initialized)
+            return;
+
         // Set the path of the log to be a unique combo of student infor and current date
-        logFilname = mNum + "_" + System.DateTime.Now.ToString("MM-dd-yyyy_HH:mm") + ".txt";
-        LogPath = LogPath + logFilname;
-        initialized = true;
+        logFileName = mNum + "_" + System.DateTime.Now.ToString("MM-dd-yyyy_HH.mm") + ".txt";
+        logFileInfo.MoveTo(Path.Combine(logPath, logFileName));
         // Add initiliazation statement to the log
-        appendToLog($"\n\nLog file for student: {name},  M{mNum}.\nCurrent Time: {System.DateTime.Now}\n");
-        // Put in all the logs that were cached prior to initialization
-        appendToLog(preInitLogs);
+        string initText = $"\n\nLog file for student: {name},  M{mNum}.\nCurrent Time: {System.DateTime.Now}\n";
+        appendToLog(initText);
+        // Mark log as initialized
+        initialized = true;
     }
 
     /// <summary>
@@ -122,12 +135,8 @@ public class LabLogger : MonoBehaviour
         string curTime = System.DateTime.Now.ToString("HH:mm");
         string relTime = $"{Time.time - startTime}";
         // CURTIME, RELTIME | ENTITY, TAG : INFO
-        string log = $"{curTime}, {relTime} | {entity.ToUpper()}, {tag.ToUpper()} : {information}";
-
-        if(initialized)
-            appendToLog(log);
-        else // Log path not yet initialized, so store line to be added later
-            preInitLogs += log + "\n";
+        string log = $"{entity.ToUpper()}, {tag.ToUpper()} | {curTime}, {relTime} : {information}\n";
+        appendToLog(log);
 
         // Print log to console if flag is set, and not final build
         if (Debug.isDebugBuild && printLogsToConsole)
@@ -141,24 +150,13 @@ public class LabLogger : MonoBehaviour
     /// <param name="onDoneSubmitting">Function to call when log submission is done</param>
     public void SubmitLog(Action onDoneSubmitting)
     {
-        // If the user never made it to the login phase, then setup the log w/out their id
-        if(!initialized)
-        {
-            logFilname = System.DateTime.Now.ToString("MM-dd-yyyy_HH:mm") + ".txt";
-            LogPath = LogPath + logFilname;
-            appendToLog($"Log file for unknown user.\nCurrent Time: {System.DateTime.Now}\n");
-            appendToLog(preInitLogs);
-        }
-
         // Upload the files when it is a final build, or when it is a debug build with upload flag
         if(!Debug.isDebugBuild || (Debug.isDebugBuild && uploadLogs))
         {
-            StartCoroutine(Upload(onDoneSubmitting));
-            InfoLog(this.GetType().ToString(), "Submit",
+            InfoLog("LOGGER", "SUBMIT",
                 $"Application ending after {Time.time - startTime} seconds, " +
                 $"time is now {DateTime.Now.ToString("HH:mm")}");
-            Debug.Log($"Application ending after {Time.time - startTime} seconds, " +
-                $"time is now {DateTime.Now.ToString("HH:mm")}");
+            StartCoroutine(Upload(onDoneSubmitting));
         }
 
         // Delete local logs only if non-debug final build, or debug build without save local flag
@@ -177,9 +175,7 @@ public class LabLogger : MonoBehaviour
     /// <param name="line">Line to be appended to the log</param>
     private void appendToLog(string line)
     {
-        StreamWriter myfile = File.AppendText(LogPath);
-        myfile.WriteLine(line);
-        myfile.Close();
+        File.AppendAllText(logFileInfo.FullName, line);
     }
 
     /// <summary>
@@ -187,7 +183,7 @@ public class LabLogger : MonoBehaviour
     /// </summary>
     private void deleteLocalLogs()
     {
-        File.Delete(LogPath);
+        logFileInfo.Delete();
     }
     #endregion Private Methods
 
@@ -197,7 +193,7 @@ public class LabLogger : MonoBehaviour
     /// </summary>
     private IEnumerator Connect()
     {
-        print($"Connect called at { DateTime.Now.ToString()} ");
+        InfoLog("LOGGER", "CONNECT", $"Connect called at " + DateTime.Now.ToString());
       
         //create a webForm object
         WWWForm form = new WWWForm();
@@ -225,7 +221,7 @@ public class LabLogger : MonoBehaviour
     private IEnumerator Upload(Action doneUploading)
     {
         //Convert the file into binary
-        byte[] txtByte = File.ReadAllBytes(LogPath); //("Assets/Resources/test2.txt");
+        byte[] txtByte = File.ReadAllBytes(logFileInfo.FullName);
         //create a webForm object
         WWWForm form = new WWWForm();
 
@@ -233,19 +229,22 @@ public class LabLogger : MonoBehaviour
         //this function to upload files and images to a web server application.
         //Note that the data is read from the contents of byte array and not from a file.
         //The fileName parameter is for telling the server what filename to use when saving the uploaded file.
-        form.AddBinaryData("file", txtByte, logFilname, "txt");
+        form.AddBinaryData("file", txtByte, logFileName, "txt");
 
         //// submit file to server
         UnityWebRequest www = UnityWebRequest.Post("http://cyberlearnar.cs.mtsu.edu/upload_file", form);
         yield return www.SendWebRequest();
         // Check result
-        if (www.result != UnityWebRequest.Result.Success)
+        if(Debug.isDebugBuild)
         {
-            Debug.Log(www.error);
-        }
-        else
-        {
-            Debug.Log("Form upload complete!");
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                Debug.Log("Form Upload Completed!");
+            }
         }
 
         // If we are supposed to delete the local logs, do so now
@@ -257,17 +256,4 @@ public class LabLogger : MonoBehaviour
         doneUploading.Invoke();
     }
     #endregion Coroutines
-
-    #region Event Handlers
-    /// <summary>
-    /// Called when the application closes to submit logs. uploading doesn't work, 
-    /// but it does force pre-init logs to be added to a file.
-    /// </summary>
-    private void OnApplicationQuit()
-    {
-        // Only try to submit logs if it hasn't been done already
-        if (!submitted)
-            SubmitLog(() => {}) ; // Empty lambda b/c the app closes, no callback needed
-    }
-    #endregion Event Handlers
 }

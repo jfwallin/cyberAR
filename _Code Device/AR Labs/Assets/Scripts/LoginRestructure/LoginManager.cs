@@ -292,8 +292,10 @@ public class LoginManager : MonoBehaviour
             labInfoList.Add(tmpLabInfo);
         }
         // Log the successful parse
-        logger.InfoLog(entity, "Trace", $"Finished parsing labs:\n{labInfoList}");
-
+        string labNames = "";
+        foreach(LabInfo lab in labInfoList)
+            labNames += lab.name + ", ";
+        logger.InfoLog(entity, "Trace", $"Finished parsing labs:\n" + labNames);
         labsReady = true;
     }
 
