@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -74,19 +75,19 @@ public class DownloadUtility : MonoBehaviour
     /// Called by any other code to download a file
     /// </summary>
     /// <param name="url">endpoint to download file from</param>
-    /// <param name="path">filepath to store at, relative to resources folder</param>
+    /// <param name="path">full filepath to store at</param>
     /// <param name="callback">function to call once the download is complete</param>
     public void DownloadFile(string url, string path, System.Action<int> callback)
     {
         if(!useLocalFiles)
         {
             logger.InfoLog(entity, "Trace", $"Starting download of file ${path} from url: {url}");
-            StartCoroutine(downloadRoutine(url, "Assets/Resources/" + path, callback));
+            StartCoroutine(downloadRoutine(url, path, callback));
         }
         else // Use local files
         {
             // Check if the local file is there
-            if(Resources.Load(path.Substring(0, path.LastIndexOf("."))) != null)
+            if(File.Exists(path))
                 callback.Invoke(0); // Local file exists
             else // There is no local file
                 callback.Invoke(-1); // Local file does not exist

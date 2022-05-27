@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
@@ -53,11 +54,13 @@ public class LoginManager : MonoBehaviour
     [SerializeField]
     private float labParseTimeout = 15f;//Used to limit waiting for lab parsing to be done
 
-    const string LABS_URL = "http://cyberlearnar.cs.mtsu.edu/labs";
     //const string LABS_URL = "http://cyberlearnar.cs.mtsu.edu/show_uploaded_labs";
-    const string LABS_FILEPATH = "login/allLabs";
+    const string LABS_URL = "http://cyberlearnar.cs.mtsu.edu/labs";
     const string LAB_JSON_BASE_URL = "http://cyberlearnar.cs.mtsu.edu/show_uploaded/lab_";
-    const string LAB_JSON_BASE_FILEPATH = "lab_jsons/";
+    private string loginDirectory = "";   // Initialized with Persistent data path in awake
+    private string labJsonDirectory = ""; //   \/           \/            \/          \/
+    private FileInfo allLabsFileInfo;     // Used to interact with downloaded files
+    private FileInfo labJsonFileInfo;     //   \/           \/            \/
 
     private enum state
     {
@@ -106,6 +109,13 @@ public class LoginManager : MonoBehaviour
         logger = LabLogger.Instance;
         labInfoList = new List<LabInfo>();
         uiLabList = new List<GameObject>();
+
+        // Initialize Download Directories
+        loginDirectory = Path.Combine(Application.persistentDataPath, "login");
+        allLabsFileInfo = new FileInfo(Path.Combine(loginDirectory, "All_Labs.json"));
+        allLabsFileInfo.Directory.Create();
+        // We don't know the name of the lab downloaded yet, so wait to initialize FileInfo
+        labJsonDirectory = Path.Combine(Application.persistentDataPath, "lab_jsons");
     }
 
     private void Start()
@@ -117,7 +127,7 @@ public class LoginManager : MonoBehaviour
 
         // Download list of available labs
         // This could eventually be changed to pull only the labs related to the pin->cnum->CRNs, eventually not in Start
-        DownloadUtility.Instance.DownloadFile(LABS_URL, LABS_FILEPATH + ".json", LabsDownloaded);
+        DownloadUtility.Instance.DownloadFile(LABS_URL, allLabsFileInfo.FullName, LabsDownloaded);
 
         // Start Intro Animation (MT Logo) and wait for it to complete
         StartCoroutine(SetupIntroAnimation());
@@ -235,8 +245,11 @@ public class LoginManager : MonoBehaviour
 
                     // Download the JSON file describing the lab.
                     string labJsonUrl = LAB_JSON_BASE_URL + selectedLab.id + ".json";
-                    string labJsonFilepath = LAB_JSON_BASE_FILEPATH + selectedLab.id + ".json";
-                    DownloadUtility.Instance.DownloadFile(labJsonUrl, labJsonFilepath, LabJSONDownloaded);
+                    labJsonFileInfo = new FileInfo(Path.Combine(labJsonDirectory, selectedLab.id + ".json"));
+                    // Make sure the directory exists
+                    labJsonFileInfo.Directory.Create();
+                    // Start the Download
+                    DownloadUtility.Instance.DownloadFile(labJsonUrl, labJsonFileInfo.FullName, LabJSONDownloaded);
 
                     // WAIT FOR THE LABJSON TO DOWNLOAD
                     // ONCE IT FINISHES, THE MEDIA CATALOGUE IS GIVEN THE INFO IT NEEDS TO INITIALIZE
@@ -266,7 +279,7 @@ public class LoginManager : MonoBehaviour
     {
         logger.InfoLog(entity, "Trace", "Parsing labs");
         // Trim leading and trailing [{}]
-        string labsString = Resources.Load<TextAsset>(LABS_FILEPATH).text.Trim(new char[] { '[', '{', '}', ']' });
+        string labsString = allLabsFileInfo.OpenText().ReadToEnd().Trim(new char[] { '[', '{', '}', ']' });
         // Split by },{ which only occurs between labs in the list
         string[] labElements = labsString.Split(new string[] { "},{" }, System.StringSplitOptions.None);
 
@@ -571,8 +584,7 @@ public class LoginManager : MonoBehaviour
         if(rc == 0)
         {
             // Initialize lab data object
-            string jsonPath = LAB_JSON_BASE_FILEPATH + selectedLab.id;
-            string jsonString = Resources.Load<TextAsset>(jsonPath).text;
+            string jsonString = labJsonFileInfo.OpenText().ReadToEnd();
             LabDataObject labData = new LabDataObject();
             JsonUtility.FromJsonOverwrite(jsonString, labData);
 

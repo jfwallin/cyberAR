@@ -224,10 +224,10 @@ public class MediaCatalogue : MonoBehaviour
             }
             else
             {
-                int index = url.LastIndexOf("/");
-                index += 1;
-                string filename = url.Substring(index);
-                string videoPath = Application.dataPath + "/" + filename;    //Path to downloaded video file
+                string filename = url.Substring(url.LastIndexOf("/")+1);
+                //Path to downloaded video file
+                string videoPath = Path.Combine(Application.persistentDataPath,
+                                                Path.Combine("videos", filename));
                 File.WriteAllBytes(videoPath, uwr.downloadHandler.data); //Save video file to disk
                 labVideos.Add(url, videoPath); //Add path to video to the videos dictionary
             }

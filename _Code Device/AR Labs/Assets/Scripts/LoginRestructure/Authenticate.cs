@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 
 /// <summary>
@@ -21,7 +22,8 @@ public class Authenticate : MonoBehaviour
     #region Variables
     // Used to download and store pin csv file
     const string PIN_ID_CSV_URL = "http://cyberlearnar.cs.mtsu.edu/show_uploaded/pin_ids.csv";
-    const string PIN_ID_CSV_FILEPATH = "login/pin_ids";
+    //const string PIN_ID_CSV_FILEPATH = "login/pin_ids";
+    private FileInfo pinCsvFileInfo;    // Used to interact w/ downloaded file
 
     // Runtime holds the pins and ids, used to authenticate user logins
     private List<pin_id_record> ids = null;
@@ -38,13 +40,23 @@ public class Authenticate : MonoBehaviour
     #endregion Variables
 
     #region Unity Methods
-    void Start()
+    private void Awake()
     {
+        // Variable Initializations
         entity = this.GetType().ToString();
         logger = LabLogger.Instance;
+
+        // filepath: pdp/login/pin_ids.csv
+        pinCsvFileInfo = new FileInfo(Path.Combine(Application.persistentDataPath,
+                                                   Path.Combine("login","pin_ids.csv")));
+        pinCsvFileInfo.Directory.Create();
+    }
+    void Start()
+    {
         logger.InfoLog(entity, "Trace", "Starting pin-csv download");
+
         // Get the most recent csv file downloaded
-        DownloadUtility.Instance.DownloadFile(PIN_ID_CSV_URL, PIN_ID_CSV_FILEPATH + ".csv", downloadComplete);
+        DownloadUtility.Instance.DownloadFile(PIN_ID_CSV_URL, pinCsvFileInfo.FullName, downloadComplete);
     }
     #endregion Unity Methods
 
@@ -59,7 +71,7 @@ public class Authenticate : MonoBehaviour
         ids = new List<pin_id_record>();
 
         // Open csv as raw text, split into row entries
-        string[] records = Resources.Load<TextAsset>(PIN_ID_CSV_FILEPATH).text.Split('\n');
+        string[] records = pinCsvFileInfo.OpenText().ReadToEnd().Split('\n');
 
         // Loop over the entries, skip the header row
         for (int i = 1; i < records.Length; i++)

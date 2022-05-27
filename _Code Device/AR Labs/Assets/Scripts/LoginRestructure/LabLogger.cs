@@ -41,7 +41,7 @@ public class LabLogger : MonoBehaviour
     }
 
     private FileInfo logFileInfo;
-    private string logPath = "";                 // Log filepath, will be updated with student's name and id
+    private string logDirectory = "";                 // Log filepath, will be updated with student's name and id
     private string logFileName = "";             // Name of the logfile, will have student's name and id
     private bool initialized = false;            // Tracks whether the log file has been renamed w/ the M number
     private bool submitted = false;              // Whether the log for the current session has been submitted
@@ -78,9 +78,9 @@ public class LabLogger : MonoBehaviour
         }
 
         // Initialize file w/ persistentData path
-        logPath = Path.Combine(Application.persistentDataPath, "Logs");
+        logDirectory = Path.Combine(Application.persistentDataPath, "Logs");
         logFileName = System.DateTime.Now.ToString("MM-dd-yyyy_HH.mm")+".txt";
-        logFileInfo = new FileInfo(Path.Combine(logPath, logFileName));
+        logFileInfo = new FileInfo(Path.Combine(logDirectory, logFileName));
         logFileInfo.Directory.Create();
     }
 
@@ -93,9 +93,10 @@ public class LabLogger : MonoBehaviour
 
         // Log where the files should be saving to
         InfoLog("LOGGER", "TRACE", $"Saving files to persistent data path: {logFileInfo.FullName}");
+        InfoLog("Logger", "debug", $"location of Application.dataPath: {Application.dataPath}");
 
         // Delete any extra logs
-        DirectoryInfo logDirectoryInfo = new DirectoryInfo(logPath);
+        DirectoryInfo logDirectoryInfo = new DirectoryInfo(logDirectory);
         FileInfo[] files = logDirectoryInfo.GetFiles();
         // Sort array, most recent logs first
         Array.Sort(files, (f1, f2) => f2.CreationTime.CompareTo(f1.CreationTime));
@@ -142,7 +143,7 @@ public class LabLogger : MonoBehaviour
 
         // Set the path of the log to be a unique combo of student infor and current date
         logFileName = mNum + "_" + System.DateTime.Now.ToString("MM-dd-yyyy_HH.mm") + ".txt";
-        logFileInfo.MoveTo(Path.Combine(logPath, logFileName));
+        logFileInfo.MoveTo(Path.Combine(logDirectory, logFileName));
         // Add initiliazation statement to the log
         string initText = $"\n\nLog file for student: {name},  M{mNum}.\nCurrent Time: {System.DateTime.Now}\n";
         appendToLog(initText);
