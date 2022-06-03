@@ -42,7 +42,6 @@ public class LoginManager : MonoBehaviour
     public GameObject labTemp;         //Used to clone and make new lab selection buttons
     public GameObject labStarter;      //The object holding
 
-
     // Private Variables
     [Header("Other Necessary Components")]
     [SerializeField]
@@ -54,9 +53,29 @@ public class LoginManager : MonoBehaviour
     [SerializeField]
     private float labParseTimeout = 15f;//Used to limit waiting for lab parsing to be done
 
-    //const string LABS_URL = "http://cyberlearnar.cs.mtsu.edu/show_uploaded_labs";
+    enum EndpointType { debug, production };
+    [Header("Local Development")]
+    [SerializeField]
+    private bool skipIntroAnimation = false;
+    [SerializeField]
+    private bool skipLogin = false;
+    [SerializeField]
+    private TextAsset debugLabJSON;
+
+    [Header("Debug Server Interactions")]
+    [Tooltip("Sets whether to download files from production endpoints, or from show_uploaded/filename")]
+    [SerializeField]
+    private EndpointType endpointsType;
+    [Tooltip("What to append to show_uploaded/ to download a list of labs")]
+    [SerializeField]
+    private string debugLabListFilename = "";
+    [Tooltip("What to append to show_uploaded/ to download the lab JSON")]
+    [SerializeField]
+    private string debugLabJSONFilename = "";
+
     const string LABS_URL = "http://cyberlearnar.cs.mtsu.edu/labs";
     const string LAB_JSON_BASE_URL = "http://cyberlearnar.cs.mtsu.edu/show_uploaded/lab_";
+    const string DEBUG_URL = "http://cyberlearnar.cs.mtsu.edu/show_uploaded/";
     private string loginDirectory = "";   // Initialized with Persistent data path in awake
     private string labJsonDirectory = ""; //   \/           \/            \/          \/
     private FileInfo allLabsFileInfo;     // Used to interact with downloaded files
@@ -70,6 +89,7 @@ public class LoginManager : MonoBehaviour
         authentication,
         lab_selection,
         lab_initiation,
+        lab_running,
         end_of_states
     }
     // Used to track current internal state of login scene
@@ -125,12 +145,29 @@ public class LoginManager : MonoBehaviour
         // Make sure controller isn't visible
         HidePointer();
 
-        // Download list of available labs
-        // This could eventually be changed to pull only the labs related to the pin->cnum->CRNs, eventually not in Start
-        DownloadUtility.Instance.DownloadFile(LABS_URL, allLabsFileInfo.FullName, LabsDownloaded);
+        // Download the lab list if this is a production build, or a debug build that is not skipping login
+        if (!Debug.isDebugBuild || (Debug.isDebugBuild && !skipLogin))
+        { 
+            // Download list of available labs
+            // This could eventually be changed to pull only the labs related to the pin->cnum->CRNs,
+            // eventually not in Start
+            if (endpointsType == EndpointType.production)
+                DownloadUtility.Instance.DownloadFile(LABS_URL, allLabsFileInfo.FullName, LabsDownloaded);
+            else if (endpointsType == EndpointType.debug)
+                DownloadUtility.Instance.DownloadFile(
+                    Path.Combine(DEBUG_URL, debugLabListFilename),
+                    allLabsFileInfo.FullName,
+                    LabsDownloaded);
+        }
 
-        // Start Intro Animation (MT Logo) and wait for it to complete
-        StartCoroutine(SetupIntroAnimation());
+        // Run the Intro animation if this is a production build, or a debug build that is not skipping the anim
+        if (!Debug.isDebugBuild || (Debug.isDebugBuild && !skipIntroAnimation))
+        {
+            // Start Intro Animation (MT Logo) and wait for it to complete
+            StartCoroutine(SetupIntroAnimation());
+        }
+        else // Skip to Placement
+            ChangeStateTo(state.placement);
     }
     #endregion Unity Methods
 
@@ -243,19 +280,33 @@ public class LoginManager : MonoBehaviour
                     labStarter.transform.eulerAngles = new Vector3(0, Camera.main.transform.eulerAngles.y, 0);
                     labStarter.transform.position = Camera.main.transform.position - Vector3.up * 0.2f;
 
-                    // Download the JSON file describing the lab.
-                    string labJsonUrl = LAB_JSON_BASE_URL + selectedLab.id + ".json";
-                    labJsonFileInfo = new FileInfo(Path.Combine(labJsonDirectory, selectedLab.id + ".json"));
-                    // Make sure the directory exists
-                    labJsonFileInfo.Directory.Create();
-                    // Start the Download
-                    DownloadUtility.Instance.DownloadFile(labJsonUrl, labJsonFileInfo.FullName, LabJSONDownloaded);
+                    // If skipLogin is true, just use the provided JSON for quick lab debugging
+                    if (Debug.isDebugBuild && skipLogin)
+                        LabStart(debugLabJSON.text);
+                    else
+                    { 
+                        // Download the JSON file describing the lab.
+                        string labJsonUrl = LAB_JSON_BASE_URL + selectedLab.id + ".json";
+                        labJsonFileInfo = new FileInfo(Path.Combine(labJsonDirectory, selectedLab.id + ".json"));
+                        // Make sure the directory exists
+                        labJsonFileInfo.Directory.Create();
+                        // Start the Download
+                        if (endpointsType == EndpointType.production)
+                            DownloadUtility.Instance.DownloadFile(labJsonUrl, labJsonFileInfo.FullName, LabJSONDownloaded);
+                        else if (endpointsType == EndpointType.debug)
+                            DownloadUtility.Instance.DownloadFile(
+                                Path.Combine(DEBUG_URL, debugLabJSONFilename),
+                                labJsonFileInfo.FullName,
+                                LabJSONDownloaded);
+                    }
 
                     // WAIT FOR THE LABJSON TO DOWNLOAD
                     // ONCE IT FINISHES, THE MEDIA CATALOGUE IS GIVEN THE INFO IT NEEDS TO INITIALIZE
                     // THEN WAIT FOR THE MEDIA CATALOGUE TO FINISH INITIALIZING BEFORE STARTING THE LAB
                     break;
                 }
+            default:
+                break;
         }
     }
 
@@ -269,7 +320,11 @@ public class LoginManager : MonoBehaviour
         controller.GetComponent<ControlInput>().OnTriggerDown.RemoveListener(Place);
         // Set placed flag, and move to the next state
         placed = true;
-        ChangeStateTo(state.pin_entry);
+        // Either move to login, or skip to lab start for quick local debugging
+        if (Debug.isDebugBuild && skipLogin)
+            ChangeStateTo(state.lab_initiation);
+        else
+            ChangeStateTo(state.pin_entry);
     }
 
     /// <summary>
@@ -353,6 +408,25 @@ public class LoginManager : MonoBehaviour
         exitUI.name = "ExitButton";
         exitUI.SetActive(true);
         uiLabList.Add(exitUI);
+    }
+
+    /// <summary>
+    /// Starts initializing the MediaCatalogue for the lab
+    /// </summary>
+    /// <param name="labJSON">string json describing the lab</param>
+    private void LabStart(string labJSON)
+    {
+        // Initialize lab data object
+        LabDataObject labData = new LabDataObject();
+        JsonUtility.FromJsonOverwrite(labJSON, labData);
+
+        // Find and start initializing the media catalogue
+        MediaCatalogue mc = labStarter.GetComponent<MediaCatalogue>();
+        mc.enabled = true;
+        mc.addToCatalogue(labData);
+
+        // Start waiting for the media catalogue to finish setting up
+        StartCoroutine(AwaitMediaCatalogueInitialization(mc, labData));
     }
 
     private void InitializeLabManager(LabDataObject labData)
@@ -510,6 +584,7 @@ public class LoginManager : MonoBehaviour
     {
         yield return new WaitUntil(() => mc.done);
         InitializeLabManager(labData);
+        ChangeStateTo(state.lab_running);
     }
     #endregion Coroutines
 
@@ -582,24 +657,9 @@ public class LoginManager : MonoBehaviour
     private void LabJSONDownloaded(int rc)
     {
         if(rc == 0)
-        {
-            // Initialize lab data object
-            string jsonString = labJsonFileInfo.OpenText().ReadToEnd();
-            LabDataObject labData = new LabDataObject();
-            JsonUtility.FromJsonOverwrite(jsonString, labData);
-
-            // Find and start initializing the media catalogue
-            MediaCatalogue mc = labStarter.GetComponent<MediaCatalogue>();
-            mc.enabled = true;
-            mc.addToCatalogue(labData);
-
-            // Start waiting for the media catalogue to finish setting up
-            StartCoroutine(AwaitMediaCatalogueInitialization(mc, labData));
-        }
+            LabStart(labJsonFileInfo.OpenText().ReadToEnd());
         else // Download failed
-        {
             Debug.LogError("LabJSON failed to download. stopping");
-        }
     }
 
     /// <summary>

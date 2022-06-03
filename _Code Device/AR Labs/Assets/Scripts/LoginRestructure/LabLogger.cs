@@ -41,19 +41,15 @@ public class LabLogger : MonoBehaviour
     }
 
     private FileInfo logFileInfo;
-    private string logDirectory = "";                 // Log filepath, will be updated with student's name and id
+    private string logDirectory = "";            // Log filepath, will be updated with student's name and id
     private string logFileName = "";             // Name of the logfile, will have student's name and id
     private bool initialized = false;            // Tracks whether the log file has been renamed w/ the M number
     private bool submitted = false;              // Whether the log for the current session has been submitted
     private float startTime = 0.0f;              // Time the logger started
     private float connectionTimer = 0.0f;        // Tracks how long since last connection attempt, as to prevent a timout
     
-    [SerializeField]
-    private bool uploadLogs = true;
-#if UNITY_EDITOR
-    [SerializeField]
-    private bool uploadAndStop = false;
-#endif
+    //[SerializeField]
+    public bool uploadLogs = true;
     [SerializeField]
     private bool printLogsToConsole = true;
     [SerializeField]
@@ -88,7 +84,7 @@ public class LabLogger : MonoBehaviour
     {
         startTime = Time.time;
         // Connect to the website immediately, if we are going to upload
-        if(uploadLogs)
+        if(!Debug.isDebugBuild || (Debug.isDebugBuild && uploadLogs))
             StartCoroutine(Connect());
 
         // Log where the files should be saving to
@@ -109,7 +105,7 @@ public class LabLogger : MonoBehaviour
 
     public void Update()
     {
-        if(uploadLogs)
+        if(!Debug.isDebugBuild || (Debug.isDebugBuild && uploadLogs))
         {
             // Reconnect to the arlabs website after a timeout occurs
             connectionTimer += Time.deltaTime;
@@ -117,15 +113,6 @@ public class LabLogger : MonoBehaviour
             {
                 StartCoroutine(Connect());
             }
-
-#if UNITY_EDITOR
-            // Only in the editor, check if we should upload the logs and stop
-            if(uploadAndStop)
-            {
-                uploadAndStop = false;
-                StartCoroutine(Upload(finishedUploadEditor));
-            }
-#endif
         }
     }
     #endregion Unity Methods
@@ -194,7 +181,17 @@ public class LabLogger : MonoBehaviour
         // Mark log as submitted
         submitted = true;
     }
-    #endregion Public Methods
+
+    /// <summary>
+    /// Called when button is pressed in the editor, uploads logs before quitting
+    /// </summary>
+#if UNITY_EDITOR
+    public void UploadAndStop()
+    {
+        StartCoroutine(Upload(finishedUploadEditor));
+    }
+#endif
+#endregion Public Methods
 
     #region Private Methods
     /// <summary>
@@ -284,16 +281,16 @@ public class LabLogger : MonoBehaviour
         doneUploading.Invoke();
     }
     #endregion Coroutines
-#if UNITY_EDITOR
 
     #region Event Handlers
     /// <summary>
     /// Stops the editor after the log is uploaded
     /// </summary>
+#if UNITY_EDITOR
     private void finishedUploadEditor()
     {
         UnityEditor.EditorApplication.isPlaying = false;
     }
-    #endregion Event Handlers
 #endif
-}
+    #endregion Event Handlers
+} 

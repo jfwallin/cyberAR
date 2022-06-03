@@ -3992,6 +3992,12 @@ MonoBehaviour:
   auth: {fileID: 1137755974}
   authTimeout: 15
   labParseTimeout: 15
+  skipIntroAnimation: 0
+  skipLogin: 0
+  debugLabJSON: {fileID: 0}
+  endpointsType: 1
+  debugLabListFilename: 
+  debugLabJSONFilename: 
 --- !u!114 &1137755971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4043,8 +4049,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ff0147bc58c694898ffa9b52b67021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uploadLogs: 1
-  uploadAndStop: 0
+  uploadLogs: 0
   printLogsToConsole: 1
   saveLogsLocally: 1
   numberOfLogsStored: 3
@@ -5826,7 +5831,7 @@ PrefabInstance:
     - target: {fileID: 5619764785477124592, guid: 4b83d5952ef78964a987c932f7375418,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 155
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5619764785477124592, guid: 4b83d5952ef78964a987c932f7375418,
         type: 3}
