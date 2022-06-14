@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cf5b356e131a944286fec26d7c40b4e, type: 3}
   m_Name: MagicLeapManifestSettings
   m_EditorClassIdentifier: 
-  m_MinimumAPILevel: 10
+  m_MinimumAPILevel: 8
   m_AllowBackgroundMusicService: 0
   m_PrivilegeGroups:
   - m_Name: Autogranted

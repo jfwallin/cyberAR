@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.IO;
@@ -15,17 +16,63 @@ public class MediaCatalogue : MonoBehaviour
     {
         get
         {
+            //Check if there is already an instance assigned
             if(_instance == null)
             {
-                _instance = new MediaCatalogue();
+                //Try to find an existing catalogue, assign it if found
+                MediaCatalogue search = FindObjectOfType<MediaCatalogue>();
+                if(search != null)
+                {
+                    _instance = search;
+                }
+                else //Could find no existing catalogue
+                {
+                    //Try to find the LabManager, add it to that same GameObject
+                    GameObject go = GameObject.FindObjectOfType<LabManager>()?.gameObject;
+                    if(go != null)
+                    {
+                        _instance = go.AddComponent<MediaCatalogue>();
+                    }
+                    else //Could not find a lab manager, try the "_DYNAMIC" object instead
+                    {
+                        //Try to find the [_DYNAMIC] GameObject, attach
+                        GameObject dyn = GameObject.Find("[_DYNAMIC]");
+                        if(dyn != null)
+                        {
+                            _instance = go.AddComponent<MediaCatalogue>();
+                        }
+                        else //Can't Find _DYNAMIC either
+                        {
+                            Debug.LogError("Could not find object to attach MediaCatalogue to. returning null");
+                        }
+                    }
+                }
             }
 
             return _instance;
         }
     }
 
+<<<<<<< HEAD
     // Dictionaries for media assets
     // Key for dictionaries are the urls that the raw media file is retrieved from
+=======
+    public void Awake()
+    {
+        //Check if there is already another instance, destroy self if that is the case
+        if((_instance != null && _instance != this))
+        {
+            Destroy(this);
+        }
+        else //Only instance
+        {
+            _instance = this;
+        }
+    }
+
+    //Dictionaries for media assets
+    //Key for dictionaries are the urls that the raw media file is retrieved from
+>>>>>>> Login-Restructure
     public Dictionary<string, Texture2D> labTextures = new Dictionary<string, Texture2D>();
     public Dictionary<string, AudioClip> labAudio = new Dictionary<string, AudioClip>();
     public Dictionary<string, string> labVideos = new Dictionary<string, string>();
@@ -49,7 +96,14 @@ public class MediaCatalogue : MonoBehaviour
             
         }
         else
-            Debug.Log("Texture asset not found.");
+        {
+            string avail = "";
+            foreach(string s in labTextures.Keys)
+            {
+                avail += $", {s}";
+            }
+            Debug.Log($"Texture asset not found. Used key was: { textureKey}, Available Texture keys:\n{avail},\nSize of dictionary: {labTextures.Count}");
+        }
         return retrievedTexture;
     }
 
@@ -144,7 +198,10 @@ public class MediaCatalogue : MonoBehaviour
                 UnityEngine.Debug.Log(url);
             }
             else
+            {
+                print($"Added texture to catalogue, key: {url}");
                 labTextures.Add(url, DownloadHandlerTexture.GetContent(uwr));
+            }
         }
     }
 
@@ -177,12 +234,21 @@ public class MediaCatalogue : MonoBehaviour
             }
             else
             {
+<<<<<<< HEAD
                 int index = url.LastIndexOf("/");
                 index += 1;
                 string filename = url.Substring(index);
                 string videoPath = Application.dataPath + "/" + filename;    // Path to downloaded video file
                 File.WriteAllBytes(videoPath, uwr.downloadHandler.data); // Save video file to disk
                 labVideos.Add(url, videoPath); // Add path to video to the videos dictionary
+=======
+                string filename = url.Substring(url.LastIndexOf("/")+1);
+                //Path to downloaded video file
+                string videoPath = Path.Combine(Application.persistentDataPath,
+                                                Path.Combine("videos", filename));
+                File.WriteAllBytes(videoPath, uwr.downloadHandler.data); //Save video file to disk
+                labVideos.Add(url, videoPath); //Add path to video to the videos dictionary
+>>>>>>> Login-Restructure
             }
         }
     }
