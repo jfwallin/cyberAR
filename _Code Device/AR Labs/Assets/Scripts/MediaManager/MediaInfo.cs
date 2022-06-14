@@ -4,7 +4,7 @@ using System;
 using UnityEngine;
 
 [System.Serializable]
-public enum MediaType { Audio, Video, Image }
+public enum MediaType { Audio, Video, Image, Zip }
 
 [System.Serializable]
 public class MediaInfo

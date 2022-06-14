@@ -53,10 +53,6 @@ public class MediaCatalogue : MonoBehaviour
         }
     }
 
-<<<<<<< HEAD
-    // Dictionaries for media assets
-    // Key for dictionaries are the urls that the raw media file is retrieved from
-=======
     public void Awake()
     {
         //Check if there is already another instance, destroy self if that is the case
@@ -72,7 +68,6 @@ public class MediaCatalogue : MonoBehaviour
 
     //Dictionaries for media assets
     //Key for dictionaries are the urls that the raw media file is retrieved from
->>>>>>> Login-Restructure
     public Dictionary<string, Texture2D> labTextures = new Dictionary<string, Texture2D>();
     public Dictionary<string, AudioClip> labAudio = new Dictionary<string, AudioClip>();
     public Dictionary<string, string> labVideos = new Dictionary<string, string>();
@@ -234,21 +229,12 @@ public class MediaCatalogue : MonoBehaviour
             }
             else
             {
-<<<<<<< HEAD
-                int index = url.LastIndexOf("/");
-                index += 1;
-                string filename = url.Substring(index);
-                string videoPath = Application.dataPath + "/" + filename;    // Path to downloaded video file
-                File.WriteAllBytes(videoPath, uwr.downloadHandler.data); // Save video file to disk
-                labVideos.Add(url, videoPath); // Add path to video to the videos dictionary
-=======
                 string filename = url.Substring(url.LastIndexOf("/")+1);
                 //Path to downloaded video file
                 string videoPath = Path.Combine(Application.persistentDataPath,
                                                 Path.Combine("videos", filename));
                 File.WriteAllBytes(videoPath, uwr.downloadHandler.data); //Save video file to disk
                 labVideos.Add(url, videoPath); //Add path to video to the videos dictionary
->>>>>>> Login-Restructure
             }
         }
     }
@@ -293,7 +279,7 @@ public class MediaCatalogue : MonoBehaviour
                             break;
                         case "wav":
                             WavHandler wav = new WavHandler(unzippedData);
-                            AudioClip unzippedAudioClip = AudioClip.Create(entry.Name, wav.GetAudioSamplesLength(), wav.GetNumChannels(), wav.GetFrequency(), false);
+                            AudioClip unzippedAudioClip = AudioClip.Create(entry.Name, wav.GetScaledAudioSamplesLength(), wav.GetNumChannels(), wav.GetFrequency(), false);
                             unzippedAudioClip.SetData(wav.GetScaledAudioSamples(), 0);
                             labAudio.Add(entry.Name, unzippedAudioClip);
                             break;
