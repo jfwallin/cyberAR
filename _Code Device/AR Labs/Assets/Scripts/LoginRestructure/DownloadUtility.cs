@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using System.IO.Compression;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -76,7 +77,8 @@ public class DownloadUtility : MonoBehaviour
     /// </summary>
     /// <param name="url">endpoint to download file from</param>
     /// <param name="path">full filepath to store at</param>
-    /// <param name="callback">function to call once the download is complete</param>
+    /// <param name="callback">function to call once the download is complete,
+    ///                        called with -1: error occured, 0: success</param>
     public void DownloadFile(string url, string path, System.Action<int> callback)
     {
         if(!useLocalFiles)
@@ -93,7 +95,77 @@ public class DownloadUtility : MonoBehaviour
                 callback.Invoke(-1); // Local file does not exist
         }
     }
+
+    /// <summary>
+    /// Called to download and then extract a zip file
+    /// </summary>
+    /// <param name="url">endpoint to download from</param>
+    /// <param name="path">full filepath to store at</param>
+    /// <param name="callback">function to call once the download is complete,
+    ///                        called with -1: error occured, 0: success</param>
+    public void DownloadAndExtractZip(string url, string path, System.Action<int> callback)
+    {
+        if(!useLocalFiles)
+        {
+            logger.InfoLog(entity, "Trace", $"Starting download of file ${path} from url: {url}");
+            StartCoroutine(downloadRoutine(url, path, (int x) => ExtractZip(x, path, callback)));
+        }
+        else // Use local files
+        {
+            // Check if the local file is there
+            if (File.Exists(path))
+                ExtractZip(0, path, callback); // Local file exists, continue to extraction
+            else // There is no local file
+                callback.Invoke(-1); // Local file does not exist, invoke callback with error rc
+        }
+    }
     #endregion Public Methods
+
+    #region Private Methods
+    /// <summary>
+    /// Extracts a zip file at 'path' into the same folder
+    /// </summary>
+    /// <param name="path">The location of the zip file to extract</param>
+    /// <param name="callback">Function to call once extraction is complete,
+    ///                        called with -1: error occured, 0: success</param>
+    private void ExtractZip(int rc, string path, System.Action<int> callback)
+    {
+        // Check the return code to see if the file successfully downloaded
+        if (rc == -1)
+        {
+            callback.Invoke(-1);
+            return;
+        }
+        // Check the file path
+        if (!File.Exists(path) || !path.EndsWith(".zip"))
+        {
+            logger.InfoLog(entity, "Error",
+                $"Failed to extract zip file '{path}', file either does not exist or does not end with '.zip'");
+            callback.Invoke(-1);
+            return;
+        }
+        logger.InfoLog(entity, "Trace", $"Starting to extract file: {path}");
+
+        // Open the zip file and iterate through each item in the compressed archive
+        FileStream zipstream = new FileStream(path, FileMode.Open);
+        ZipArchive archive = new ZipArchive(zipstream);
+        foreach(ZipArchiveEntry entry in archive.Entries)
+        {
+            FileInfo entryInfo = new FileInfo(Path.Combine(
+                Application.persistentDataPath,
+                entry.FullName));
+            // Make sure that the directory to put it in exists
+            entryInfo.Directory.Create();
+            // If this entry is not a file but just a folder, it's name will be blank, and don't extract it
+            if(entry.Name.Length != 0)
+                entry.ExtractToFile(entryInfo.FullName);
+        }
+        // Clean up
+        archive.Dispose();
+        // Notify caller that extraction is complete
+        callback.Invoke(0);
+    }
+    #endregion
 
     #region Coroutines
     private IEnumerator downloadRoutine(string url, string path, System.Action<int> callback)

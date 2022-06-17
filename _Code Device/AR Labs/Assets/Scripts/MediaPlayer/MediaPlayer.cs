@@ -100,12 +100,12 @@ public class MediaPlayer : MonoBehaviour
     /// </summary>
     /// <param name="item">size 2 array, first item is the file name, second item is an integer corresponding to an ENUM filetype</param>
     /// <param name="CallBack">Function to call once the media finishes playing</param>
-    public void PlayMedia (MediaInfo item, System.Action CallBack)
+    public void PlayMedia (MediaInfo mediaInfo, System.Action CallBack)
     {
         //Store callback reference for later
         localCallBack = CallBack;
         //Display the media, different depending on filetype
-        switch (item.resource_type)
+        switch (mediaInfo.resource_type)
         {
             case MediaType.Audio:
                 //Don't play new audio if something else is already playing
@@ -119,7 +119,7 @@ public class MediaPlayer : MonoBehaviour
                     audioSource.enabled = true;
 
                     //Get and set audio clip
-                    audioSource.clip = media.GetLabAudioClip(item.resource_url);
+                    audioSource.clip = media.GetAudioClip(mediaInfo.resource_name);
                     audioSource.Play();
 
                     //Callback invocation condition is checked in the update loop
@@ -139,7 +139,7 @@ public class MediaPlayer : MonoBehaviour
                     videoPlayer.enabled = true;
 
                     //Get and set video clip
-                    videoPlayer.url = media.GetLabVideoURL(item.resource_url);
+                    videoPlayer.url = media.GetVideoURI(mediaInfo.resource_name);
                     videoPlayer.Play();
 
                     //Subscribe handler function to respond to when the end of the video is reached.
@@ -157,7 +157,7 @@ public class MediaPlayer : MonoBehaviour
                 imageDisplay.enabled = true;
 
                 //Get the texture, construct the sprite.
-                Texture2D tex = media.GetLabTexture(item.resource_url);
+                Texture2D tex = media.GetTexture(mediaInfo.resource_name);
                 imageDisplay.sprite = Sprite.Create(tex, new Rect(0f, 0f, tex.width, tex.height), new Vector2(0.5f, 0.5f), 100);
 
                 //Immediately invoke callback

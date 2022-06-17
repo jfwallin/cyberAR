@@ -132,8 +132,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8517580}
-  - component: {fileID: 8517579}
-  - component: {fileID: 8517578}
   - component: {fileID: 8517577}
   m_Layer: 0
   m_Name: HolderOfScripts
@@ -151,37 +149,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8517576}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca8b368231f78df43ad0565960d3fb5b, type: 3}
+  m_Script: {fileID: 11500000, guid: ac7e6df8db3c7a04ba23e2cc97d91442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pin: 333920
-  start: 0
-  auth: {fileID: 8517578}
---- !u!114 &8517578
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8517576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 48d78858904604646aa0d10e96d4820c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &8517579
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8517576}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ba01f4581baf38746b484662ac4b35bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  useLocalFiles: 0
+  zipFilename: TestZip.zip
 --- !u!4 &8517580
 Transform:
   m_ObjectHideFlags: 0

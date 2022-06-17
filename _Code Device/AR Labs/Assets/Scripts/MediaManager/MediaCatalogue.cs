@@ -3,13 +3,13 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
-using System.IO;
 using System.IO.Compression;
 
 //csc.rsp file required for System.IO.Compression.dll file (found in assets folder)
 
 public class MediaCatalogue : MonoBehaviour
 {
+    #region Variables
     // Singleton access
     private static MediaCatalogue _instance;
     public static MediaCatalogue Instance
@@ -53,9 +53,32 @@ public class MediaCatalogue : MonoBehaviour
         }
     }
 
-    public void Awake()
+    // Flag indicating when the media catalogue is ready to be used
+    [HideInInspector]
+    public bool doneLoadingAssets = false;
+    private bool initializeCalled = false;
+    private int numAudios;
+    private int numTextures;
+    private int numVideos;
+
+    // Dictionaries for media assets
+    public Dictionary<string, Texture2D> labTextures = new Dictionary<string, Texture2D>();
+    public Dictionary<string, AudioClip> labAudio = new Dictionary<string, AudioClip>();
+    public Dictionary<string, string> labVideos = new Dictionary<string, string>();
+
+    // Used to convert audio file extensions into AudioType instances
+    private Dictionary<string, AudioType> AudioTypeMap = new Dictionary<string, AudioType>()
     {
-        //Check if there is already another instance, destroy self if that is the case
+        { "wav", AudioType.WAV },
+        { "ogg", AudioType.OGGVORBIS },
+        { "mp3", AudioType.MPEG }
+    };
+    #endregion Variables
+
+    #region Unity Methods
+    private void Awake()
+    {
+        // Check if there is already another instance, destroy self if that is the case
         if((_instance != null && _instance != this))
         {
             Destroy(this);
@@ -64,16 +87,207 @@ public class MediaCatalogue : MonoBehaviour
         {
             _instance = this;
         }
+
+        // Set flag to uninitialized
+        doneLoadingAssets = false;
     }
 
-    //Dictionaries for media assets
-    //Key for dictionaries are the urls that the raw media file is retrieved from
-    public Dictionary<string, Texture2D> labTextures = new Dictionary<string, Texture2D>();
-    public Dictionary<string, AudioClip> labAudio = new Dictionary<string, AudioClip>();
-    public Dictionary<string, string> labVideos = new Dictionary<string, string>();
-    [HideInInspector]
-    public bool done = false;
+    private void Update()
+    {
+        // If Initialization is started, and loading was not yet done, check if it is now
+        if(initializeCalled && !doneLoadingAssets)
+        {
+            if (labTextures.Count == numTextures &&
+                labAudio.Count == numAudios &&
+                labVideos.Count == numVideos)
+                doneLoadingAssets = true;
+        }
+    }
+    #endregion Unity Methods
 
+    #region Public Methods
+    /// <summary>
+    /// Loads all resources needed by the lab from the disk
+    /// </summary>
+    /// <param name="labResourcesFileInfo">FileInfo describing the directory holding the lab resources</param>
+    public void InitializeCatalogue(DirectoryInfo labResourcesFolderInfo)
+    {
+        // Check if the catalogue has already been initialized.
+        // If it has, then clear it out before re-initializing
+        if(initializeCalled)
+        {
+            labAudio.Clear();
+            labTextures.Clear();
+            labVideos.Clear();
+        }
+        else // Set flag, so Update can start checking that all the files have been downloaded
+            initializeCalled = true;
+
+        // Loop through the subdirectories
+        foreach(DirectoryInfo folder in labResourcesFolderInfo.GetDirectories())
+        {
+            // Record the number of files to load, or skip the folder if it is not named like an asset folder
+            if (folder.Name == "Audio")
+                numAudios = folder.GetDirectories().Length;
+            else if (folder.Name == "Texture")
+                numTextures = folder.GetDirectories().Length;
+            else if (folder.Name == "Video")
+                numVideos = folder.GetDirectories().Length;
+            else
+                continue;
+
+            // Loop through the files in the subdirectories
+            foreach(FileInfo file in folder.GetFiles())
+            {
+                // Only Load files from folders describing asset types
+                if (folder.Name == "Audio")
+                    StartCoroutine(LoadAudio(file));
+                else if (folder.Name == "Texture")
+                    StartCoroutine(LoadTexture(file));
+                else if (folder.Name == "Video")
+                    LoadVideo(file); // Not a coroutine b/c it doesn't use web request
+            }
+        }
+    }
+
+    /// <summary>
+    /// Retrieve a texture from the catalogue using the filename of the texture without file extensions,
+    /// If it is not found, null is returned
+    /// </summary>
+    /// <param name="textureName">Filename of the texture, without file extension</param>
+    /// <returns></returns>
+    public Texture2D GetTexture(string textureName)
+    {
+        if (labTextures.ContainsKey(textureName))
+            return labTextures[textureName];
+        else // Texture not found in Catalogue
+        {
+            LabLogger.Instance.InfoLog(
+                this.GetType().ToString(),
+                "Error",
+                $"Could not find texture in catalogue: {textureName}, returning null");
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Retrieve an AudioClip from the catalogue using the filename of the audio without file extensions,
+    /// If it is not found, null is returned
+    /// </summary>
+    /// <param name="audioName">Filename of the audio, without file extension</param>
+    /// <returns></returns>
+    public AudioClip GetAudioClip(string audioName)
+    {
+        if (labAudio.ContainsKey(audioName))
+            return labAudio[audioName];
+        else // Audio not found in Catalogue
+        {
+            LabLogger.Instance.InfoLog(
+                this.GetType().ToString(),
+                "Error",
+                $"Could not find audio in catalogue: {audioName}, returning null");
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Retrieves the URI of a video on disk from the catalogue using the name of the video without file extensions,
+    /// If it is not found, an empty string is returned
+    /// </summary>
+    /// <param name="videoName">Filename of the video, without file extensions</param>
+    /// <returns></returns>
+    public string GetVideoURI(string videoName)
+    {
+        if (labVideos.ContainsKey(videoName))
+            return labVideos[videoName];
+        else // Video not found in Catalogue
+        {
+            LabLogger.Instance.InfoLog(
+                this.GetType().ToString(),
+                "Error",
+                $"Could not find video in catalogue: {videoName}, returning empty string");
+            return "";
+        }
+    }
+    #endregion Public Methods
+
+    #region Private Methods
+    /// <summary>
+    /// Loads a Texture asset from disk into the catalogue
+    /// </summary>
+    /// <param name="textureFileInfo">FileInfo describing a texture file on disk</param>
+    private IEnumerator LoadTexture(FileInfo textureFileInfo)
+    {
+        // Construct URI for the file, automatically adds file:// to the path
+        System.Uri textureURI = new System.Uri(textureFileInfo.FullName);
+        
+        // Create the webrequest to load the data
+        using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(textureURI))
+        {
+            // Send request
+            yield return uwr.SendWebRequest();
+
+            // Once it returns, check if it was successful
+            if (uwr.result == UnityWebRequest.Result.ConnectionError ||
+                uwr.result == UnityWebRequest.Result.ProtocolError)
+                LabLogger.Instance.InfoLog(
+                    this.GetType().ToString(),
+                    "Error",
+                    $"Error loading texture asset: {uwr.error}");
+            else // If successful, add the texture to the catalogue
+                labTextures.Add(
+                    textureFileInfo.Name.Substring(0, textureFileInfo.Name.LastIndexOf(".")),
+                    DownloadHandlerTexture.GetContent(uwr));
+        }
+    }
+
+    /// <summary>
+    /// Loads an Audio asset from disk into the catalogue
+    /// </summary>
+    /// <param name="audioFileInfo">FileInfo describing an audio file on disk</param>
+    private IEnumerator LoadAudio(FileInfo audioFileInfo)
+    {
+        // Convert the file extension to an AudioType instance
+        AudioType type = AudioTypeMap[audioFileInfo.Name.Substring(audioFileInfo.Name.LastIndexOf(".") + 1)];
+
+        // Construct URI for the file, automatically adds file:// to the path
+        System.Uri audioURI = new System.Uri(audioFileInfo.FullName);
+
+        // Create the webrequest to load the data
+        using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip(audioURI, type))
+        {
+            // Send request
+            yield return uwr.SendWebRequest();
+
+            // Once it returns, check if it was successful
+            if (uwr.result == UnityWebRequest.Result.ConnectionError ||
+                uwr.result == UnityWebRequest.Result.ProtocolError)
+                LabLogger.Instance.InfoLog(
+                    this.GetType().ToString(),
+                    "Error",
+                    $"Error loading audio asset: {uwr.error}");
+            else
+                labAudio.Add(
+                    audioFileInfo.Name.Substring(0, audioFileInfo.Name.LastIndexOf(".")),
+                    DownloadHandlerAudioClip.GetContent(uwr));
+        }
+    }
+
+    /// <summary>
+    /// Adds a video from disk into the catalogue by tracking its full file location
+    /// </summary>
+    /// <param name="videoFileInfo">FileInfo describing a video file on disk</param>
+    private void LoadVideo(FileInfo videoFileInfo)
+    {
+        // Simply add the file location to the dictionary, since it can be streamed from the folder
+        labVideos.Add(
+            videoFileInfo.Name.Substring(0, videoFileInfo.Name.LastIndexOf(".")),
+            videoFileInfo.FullName);
+    }
+    #endregion Private Methods
+
+    #region Old Catalogue
+    /*
     public void addToCatalogue(LabDataObject data)
     {
         StartCoroutine(DownloadLabMedia(data.Assets));
@@ -339,8 +553,8 @@ public class MediaCatalogue : MonoBehaviour
                     break;
             }
         }
-        done = true;
+        doneLoadingAssets = true;
     }
-
-
+    */
+    #endregion Old Catalogue
 }
