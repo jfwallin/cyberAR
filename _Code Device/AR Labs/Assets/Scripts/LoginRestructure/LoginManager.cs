@@ -53,6 +53,17 @@ public class LoginManager : MonoBehaviour
     [SerializeField]
     private float labParseTimeout = 15f;//Used to limit waiting for lab parsing to be done
 
+    [Header("Debug Server Interactions")]
+    [Tooltip("Sets whether to download files from production endpoints, or from show_uploaded/filename")]
+    [SerializeField]
+    private EndpointType endpointsType;
+    [Tooltip("What to append to show_uploaded/ to download a list of labs")]
+    [SerializeField]
+    private string debugLabListFilename = "";
+    [Tooltip("What to append to show_uploaded/ to download the zipped lab resources:")]
+    [SerializeField]
+    private string debugLabZipFilename = "";
+
     enum EndpointType { debug, production };
     [Header("Local Development")]
     [Tooltip("Whether to skip the initial animation when starting a lab")]
@@ -61,20 +72,9 @@ public class LoginManager : MonoBehaviour
     [Tooltip("Toggle whether to skip login and lab download, and instead use local files specified by debugLabResources")]
     [SerializeField]
     private bool skipLoginAndDownload = false;
-    [Tooltip("Location to pull media and lab JSON from for local testing, absolute path")]
+    [Tooltip("Extracted folder to pull media and lab JSON from for local testing, absolute path")]
     [SerializeField]
     private string debugLabResources = "";
-
-    [Header("Debug Server Interactions")]
-    [Tooltip("Sets whether to download files from production endpoints, or from show_uploaded/filename")]
-    [SerializeField]
-    private EndpointType endpointsType;
-    [Tooltip("What to append to show_uploaded/ to download a list of labs")]
-    [SerializeField]
-    private string debugLabListFilename = "";
-    [Tooltip("What to append to show_uploaded/ to download the lab JSON")]
-    [SerializeField]
-    private string debugLabZipFilename = "";
 
     //Base URLs to download from
     const string LABS_URL = "http://cyberlearnar.cs.mtsu.edu/labs";
@@ -142,16 +142,16 @@ public class LoginManager : MonoBehaviour
         allLabsFileInfo.Directory.Create();
         // We don't know the name of the lab downloaded yet, so wait to initialize FileInfo
         labZipDirectory = Path.Combine(Application.persistentDataPath, "lab_resources");
+    }
 
+    private void Start()
+    {
         // If we are skipping login/download, check that debug resources folder exists
         if (skipLoginAndDownload == true && (debugLabResources == "" || !Directory.Exists(debugLabResources)))
             logger.InfoLog(entity,
                 "Error",
                 $"Skipping login, but path to local lab resources not set correctly: {debugLabResources}");
-    }
 
-    private void Start()
-    {
         logger.InfoLog(entity, "Trace", "Login Scene Starting....");
 
         // Make sure controller isn't visible
@@ -451,7 +451,7 @@ public class LoginManager : MonoBehaviour
         JsonUtility.FromJsonOverwrite(labJsonInfo.OpenText().ReadToEnd(), labData);
 
         // Find and start initializing the media catalogue
-        MediaCatalogue mc = labStarter.GetComponent<MediaCatalogue>();
+        MediaCatalogue mc = GetComponent<MediaCatalogue>();
         mc.enabled = true;
         mc.InitializeCatalogue(labResourcesFolderInfo);
 
@@ -617,7 +617,7 @@ public class LoginManager : MonoBehaviour
 
     private IEnumerator AwaitMediaCatalogueInitialization(MediaCatalogue mc, LabDataObject labData)
     {
-        yield return new WaitUntil(() => mc.doneLoadingAssets);
+        yield return new WaitUntil(() => mc.DoneLoadingAssets);
         InitializeLabManager(labData);
         ChangeStateTo(state.lab_running);
     }

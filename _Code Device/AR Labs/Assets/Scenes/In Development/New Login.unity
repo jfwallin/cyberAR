@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2591,7 +2591,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 636720216}
-  - component: {fileID: 636720215}
   - component: {fileID: 636720214}
   m_Layer: 0
   m_Name: ' [CURRENT_LAB]'
@@ -2614,19 +2613,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   modules: []
   instructionPrefab: {fileID: 0}
---- !u!114 &636720215
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 636720211}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2e85c62ae9faf3941b877704af84a516, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  done: 0
 --- !u!4 &636720216
 Transform:
   m_ObjectHideFlags: 0
@@ -3956,6 +3942,7 @@ GameObject:
   - component: {fileID: 1137755970}
   - component: {fileID: 1137755974}
   - component: {fileID: 1137755971}
+  - component: {fileID: 1137755972}
   - component: {fileID: 1137755975}
   m_Layer: 0
   m_Name: '[LOGIC]'
@@ -3992,12 +3979,12 @@ MonoBehaviour:
   auth: {fileID: 1137755974}
   authTimeout: 15
   labParseTimeout: 15
-  skipIntroAnimation: 0
-  skipLogin: 0
-  debugLabJSON: {fileID: 0}
-  endpointsType: 1
+  endpointsType: 0
   debugLabListFilename: 
-  debugLabJSONFilename: 
+  debugLabZipFilename: 
+  skipIntroAnimation: 1
+  skipLoginAndDownload: 1
+  debugLabResources: C:\Users\irs2e\AppData\LocalLow\Walker Library\AR Labs\DebugZip\TestLab
 --- !u!114 &1137755971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4011,6 +3998,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   useLocalFiles: 0
+--- !u!114 &1137755972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137755969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e85c62ae9faf3941b877704af84a516, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1137755973
 Transform:
   m_ObjectHideFlags: 0
@@ -4049,10 +4048,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 28ff0147bc58c694898ffa9b52b67021, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uploadLogs: 0
+  uploadLogs: 1
   printLogsToConsole: 1
   saveLogsLocally: 1
-  numberOfLogsStored: 3
+  numberOfLogsStored: 5
 --- !u!1 &1171612584
 GameObject:
   m_ObjectHideFlags: 0

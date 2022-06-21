@@ -4,6 +4,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 using System.IO.Compression;
+using System.Linq;
 
 //csc.rsp file required for System.IO.Compression.dll file (found in assets folder)
 
@@ -53,18 +54,21 @@ public class MediaCatalogue : MonoBehaviour
         }
     }
 
-    // Flag indicating when the media catalogue is ready to be used
-    [HideInInspector]
-    public bool doneLoadingAssets = false;
-    private bool initializeCalled = false;
-    private int numAudios;
-    private int numTextures;
-    private int numVideos;
-
+    // Public Variables
     // Dictionaries for media assets
     public Dictionary<string, Texture2D> labTextures = new Dictionary<string, Texture2D>();
     public Dictionary<string, AudioClip> labAudio = new Dictionary<string, AudioClip>();
     public Dictionary<string, string> labVideos = new Dictionary<string, string>();
+    
+    // Public flag to indicate the catalogue is ready to be used
+    public bool DoneLoadingAssets { get => _doneLoadingAssets; }
+
+    // Private variables
+    private bool _doneLoadingAssets = false; // Flag indicating when the media catalogue is ready to be used, retreived by public property
+    private bool initializeCalled = false;   // Flag indicating that catalaogue initialization has started, but isn't necessarily done yet
+    private int numResources;                // Number of resources that need to be loaded, used to check if loading is done
+    // List of folder names that are looped through to load assets, name determines how asset is loaded
+    List<string> ResourceFolderNames = new List<string> { "Audios", "Textures", "Videos" };
 
     // Used to convert audio file extensions into AudioType instances
     private Dictionary<string, AudioType> AudioTypeMap = new Dictionary<string, AudioType>()
@@ -89,18 +93,16 @@ public class MediaCatalogue : MonoBehaviour
         }
 
         // Set flag to uninitialized
-        doneLoadingAssets = false;
+        _doneLoadingAssets = false;
     }
 
     private void Update()
     {
         // If Initialization is started, and loading was not yet done, check if it is now
-        if(initializeCalled && !doneLoadingAssets)
+        if(initializeCalled && !_doneLoadingAssets)
         {
-            if (labTextures.Count == numTextures &&
-                labAudio.Count == numAudios &&
-                labVideos.Count == numVideos)
-                doneLoadingAssets = true;
+            if (labTextures.Count + labAudio.Count + labVideos.Count == numResources)
+                _doneLoadingAssets = true;
         }
     }
     #endregion Unity Methods
@@ -112,6 +114,7 @@ public class MediaCatalogue : MonoBehaviour
     /// <param name="labResourcesFileInfo">FileInfo describing the directory holding the lab resources</param>
     public void InitializeCatalogue(DirectoryInfo labResourcesFolderInfo)
     {
+        Debug.Log($"Started catalogue, folder: {labResourcesFolderInfo.FullName}, exists: {labResourcesFolderInfo.Exists}, subfolders: {new List<DirectoryInfo>(labResourcesFolderInfo.GetDirectories()).Aggregate("", (acc, x) => acc + x.Name)}");
         // Check if the catalogue has already been initialized.
         // If it has, then clear it out before re-initializing
         if(initializeCalled)
@@ -119,33 +122,42 @@ public class MediaCatalogue : MonoBehaviour
             labAudio.Clear();
             labTextures.Clear();
             labVideos.Clear();
+            numResources = 0;
         }
         else // Set flag, so Update can start checking that all the files have been downloaded
             initializeCalled = true;
 
-        // Loop through the subdirectories
+        // Count the number of files that need to need to be loaded
         foreach(DirectoryInfo folder in labResourcesFolderInfo.GetDirectories())
         {
             // Record the number of files to load, or skip the folder if it is not named like an asset folder
-            if (folder.Name == "Audio")
-                numAudios = folder.GetDirectories().Length;
-            else if (folder.Name == "Texture")
-                numTextures = folder.GetDirectories().Length;
-            else if (folder.Name == "Video")
-                numVideos = folder.GetDirectories().Length;
-            else
-                continue;
+            if (ResourceFolderNames.Contains(folder.Name))
+                numResources += folder.GetFiles().Length;
+        }
 
-            // Loop through the files in the subdirectories
-            foreach(FileInfo file in folder.GetFiles())
+        // Log start of loading
+        LabLogger.Instance.InfoLog(
+            this.GetType().ToString(),
+            "Trace",
+            $"Started Initializing Media Catlogue, {numResources} resources to load");
+
+        // Loop through the subdirectories and load files
+        foreach(DirectoryInfo folder in labResourcesFolderInfo.GetDirectories())
+        {
+            // Only load the files if it is an asset folder name
+            if (ResourceFolderNames.Contains(folder.Name))
             {
-                // Only Load files from folders describing asset types
-                if (folder.Name == "Audio")
-                    StartCoroutine(LoadAudio(file));
-                else if (folder.Name == "Texture")
-                    StartCoroutine(LoadTexture(file));
-                else if (folder.Name == "Video")
-                    LoadVideo(file); // Not a coroutine b/c it doesn't use web request
+                // Loop through the files in the subdirectories
+                foreach(FileInfo file in folder.GetFiles())
+                {
+                    // Only Load files from folders describing asset types
+                    if (folder.Name == "Audio")
+                        StartCoroutine(LoadAudio(file));
+                    else if (folder.Name == "Texture")
+                        StartCoroutine(LoadTexture(file));
+                    else if (folder.Name == "Video")
+                        LoadVideo(file); // Not a coroutine b/c it doesn't use web request
+                }
             }
         }
     }
@@ -266,7 +278,7 @@ public class MediaCatalogue : MonoBehaviour
                     this.GetType().ToString(),
                     "Error",
                     $"Error loading audio asset: {uwr.error}");
-            else
+            else // If successful, add to the catalogue
                 labAudio.Add(
                     audioFileInfo.Name.Substring(0, audioFileInfo.Name.LastIndexOf(".")),
                     DownloadHandlerAudioClip.GetContent(uwr));

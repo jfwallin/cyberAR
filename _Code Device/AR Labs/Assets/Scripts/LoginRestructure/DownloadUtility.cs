@@ -125,6 +125,7 @@ public class DownloadUtility : MonoBehaviour
     /// <summary>
     /// Extracts a zip file at 'path' into the same folder
     /// </summary>
+    /// <param name="rc">The return code from the download step</param>
     /// <param name="path">The location of the zip file to extract</param>
     /// <param name="callback">Function to call once extraction is complete,
     ///                        called with -1: error occured, 0: success</param>
@@ -151,14 +152,16 @@ public class DownloadUtility : MonoBehaviour
         ZipArchive archive = new ZipArchive(zipstream);
         foreach(ZipArchiveEntry entry in archive.Entries)
         {
-            FileInfo entryInfo = new FileInfo(Path.Combine(
-                Application.persistentDataPath,
-                entry.FullName));
-            // Make sure that the directory to put it in exists
-            entryInfo.Directory.Create();
             // If this entry is not a file but just a folder, it's name will be blank, and don't extract it
             if(entry.Name.Length != 0)
+            {
+                FileInfo entryInfo = new FileInfo(Path.Combine(
+                    Application.persistentDataPath,
+                    entry.FullName));
+                // Make sure that the directory to put it in exists
+                entryInfo.Directory.Create();
                 entry.ExtractToFile(entryInfo.FullName);
+            }
         }
         // Clean up
         archive.Dispose();

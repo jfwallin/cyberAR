@@ -375,7 +375,7 @@ public class loginLogic : MonoBehaviour
     {
         labStarter.GetComponent<MediaCatalogue>().enabled = true;
         //labStarter.GetComponent<MediaCatalogue>().addToCatalogue(LabData);
-        yield return new WaitUntil(() => labStarter.GetComponent<MediaCatalogue>().doneLoadingAssets);
+        yield return new WaitUntil(() => labStarter.GetComponent<MediaCatalogue>().DoneLoadingAssets);
         StartCoroutine(Start(LabData));
     }
 
