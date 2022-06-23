@@ -95,16 +95,6 @@ public class MediaCatalogue : MonoBehaviour
         // Set flag to uninitialized
         _doneLoadingAssets = false;
     }
-
-    private void Update()
-    {
-        // If Initialization is started, and loading was not yet done, check if it is now
-        if(initializeCalled && !_doneLoadingAssets)
-        {
-            if (labTextures.Count + labAudio.Count + labVideos.Count == numResources)
-                _doneLoadingAssets = true;
-        }
-    }
     #endregion Unity Methods
 
     #region Public Methods
@@ -141,25 +131,8 @@ public class MediaCatalogue : MonoBehaviour
             "Trace",
             $"Started Initializing Media Catlogue, {numResources} resources to load");
 
-        // Loop through the subdirectories and load files
-        foreach(DirectoryInfo folder in labResourcesFolderInfo.GetDirectories())
-        {
-            // Only load the files if it is an asset folder name
-            if (ResourceFolderNames.Contains(folder.Name))
-            {
-                // Loop through the files in the subdirectories
-                foreach(FileInfo file in folder.GetFiles())
-                {
-                    // Only Load files from folders describing asset types
-                    if (folder.Name == "Audio")
-                        StartCoroutine(LoadAudio(file));
-                    else if (folder.Name == "Texture")
-                        StartCoroutine(LoadTexture(file));
-                    else if (folder.Name == "Video")
-                        LoadVideo(file); // Not a coroutine b/c it doesn't use web request
-                }
-            }
-        }
+        // Start Asrynchronously loading the media
+        StartCoroutine(LoadMedia(labResourcesFolderInfo));
     }
 
     /// <summary>
@@ -225,6 +198,40 @@ public class MediaCatalogue : MonoBehaviour
 
     #region Private Methods
     /// <summary>
+    /// Asynchronously loads the files, I think
+    /// </summary>
+    /// <param name="labResourcesFolderInfo">Directory Info pointing to the media for the lab</param>
+    /// <returns></returns>
+    private IEnumerator LoadMedia(DirectoryInfo labResourcesFolderInfo)
+    {
+        // Loop through the subdirectories and load files
+        foreach(DirectoryInfo folder in labResourcesFolderInfo.GetDirectories())
+        {
+            // Only load the files if it is an asset folder name
+            if (ResourceFolderNames.Contains(folder.Name))
+            {
+                // Loop through the files in the subdirectories
+                foreach(FileInfo file in folder.GetFiles())
+                {
+                    LabLogger.Instance.InfoLog(
+                        this.GetType().ToString(),
+                        "Trace",
+                        $"Started loading file: {file.Name}");
+                    // Only Load files from folders describing asset types
+                    if (folder.Name == "Audios")
+                        yield return LoadAudio(file);
+                    else if (folder.Name == "Textures")
+                        yield return LoadTexture(file);
+                    else if (folder.Name == "Videos")
+                        LoadVideo(file); // Not a coroutine b/c it doesn't use web request
+                }
+            }
+        }
+        // Indicate that the resources are done loading
+        _doneLoadingAssets = true;
+    }
+
+    /// <summary>
     /// Loads a Texture asset from disk into the catalogue
     /// </summary>
     /// <param name="textureFileInfo">FileInfo describing a texture file on disk</param>
@@ -240,8 +247,7 @@ public class MediaCatalogue : MonoBehaviour
             yield return uwr.SendWebRequest();
 
             // Once it returns, check if it was successful
-            if (uwr.result == UnityWebRequest.Result.ConnectionError ||
-                uwr.result == UnityWebRequest.Result.ProtocolError)
+            if (uwr.result != UnityWebRequest.Result.Success)
                 LabLogger.Instance.InfoLog(
                     this.GetType().ToString(),
                     "Error",
@@ -272,8 +278,7 @@ public class MediaCatalogue : MonoBehaviour
             yield return uwr.SendWebRequest();
 
             // Once it returns, check if it was successful
-            if (uwr.result == UnityWebRequest.Result.ConnectionError ||
-                uwr.result == UnityWebRequest.Result.ProtocolError)
+            if (uwr.result != UnityWebRequest.Result.Success)
                 LabLogger.Instance.InfoLog(
                     this.GetType().ToString(),
                     "Error",

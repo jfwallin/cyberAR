@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -509,7 +509,7 @@ GameObject:
   - component: {fileID: 84574273}
   - component: {fileID: 84574272}
   m_Layer: 0
-  m_Name: Venus
+  m_Name: _Venus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1102,7 +1102,7 @@ GameObject:
   - component: {fileID: 157487785}
   - component: {fileID: 157487784}
   m_Layer: 0
-  m_Name: Saturn
+  m_Name: _Saturn
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1370,7 +1370,7 @@ GameObject:
   - component: {fileID: 274991979}
   - component: {fileID: 274991978}
   m_Layer: 0
-  m_Name: Jupiter
+  m_Name: _Jupiter
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2082,7 +2082,7 @@ GameObject:
   - component: {fileID: 499549199}
   - component: {fileID: 499549198}
   m_Layer: 0
-  m_Name: Mars
+  m_Name: _Mars
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2271,7 +2271,7 @@ GameObject:
   - component: {fileID: 525389332}
   - component: {fileID: 525389331}
   m_Layer: 0
-  m_Name: Sun
+  m_Name: _Sun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2593,7 +2593,7 @@ GameObject:
   - component: {fileID: 636720216}
   - component: {fileID: 636720214}
   m_Layer: 0
-  m_Name: ' [CURRENT_LAB]'
+  m_Name: '[CURRENT_LAB]'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2717,7 +2717,7 @@ GameObject:
   - component: {fileID: 720018097}
   - component: {fileID: 720018096}
   m_Layer: 0
-  m_Name: Earth
+  m_Name: _Earth
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3425,7 +3425,7 @@ GameObject:
   - component: {fileID: 930223124}
   - component: {fileID: 930223123}
   m_Layer: 0
-  m_Name: Neptune
+  m_Name: _Neptune
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3984,7 +3984,7 @@ MonoBehaviour:
   debugLabZipFilename: 
   skipIntroAnimation: 1
   skipLoginAndDownload: 1
-  debugLabResources: C:\Users\irs2e\AppData\LocalLow\Walker Library\AR Labs\DebugZip\TestLab
+  debugLabResources: C:\Users\ishum\AppData\LocalLow\Walker Library\AR Labs\DebugZip\TestLab
 --- !u!114 &1137755971
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5167,7 +5167,7 @@ GameObject:
   - component: {fileID: 1316306412}
   - component: {fileID: 1316306411}
   m_Layer: 0
-  m_Name: Mercury
+  m_Name: _Mercury
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5278,7 +5278,7 @@ GameObject:
   - component: {fileID: 1346240106}
   - component: {fileID: 1346240105}
   m_Layer: 0
-  m_Name: Uranus
+  m_Name: _Uranus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5830,7 +5830,7 @@ PrefabInstance:
     - target: {fileID: 5619764785477124592, guid: 4b83d5952ef78964a987c932f7375418,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 155
       objectReference: {fileID: 0}
     - target: {fileID: 5619764785477124592, guid: 4b83d5952ef78964a987c932f7375418,
         type: 3}

@@ -49,7 +49,7 @@ public class textProClass
 public class ObjectInfo
 {
     public string name = "";
-    public string parentName = "[_DYNAMIC]";
+    public string parentName = "[CURRENT_LAB]";
     public string type = "";
     public string tag = "";
 
