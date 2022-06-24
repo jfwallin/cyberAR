@@ -3980,10 +3980,10 @@ MonoBehaviour:
   authTimeout: 15
   labParseTimeout: 15
   endpointsType: 0
-  debugLabListFilename: 
-  debugLabZipFilename: 
+  debugLabListFilename: testlabs001.json
+  debugLabZipFilename: TestLab.zip
   skipIntroAnimation: 1
-  skipLoginAndDownload: 1
+  skipLoginAndDownload: 0
   debugLabResources: C:\Users\ishum\AppData\LocalLow\Walker Library\AR Labs\DebugZip\TestLab
 --- !u!114 &1137755971
 MonoBehaviour:

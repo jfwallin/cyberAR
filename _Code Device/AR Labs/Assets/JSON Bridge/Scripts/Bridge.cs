@@ -78,6 +78,13 @@ public class Bridge
                 myObject.transform.SetParent(parent.transform);
             }
         }
+        MeshRenderer mesh = myObject.GetComponent<MeshRenderer>();
+        if(mesh != null)
+        LabLogger.Instance.InfoLog(
+            this.GetType().ToString(),
+            "Trace",
+            $"Mesh bounding box: {mesh.bounds}");
+
 
        /* if (obj.parentName != "")
         {
@@ -98,6 +105,10 @@ public class Bridge
             myObject.transform.localScale = obj.scale;
         if (obj.newEulerAngles)
             myObject.transform.localEulerAngles = obj.eulerAngles;
+        LabLogger.Instance.InfoLog(
+            this.GetType().ToString(),
+            "Trace",
+            $"Position: {obj.position}, Scale: {obj.scale}, EulerAngles: {obj.eulerAngles}");
 
         if (obj.componentsToAdd != null)
         {

@@ -107,6 +107,9 @@ public class DownloadUtility : MonoBehaviour
     {
         if(!useLocalFiles)
         {
+            // Check if files exist locally, remove it if it does
+            if (File.Exists(path))
+                File.Delete(path);
             logger.InfoLog(entity, "Trace", $"Starting download of file ${path} from url: {url}");
             StartCoroutine(downloadRoutine(url, path, (int x) => ExtractZip(x, path, callback)));
         }
@@ -150,16 +153,24 @@ public class DownloadUtility : MonoBehaviour
         // Open the zip file and iterate through each item in the compressed archive
         FileStream zipstream = new FileStream(path, FileMode.Open);
         ZipArchive archive = new ZipArchive(zipstream);
+        logger.InfoLog(entity, "Debug",
+            $"Number of entries to extract: {archive.Entries.Count}");
         foreach(ZipArchiveEntry entry in archive.Entries)
         {
             // If this entry is not a file but just a folder, it's name will be blank, and don't extract it
             if(entry.Name.Length != 0)
             {
+                logger.InfoLog(entity, "Debug",
+                    $"Extracting file: {entry.Name}");
                 FileInfo entryInfo = new FileInfo(Path.Combine(
                     Application.persistentDataPath,
+                    "lab_resources",
                     entry.FullName));
                 // Make sure that the directory to put it in exists
                 entryInfo.Directory.Create();
+                // If the file already exists, delete it and replace
+                if(File.Exists(entryInfo.FullName))
+                    File.Delete(entryInfo.FullName);
                 entry.ExtractToFile(entryInfo.FullName);
             }
         }

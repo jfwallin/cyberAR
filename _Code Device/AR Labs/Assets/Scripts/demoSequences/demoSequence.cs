@@ -40,6 +40,10 @@ public class demoSequence : MonoBehaviour
 
     public void newClip()
     {
+        LabLogger.Instance.InfoLog(
+            this.GetType().ToString(),
+            "Trace",
+            $"Moving to clip {theClips[currentState].clipName}");
        if (currentState < theClips.Length)
         {
             //Debug.Log("current clip " + currentState.ToString());

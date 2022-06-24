@@ -298,20 +298,24 @@ public class LoginManager : MonoBehaviour
                     else
                     { 
                         // Download the Zip file containing all lab resources
-                        labZipFileInfo = new FileInfo(Path.Combine(labZipDirectory, selectedLab.id + ".zip"));
-                        // Make sure the directory exists
-                        labZipFileInfo.Directory.Create();
-                        // Start the Download
                         if (endpointsType == EndpointType.production)
+                        {
+                            labZipFileInfo = new FileInfo(Path.Combine(labZipDirectory, selectedLab.id + ".zip"));
+                            labZipFileInfo.Directory.Create();
                             DownloadUtility.Instance.DownloadAndExtractZip(
                                 Path.Combine(LAB_ZIP_BASE_URL, selectedLab.id = ".zip"),
                                 labZipFileInfo.FullName,
                                 LabZipDownloadedAndExtracted);
+                        }
                         else if (endpointsType == EndpointType.debug)
+                        {
+                            labZipFileInfo = new FileInfo(Path.Combine(labZipDirectory, debugLabZipFilename));
+                            labZipFileInfo.Directory.Create();
                             DownloadUtility.Instance.DownloadAndExtractZip(
                                 Path.Combine(DEBUG_URL, debugLabZipFilename),
                                 labZipFileInfo.FullName,
                                 LabZipDownloadedAndExtracted);
+                        }
                     }
 
                     // WAIT FOR THE LABJSON TO DOWNLOAD
@@ -396,7 +400,8 @@ public class LoginManager : MonoBehaviour
             tmpLabUI.transform.position += .42f * (i % 2) * anchor.transform.right + new Vector3(0, -.15f * (i / 2), 0);
 
             // Add listener to button to transition to next stage
-            tmpLabUI.GetComponentInChildren<Button>().onClick.AddListener(() => LabSelected(labInfoList[i].id));
+            int i_copy = i; // This is done b/c of some anonymous function variable capturing loop variable technicalities
+            tmpLabUI.GetComponentInChildren<Button>().onClick.AddListener(() => LabSelected(labInfoList[i_copy].id));
 
             // Setup object, add to list
             tmpLabUI.transform.Find("Lab Title").GetComponent<Text>().text = labInfoList[i].name;
@@ -693,7 +698,16 @@ public class LoginManager : MonoBehaviour
     {
         // Download and extraction were a success
         if (rc == 0)
-            LabStart(new DirectoryInfo(Path.Combine(labZipDirectory, selectedLab.id)));
+        {
+            if (endpointsType == EndpointType.debug)
+                LabStart(new DirectoryInfo(Path.Combine(
+                    labZipDirectory,
+                    debugLabZipFilename.Substring(0, debugLabZipFilename.LastIndexOf(".")))));
+            else if (endpointsType == EndpointType.production)
+                LabStart(new DirectoryInfo(Path.Combine(
+                    labZipDirectory,
+                    selectedLab.id)));
+        }
         else // Download failed
             logger.InfoLog(entity, "Error", $"LabZip failed to download. Stopping Program");
     }

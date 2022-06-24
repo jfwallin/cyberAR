@@ -152,7 +152,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac7e6df8db3c7a04ba23e2cc97d91442, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zipFilename: TestZip.zip
+  zipFilename: 1.zip
 --- !u!4 &8517580
 Transform:
   m_ObjectHideFlags: 0
