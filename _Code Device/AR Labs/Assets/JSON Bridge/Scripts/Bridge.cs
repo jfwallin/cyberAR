@@ -78,12 +78,6 @@ public class Bridge
                 myObject.transform.SetParent(parent.transform);
             }
         }
-        MeshRenderer mesh = myObject.GetComponent<MeshRenderer>();
-        if(mesh != null)
-        LabLogger.Instance.InfoLog(
-            this.GetType().ToString(),
-            "Trace",
-            $"Mesh bounding box: {mesh.bounds}");
 
 
        /* if (obj.parentName != "")
@@ -160,6 +154,12 @@ public class Bridge
         }
 
         myObject.SetActive(obj.enabled); //sets the enabled/disabled state of the object
+        MeshRenderer mesh = myObject.GetComponent<MeshRenderer>();
+        if(mesh != null && mesh.bounds.extents != Vector3.zero)
+        LabLogger.Instance.InfoLog(
+            this.GetType().ToString(),
+            "Trace",
+            $"Mesh bounding box: {mesh.bounds}");
 
 
         if (obj.texture != "" )

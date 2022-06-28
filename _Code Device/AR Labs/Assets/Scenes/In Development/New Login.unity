@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4051,7 +4051,11 @@ MonoBehaviour:
   uploadLogs: 1
   printLogsToConsole: 1
   saveLogsLocally: 1
-  numberOfLogsStored: 5
+  numberOfLogsStored: 10
+  trackPositions: 1
+  controller: {fileID: 1580690876}
+  headset: {fileID: 2031694668}
+  deltaTime: 0.2
 --- !u!1 &1171612584
 GameObject:
   m_ObjectHideFlags: 0
@@ -4135,9 +4139,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: loginLogic, Assembly-CSharp
-        m_MethodName: guestLogin
+      - m_Target: {fileID: 1137755970}
+        m_TargetAssemblyTypeName: LoginManager, Assembly-CSharp
+        m_MethodName: GuestLogin
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -5830,7 +5834,7 @@ PrefabInstance:
     - target: {fileID: 5619764785477124592, guid: 4b83d5952ef78964a987c932f7375418,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 155
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5619764785477124592, guid: 4b83d5952ef78964a987c932f7375418,
         type: 3}

@@ -638,6 +638,13 @@ public class LoginManager : MonoBehaviour
         ChangeStateTo(state.authentication);
     }
 
+    public void GuestLogin()
+    {
+        logger.InfoLog(entity, "Trace", "Guest Login");
+        pinInput.text = "000000";
+        ChangeStateTo(state.authentication);
+    }
+
     /// <summary>
     /// Called by the lab manager when it determines that the lab is done
     /// </summary>

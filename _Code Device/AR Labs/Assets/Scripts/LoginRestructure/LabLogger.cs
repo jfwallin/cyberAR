@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.Assertions;
+using MagicLeapTools;
 using System.IO;
 using System;
 
@@ -40,15 +42,17 @@ public class LabLogger : MonoBehaviour
         }
     }
 
-    private FileInfo logFileInfo;
     private string logDirectory = "";            // Log filepath, will be updated with student's name and id
     private string logFileName = "";             // Name of the logfile, will have student's name and id
+    private FileInfo logFileInfo;
+    private string positionFileName = "";
+    private FileInfo positionFileInfo;
     private bool initialized = false;            // Tracks whether the log file has been renamed w/ the M number
     private bool submitted = false;              // Whether the log for the current session has been submitted
     private float startTime = 0.0f;              // Time the logger started
     private float connectionTimer = 0.0f;        // Tracks how long since last connection attempt, as to prevent a timout
     
-    //[SerializeField]
+    [Header("Configuration")]
     public bool uploadLogs = true;
     [SerializeField]
     private bool printLogsToConsole = true;
@@ -56,6 +60,17 @@ public class LabLogger : MonoBehaviour
     private bool saveLogsLocally = false;
     [SerializeField]
     private int numberOfLogsStored = 3;
+
+    [Header("Position Tracking")]
+    [SerializeField]
+    private bool trackPositions = true;
+    [SerializeField]
+    private Transform controller;
+    [SerializeField]
+    private Transform headset;
+    [SerializeField]
+    private float deltaTime = 0.2f;
+    private float prevTime = 0.0f;
     #endregion Variables
 
     #region Unity Methods
@@ -73,11 +88,22 @@ public class LabLogger : MonoBehaviour
             _instance = this;
         }
 
+        // Fail fast assertions
+        if(controller == null)
+            controller = FindObjectOfType<ControlInput>().transform;
+        Assert.IsNotNull(controller);
+        if (headset == null)
+            headset = Camera.main.transform;
+        Assert.IsNotNull(headset);
+
         // Initialize file w/ persistentData path
         logDirectory = Path.Combine(Application.persistentDataPath, "Logs");
-        logFileName = System.DateTime.Now.ToString("MM-dd-yyyy_HH.mm")+".txt";
+        logFileName = System.DateTime.Now.ToString("MM-dd-yyyy_HH-mm")+".txt";
         logFileInfo = new FileInfo(Path.Combine(logDirectory, logFileName));
         logFileInfo.Directory.Create();
+
+        positionFileName = System.DateTime.Now.ToString("MM-dd-yyyy_HH-mm")+"_TransformTracking.txt";
+        positionFileInfo = new FileInfo(Path.Combine(logDirectory, positionFileName));
     }
 
     public void Start()
@@ -114,6 +140,28 @@ public class LabLogger : MonoBehaviour
                 StartCoroutine(Connect());
             }
         }
+
+        if((Time.time - prevTime) > deltaTime)
+        {
+            using (var fileStream = new FileStream(positionFileInfo.FullName, FileMode.Append, FileAccess.Write))
+            using (var bw = new BinaryWriter(fileStream))
+            {
+                bw.Write(controller.position.x);
+                bw.Write(controller.position.x);
+                bw.Write(controller.position.y);
+                bw.Write(controller.rotation.x);
+                bw.Write(controller.rotation.y);
+                bw.Write(controller.rotation.z);
+                bw.Write(controller.rotation.w);
+                bw.Write(headset.position.x);
+                bw.Write(headset.position.x);
+                bw.Write(headset.position.y);
+                bw.Write(headset.rotation.x);
+                bw.Write(headset.rotation.y);
+                bw.Write(headset.rotation.z);
+                bw.Write(headset.rotation.w);
+            }
+        }
     }
     #endregion Unity Methods
 
@@ -129,7 +177,7 @@ public class LabLogger : MonoBehaviour
             return;
 
         // Set the path of the log to be a unique combo of student infor and current date
-        logFileName = mNum + "_" + System.DateTime.Now.ToString("MM-dd-yyyy_HH.mm") + ".txt";
+        logFileName = name + "_" + System.DateTime.Now.ToString("MM-dd-yyyy_HH.mm") + ".txt";
         logFileInfo.MoveTo(Path.Combine(logDirectory, logFileName));
         // Add initiliazation statement to the log
         string initText = $"\n\nLog file for student: {name},  M{mNum}.\nCurrent Time: {System.DateTime.Now}\n";
@@ -269,6 +317,28 @@ public class LabLogger : MonoBehaviour
             else
             {
                 Debug.Log("Form Upload Completed!");
+            }
+        }
+
+        // Optionally uplaod tracking data
+        if(trackPositions)
+        {
+            form.AddBinaryData("file", txtByte, positionFileName, "txt");
+
+            //// submit file to server
+            UnityWebRequest www2 = UnityWebRequest.Post("http://cyberlearnar.cs.mtsu.edu/upload_file", form);
+            yield return www2.SendWebRequest();
+            // Check result
+            if(Debug.isDebugBuild)
+            {
+                if (www2.result != UnityWebRequest.Result.Success)
+                {
+                    Debug.Log(www2.error);
+                }
+                else
+                {
+                    Debug.Log("Form Upload Completed!");
+                }
             }
         }
 
