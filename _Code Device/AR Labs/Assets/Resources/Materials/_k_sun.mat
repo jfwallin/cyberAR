@@ -10,7 +10,7 @@ Material:
   m_Name: _k_sun
   m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
   m_ShaderKeywords: _EMISSION _GLOSSYREFLECTIONS_OFF _SPECULARHIGHLIGHTS_OFF
-  m_LightmapFlags: 1
+  m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
   m_CustomRenderQueue: -1
@@ -74,5 +74,5 @@ Material:
     - _ZWrite: 1
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 1238.1476, g: 1238.1476, b: 29.201588, a: 1}
+    - _EmissionColor: {r: 0.6759569, g: 0.43356833, b: 0.11265949, a: 1}
   m_BuildTextureStacks: []

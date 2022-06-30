@@ -211,6 +211,8 @@ public class LoginManager : MonoBehaviour
                     placed = false;
                     // Start coroutine to move the lab anchor object
                     StartCoroutine(AlignUIWithController());
+                    // Start audio instruction playback
+                    placementProp.GetComponent<AudioSource>()?.Play();
                     // Bind the place function to the trigger
                     controller.GetComponent<ControlInput>().OnTriggerDown.AddListener(Place);
                     
@@ -336,8 +338,13 @@ public class LoginManager : MonoBehaviour
         logger.InfoLog(entity, "Trace", "Lab has been placed");
         // Unbind place function from trigger
         controller.GetComponent<ControlInput>().OnTriggerDown.RemoveListener(Place);
+        labStarter.transform.position = placementProp.transform.position;
+        labStarter.transform.rotation = placementProp.transform.rotation;
+        GameObject.Find("Directional Light").transform.SetParent(labStarter.transform);
         // Set placed flag, and move to the next state
         placed = true;
+        // Stop Audio playback
+        placementProp.GetComponent<AudioSource>()?.Stop();
         // Either move to login, or skip to lab start for quick local debugging
         if (Debug.isDebugBuild && skipLoginAndDownload)
             ChangeStateTo(state.lab_initiation);

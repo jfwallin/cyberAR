@@ -141,7 +141,7 @@ public class LabLogger : MonoBehaviour
             }
         }
 
-        if((Time.time - prevTime) > deltaTime)
+        if(trackPositions && (Time.time - prevTime) > deltaTime)
         {
             using (var fileStream = new FileStream(positionFileInfo.FullName, FileMode.Append, FileAccess.Write))
             using (var bw = new BinaryWriter(fileStream))
@@ -176,12 +176,19 @@ public class LabLogger : MonoBehaviour
         if (initialized)
             return;
 
+        string newName = name.Replace(' ', '_');
         // Set the path of the log to be a unique combo of student infor and current date
-        logFileName = name + "_" + System.DateTime.Now.ToString("MM-dd-yyyy_HH.mm") + ".txt";
+        logFileName = newName + "_" + System.DateTime.Now.ToString("MM-dd-yyyy_HH.mm") + ".txt";
         logFileInfo.MoveTo(Path.Combine(logDirectory, logFileName));
         // Add initiliazation statement to the log
-        string initText = $"\n\nLog file for student: {name},  M{mNum}.\nCurrent Time: {System.DateTime.Now}\n";
+        string initText = $"\n\nLog file for student: {newName},  M{mNum}.\nCurrent Time: {System.DateTime.Now}\n";
         appendToLog(initText);
+        // Optionally initialize position log
+        if(trackPositions)
+        {
+            positionFileName = newName + "_" + System.DateTime.Now.ToString("MM-dd-yyyy_HH.mm") + "_TransformTracking.txt";
+            positionFileInfo.MoveTo(Path.Combine(logDirectory, positionFileName));
+        }
         // Mark log as initialized
         initialized = true;
     }
@@ -323,10 +330,12 @@ public class LabLogger : MonoBehaviour
         // Optionally uplaod tracking data
         if(trackPositions)
         {
-            form.AddBinaryData("file", txtByte, positionFileName, "txt");
+            byte[] txtByte2 = File.ReadAllBytes(positionFileInfo.FullName);
+            WWWForm form2 = new WWWForm();
+            form2.AddBinaryData("file", txtByte2, positionFileName, "txt");
 
             //// submit file to server
-            UnityWebRequest www2 = UnityWebRequest.Post("http://cyberlearnar.cs.mtsu.edu/upload_file", form);
+            UnityWebRequest www2 = UnityWebRequest.Post("http://cyberlearnar.cs.mtsu.edu/upload_file", form2);
             yield return www2.SendWebRequest();
             // Check result
             if(Debug.isDebugBuild)

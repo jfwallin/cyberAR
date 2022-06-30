@@ -83,6 +83,12 @@ public class DownloadUtility : MonoBehaviour
     {
         if(!useLocalFiles)
         {
+            //if (File.Exists(path))
+            //{
+            //    logger.InfoLog(entity, "Debug", $"File {path} already exists");
+            //    callback.Invoke(0);
+            //    return;
+            //}
             logger.InfoLog(entity, "Trace", $"Starting download of file ${path} from url: {url}");
             StartCoroutine(downloadRoutine(url, path, callback));
         }
@@ -108,8 +114,11 @@ public class DownloadUtility : MonoBehaviour
         if(!useLocalFiles)
         {
             // Check if files exist locally, remove it if it does
-            if (File.Exists(path))
-                File.Delete(path);
+            /*if (File.Exists(path))
+            {
+                callback.Invoke(0);
+                return;
+            }*/
             logger.InfoLog(entity, "Trace", $"Starting download of file ${path} from url: {url}");
             StartCoroutine(downloadRoutine(url, path, (int x) => ExtractZip(x, path, callback)));
         }
@@ -187,17 +196,20 @@ public class DownloadUtility : MonoBehaviour
         // Download code taken from Nico's work
         var uwr = new UnityWebRequest(url, UnityWebRequest.kHttpVerbGET);
         uwr.downloadHandler = new DownloadHandlerFile(path);
+        logger.InfoLog(entity, "Debug", $"Inside download coroutine, URL: {url}, path: {path}");
         yield return uwr.SendWebRequest();
         if (uwr.result != UnityWebRequest.Result.Success)
         {
-            logger.InfoLog(entity, "Trace", $"Download of {path} failed with error:\n{uwr.error}");
+            logger.InfoLog(entity, "Trace", $"Download of {path} failed with error:\n{uwr.result.ToString()} | {uwr.error}");
             // Invoke callback w/-1, telling client the download failed
+            uwr.Dispose();
             callback.Invoke(-1);
         }
         else
         {
             logger.InfoLog(entity, "Trace", $"Successfully downloaded {path}");
             // Invoke callback w/0, telling client the download succeeded
+            uwr.Dispose();
             callback.Invoke(0);
         }
     }
