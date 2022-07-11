@@ -616,7 +616,8 @@ PlayerSettings:
     29: UNITY_POST_PROCESSING_STACK_V2
   additionalCompilerArguments: {}
   platformArchitecture: {}
-  scriptingBackend: {}
+  scriptingBackend:
+    Standalone: 1
   il2cppCompilerConfiguration: {}
   managedStrippingLevel: {}
   incrementalIl2cppBuild: {}
@@ -632,6 +633,8 @@ PlayerSettings:
   gcWBarrierValidation: 0
   apiCompatibilityLevelPerPlatform:
     Lumin: 3
+    Standalone: 3
+    WSA: 3
   m_RenderingPath: 1
   m_MobileRenderingPath: 1
   metroPackageName: TemplateLightweight
@@ -696,7 +699,7 @@ PlayerSettings:
     m_ModelFolderPath: 
     m_PortalFolderPath: 
   luminCert:
-    m_CertPath: C:/Users/jfwal/MagicLeap/certificates/isaac/ardev.cert
+    m_CertPath: C:/Users/irs2e/Downloads/devkey/cyberardevkey.cert
     m_SignPackage: 1
   luminIsChannelApp: 0
   luminVersion:

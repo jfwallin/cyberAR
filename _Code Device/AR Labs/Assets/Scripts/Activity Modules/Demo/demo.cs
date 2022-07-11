@@ -110,8 +110,8 @@ namespace demoRoutines
             if (moduleData.destroyObjects)
                 bridge.CleanUp(jsonString);
 
-            GameObject dynamic = GameObject.Find("[_DYNAMIC]");
-            foreach (Transform child in dynamic.transform)
+            GameObject currentLabObject = GameObject.Find("[CURRENT_LAB]");
+            foreach (Transform child in currentLabObject.transform)
             {
                 if (child.gameObject.name != "instructionCanvas"
                     && child.gameObject.name != "MainInstruction"
@@ -122,7 +122,9 @@ namespace demoRoutines
                 }
             }
 
-            GameObject.Find("MainInstructions").GetComponent<Text>().text = "";
+            GameObject mi = GameObject.Find("MainInstructions");
+            if (mi != null && mi.GetComponent<Text>() != null)
+                mi.GetComponent<Text>().text = "";
             if (callBackActive == false)
                 FindObjectOfType<LabManager>().ModuleComplete();
 

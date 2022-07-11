@@ -9,7 +9,6 @@ public enum MediaType { Audio, Video, Image, Zip }
 [System.Serializable]
 public class MediaInfo
 {
-    public int resource_id;
-    public string resource_url;
+    public string resource_name;
     public MediaType resource_type;
 }

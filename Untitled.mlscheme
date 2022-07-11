@@ -1,0 +1,286 @@
+{
+  "Manifests": [
+    {
+      "ConfigurationSettings": {
+        "Action-Accelerate": [
+          {
+            "Input": "KeyCode-Shift"
+          }
+        ],
+        "Action-FocusCamera": [
+          {
+            "Input": "KeyCode-F"
+          }
+        ],
+        "Action-GrappleCamera": [
+          {
+            "Input": "KeyCode-G"
+          }
+        ],
+        "Action-InputControllerButtonBumper": [
+          {
+            "Input": "KeyCode-Tab"
+          }
+        ],
+        "Action-InputControllerButtonHomeTap": [
+          {
+            "Input": "KeyCode-Home"
+          },
+          {
+            "Input": "KeyCode-`"
+          }
+        ],
+        "Action-InputControllerTriggerDown": [
+          {
+            "Deadzone": 0.2000000029802322,
+            "Input": "KeyCode-Space",
+            "Sensitivity": 1,
+            "Source": ""
+          },
+          {
+            "Deadzone": 0.2000000029802322,
+            "Input": "KeyCode-T",
+            "Sensitivity": 1,
+            "Source": ""
+          }
+        ],
+        "Action-ManipulationModeMove": [
+          {
+            "Input": "KeyCode-W"
+          }
+        ],
+        "Action-ManipulationModeNone": [
+          {
+            "Input": "KeyCode-Q"
+          }
+        ],
+        "Action-ManipulationModeRotate": [
+          {
+            "Input": "KeyCode-E"
+          }
+        ],
+        "Action-ManipulationModeScale": [
+          {
+            "Input": "KeyCode-R"
+          }
+        ],
+        "Action-MovePrimaryNavigationNegX": [
+          {
+            "Input": "KeyCode-Left"
+          },
+          {
+            "Input": "MouseButton-2-KeyCode-A"
+          },
+          {
+            "Input": "KeyCode-KP_4"
+          }
+        ],
+        "Action-MovePrimaryNavigationNegY": [
+          {
+            "Input": "MouseButton-2-KeyCode-Q"
+          }
+        ],
+        "Action-MovePrimaryNavigationNegZ": [
+          {
+            "Input": "KeyCode-Up"
+          },
+          {
+            "Input": "MouseButton-2-KeyCode-W"
+          },
+          {
+            "Input": "KeyCode-KP_8"
+          }
+        ],
+        "Action-MovePrimaryNavigationPosX": [
+          {
+            "Input": "KeyCode-Right"
+          },
+          {
+            "Input": "MouseButton-2-KeyCode-D"
+          },
+          {
+            "Input": "KeyCode-KP_6"
+          }
+        ],
+        "Action-MovePrimaryNavigationPosY": [
+          {
+            "Input": "MouseButton-2-KeyCode-E"
+          }
+        ],
+        "Action-MovePrimaryNavigationPosZ": [
+          {
+            "Input": "KeyCode-Down"
+          },
+          {
+            "Input": "MouseButton-2-KeyCode-S"
+          },
+          {
+            "Input": "KeyCode-KP_2"
+          }
+        ],
+        "Action-OrbitCameraPitch": [
+          {
+            "Input": "Alt-MouseButton-1-MouseMove-DeltaY"
+          }
+        ],
+        "Action-OrbitCameraYaw": [
+          {
+            "Input": "Alt-MouseButton-1-MouseMove-DeltaX"
+          }
+        ],
+        "Action-PanCameraX": [
+          {
+            "Input": "Ctrl-Alt-MouseButton-1-MouseMove-DeltaX",
+            "Sensitivity": -1
+          },
+          {
+            "Input": "MouseButton-3-MouseMove-DeltaX",
+            "Sensitivity": -1
+          }
+        ],
+        "Action-PanCameraY": [
+          {
+            "Input": "Ctrl-Alt-MouseButton-1-MouseMove-DeltaY"
+          },
+          {
+            "Input": "MouseButton-3-MouseMove-DeltaY"
+          }
+        ],
+        "Action-RotatePrimaryNavigationNegX": [
+          {
+            "Input": "Alt-KeyCode-W"
+          }
+        ],
+        "Action-RotatePrimaryNavigationNegY": [
+          {
+            "Input": "Alt-KeyCode-A"
+          }
+        ],
+        "Action-RotatePrimaryNavigationNegZ": [
+          {
+            "Input": "Alt-KeyCode-Q"
+          }
+        ],
+        "Action-RotatePrimaryNavigationPosX": [
+          {
+            "Input": "Alt-KeyCode-S"
+          }
+        ],
+        "Action-RotatePrimaryNavigationPosY": [
+          {
+            "Input": "Alt-KeyCode-D"
+          }
+        ],
+        "Action-RotatePrimaryNavigationPosZ": [
+          {
+            "Input": "Alt-KeyCode-E"
+          }
+        ],
+        "Action-RotatePrimaryNavigationX": [
+          {
+            "Input": "MouseButton-2-MouseMove-DeltaY"
+          }
+        ],
+        "Action-RotatePrimaryNavigationY": [
+          {
+            "Input": "MouseButton-2-MouseMove-DeltaX"
+          }
+        ],
+        "Action-Select": [
+          {
+            "Input": "MouseButton-1-MouseDown"
+          }
+        ],
+        "Action-TargetCamera": [
+          {
+            "Input": "KeyCode-5"
+          }
+        ],
+        "Action-TargetControl": [
+          {
+            "Input": "KeyCode-6"
+          }
+        ],
+        "Action-TargetEye": [
+          {
+            "Input": "KeyCode-8"
+          }
+        ],
+        "Action-TargetHand": [
+          {
+            "Input": "KeyCode-7"
+          }
+        ],
+        "Action-ToggleAnchorMode": [
+          {
+            "Input": "KeyCode-Z"
+          }
+        ],
+        "Action-ToggleReferenceMode": [
+          {
+            "Input": "KeyCode-X"
+          }
+        ],
+        "Action-ToggleSceneViewCameraMode": [
+          {
+            "Input": "KeyCode-2"
+          },
+          {
+            "Input": "KeyCode-C"
+          }
+        ],
+        "Action-ZoomCamera": [
+          {
+            "Input": "Alt-MouseButton-2-MouseMove-DeltaX",
+            "Sensitivity": 3
+          },
+          {
+            "Input": "Alt-MouseButton-2-MouseMove-DeltaY"
+          },
+          {
+            "Input": "MouseMove-ScrollWheelX",
+            "Sensitivity": 3
+          },
+          {
+            "Input": "MouseMove-ScrollWheelY"
+          }
+        ],
+        "ActionInputLabels": {
+          "MouseButton-1-KeyCode": "Mouse Button 1 + Key Code",
+          "MouseButton-1-MouseDown": "Mouse Button 1",
+          "MouseButton-1-MouseMove-DeltaX": "Mouse Button 1 + Mouse Move X",
+          "MouseButton-1-MouseMove-DeltaY": "Mouse Button 1 + Mouse Move Y",
+          "MouseButton-2-KeyCode": "Mouse Button 2 + Key Code",
+          "MouseButton-2-MouseDown": "Mouse Button 2",
+          "MouseButton-2-MouseMove-DeltaX": "Mouse Button 2 + Mouse Move X",
+          "MouseButton-2-MouseMove-DeltaY": "Mouse Button 2 + Mouse Move Y",
+          "MouseButton-3-KeyCode": "Mouse Button 3 + Key Code",
+          "MouseButton-3-MouseDown": "Mouse Button 3",
+          "MouseButton-3-MouseMove-DeltaX": "Mouse Button 3 + Mouse Move X",
+          "MouseButton-3-MouseMove-DeltaY": "Mouse Button 3 + Mouse Move Y",
+          "MouseMove-ScrollWheelX": "Mouse Scroll X",
+          "MouseMove-ScrollWheelY": "Mouse Scroll Y"
+        },
+        "BindingsVersion": 5,
+        "DeviceType": "keyboardMouse",
+        "OS": "Any"
+      },
+      "DeviceLabel": "Peripheral - Key/Mouse",
+      "DeviceName": "PeripheralKeyMouseSparseDevice",
+      "DeviceType": "Peripheral",
+      "ManifestType": "Configuration"
+    },
+    {
+      "ConfigurationSettings": {
+        "BindingsVersion": 5,
+        "DeviceType": "controller",
+        "OS": "Windows"
+      },
+      "DeviceLabel": "SpaceMouse Pro",
+      "DeviceName": "PeripheralSparseDevice0",
+      "DeviceType": "Peripheral",
+      "ManifestType": "Configuration"
+    }
+  ],
+  "Version": 2
+}

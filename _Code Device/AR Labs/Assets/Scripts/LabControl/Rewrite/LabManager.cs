@@ -22,7 +22,6 @@ public class LabManager : MonoBehaviour
     private GameObject instructionCanvas;
 
     //private InstructionBox ibox;
-    private Transform labform;
 
     private LabLogger logger;
     private string entity;
@@ -36,7 +35,6 @@ public class LabManager : MonoBehaviour
 
 
         //ibox = InstructionBox.Instance;
-        labform = GameObject.Find("[CURRENT_LAB]").transform;
         //spawnDemoNew();
     }
     #endregion Unity Methods
@@ -129,7 +127,7 @@ public class LabManager : MonoBehaviour
      //       Debug.Log("tmpdata = " + tmpData.prefabName);
 
         //There will need to be some sort of placement routine, but for now it will be placed at 0,0,0
-        currentModuleObject = Instantiate(tmpPrefab, labform);
+        currentModuleObject = Instantiate(tmpPrefab, transform);
         currentModuleScript = currentModuleObject.GetComponent<ActivityModule>();
 
         //Start the module

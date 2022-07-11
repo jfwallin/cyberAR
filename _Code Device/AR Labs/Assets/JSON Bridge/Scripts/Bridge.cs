@@ -13,6 +13,8 @@ using System.Security.Policy;
 using System.Runtime.InteropServices;
 using UnityEditor;
 using TMPro;
+using System.Linq;
+
 public class Bridge
 {
     static string canvasText;
@@ -46,6 +48,11 @@ public class Bridge
     //We are assuming that the scene is set up with the camera, default lighting, and controller already present.
     public void makeObject(ObjectInfo obj)
     {
+        LabLogger.Instance.InfoLog(
+            this.GetType().ToString(),
+            "Trace",
+            $"Creating object: {obj.name}, type: {obj.type}");
+
         GameObject myObject;
         GameObject parent = null;
         TextMeshPro textBox= null;
@@ -72,6 +79,7 @@ public class Bridge
             }
         }
 
+
        /* if (obj.parentName != "")
         {
             parent = GameObject.Find(obj.parentName);
@@ -91,9 +99,17 @@ public class Bridge
             myObject.transform.localScale = obj.scale;
         if (obj.newEulerAngles)
             myObject.transform.localEulerAngles = obj.eulerAngles;
+        LabLogger.Instance.InfoLog(
+            this.GetType().ToString(),
+            "Trace",
+            $"Position: {obj.position}, Scale: {obj.scale}, EulerAngles: {obj.eulerAngles}");
 
         if (obj.componentsToAdd != null)
         {
+            LabLogger.Instance.InfoLog(
+                this.GetType().ToString(),
+                "Trace",
+                $"Adding components: {obj.componentsToAdd.ToList().Aggregate("", (acc, x) => acc + $"{x} ")}");
             //Debug.Log("components to add " + obj.componentsToAdd.Length.ToString());
             for (int i = 0; i < obj.componentsToAdd.Length; i++)
             {
@@ -130,6 +146,7 @@ public class Bridge
         //I can't quite get that working though
         if (obj.material != "" && obj.material != null)
         {
+
             //Debug.Log("length " + obj.material.Length.ToString());
             //Debug.Log("in Render   -X" + obj.material + "X");
             Renderer rend = myObject.GetComponent<Renderer>();
@@ -137,18 +154,25 @@ public class Bridge
         }
 
         myObject.SetActive(obj.enabled); //sets the enabled/disabled state of the object
+        MeshRenderer mesh = myObject.GetComponent<MeshRenderer>();
+        if(mesh != null && mesh.bounds.extents != Vector3.zero)
+        LabLogger.Instance.InfoLog(
+            this.GetType().ToString(),
+            "Trace",
+            $"Mesh bounding box: {mesh.bounds}");
 
 
         if (obj.texture != "" )
         {
             Renderer rend = myObject.GetComponent<Renderer>();
-            rend.material.mainTexture = Resources.Load<Texture2D>(obj.texture);
+            rend.material.mainTexture = MediaCatalogue.Instance.GetTexture(obj.texture);
         }
 
         if (obj.textureByURL != "")
         {
             Renderer rend = myObject.GetComponent<Renderer>();
             rend.material.mainTexture = Resources.Load<Texture2D>(obj.texture);
+            rend.material.mainTexture = MediaCatalogue.Instance.GetTexture(obj.texture);
         }
 
         if (obj.color != null)
@@ -272,6 +296,8 @@ public class Bridge
         if (obj.canvasText !=null)
         {
             Text tt = myObject.GetComponent<Text>();
+            if (tt == null)
+                tt = myObject.AddComponent<Text>();
             canvasText = obj.canvasText;
             tt.text = obj.canvasText;
 

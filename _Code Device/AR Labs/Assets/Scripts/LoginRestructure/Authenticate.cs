@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using System.Linq;
 
 /// <summary>
 /// stores identity data about a user, links name to pin/mNumber
@@ -71,7 +72,9 @@ public class Authenticate : MonoBehaviour
         ids = new List<pin_id_record>();
 
         // Open csv as raw text, split into row entries
-        string[] records = pinCsvFileInfo.OpenText().ReadToEnd().Split('\n');
+        StreamReader sr = pinCsvFileInfo.OpenText();
+        string[] records = sr.ReadToEnd().Split('\n');
+        sr.Close();
 
         // Loop over the entries, skip the header row
         for (int i = 1; i < records.Length; i++)

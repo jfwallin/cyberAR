@@ -23,7 +23,7 @@ public class LoginManager : MonoBehaviour
 {
     #region Variables
     // Public Variables
-    [Header("Introduction")]
+    [Header("Animation / Placement")]
     public GameObject controller;      //Used to set placement object, and access pointer renderer
     public GameObject introAnimation;  //Intro animation UI
     public GameObject placementProp;   //Shown during the placement phase to identify the anchor point
@@ -47,20 +47,11 @@ public class LoginManager : MonoBehaviour
     [SerializeField]
     private Authenticate auth;         //Used to authenticate pin logins
 
-    [Header("Configuration")]
+    [Header("Timeout Configuration")]
     [SerializeField]
     private float authTimeout = 15f;   //Used to limit waiting for Authenticate to be ready
     [SerializeField]
     private float labParseTimeout = 15f;//Used to limit waiting for lab parsing to be done
-
-    enum EndpointType { debug, production };
-    [Header("Local Development")]
-    [SerializeField]
-    private bool skipIntroAnimation = false;
-    [SerializeField]
-    private bool skipLogin = false;
-    [SerializeField]
-    private TextAsset debugLabJSON;
 
     [Header("Debug Server Interactions")]
     [Tooltip("Sets whether to download files from production endpoints, or from show_uploaded/filename")]
@@ -69,18 +60,34 @@ public class LoginManager : MonoBehaviour
     [Tooltip("What to append to show_uploaded/ to download a list of labs")]
     [SerializeField]
     private string debugLabListFilename = "";
-    [Tooltip("What to append to show_uploaded/ to download the lab JSON")]
+    [Tooltip("What to append to show_uploaded/ to download the zipped lab resources:")]
     [SerializeField]
-    private string debugLabJSONFilename = "";
+    private string debugLabZipFilename = "";
 
+    enum EndpointType { debug, production };
+    [Header("Local Development")]
+    [Tooltip("Whether to skip the initial animation when starting a lab")]
+    [SerializeField]
+    private bool skipIntroAnimation = false;
+    [Tooltip("Toggle whether to skip login and lab download, and instead use local files specified by debugLabResources")]
+    [SerializeField]
+    private bool skipLoginAndDownload = false;
+    [Tooltip("Extracted folder to pull media and lab JSON from for local testing, absolute path")]
+    [SerializeField]
+    private string debugLabResources = "";
+
+    //Base URLs to download from
     const string LABS_URL = "http://cyberlearnar.cs.mtsu.edu/labs";
-    const string LAB_JSON_BASE_URL = "http://cyberlearnar.cs.mtsu.edu/show_uploaded/lab_";
+    const string LAB_ZIP_BASE_URL = "http://cyberlearnar.cs.mtsu.edu/show_uploaded/lab_";
     const string DEBUG_URL = "http://cyberlearnar.cs.mtsu.edu/show_uploaded/";
-    private string loginDirectory = "";   // Initialized with Persistent data path in awake
-    private string labJsonDirectory = ""; //   \/           \/            \/          \/
-    private FileInfo allLabsFileInfo;     // Used to interact with downloaded files
-    private FileInfo labJsonFileInfo;     //   \/           \/            \/
+    
+    // Used to reference downloaded files
+    private string loginDirectory = "";  // Initialized with Persistent data path in awake
+    private string labZipDirectory = ""; //   \/           \/            \/          \/
+    private FileInfo allLabsFileInfo;    // Used to interact with downloaded files
+    private FileInfo labZipFileInfo;     //   \/           \/            \/
 
+    // Used to track current internal state of login scene
     private enum state
     {
         introduction,
@@ -92,17 +99,16 @@ public class LoginManager : MonoBehaviour
         lab_running,
         end_of_states
     }
-    // Used to track current internal state of login scene
     private state currentState = state.introduction;
-
-    private string entity;             //Name of this class, as a string. init in Start
-    private LabLogger logger;          //Used to log data about the user session, init in Start
-
     private bool placed = false;       //Whether the user has placed the scene anchor
     private bool labsReady = false;    //Whether the list of labs has been downloaded and parsed
     private List<GameObject> uiLabList;//The current list of labs the user can select from
     private List<LabInfo> labInfoList; //List of id, name, and description for each lab downloaded
     private LabInfo selectedLab;       //The lab selected by the user, used to pull its json
+
+    // Convenience variables for using the logger
+    private string entity;             //Name of this class, as a string. init in Start
+    private LabLogger logger;          //Used to log data about the user session, init in Start
     #endregion Variables
 
     #region Unity Methods
@@ -135,18 +141,24 @@ public class LoginManager : MonoBehaviour
         allLabsFileInfo = new FileInfo(Path.Combine(loginDirectory, "All_Labs.json"));
         allLabsFileInfo.Directory.Create();
         // We don't know the name of the lab downloaded yet, so wait to initialize FileInfo
-        labJsonDirectory = Path.Combine(Application.persistentDataPath, "lab_jsons");
+        labZipDirectory = Path.Combine(Application.persistentDataPath, "lab_resources");
     }
 
     private void Start()
     {
+        // If we are skipping login/download, check that debug resources folder exists
+        if (skipLoginAndDownload == true && (debugLabResources == "" || !Directory.Exists(debugLabResources)))
+            logger.InfoLog(entity,
+                "Error",
+                $"Skipping login, but path to local lab resources not set correctly: {debugLabResources}");
+
         logger.InfoLog(entity, "Trace", "Login Scene Starting....");
 
         // Make sure controller isn't visible
         HidePointer();
 
         // Download the lab list if this is a production build, or a debug build that is not skipping login
-        if (!Debug.isDebugBuild || (Debug.isDebugBuild && !skipLogin))
+        if (!Debug.isDebugBuild || (Debug.isDebugBuild && !skipLoginAndDownload))
         { 
             // Download list of available labs
             // This could eventually be changed to pull only the labs related to the pin->cnum->CRNs,
@@ -199,6 +211,8 @@ public class LoginManager : MonoBehaviour
                     placed = false;
                     // Start coroutine to move the lab anchor object
                     StartCoroutine(AlignUIWithController());
+                    // Start audio instruction playback
+                    placementProp.GetComponent<AudioSource>()?.Play();
                     // Bind the place function to the trigger
                     controller.GetComponent<ControlInput>().OnTriggerDown.AddListener(Place);
                     
@@ -280,24 +294,30 @@ public class LoginManager : MonoBehaviour
                     labStarter.transform.eulerAngles = new Vector3(0, Camera.main.transform.eulerAngles.y, 0);
                     labStarter.transform.position = Camera.main.transform.position - Vector3.up * 0.2f;
 
-                    // If skipLogin is true, just use the provided JSON for quick lab debugging
-                    if (Debug.isDebugBuild && skipLogin)
-                        LabStart(debugLabJSON.text);
+                    // If skipLogin is true, just use the provided local resources for quick lab debugging
+                    if (Debug.isDebugBuild && skipLoginAndDownload)
+                        LabStart(new DirectoryInfo(debugLabResources));
                     else
                     { 
-                        // Download the JSON file describing the lab.
-                        string labJsonUrl = LAB_JSON_BASE_URL + selectedLab.id + ".json";
-                        labJsonFileInfo = new FileInfo(Path.Combine(labJsonDirectory, selectedLab.id + ".json"));
-                        // Make sure the directory exists
-                        labJsonFileInfo.Directory.Create();
-                        // Start the Download
+                        // Download the Zip file containing all lab resources
                         if (endpointsType == EndpointType.production)
-                            DownloadUtility.Instance.DownloadFile(labJsonUrl, labJsonFileInfo.FullName, LabJSONDownloaded);
+                        {
+                            labZipFileInfo = new FileInfo(Path.Combine(labZipDirectory, selectedLab.id + ".zip"));
+                            labZipFileInfo.Directory.Create();
+                            DownloadUtility.Instance.DownloadAndExtractZip(
+                                Path.Combine(LAB_ZIP_BASE_URL, selectedLab.id = ".zip"),
+                                labZipFileInfo.FullName,
+                                LabZipDownloadedAndExtracted);
+                        }
                         else if (endpointsType == EndpointType.debug)
-                            DownloadUtility.Instance.DownloadFile(
-                                Path.Combine(DEBUG_URL, debugLabJSONFilename),
-                                labJsonFileInfo.FullName,
-                                LabJSONDownloaded);
+                        {
+                            labZipFileInfo = new FileInfo(Path.Combine(labZipDirectory, debugLabZipFilename));
+                            labZipFileInfo.Directory.Create();
+                            DownloadUtility.Instance.DownloadAndExtractZip(
+                                Path.Combine(DEBUG_URL, debugLabZipFilename),
+                                labZipFileInfo.FullName,
+                                LabZipDownloadedAndExtracted);
+                        }
                     }
 
                     // WAIT FOR THE LABJSON TO DOWNLOAD
@@ -318,10 +338,15 @@ public class LoginManager : MonoBehaviour
         logger.InfoLog(entity, "Trace", "Lab has been placed");
         // Unbind place function from trigger
         controller.GetComponent<ControlInput>().OnTriggerDown.RemoveListener(Place);
+        labStarter.transform.position = placementProp.transform.position;
+        labStarter.transform.rotation = placementProp.transform.rotation;
+        GameObject.Find("Directional Light").transform.SetParent(labStarter.transform);
         // Set placed flag, and move to the next state
         placed = true;
+        // Stop Audio playback
+        placementProp.GetComponent<AudioSource>()?.Stop();
         // Either move to login, or skip to lab start for quick local debugging
-        if (Debug.isDebugBuild && skipLogin)
+        if (Debug.isDebugBuild && skipLoginAndDownload)
             ChangeStateTo(state.lab_initiation);
         else
             ChangeStateTo(state.pin_entry);
@@ -382,7 +407,8 @@ public class LoginManager : MonoBehaviour
             tmpLabUI.transform.position += .42f * (i % 2) * anchor.transform.right + new Vector3(0, -.15f * (i / 2), 0);
 
             // Add listener to button to transition to next stage
-            tmpLabUI.GetComponentInChildren<Button>().onClick.AddListener(() => LabSelected(labInfoList[i].id));
+            int i_copy = i; // This is done b/c of some anonymous function variable capturing loop variable technicalities
+            tmpLabUI.GetComponentInChildren<Button>().onClick.AddListener(() => LabSelected(labInfoList[i_copy].id));
 
             // Setup object, add to list
             tmpLabUI.transform.Find("Lab Title").GetComponent<Text>().text = labInfoList[i].name;
@@ -413,22 +439,43 @@ public class LoginManager : MonoBehaviour
     /// <summary>
     /// Starts initializing the MediaCatalogue for the lab
     /// </summary>
-    /// <param name="labJSON">string json describing the lab</param>
-    private void LabStart(string labJSON)
+    /// <param name="labResourcesFolderInfo">Info about the folder holding the resources for the lab</param>
+    private void LabStart(DirectoryInfo labResourcesFolderInfo)
     {
+        // Find the Json file in the resources folder
+        FileInfo labJsonInfo = null;
+        foreach (FileInfo file in labResourcesFolderInfo.GetFiles())
+        {
+            if (file.Name.EndsWith(".json"))
+            {
+                labJsonInfo = file;
+                break;
+            }
+        }
+        if (labJsonInfo == null)
+        {
+            logger.InfoLog(entity, "Error", $"Could not find lab json after lab zip downloaded and extracted, stopping");
+            return;
+        }
+
         // Initialize lab data object
         LabDataObject labData = new LabDataObject();
-        JsonUtility.FromJsonOverwrite(labJSON, labData);
+        JsonUtility.FromJsonOverwrite(labJsonInfo.OpenText().ReadToEnd(), labData);
 
         // Find and start initializing the media catalogue
-        MediaCatalogue mc = labStarter.GetComponent<MediaCatalogue>();
+        MediaCatalogue mc = GetComponent<MediaCatalogue>();
         mc.enabled = true;
-        mc.addToCatalogue(labData);
+        mc.InitializeCatalogue(labResourcesFolderInfo);
 
         // Start waiting for the media catalogue to finish setting up
+        // Once it finishes, initialize the lab manager (next function)
         StartCoroutine(AwaitMediaCatalogueInitialization(mc, labData));
     }
 
+    /// <summary>
+    /// Initializes the Lab Manager with data object filled with parsed JSON data
+    /// </summary>
+    /// <param name="labData">Data object describing the lab</param>
     private void InitializeLabManager(LabDataObject labData)
     {
         logger.InfoLog(entity, "Trace", "Initializing Lab Manager");
@@ -582,7 +629,7 @@ public class LoginManager : MonoBehaviour
 
     private IEnumerator AwaitMediaCatalogueInitialization(MediaCatalogue mc, LabDataObject labData)
     {
-        yield return new WaitUntil(() => mc.done);
+        yield return new WaitUntil(() => mc.DoneLoadingAssets);
         InitializeLabManager(labData);
         ChangeStateTo(state.lab_running);
     }
@@ -595,6 +642,13 @@ public class LoginManager : MonoBehaviour
     public void PinEntered()
     {
         logger.InfoLog(entity, "Trace", "Pin Entered");
+        ChangeStateTo(state.authentication);
+    }
+
+    public void GuestLogin()
+    {
+        logger.InfoLog(entity, "Trace", "Guest Login");
+        pinInput.text = "000000";
         ChangeStateTo(state.authentication);
     }
 
@@ -654,12 +708,22 @@ public class LoginManager : MonoBehaviour
     /// Called by DownloadUtility once it is done with the lab json download
     /// </summary>
     /// <param name="rc">return code from DownloadFile(). 0 if succesful, -1 if failed</param>
-    private void LabJSONDownloaded(int rc)
+    private void LabZipDownloadedAndExtracted(int rc)
     {
-        if(rc == 0)
-            LabStart(labJsonFileInfo.OpenText().ReadToEnd());
+        // Download and extraction were a success
+        if (rc == 0)
+        {
+            if (endpointsType == EndpointType.debug)
+                LabStart(new DirectoryInfo(Path.Combine(
+                    labZipDirectory,
+                    debugLabZipFilename.Substring(0, debugLabZipFilename.LastIndexOf(".")))));
+            else if (endpointsType == EndpointType.production)
+                LabStart(new DirectoryInfo(Path.Combine(
+                    labZipDirectory,
+                    selectedLab.id)));
+        }
         else // Download failed
-            Debug.LogError("LabJSON failed to download. stopping");
+            logger.InfoLog(entity, "Error", $"LabZip failed to download. Stopping Program");
     }
 
     /// <summary>

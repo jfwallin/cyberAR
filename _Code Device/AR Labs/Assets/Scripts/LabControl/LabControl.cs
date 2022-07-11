@@ -85,7 +85,7 @@ public class LabControl : MonoBehaviour
         MediaInfo startLabMedia = new MediaInfo();
         startLabMedia.resource_type = MediaType.Video;
         //startLabMedia.id = ????
-        aPlayer.PlayMedia(startLabMedia, spawnMC);
+        //aPlayer.PlayMedia(startLabMedia, spawnMC);
     }
 
     public void spawnMC()
