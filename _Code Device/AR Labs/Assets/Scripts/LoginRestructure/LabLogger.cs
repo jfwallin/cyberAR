@@ -69,7 +69,7 @@ public class LabLogger : MonoBehaviour
     [SerializeField]
     private Transform headset;
     [SerializeField]
-    private float deltaTime = 0.2f;
+    private float deltaTime = 0.5f;
     private float prevTime = 0.0f;
     #endregion Variables
 
@@ -115,7 +115,14 @@ public class LabLogger : MonoBehaviour
 
         // Log where the files should be saving to
         InfoLog("LOGGER", "TRACE", $"Saving files to persistent data path: {logFileInfo.FullName}");
-        InfoLog("Logger", "debug", $"location of Application.dataPath: {Application.dataPath}");
+
+        // Sync up log files, initialize prevTime
+        float prevTime = Time.deltaTime;
+        InfoLog("Logger", "Trace", $"Sync with transform log {prevTime}");
+
+        using var filestream = new FileStream(positionFileInfo.FullName, FileMode.Append, FileAccess.Write);
+        using var bw = new BinaryWriter(filestream);
+        bw.Write(prevTime);
 
         // Delete any extra logs
         DirectoryInfo logDirectoryInfo = new DirectoryInfo(logDirectory);
@@ -141,26 +148,15 @@ public class LabLogger : MonoBehaviour
             }
         }
 
-        if(trackPositions && (Time.time - prevTime) > deltaTime)
+        // Get current time
+        float curTime = Time.time;
+        // Check to see if we log transforms this frame
+        if(trackPositions && (curTime - prevTime) > deltaTime)
         {
-            using (var fileStream = new FileStream(positionFileInfo.FullName, FileMode.Append, FileAccess.Write))
-            using (var bw = new BinaryWriter(fileStream))
-            {
-                bw.Write(controller.position.x);
-                bw.Write(controller.position.x);
-                bw.Write(controller.position.y);
-                bw.Write(controller.rotation.x);
-                bw.Write(controller.rotation.y);
-                bw.Write(controller.rotation.z);
-                bw.Write(controller.rotation.w);
-                bw.Write(headset.position.x);
-                bw.Write(headset.position.x);
-                bw.Write(headset.position.y);
-                bw.Write(headset.rotation.x);
-                bw.Write(headset.rotation.y);
-                bw.Write(headset.rotation.z);
-                bw.Write(headset.rotation.w);
-            }
+            logTransforms();
+
+            // Update prevTime now that we have logged
+            prevTime = curTime;
         }
     }
     #endregion Unity Methods
@@ -249,6 +245,32 @@ public class LabLogger : MonoBehaviour
 #endregion Public Methods
 
     #region Private Methods
+    /// <summary>
+    /// Writes binary values to the transform log file
+    /// </summary>
+    private void logTransforms()
+    {
+        using (var fileStream = new FileStream(positionFileInfo.FullName, FileMode.Append, FileAccess.Write))
+        using (var bw = new BinaryWriter(fileStream))
+        {
+            bw.Write(Time.time - prevTime - deltaTime);
+            bw.Write(controller.position.x);
+            bw.Write(controller.position.x);
+            bw.Write(controller.position.y);
+            bw.Write(controller.rotation.x);
+            bw.Write(controller.rotation.y);
+            bw.Write(controller.rotation.z);
+            bw.Write(controller.rotation.w);
+            bw.Write(headset.position.x);
+            bw.Write(headset.position.x);
+            bw.Write(headset.position.y);
+            bw.Write(headset.rotation.x);
+            bw.Write(headset.rotation.y);
+            bw.Write(headset.rotation.z);
+            bw.Write(headset.rotation.w);
+        }
+    }
+
     /// <summary>
     /// Writes a line to the log file
     /// </summary>
