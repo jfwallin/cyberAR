@@ -54,8 +54,6 @@ public class Authenticate : MonoBehaviour
     }
     void Start()
     {
-        logger.InfoLog(entity, "Trace", "Starting pin-csv download");
-
         // Get the most recent csv file downloaded
         DownloadUtility.Instance.DownloadFile(PIN_ID_CSV_URL, pinCsvFileInfo.FullName, downloadComplete);
     }
@@ -67,7 +65,7 @@ public class Authenticate : MonoBehaviour
     /// </summary>
     public void ParseCSV()
     {
-        logger.InfoLog(entity, "Trace", "Starting to parse csv file");
+        logger.InfoLog(entity, "Trace", "ParseCSV()");
         // Create new list of pin_id_records
         ids = new List<pin_id_record>();
 
@@ -101,7 +99,7 @@ public class Authenticate : MonoBehaviour
                 Debug.Log(id.pin);
         }
 
-        logger.InfoLog(entity, "Trace", "Csvs parsed");
+        logger.InfoLog(entity, "Debug", "CSVs Parsed");
         // Set flag to allow auth queries
         authReady = true;
     }
@@ -113,7 +111,7 @@ public class Authenticate : MonoBehaviour
     /// <returns>true if the pin is found, false if not</returns>
     public bool AuthenticatePin(string pin)
     {
-        logger.InfoLog(entity, "Trace", $"Attempting to authenticate pin: {pin}");
+        logger.InfoLog(entity, "Debug", $"Attempting to authenticate pin: {pin}");
         return ids.Exists(x => { Debug.Log($"pin :{pin}:, length : {pin.Length}, x.pin :{x.pin}:, length : {x.pin.Length}, x.pin == pin :{x.pin==pin}:"); return x.pin == pin; });
     }
 
@@ -160,7 +158,6 @@ public class Authenticate : MonoBehaviour
         else // Download failed
         {
             logger.InfoLog(entity, "Error", "PinCSV file failed to download, Cannot authenticate pins");
-            Debug.LogError("PinCSV file failed to download, Cannot authenticate pins");
         }
     }
     #endregion Event Handlers

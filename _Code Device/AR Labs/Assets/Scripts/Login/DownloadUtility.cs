@@ -89,7 +89,7 @@ public class DownloadUtility : MonoBehaviour
             //    callback.Invoke(0);
             //    return;
             //}
-            logger.InfoLog(entity, "Trace", $"Starting download of file ${path} from url: {url}");
+            logger.InfoLog(entity, "Debug", $"Starting download of file ${path} from url: {url}");
             StartCoroutine(downloadRoutine(url, path, callback));
         }
         else // Use local files
@@ -119,7 +119,7 @@ public class DownloadUtility : MonoBehaviour
                 callback.Invoke(0);
                 return;
             }*/
-            logger.InfoLog(entity, "Trace", $"Starting download of file ${path} from url: {url}");
+            logger.InfoLog(entity, "Debug", $"Starting download of file ${path} from url: {url}");
             StartCoroutine(downloadRoutine(url, path, (int x) => ExtractZip(x, path, callback)));
         }
         else // Use local files
@@ -200,14 +200,14 @@ public class DownloadUtility : MonoBehaviour
         yield return uwr.SendWebRequest();
         if (uwr.result != UnityWebRequest.Result.Success)
         {
-            logger.InfoLog(entity, "Trace", $"Download of {path} failed with error:\n{uwr.result.ToString()} | {uwr.error}");
+            logger.InfoLog(entity, "Error", $"Download of {path} failed with error:\n{uwr.result.ToString()} | {uwr.error}");
             // Invoke callback w/-1, telling client the download failed
             uwr.Dispose();
             callback.Invoke(-1);
         }
         else
         {
-            logger.InfoLog(entity, "Trace", $"Successfully downloaded {path}");
+            logger.InfoLog(entity, "Debug", $"Successfully downloaded {path}");
             // Invoke callback w/0, telling client the download succeeded
             uwr.Dispose();
             callback.Invoke(0);

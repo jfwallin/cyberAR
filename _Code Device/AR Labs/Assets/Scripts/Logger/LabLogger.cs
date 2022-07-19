@@ -174,15 +174,14 @@ public class LabLogger : MonoBehaviour
 
         string newName = name.Replace(' ', '_');
         // Set the path of the log to be a unique combo of student infor and current date
-        logFileName = newName + "_" + System.DateTime.Now.ToString("MM-dd-yyyy_HH.mm") + ".txt";
+        logFileName = newName + "_" + System.DateTime.Now.ToString("MM-dd-yyyy_HH-mm") + ".txt";
         logFileInfo.MoveTo(Path.Combine(logDirectory, logFileName));
         // Add initiliazation statement to the log
-        string initText = $"\n\nLog file for student: {newName},  M{mNum}.\nCurrent Time: {System.DateTime.Now}\n";
-        appendToLog(initText);
+        InfoLog(this.GetType().ToString(), "Initialize Log", $"Log file for student: {newName},  M{mNum}.");
         // Optionally initialize position log
         if(trackPositions)
         {
-            positionFileName = newName + "_" + System.DateTime.Now.ToString("MM-dd-yyyy_HH.mm") + "_TransformTracking.txt";
+            positionFileName = newName + "_" + System.DateTime.Now.ToString("MM-dd-yyyy_HH-mm") + "_TransformTracking.txt";
             positionFileInfo.MoveTo(Path.Combine(logDirectory, positionFileName));
         }
         // Mark log as initialized
@@ -198,6 +197,11 @@ public class LabLogger : MonoBehaviour
     /// <param name="information">information to be added to the log, preformatted by sender</param>
     public void InfoLog(string entity, string tag, string information)
     {
+        // Strip any newlines to make each log only on one line
+        entity = entity.Replace("\n", " ");
+        tag = tag.Replace("\n", " ");
+        information = information.Replace("\n", " ");
+        // Get timing information
         string curTime = System.DateTime.Now.ToString("HH:mm:ss");
         string relTime = $"{Mathf.Round((Time.time-startTime)*100f)/100f}";
         // CURTIME, RELTIME | ENTITY, TAG : INFO
@@ -255,15 +259,15 @@ public class LabLogger : MonoBehaviour
         {
             bw.Write(Time.time - prevTime - deltaTime);
             bw.Write(controller.position.x);
-            bw.Write(controller.position.x);
             bw.Write(controller.position.y);
+            bw.Write(controller.position.z);
             bw.Write(controller.rotation.x);
             bw.Write(controller.rotation.y);
             bw.Write(controller.rotation.z);
             bw.Write(controller.rotation.w);
             bw.Write(headset.position.x);
-            bw.Write(headset.position.x);
             bw.Write(headset.position.y);
+            bw.Write(headset.position.z);
             bw.Write(headset.rotation.x);
             bw.Write(headset.rotation.y);
             bw.Write(headset.rotation.z);

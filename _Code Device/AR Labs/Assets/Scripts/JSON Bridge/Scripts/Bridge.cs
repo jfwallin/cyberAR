@@ -50,7 +50,7 @@ public class Bridge
     {
         LabLogger.Instance.InfoLog(
             this.GetType().ToString(),
-            "Trace",
+            "Debug",
             $"Creating object: {obj.name}, type: {obj.type}");
 
         GameObject myObject;
@@ -101,14 +101,14 @@ public class Bridge
             myObject.transform.localEulerAngles = obj.eulerAngles;
         LabLogger.Instance.InfoLog(
             this.GetType().ToString(),
-            "Trace",
+            "Debug",
             $"Position: {obj.position}, Scale: {obj.scale}, EulerAngles: {obj.eulerAngles}");
 
         if (obj.componentsToAdd != null)
         {
             LabLogger.Instance.InfoLog(
                 this.GetType().ToString(),
-                "Trace",
+                "Debug",
                 $"Adding components: {obj.componentsToAdd.ToList().Aggregate("", (acc, x) => acc + $"{x} ")}");
             //Debug.Log("components to add " + obj.componentsToAdd.Length.ToString());
             for (int i = 0; i < obj.componentsToAdd.Length; i++)
@@ -158,7 +158,7 @@ public class Bridge
         if(mesh != null && mesh.bounds.extents != Vector3.zero)
         LabLogger.Instance.InfoLog(
             this.GetType().ToString(),
-            "Trace",
+            "Debug",
             $"Mesh bounding box: {mesh.bounds}");
 
 

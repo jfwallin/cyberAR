@@ -128,7 +128,7 @@ public class MediaCatalogue : MonoBehaviour
         // Log start of loading
         LabLogger.Instance.InfoLog(
             this.GetType().ToString(),
-            "Trace",
+            "Debug",
             $"Started Initializing Media Catlogue, {numResources} resources to load");
 
         // Start Asrynchronously loading the media
@@ -215,7 +215,7 @@ public class MediaCatalogue : MonoBehaviour
                 {
                     LabLogger.Instance.InfoLog(
                         this.GetType().ToString(),
-                        "Trace",
+                        "Debug",
                         $"Started loading file: {file.Name}");
                     // Only Load files from folders describing asset types
                     if (folder.Name == "Audios")
