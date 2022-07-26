@@ -62,6 +62,7 @@ public class LabManager : MonoBehaviour
         SpawnModule();
     }
 
+    // DEPRECATED, DO NOT USE
     public void spawnDemoNew()
     {
 

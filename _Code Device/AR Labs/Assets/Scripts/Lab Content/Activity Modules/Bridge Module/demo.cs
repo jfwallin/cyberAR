@@ -43,8 +43,11 @@ namespace demoRoutines
             //ibox.AddPage("test", "this is a big test", true);
 
             // play the introAudio
-            aud.clip = Resources.Load<AudioClip>(moduleData.introAudio);
-            aud.Play();
+            if (moduleData.introAudio != "")
+            {
+                aud.clip = MediaCatalogue.Instance.GetAudioClip(moduleData.introAudio);
+                aud.Play();
+            }
 
             // set the light if needed
             if (moduleData.useSunlight)

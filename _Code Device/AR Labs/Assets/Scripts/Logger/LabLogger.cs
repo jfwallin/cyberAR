@@ -49,7 +49,6 @@ public class LabLogger : MonoBehaviour
     private FileInfo positionFileInfo;
     private bool initialized = false;            // Tracks whether the log file has been renamed w/ the M number
     private bool submitted = false;              // Whether the log for the current session has been submitted
-    private float startTime = 0.0f;              // Time the logger started
     private float connectionTimer = 0.0f;        // Tracks how long since last connection attempt, as to prevent a timout
     
     [Header("Configuration")]
@@ -70,6 +69,7 @@ public class LabLogger : MonoBehaviour
     private Transform headset;
     [SerializeField]
     private float deltaTime = 0.5f;
+    private float startTime = 0.0f;              // Time the logger started
     private float prevTime = 0.0f;
     #endregion Variables
 
@@ -117,7 +117,7 @@ public class LabLogger : MonoBehaviour
         InfoLog("LOGGER", "TRACE", $"Saving files to persistent data path: {logFileInfo.FullName}");
 
         // Sync up log files, initialize prevTime
-        float prevTime = Time.deltaTime;
+        float prevTime = Time.time;
         InfoLog("Logger", "Trace", $"Sync with transform log {prevTime}");
 
         using var filestream = new FileStream(positionFileInfo.FullName, FileMode.Append, FileAccess.Write);
@@ -205,7 +205,7 @@ public class LabLogger : MonoBehaviour
         string curTime = System.DateTime.Now.ToString("HH:mm:ss");
         string relTime = $"{Mathf.Round((Time.time-startTime)*100f)/100f}";
         // CURTIME, RELTIME | ENTITY, TAG : INFO
-        string log = $"{entity.ToUpper()}, {tag.ToUpper()} | {curTime}, {relTime} : {information}\n";
+        string log = $"{entity.ToUpper()} | {tag.ToUpper()} | {curTime} | {relTime} | {information}\n";
         appendToLog(log);
 
         // Print log to console if flag is set, and not final build

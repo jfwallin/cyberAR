@@ -150,7 +150,7 @@ public class demoSequence : MonoBehaviour
 
     IEnumerator WaitForClip(float timeDelay)
     {
-        aud.clip = Resources.Load<AudioClip>(theClip.audioClipString);
+        aud.clip = MediaCatalogue.Instance.GetAudioClip(theClip.audioClipString);
 
         if (aud.clip != null)
             aud.Play();

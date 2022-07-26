@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -3727,7 +3727,7 @@ MonoBehaviour:
   trackPositions: 1
   controller: {fileID: 1580690876}
   headset: {fileID: 2031694668}
-  deltaTime: 0.5
+  deltaTime: 0.2
 --- !u!1 &1171612584
 GameObject:
   m_ObjectHideFlags: 0
@@ -11196,12 +11196,12 @@ PrefabInstance:
     - target: {fileID: 7235541112672725365, guid: 222bd9546a0294a4186782eaa063a280,
         type: 3}
       propertyPath: maxDistance
-      value: 2.5
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 7235541112672725365, guid: 222bd9546a0294a4186782eaa063a280,
         type: 3}
       propertyPath: idleDistance
-      value: 1.5
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 7235541112672725365, guid: 222bd9546a0294a4186782eaa063a280,
         type: 3}

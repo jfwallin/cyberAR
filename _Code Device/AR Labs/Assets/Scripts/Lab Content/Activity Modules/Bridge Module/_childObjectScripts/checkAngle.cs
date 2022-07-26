@@ -87,9 +87,8 @@ public class checkAngle : MonoBehaviour
 
 
         AudioSource  aud = gameObject.GetComponent<AudioSource>();
-        string aclip = "Audio/moonLab/Mixkit-game-bonus-reached-2065";
 
-        aud.clip = Resources.Load<AudioClip>(aclip);
+        aud.clip = MediaCatalogue.Instance.GetAudioClip("Mixkit-game-bonus-reached-2065");
 
         if (aud.clip != null)
             aud.Play();
