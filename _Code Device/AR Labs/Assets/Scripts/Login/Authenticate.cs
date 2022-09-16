@@ -22,7 +22,7 @@ public class Authenticate : MonoBehaviour
 {
     #region Variables
     // Used to download and store pin csv file
-    const string PIN_ID_CSV_URL = "http://cyberlearnar.cs.mtsu.edu/show_uploaded/pin_ids.csv";
+    const string PIN_ID_CSV_URL = "https://cyberlearnar.cs.mtsu.edu/show_uploaded/pin_ids.csv";
     //const string PIN_ID_CSV_FILEPATH = "login/pin_ids";
     private FileInfo pinCsvFileInfo;    // Used to interact w/ downloaded file
 

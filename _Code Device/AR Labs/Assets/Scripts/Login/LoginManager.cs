@@ -77,9 +77,9 @@ public class LoginManager : MonoBehaviour
     private string debugLabResources = "";
 
     //Base URLs to download from
-    const string LABS_URL = "http://cyberlearnar.cs.mtsu.edu/labs";
-    const string LAB_ZIP_BASE_URL = "http://cyberlearnar.cs.mtsu.edu/show_uploaded/lab_";
-    const string DEBUG_URL = "http://cyberlearnar.cs.mtsu.edu/show_uploaded/";
+    const string LABS_URL = "https://cyberlearnar.cs.mtsu.edu/labs";
+    const string LAB_ZIP_BASE_URL = "https://cyberlearnar.cs.mtsu.edu/show_uploaded/lab_";
+    const string DEBUG_URL = "https://cyberlearnar.cs.mtsu.edu/show_uploaded/";
     
     // Used to reference downloaded files
     private string loginDirectory = "";  // Initialized with Persistent data path in awake
