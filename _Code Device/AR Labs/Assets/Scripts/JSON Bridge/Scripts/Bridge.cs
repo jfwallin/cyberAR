@@ -2,16 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using System.IO;
 using System;
 using MagicLeapTools;
-//using System.Runtime.CompilerServices;
-//using System.CodeDom;
-using System.Collections.Specialized;
-using System.Runtime.Versioning;
-using System.Security.Policy;
-using System.Runtime.InteropServices;
-using UnityEditor;
 using TMPro;
 using System.Linq;
 
@@ -19,12 +11,23 @@ public class Bridge
 {
     static string canvasText;
 
-    //ParseJson can be called from outside the class to trigger the methods included here
+    #region Public Methods
+    // THIS FUNCTION CALLS A FUNCTION SIMILAR TO THE FUNCTION BELOW IT
+    // POTENTIAL REFACTOR
+    /// <summary>
+    /// Builds scene from JSON spec
+    /// One of the two main entry points to the bridge module
+    /// </summary>
+    /// <param name="data">JSON string specifying objects to make</param>
     public void ParseJson(string data)
     {
         makeScene(JsonUtility.FromJson<ObjectInfoCollection>(data));
     }
 
+    /// <summary>
+    /// Build/update objects as specified by data in passed array
+    /// </summary>
+    /// <param name="objectList">Array of ObjectInfo specifying what objects to make or update</param>
     public void makeObjects(ObjectInfo[] objectList)
     {
         foreach (ObjectInfo obj in objectList)
@@ -34,61 +37,35 @@ public class Bridge
         }
     }
 
-    private void makeScene(ObjectInfoCollection info)
-    {
-        //In the event that transmission objects need to be created this will send each to thier apropriet category
-        foreach (ObjectInfo obj in info.objects)
-        {
-            if (obj.transmittable == false) makeObject(obj);
-            else if (obj.transmittable == true) makeTransmissionObject(obj);
-        }
-    }
-
-    //makeObject goes through the json and creates the scene and all conected scripts from it.
-    //We are assuming that the scene is set up with the camera, default lighting, and controller already present.
+    /// <summary>
+    /// Creates an object and attaches all scripts and components as specified in the ObjectInfo argument
+    /// </summary>
+    /// <param name="obj">Specification of the object to create</param>
     public void makeObject(ObjectInfo obj)
     {
-        LabLogger.Instance.InfoLog(
-            this.GetType().ToString(),
-            "Debug",
+        GameObject myObject;       //Object being created
+
+        LabLogger.Instance.InfoLog( this.GetType().ToString(), "Debug",
             $"Creating object: {obj.name}, type: {obj.type}");
 
-        GameObject myObject;
-        GameObject parent = null;
-        TextMeshPro textBox= null;
-
-        // this allow use to modify existing objects in the scene
+        // Check if object exists in the scene already
         myObject = GameObject.Find(obj.name);
-        if (myObject != null)
+        // If it does not, create it and perform first time setup
+        if (myObject == null)
         {
-            //Debug.Log("found object " + obj.name);
-        }
-        else
-        {
-            //Debug.Log("creating " + obj.name + " " + obj.type);
-            myObject = dealWithType(obj.type); //possibly fixed
+            // Instantiate base GameObject
+            myObject = dealWithType(obj.type);
+            // Set some initial values
             myObject.name = obj.name;
-
             obj.newPosition = true;
             obj.newScale = true;
             obj.newEulerAngles = true;
             if (obj.parentName != "")
             {
-                parent = GameObject.Find(obj.parentName);
-                myObject.transform.SetParent(parent.transform);
+                GameObject parent = GameObject.Find(obj.parentName);
+                myObject.transform.SetParent(parent?.transform);
             }
         }
-
-
-       /* if (obj.parentName != "")
-        {
-            parent = GameObject.Find(obj.parentName);
-            myObject.transform.SetParent(parent.transform);
-        }*/
-        //if (obj.parentName != "")
-        //{
-        //    myObject.transform.parent = parent.transform;
-        //}
 
         // three new key words have been added to the objectInfo class.
         // The keywords allow use to not override the postions, scales, and
@@ -99,126 +76,83 @@ public class Bridge
             myObject.transform.localScale = obj.scale;
         if (obj.newEulerAngles)
             myObject.transform.localEulerAngles = obj.eulerAngles;
-        LabLogger.Instance.InfoLog(
-            this.GetType().ToString(),
-            "Debug",
+        LabLogger.Instance.InfoLog( this.GetType().ToString(), "Debug",
             $"Position: {obj.position}, Scale: {obj.scale}, EulerAngles: {obj.eulerAngles}");
 
+        // Add custom scripted components to the object
         if (obj.componentsToAdd != null)
         {
-            LabLogger.Instance.InfoLog(
-                this.GetType().ToString(),
-                "Debug",
+            LabLogger.Instance.InfoLog( this.GetType().ToString(), "Debug",
                 $"Adding components: {obj.componentsToAdd.ToList().Aggregate("", (acc, x) => acc + $"{x} ")}");
-            //Debug.Log("components to add " + obj.componentsToAdd.Length.ToString());
-            for (int i = 0; i < obj.componentsToAdd.Length; i++)
+
+            foreach (string compStr in obj.componentsToAdd)
             {
-                //Parse once to get the name of the component
-                ComponentName cName = JsonUtility.FromJson<ComponentName>(obj.componentsToAdd[i]);
-                //Check if the component already exists (ie, the mesh renderer on aprimitive)
-                //Debug.Log(i.ToString() + "   " + obj.componentsToAdd[i]);
-                //Debug.Log("cname " + cName.name); 
+                // Read component into a simple class to just get its name
+                ComponentName cName = JsonUtility.FromJson<ComponentName>(compStr);
+                // Use name to create the actual component and initialize its values
                 Component myComp = myObject.GetComponent(Type.GetType(cName.name));
                 if (myComp == null)
-                {
-                    JsonUtility.FromJsonOverwrite(obj.componentsToAdd[i], myObject.AddComponent(Type.GetType(cName.name)));
-                }
-                else
-                {
-                    JsonUtility.FromJsonOverwrite(obj.componentsToAdd[i], myComp);
-                }
+                    myComp = myObject.AddComponent(Type.GetType(cName.name));
+                JsonUtility.FromJsonOverwrite(compStr, myComp);
             }
         }
 
+        // Set object tag
         if (obj.tag != "")
-        {
             myObject.tag = obj.tag;
-            // allowable options are limited to the Unity defaults and other attributes
-            // manually added to the base scene
-        }
 
-        
-
-        //myObject.GetComponent<PointerReceiver>().Clicked)
-
-
-        //This block is removed in Isaac's code and dealt with in the stringJson
-        //I can't quite get that working though
+        // Get renderer to be modified
+        Renderer rend = myObject.GetComponent<Renderer>();
+        // Set object material
         if (obj.material != "" && obj.material != null)
-        {
+            rend.material = Resources.Load<Material>(obj.material); // Material must be in a recources folder.
 
-            //Debug.Log("length " + obj.material.Length.ToString());
-            //Debug.Log("in Render   -X" + obj.material + "X");
-            Renderer rend = myObject.GetComponent<Renderer>();
-            rend.material = Resources.Load<Material>(obj.material); //material must be in a recources folder.
-        }
-
-        myObject.SetActive(obj.enabled); //sets the enabled/disabled state of the object
-        MeshRenderer mesh = myObject.GetComponent<MeshRenderer>();
-        if(mesh != null && mesh.bounds.extents != Vector3.zero)
-        LabLogger.Instance.InfoLog(
-            this.GetType().ToString(),
-            "Debug",
-            $"Mesh bounding box: {mesh.bounds}");
-
-
+        // Set object Texture
         if (obj.texture != "" )
-        {
-            Renderer rend = myObject.GetComponent<Renderer>();
             rend.material.mainTexture = MediaCatalogue.Instance.GetTexture(obj.texture);
-        }
 
+        // Set the object texture
         if (obj.textureByURL != "")
         {
-            Renderer rend = myObject.GetComponent<Renderer>();
             rend.material.mainTexture = Resources.Load<Texture2D>(obj.texture);
             rend.material.mainTexture = MediaCatalogue.Instance.GetTexture(obj.texture);
         }
 
+        // Set the base color of the material
         if (obj.color != null)
         {
             if (obj.color.Length == 4)
-            {
-                Renderer rend = myObject.GetComponent<Renderer>();
                 rend.material.color = new Color( obj.color[0], obj.color[1], obj.color[2], obj.color[3]);
-            }
         }
 
-        if (obj.childColor != null && obj.childName != "" )
+        // Set the color of a child object
+        if (obj.childColor != null && obj.childName != "" && obj.childColor.Length == 4)
         {
-            if (obj.childColor.Length == 4)
+            GameObject childObject = myObject.transform.Find(obj.childName).gameObject;
+            if (childObject != null)
             {
-                Transform trans = myObject.transform;
-                Transform childTrans = trans.Find(obj.childName);
-                if (childTrans != null)
-                {
-                    //Debug.Log(" changing colors on " + obj.childName + "  " + obj.name + " &&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&&");
-                    GameObject childObj = childTrans.gameObject;
-                    Renderer rend = childObj.GetComponent<Renderer>();
-                    rend.material.SetColor("_Color", new Color(obj.childColor[0], obj.childColor[1], obj.childColor[2], obj.childColor[3])); //, obj.color[3]));
-
-                }
-
+                Renderer childRend = childObject.GetComponent<Renderer>();
+                rend?.material.SetColor("_Color", new Color(obj.childColor[0], obj.childColor[1], obj.childColor[2], obj.childColor[3])); //, obj.color[3]));
             }
         }
 
-
+        // Set a rigidbody
         if (obj.RigidBody!= null)
         {
             Rigidbody mycomp = myObject.GetComponent<Rigidbody>();
             if (mycomp != null)
             {
-                // create a new helper class for rigidbody components
+                // Can't overwrite a rigidbody directly, need to use an intermediate helper class
                 rigidBodyClass rb = new rigidBodyClass();
 
-                // copy the current values from the rigid body component to the helper
+                // Copy the current values from the rigid body component to the helper
                 rb.useGravity = mycomp.useGravity;
                 rb.isKinematic = mycomp.isKinematic;
                 rb.mass = mycomp.mass;
                 rb.drag = mycomp.drag;
                 rb.angularDrag = mycomp.angularDrag;
 
-                // the constraints for Rigid body use a bit flag system
+                // The constraints for Rigid body use a bit flag system
                 // 2 = x constraint
                 // 4 = y constraint
                 // 8 = z constraint
@@ -227,27 +161,24 @@ public class Bridge
                 // 64 = z rotation constraint
                 // the sum of the variables gives you the constraint, so 2+4 = 6 
                 // would constrain x and y
-                //rb.xConstraint = ((byte)mycomp.constraints & (1 << pos)) != 0;
                 rb.xConstraint = ((byte)mycomp.constraints & (1 << 1)) != 0;
                 rb.yConstraint = ((byte)mycomp.constraints & (1 << 2)) != 0;
                 rb.zConstraint = ((byte)mycomp.constraints & (1 << 3)) != 0;
-
                 rb.xRotationConstraint = ((byte)mycomp.constraints & (1 << 4)) != 0;
                 rb.yRotationConstraint = ((byte)mycomp.constraints & (1 << 5)) != 0;
                 rb.zRotationConstraint = ((byte)mycomp.constraints & (1 << 6)) != 0;
 
-                // assign components to the helper
-
+                // Update the helper class with the new data.
                 JsonUtility.FromJsonOverwrite(obj.RigidBody, rb);
                 
-                // transfer the helper class back to the real rigid body 
+                // Transfer the helper class back to the real rigid body 
                 mycomp.useGravity = rb.useGravity;
                 mycomp.isKinematic = rb.isKinematic;
                 mycomp.mass = rb.mass;
                 mycomp.drag = rb.drag;
                 mycomp.angularDrag = rb.angularDrag;
 
-                // this is a bit tedeous, but it zeems to work
+                // This is a bit tedeous, but it seems to work
                 mycomp.constraints = RigidbodyConstraints.None;
                 if (rb.xConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezePositionX;
                 if (rb.yConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezePositionY;
@@ -255,26 +186,16 @@ public class Bridge
                 if (rb.xRotationConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezeRotationX;
                 if (rb.yRotationConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezeRotationY;
                 if (rb.zRotationConstraint) mycomp.constraints = mycomp.constraints | RigidbodyConstraints.FreezeRotationZ;
-
-
             }
-
-
         }
-        
 
-
+        // Setup a PointerReceiver component
         if (obj.PointerReceiver != null) 
         {
-
-            MagicLeapTools.PointerReceiver mycomp = myObject.GetComponent<PointerReceiver>();
-            if (mycomp == null)
+            PointerReceiver mycomp = myObject.GetComponent<PointerReceiver>();
+            if (mycomp != null)
             {
-                //Debug.Log("no Pointer Receiver");
-            }
-            else
-            {
-                // create a new helper class for rigidbody components
+                // Copy data from component into class that can be overwritten from JSON
                 pointerReceiverClass pr = new pointerReceiverClass();
                 pr.draggable = mycomp.draggable;
                 pr.kinematicWhileIdle= mycomp.kinematicWhileIdle;
@@ -282,76 +203,93 @@ public class Bridge
                 pr.matchWallWhileDragging= mycomp.matchWallWhileDragging;
                 pr.invertForward= mycomp.invertForward;
 
+                // Update helper with JSON data
                 JsonUtility.FromJsonOverwrite(obj.PointerReceiver, pr);
 
+                // Transfer data back to the actual component
                 mycomp.draggable = pr.draggable;
                 mycomp.kinematicWhileIdle= pr.kinematicWhileIdle;
                 mycomp.faceWhileDragging = pr.faceWhileDragging;
                 mycomp.matchWallWhileDragging= pr.matchWallWhileDragging;
                 mycomp.invertForward= pr.invertForward;
             }
-
         }
 
+        // Set canvas text on object?
         if (obj.canvasText !=null)
         {
             Text tt = myObject.GetComponent<Text>();
             if (tt == null)
                 tt = myObject.AddComponent<Text>();
+            // I'm not sure why this variable is neccesary
             canvasText = obj.canvasText;
             tt.text = obj.canvasText;
-
         }
 
-        if (obj.tmp != null)
+        // Set text mesh pro object
+        TextMeshPro textBox = myObject.GetComponent<TextMeshPro>();
+        if (textBox != null)
         {
-            textBox = myObject.GetComponent<TextMeshPro>();
-            if (textBox == null)
+            if (obj.tmp != null)
             {
-                //Debug.Log("no TextMeshPro");
-            }
-            else
-            {
+                // Copy data from component into a class that can be overwritten from JSON
                 textProClass tpc = new textProClass();
-                //Debug.Log("TEXT = " + textBox.text);
                 tpc.textField = textBox.text;
                 tpc.color = textBox.color;
                 tpc.fontSize = textBox.fontSize;
                 tpc.wrapText = textBox.enableWordWrapping;
-                //Debug.Log(JsonUtility.ToJson(obj));
-                //Debug.Log("TTMP  " + obj.tmp);
+
+                // Update the class with the JSON data
                 JsonUtility.FromJsonOverwrite(obj.tmp, tpc);
 
-                //Debug.Log("2TTMP  " + obj.tmp);
-                //Debug.Log("dddddd  " + tpc.textField);
-
+                // Copy the info back into the component
                 textBox.SetText(tpc.textField);
                 textBox.fontSize = tpc.fontSize;
                 textBox.color = tpc.color;
                 textBox.enableWordWrapping = tpc.wrapText;
                 textBox.SetAllDirty();
-
             }
-
-
-        }
-        else
-        {
-           // Debug.Log("no meshpro");
-        }
-
-        
-       textBox = myObject.GetComponent<TextMeshPro>();
-       if (textBox != null)
-        {
             textBox.SetAllDirty();
         }
+        
+        // Log the size of the mesh
+        MeshRenderer mesh = myObject.GetComponent<MeshRenderer>();
+        if(mesh != null && mesh.bounds.extents != Vector3.zero)
+        LabLogger.Instance.InfoLog( this.GetType().ToString(), "Debug",
+            $"Mesh bounding box: {mesh.bounds}");
 
+        // Enable the object
+        myObject.SetActive(obj.enabled);
+    }
+
+    /// <summary>
+    /// Deletes all objects specified in the data argument
+    /// </summary>
+    /// <param name="data">JSON list of objects to delete</param>
+    public void CleanUp(string data)
+    {
+        ObjectInfoCollection info = JsonUtility.FromJson<ObjectInfoCollection>(data);
+        foreach (ObjectInfo obj in info.objects)
+        {
+            GameObject.Destroy(GameObject.Find(obj.name));
+        }
+    }
+    #endregion Public Methods
+
+    #region Private Methods
+    private void makeScene(ObjectInfoCollection info)
+    {
+        //In the event that transmission objects need to be created this will send each to thier apropriet category
+        foreach (ObjectInfo obj in info.objects)
+        {
+            if (obj.transmittable == false) makeObject(obj);
+            else if (obj.transmittable == true) makeTransmissionObject(obj);
+        }
     }
 
     private void makeTransmissionObject(ObjectInfo obj)
     {
-        if (!GameObject.Find(obj.name)) //to keep it from trying to spawn a seccond version. Can't remember if I actually need this. I suspect I don't.
+        if (!GameObject.Find(obj.name))
         {
             TransmissionObject myTransObject;
             GameObject myObject;
@@ -382,17 +320,9 @@ public class Bridge
                 }
             }
 
-
-            //myObject.transform.position = obj.position;
-            //myObject.transform.localScale = obj.scale;
             if (obj.parentName != "")
-            {
                 myObject.transform.parent = parent.transform;
-            }
 
-
-            //This block is removed in Isaac's code and dealt with in the stringJson
-            //I can't quite get that working though
             if (obj.material != "")
             {
                 Renderer rend = myObject.GetComponent<Renderer>();
@@ -404,13 +334,14 @@ public class Bridge
                 Renderer rend = myObject.GetComponent<Renderer>();
                 rend.material.mainTexture = Resources.Load<Texture2D>(obj.texture);
             }
-            //I think the issue is here or when I reposition the thing. Need to look at Issac's pong game.
         }
-
     }
 
-
-    //dealWithType allows us to instantiate various objects.
+    /// <summary>
+    /// Instantiates a base GameObject depending on the contents of `type`
+    /// </summary>
+    /// <param name="type">Specifies what base GameObject to instantiate</param>
+    /// <returns></returns>
     private GameObject dealWithType(string type)
     {
         GameObject myObject;
@@ -440,30 +371,11 @@ public class Bridge
                 break;
             default:
                 myObject = GameObject.Instantiate(Resources.Load(type, typeof(GameObject)) as GameObject);
-
-                //myObject = (GameObject)Resources.Load(s1) as GameObject;
-                //myObject = GameObject.Instantiate(Resources.Load(type)) as GameObject; //This line is for if you want the default to be loading a prefab
                 //Note that the above line requires your prefab to be located in a resources folder.
                 break;
         }
 
         return myObject;
     }
-    //This whole method will likely have to change slightly when we start dealing with Transmission.
-
-    //a cleanup meathod....hmmm
-    public void CleanUp(string data)
-    {
-
-        Debug.Log("cleaning up in the bridge");
-        //parse string
-        ObjectInfoCollection info = JsonUtility.FromJson<ObjectInfoCollection>(data);
-
-        foreach (ObjectInfo obj in info.objects)
-        {
-            GameObject.Destroy(GameObject.Find(obj.name));
-        }
-    }
-
-
+    #endregion Private Methods
 }
