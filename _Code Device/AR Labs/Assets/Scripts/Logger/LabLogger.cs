@@ -310,7 +310,7 @@ public class LabLogger : MonoBehaviour
         form.AddField("username", "rafet.al-tobasei@mtsu.edu");
 
         //submit information the server 
-        UnityWebRequest www = UnityWebRequest.Post("http://cyberlearnar.cs.mtsu.edu/login", form);
+        UnityWebRequest www = UnityWebRequest.Post("https://cyberlearnar.cs.mtsu.edu/login", form);
 
         yield return www.SendWebRequest();
 
@@ -338,7 +338,7 @@ public class LabLogger : MonoBehaviour
         form.AddBinaryData("file", txtByte, logFileName, "txt");
 
         //// submit file to server
-        UnityWebRequest www = UnityWebRequest.Post("http://cyberlearnar.cs.mtsu.edu/upload_file", form);
+        UnityWebRequest www = UnityWebRequest.Post("https://cyberlearnar.cs.mtsu.edu/upload_file", form);
         yield return www.SendWebRequest();
         // Check result
         if(Debug.isDebugBuild)
@@ -361,7 +361,7 @@ public class LabLogger : MonoBehaviour
             form2.AddBinaryData("file", txtByte2, positionFileName, "txt");
 
             //// submit file to server
-            UnityWebRequest www2 = UnityWebRequest.Post("http://cyberlearnar.cs.mtsu.edu/upload_file", form2);
+            UnityWebRequest www2 = UnityWebRequest.Post("https://cyberlearnar.cs.mtsu.edu/upload_file", form2);
             yield return www2.SendWebRequest();
             // Check result
             if(Debug.isDebugBuild)
