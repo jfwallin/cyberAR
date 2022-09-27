@@ -112,6 +112,7 @@ public class LabLogger : MonoBehaviour
         // Connect to the website immediately, if we are going to upload
         if(!Debug.isDebugBuild || (Debug.isDebugBuild && uploadLogs))
             StartCoroutine(Connect());
+        connectionTimer = 0.0f;
 
         // Log where the files should be saving to
         InfoLog("LOGGER", "TRACE", $"Saving files to persistent data path: {logFileInfo.FullName}");
@@ -145,6 +146,7 @@ public class LabLogger : MonoBehaviour
             if (connectionTimer > 3600)
             {
                 StartCoroutine(Connect());
+                connectionTimer = 0;
             }
         }
 
