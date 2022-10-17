@@ -65,6 +65,19 @@ public class Bridge
                 GameObject parent = GameObject.Find(obj.parentName);
                 myObject.transform.SetParent(parent?.transform);
             }
+            // Add logger calls for when the object is targetted or dragged
+            if (obj.type.Contains("moveableSphere"))
+            {
+                PointerReceiver pr = myObject.GetComponent<PointerReceiver>();
+                pr.OnTargetEnter.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Object Targeted",
+                    myObject.name));
+                pr.OnTargetExit.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Object Detargeted",
+                    myObject.name));
+                pr.OnDragBegin.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Drag Start",
+                    myObject.name));
+                pr.OnDragEnd.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Drag End",
+                    $"{myObject.name}:{myObject.transform.position.ToString("F3")}:{myObject.transform.eulerAngles.ToString("F3")}"));
+            }
         }
 
         // three new key words have been added to the objectInfo class.
@@ -271,7 +284,17 @@ public class Bridge
         ObjectInfoCollection info = JsonUtility.FromJson<ObjectInfoCollection>(data);
         foreach (ObjectInfo obj in info.objects)
         {
-            GameObject.Destroy(GameObject.Find(obj.name));
+            GameObject obj_dstry = GameObject.Find(obj.name);
+            PointerReceiver pr = obj_dstry.GetComponent<PointerReceiver>();
+            if (pr != null)
+            {
+                pr.OnTargetEnter.RemoveAllListeners();
+                pr.OnTargetExit.RemoveAllListeners();
+                pr.OnDragBegin.RemoveAllListeners();
+                pr.OnDragEnd.RemoveAllListeners();
+            }
+
+            GameObject.Destroy(obj_dstry);
         }
     }
     #endregion Public Methods
