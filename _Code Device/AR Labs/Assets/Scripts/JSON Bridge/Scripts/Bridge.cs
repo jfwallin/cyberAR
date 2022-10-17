@@ -77,7 +77,7 @@ public class Bridge
         if (obj.newEulerAngles)
             myObject.transform.localEulerAngles = obj.eulerAngles;
         LabLogger.Instance.InfoLog( this.GetType().ToString(), "Debug",
-            $"Position: {obj.position}, Scale: {obj.scale}, EulerAngles: {obj.eulerAngles}");
+            $"Position: {obj.position.ToString("F3")}, Scale: {obj.scale.ToString("F3")}, EulerAngles: {obj.eulerAngles.ToString("F3")}");
 
         // Add custom scripted components to the object
         if (obj.componentsToAdd != null)
@@ -256,7 +256,7 @@ public class Bridge
         MeshRenderer mesh = myObject.GetComponent<MeshRenderer>();
         if(mesh != null && mesh.bounds.extents != Vector3.zero)
         LabLogger.Instance.InfoLog( this.GetType().ToString(), "Debug",
-            $"Mesh bounding box: {mesh.bounds}");
+            $"Mesh bounding box: {mesh.bounds.ToString("F3")}");
 
         // Enable the object
         myObject.SetActive(obj.enabled);
