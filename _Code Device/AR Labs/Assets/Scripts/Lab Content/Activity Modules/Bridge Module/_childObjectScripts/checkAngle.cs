@@ -72,12 +72,14 @@ public class checkAngle : MonoBehaviour
 
         if (inBounds)
         {
-            Debug.Log("in bounds!!!!!");
+            LabLogger.Instance.InfoLog(this.ToString(), "Phase Excercise",
+                $"Correct:{altTarget},{azmTarget}:{alt},{yAngle3}");
             StartCoroutine(WaitForClip(3.0f));
         }
         else
         {
-            Debug.Log("not in Bounda!!!");
+            LabLogger.Instance.InfoLog(this.ToString(), "Phase Excercise",
+                $"Incorrect:{altTarget},{azmTarget}:{alt},{yAngle3}");
         }
     }
 
