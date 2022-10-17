@@ -243,11 +243,15 @@ public class LabLogger : MonoBehaviour
     /// Called when button is pressed in the editor, uploads logs before quitting
     /// </summary>
 #if UNITY_EDITOR
-    public void UploadAndStop()
+    public void UploadAndStopEditor()
     {
         StartCoroutine(Upload(finishedUploadEditor));
     }
 #endif
+    public void UploadAndStop()
+    {
+        StartCoroutine(Upload(Application.Quit));
+    }
 #endregion Public Methods
 
     #region Private Methods
