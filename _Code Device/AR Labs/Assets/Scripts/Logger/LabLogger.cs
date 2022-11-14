@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.Assertions;
@@ -16,11 +17,11 @@ public class LabLogger : MonoBehaviour
         get
         {
             // Check if there is already an instance assigned
-            if(_instance == null)
+            if (_instance == null)
             {
                 // Try to find an existing instance
                 LabLogger search = FindObjectOfType<LabLogger>();
-                if(search != null)
+                if (search != null)
                 {
                     _instance = search;
                 }
@@ -44,6 +45,8 @@ public class LabLogger : MonoBehaviour
 
     private string logDirectory = "";            // Log filepath, will be updated with student's name and id
     private string logFileName = "";             // Name of the logfile, will have student's name and id
+    private string addedLogs = "";
+    private List<byte> addedTransforms = new List<byte>();
     private FileInfo logFileInfo;
     private string positionFileName = "";
     private FileInfo positionFileInfo;
@@ -59,6 +62,11 @@ public class LabLogger : MonoBehaviour
     private bool saveLogsLocally = false;
     [SerializeField]
     private int numberOfLogsStored = 3;
+    [SerializeField]
+    private bool incrementalUpload = false;
+    [Tooltip("Time in minutes between incremental uploads")]
+    [SerializeField]
+    private int incrementalUploadTimer = 5;
 
     [Header("Position Tracking")]
     [SerializeField]
@@ -71,6 +79,7 @@ public class LabLogger : MonoBehaviour
     private float deltaTime = 0.5f;
     private float startTime = 0.0f;              // Time the logger started
     private float prevTime = 0.0f;
+    private float lastUpload = 0.0f;
     #endregion Variables
 
     #region Unity Methods
@@ -160,6 +169,15 @@ public class LabLogger : MonoBehaviour
             // Update prevTime now that we have logged
             prevTime = curTime;
         }
+
+        // Check to see if we start uploading incremental logs this frame
+        if(incrementalUpload && (curTime - lastUpload) > (incrementalUploadTimer*60))
+        {
+            StartCoroutine(Upload(()=> { }));
+
+            // Update lastUpload now that we have incrementally uploaded
+            lastUpload = curTime;
+        }
     }
     #endregion Unity Methods
 
@@ -208,6 +226,12 @@ public class LabLogger : MonoBehaviour
         string relTime = $"{Mathf.Round((Time.time-startTime)*100f)/100f}";
         // CURTIME, RELTIME | ENTITY, TAG : INFO
         string log = $"{entity.ToUpper()} | {tag.ToUpper()} | {curTime} | {relTime} | {information}\n";
+        // Check if we are incrementally uploading
+        if(incrementalUpload)
+        {
+            addedLogs += log;
+        }
+        // Still append to local log no matter what
         appendToLog(log);
 
         // Print log to console if flag is set, and not final build
@@ -260,24 +284,45 @@ public class LabLogger : MonoBehaviour
     /// </summary>
     private void logTransforms()
     {
-        using (var fileStream = new FileStream(positionFileInfo.FullName, FileMode.Append, FileAccess.Write))
-        using (var bw = new BinaryWriter(fileStream))
+        if(incrementalUpload)
         {
-            bw.Write(Time.time - prevTime - deltaTime);
-            bw.Write(controller.position.x);
-            bw.Write(controller.position.y);
-            bw.Write(controller.position.z);
-            bw.Write(controller.rotation.x);
-            bw.Write(controller.rotation.y);
-            bw.Write(controller.rotation.z);
-            bw.Write(controller.rotation.w);
-            bw.Write(headset.position.x);
-            bw.Write(headset.position.y);
-            bw.Write(headset.position.z);
-            bw.Write(headset.rotation.x);
-            bw.Write(headset.rotation.y);
-            bw.Write(headset.rotation.z);
-            bw.Write(headset.rotation.w);
+            addedTransforms.AddRange(BitConverter.GetBytes(Time.time - prevTime - deltaTime));
+            addedTransforms.AddRange(BitConverter.GetBytes(controller.position.x));
+            addedTransforms.AddRange(BitConverter.GetBytes(controller.position.y));
+            addedTransforms.AddRange(BitConverter.GetBytes(controller.position.z));
+            addedTransforms.AddRange(BitConverter.GetBytes(controller.rotation.x));
+            addedTransforms.AddRange(BitConverter.GetBytes(controller.rotation.y));
+            addedTransforms.AddRange(BitConverter.GetBytes(controller.rotation.z));
+            addedTransforms.AddRange(BitConverter.GetBytes(controller.rotation.w));
+            addedTransforms.AddRange(BitConverter.GetBytes(headset.position.x));
+            addedTransforms.AddRange(BitConverter.GetBytes(headset.position.y));
+            addedTransforms.AddRange(BitConverter.GetBytes(headset.position.z));
+            addedTransforms.AddRange(BitConverter.GetBytes(headset.rotation.x));
+            addedTransforms.AddRange(BitConverter.GetBytes(headset.rotation.y));
+            addedTransforms.AddRange(BitConverter.GetBytes(headset.rotation.z));
+            addedTransforms.AddRange(BitConverter.GetBytes(headset.rotation.w));
+        }
+        else
+        {
+            using (var fileStream = new FileStream(positionFileInfo.FullName, FileMode.Append, FileAccess.Write))
+            using (var bw = new BinaryWriter(fileStream))
+            {
+                bw.Write(Time.time - prevTime - deltaTime);
+                bw.Write(controller.position.x);
+                bw.Write(controller.position.y);
+                bw.Write(controller.position.z);
+                bw.Write(controller.rotation.x);
+                bw.Write(controller.rotation.y);
+                bw.Write(controller.rotation.z);
+                bw.Write(controller.rotation.w);
+                bw.Write(headset.position.x);
+                bw.Write(headset.position.y);
+                bw.Write(headset.position.z);
+                bw.Write(headset.rotation.x);
+                bw.Write(headset.rotation.y);
+                bw.Write(headset.rotation.z);
+                bw.Write(headset.rotation.w);
+            }
         }
     }
 
@@ -333,7 +378,17 @@ public class LabLogger : MonoBehaviour
     private IEnumerator Upload(Action doneUploading)
     {
         //Convert the file into binary
-        byte[] txtByte = File.ReadAllBytes(logFileInfo.FullName);
+        byte[] txtByte;
+        //Check if incremental uploads are being done
+        if (incrementalUpload)
+        {
+            txtByte = Encoding.UTF8.GetBytes(addedLogs);
+            addedLogs = "";
+        }
+        else // Get the local file instead
+        {
+            txtByte = File.ReadAllBytes(logFileInfo.FullName);
+        }
         //create a webForm object
         WWWForm form = new WWWForm();
 
@@ -362,7 +417,16 @@ public class LabLogger : MonoBehaviour
         // Optionally uplaod tracking data
         if(trackPositions)
         {
-            byte[] txtByte2 = File.ReadAllBytes(positionFileInfo.FullName);
+            byte[] txtByte2;
+            if (incrementalUpload)
+            {
+                txtByte2 = addedTransforms.ToArray();
+                addedTransforms.Clear();
+            }
+            else // Get the local file instead
+            {
+                txtByte2 = File.ReadAllBytes(positionFileInfo.FullName);
+            }
             WWWForm form2 = new WWWForm();
             form2.AddBinaryData("file", txtByte2, positionFileName, "txt");
 
