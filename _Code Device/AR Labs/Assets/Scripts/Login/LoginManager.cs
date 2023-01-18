@@ -304,7 +304,7 @@ public class LoginManager : MonoBehaviour
                             labZipFileInfo = new FileInfo(Path.Combine(labZipDirectory, selectedLab.id + ".zip"));
                             labZipFileInfo.Directory.Create();
                             DownloadUtility.Instance.DownloadAndExtractZip(
-                                Path.Combine(LAB_ZIP_BASE_URL, selectedLab.id = ".zip"),
+                                Path.Combine(LAB_ZIP_BASE_URL, selectedLab.id + ".zip"),
                                 labZipFileInfo.FullName,
                                 LabZipDownloadedAndExtracted);
                         }

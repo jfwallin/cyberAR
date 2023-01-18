@@ -310,13 +310,61 @@ public class Bridge
         }
     }
 
+    /// <summary>
+    /// Create an object using the Transmission System
+    /// </summary>
+    /// <param name="obj">specification of the object to create</param>
     private void makeTransmissionObject(ObjectInfo obj)
     {
+        LabLogger.Instance.InfoLog( this.GetType().ToString(), "Debug",
+            $"Creating object: {obj.name}, type: {obj.type}");
+
+        GameObject myObject = GameObject.Find(obj.name);
+        TransmissionObject myTransObject;
+
+        // If it does not, create it and perform first time setup
+        if (myObject == null)
+        {
+            // Instantiate base GameObject
+            myTransObject = Transmission.Spawn(
+                obj.type,
+                obj.position,
+                Quaternion.Euler(obj.eulerAngles),
+                obj.scale
+            );
+        }
+
+        // Now that the transmission object is made, send the rest of the info to the peers
+        String objInfoString = JsonUtility.ToJson(obj);
+        RPCMessage rpcMessage = new RPCMessage("handleTransmissionObjInfo", objInfoString);
+
+
+            // Set some initial values
+            myObject.name = obj.name;
+            obj.newPosition = true;
+            obj.newScale = true;
+            obj.newEulerAngles = true;
+            if (obj.parentName != "")
+            {
+                GameObject parent = GameObject.Find(obj.parentName);
+                myObject.transform.SetParent(parent?.transform);
+            }
+            // Add logger calls for when the object is targetted or dragged
+            if (obj.type.Contains("moveableSphere"))
+            {
+                PointerReceiver pr = myObject.GetComponent<PointerReceiver>();
+                pr.OnTargetEnter.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Object Targeted",
+                    myObject.name));
+                pr.OnTargetExit.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Object Detargeted",
+                    myObject.name));
+                pr.OnDragBegin.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Drag Start",
+                    myObject.name));
+                pr.OnDragEnd.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Drag End",
+                    $"{myObject.name}:{myObject.transform.position.ToString("F3")}:{myObject.transform.eulerAngles.ToString("F3")}"));
+            }
+        }
         if (!GameObject.Find(obj.name))
         {
-            TransmissionObject myTransObject;
-            GameObject myObject;
-            GameObject parent = null;
             if (obj.parentName != "")
             {
                 parent = GameObject.Find(obj.parentName);
