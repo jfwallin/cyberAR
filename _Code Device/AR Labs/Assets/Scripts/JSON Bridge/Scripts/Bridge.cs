@@ -43,42 +43,143 @@ public class Bridge
     /// <param name="obj">Specification of the object to create</param>
     public void makeObject(ObjectInfo obj)
     {
-        GameObject myObject;       //Object being created
+        GameObject myObject = GameObject.Find(obj.name); //Object being created
 
-        LabLogger.Instance.InfoLog( this.GetType().ToString(), "Debug",
+        LabLogger.Instance.InfoLog(this.GetType().ToString(), "Debug",
             $"Creating object: {obj.name}, type: {obj.type}");
 
-        // Check if object exists in the scene already
-        myObject = GameObject.Find(obj.name);
+        // If it does not, create it and perform first time setup
+        if (myObject == null)
+        {
+            myObject = dealWithType(obj.type);
+            initializeObject(myObject, obj);
+        }
+        else
+        {
+            // Modify existing object
+            modifyObject(myObject, obj);
+        }
+    }
+
+    /// <summary>
+    /// Called by transmission when a peer is creating an object on the network,
+    /// Starts the process of setting up the object locally
+    /// </summary>
+    /// <param name="infoStr">raw object info json</param>
+    public void handleTransmissionObjInfo(string infoStr)
+    {
+        ObjectInfo obj = JsonUtility.FromJson<ObjectInfo>(infoStr);
+
+        if(GameObject.Find(obj.name))
+    }
+
+    /// <summary>
+    /// Deletes all objects specified in the data argument
+    /// </summary>
+    /// <param name="data">JSON list of objects to delete</param>
+    public void CleanUp(string data)
+    {
+        ObjectInfoCollection info = JsonUtility.FromJson<ObjectInfoCollection>(data);
+        foreach (ObjectInfo obj in info.objects)
+        {
+            GameObject obj_dstry = GameObject.Find(obj.name);
+            PointerReceiver pr = obj_dstry.GetComponent<PointerReceiver>();
+            if (pr != null)
+            {
+                pr.OnTargetEnter.RemoveAllListeners();
+                pr.OnTargetExit.RemoveAllListeners();
+                pr.OnDragBegin.RemoveAllListeners();
+                pr.OnDragEnd.RemoveAllListeners();
+            }
+
+            GameObject.Destroy(obj_dstry);
+        }
+    }
+    #endregion Public Methods
+
+    #region Private Methods
+    private void makeScene(ObjectInfoCollection info)
+    {
+        //In the event that transmission objects need to be created this will send each to thier apropriet category
+        foreach (ObjectInfo obj in info.objects)
+        {
+            if (obj.transmittable == false) makeObject(obj);
+            else if (obj.transmittable == true) makeTransmissionObject(obj);
+        }
+    }
+
+    /// <summary>
+    /// Create an object using the Transmission System
+    /// </summary>
+    /// <param name="obj">specification of the object to create</param>
+    private void makeTransmissionObject(ObjectInfo obj)
+    {
+        LabLogger.Instance.InfoLog(this.GetType().ToString(), "Debug",
+            $"Creating object: {obj.name}, type: {obj.type}");
+
+        GameObject myObject = GameObject.Find(obj.name);
+        bool initialize = false;
+
         // If it does not, create it and perform first time setup
         if (myObject == null)
         {
             // Instantiate base GameObject
-            myObject = dealWithType(obj.type);
-            // Set some initial values
-            myObject.name = obj.name;
-            obj.newPosition = true;
-            obj.newScale = true;
-            obj.newEulerAngles = true;
-            if (obj.parentName != "")
-            {
-                GameObject parent = GameObject.Find(obj.parentName);
-                myObject.transform.SetParent(parent?.transform);
-            }
-            // Add logger calls for when the object is targetted or dragged
-            if (obj.type.Contains("moveableSphere"))
-            {
-                PointerReceiver pr = myObject.GetComponent<PointerReceiver>();
-                pr.OnTargetEnter.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Object Targeted",
-                    myObject.name));
-                pr.OnTargetExit.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Object Detargeted",
-                    myObject.name));
-                pr.OnDragBegin.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Drag Start",
-                    myObject.name));
-                pr.OnDragEnd.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Drag End",
-                    $"{myObject.name}:{myObject.transform.position.ToString("F3")}:{myObject.transform.eulerAngles.ToString("F3")}"));
-            }
+            myObject = Transmission.Spawn(
+                obj.type,
+                obj.position,
+                Quaternion.Euler(obj.eulerAngles),
+                obj.scale
+            ).gameObject;
+            initialize = true;
         }
+
+        LabLogger.Instance.InfoLog(this.GetType().ToString(), "Debug",
+            $"Sending Object Info to Peer, Obj Name: {obj.name}");
+
+        // Now that the transmission object is made, send the rest of the info to the peers
+        String objInfoString = JsonUtility.ToJson(obj);
+        RPCMessage rpcMessage = new RPCMessage("handleTransmissionObjInfo", objInfoString);
+
+        // Now Modify the object that was created
+        if (initialize)
+            initializeObject(myObject, obj);
+        else
+            modifyObject(myObject, obj);
+    }
+
+    private void initializeObject(GameObject myObject, ObjectInfo obj)
+    {
+        myObject.name = obj.name; 
+        obj.newPosition = true;
+        obj.newScale = true;
+        obj.newEulerAngles = true;
+        if (obj.parentName != "")
+        {
+            GameObject parent = GameObject.Find(obj.parentName);
+            myObject.transform.SetParent(parent?.transform);
+        }
+
+        // Add logger calls for when the object is targetted or dragged
+        if (obj.type.Contains("moveableSphere"))
+        {
+            PointerReceiver pr = myObject.GetComponent<PointerReceiver>();
+            pr.OnTargetEnter.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Object Targeted",
+                myObject.name));
+            pr.OnTargetExit.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Object Detargeted",
+                myObject.name));
+            pr.OnDragBegin.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Drag Start",
+                myObject.name));
+            pr.OnDragEnd.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Drag End",
+                $"{myObject.name}:{myObject.transform.position.ToString("F3")}:{myObject.transform.eulerAngles.ToString("F3")}"));
+        }
+
+        // Now that we are done initializing, modify the object
+        modifyObject(myObject, obj);
+    }
+
+    private void modifyObject(GameObject myObject, ObjectInfo obj)
+    {
+        // Do all the object setup
 
         // three new key words have been added to the objectInfo class.
         // The keywords allow use to not override the postions, scales, and
@@ -273,139 +374,6 @@ public class Bridge
 
         // Enable the object
         myObject.SetActive(obj.enabled);
-    }
-
-    /// <summary>
-    /// Deletes all objects specified in the data argument
-    /// </summary>
-    /// <param name="data">JSON list of objects to delete</param>
-    public void CleanUp(string data)
-    {
-        ObjectInfoCollection info = JsonUtility.FromJson<ObjectInfoCollection>(data);
-        foreach (ObjectInfo obj in info.objects)
-        {
-            GameObject obj_dstry = GameObject.Find(obj.name);
-            PointerReceiver pr = obj_dstry.GetComponent<PointerReceiver>();
-            if (pr != null)
-            {
-                pr.OnTargetEnter.RemoveAllListeners();
-                pr.OnTargetExit.RemoveAllListeners();
-                pr.OnDragBegin.RemoveAllListeners();
-                pr.OnDragEnd.RemoveAllListeners();
-            }
-
-            GameObject.Destroy(obj_dstry);
-        }
-    }
-    #endregion Public Methods
-
-    #region Private Methods
-    private void makeScene(ObjectInfoCollection info)
-    {
-        //In the event that transmission objects need to be created this will send each to thier apropriet category
-        foreach (ObjectInfo obj in info.objects)
-        {
-            if (obj.transmittable == false) makeObject(obj);
-            else if (obj.transmittable == true) makeTransmissionObject(obj);
-        }
-    }
-
-    /// <summary>
-    /// Create an object using the Transmission System
-    /// </summary>
-    /// <param name="obj">specification of the object to create</param>
-    private void makeTransmissionObject(ObjectInfo obj)
-    {
-        LabLogger.Instance.InfoLog( this.GetType().ToString(), "Debug",
-            $"Creating object: {obj.name}, type: {obj.type}");
-
-        GameObject myObject = GameObject.Find(obj.name);
-        TransmissionObject myTransObject;
-
-        // If it does not, create it and perform first time setup
-        if (myObject == null)
-        {
-            // Instantiate base GameObject
-            myTransObject = Transmission.Spawn(
-                obj.type,
-                obj.position,
-                Quaternion.Euler(obj.eulerAngles),
-                obj.scale
-            );
-        }
-
-        // Now that the transmission object is made, send the rest of the info to the peers
-        String objInfoString = JsonUtility.ToJson(obj);
-        RPCMessage rpcMessage = new RPCMessage("handleTransmissionObjInfo", objInfoString);
-
-
-            // Set some initial values
-            myObject.name = obj.name;
-            obj.newPosition = true;
-            obj.newScale = true;
-            obj.newEulerAngles = true;
-            if (obj.parentName != "")
-            {
-                GameObject parent = GameObject.Find(obj.parentName);
-                myObject.transform.SetParent(parent?.transform);
-            }
-            // Add logger calls for when the object is targetted or dragged
-            if (obj.type.Contains("moveableSphere"))
-            {
-                PointerReceiver pr = myObject.GetComponent<PointerReceiver>();
-                pr.OnTargetEnter.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Object Targeted",
-                    myObject.name));
-                pr.OnTargetExit.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Object Detargeted",
-                    myObject.name));
-                pr.OnDragBegin.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Drag Start",
-                    myObject.name));
-                pr.OnDragEnd.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Drag End",
-                    $"{myObject.name}:{myObject.transform.position.ToString("F3")}:{myObject.transform.eulerAngles.ToString("F3")}"));
-            }
-        }
-        if (!GameObject.Find(obj.name))
-        {
-            if (obj.parentName != "")
-            {
-                parent = GameObject.Find(obj.parentName);
-            }
-
-            myTransObject = Transmission.Spawn(obj.type, obj.position, Quaternion.Euler(0, 0, 0), obj.scale);
-            myTransObject.name = obj.name;
-            myObject = myTransObject.gameObject;
-
-            for (int i = 0; i < obj.componentsToAdd.Length; i++)
-            {
-                //Parse once to get the name of the component
-                ComponentName cName = JsonUtility.FromJson<ComponentName>(obj.componentsToAdd[i]);
-                //Check if the component already exists (ie, the mesh renderer on aprimitive)
-                Component myComp = myObject.GetComponent(Type.GetType(cName.name));
-                if (myComp == null)
-                {
-                    JsonUtility.FromJsonOverwrite(obj.componentsToAdd[i], myObject.AddComponent(Type.GetType(cName.name)));
-                    //This is causing problems becuase of AddCompnent
-                }
-                else
-                {
-                    JsonUtility.FromJsonOverwrite(obj.componentsToAdd[i], myComp);
-                }
-            }
-
-            if (obj.parentName != "")
-                myObject.transform.parent = parent.transform;
-
-            if (obj.material != "")
-            {
-                Renderer rend = myObject.GetComponent<Renderer>();
-                rend.material = Resources.Load<Material>(obj.material); //material must be in a recources folder.
-            }
-
-            if (obj.texture != "")
-            {
-                Renderer rend = myObject.GetComponent<Renderer>();
-                rend.material.mainTexture = Resources.Load<Texture2D>(obj.texture);
-            }
-        }
     }
 
     /// <summary>
