@@ -322,11 +322,11 @@ public class LabLogger : MonoBehaviour
 
         if (www.result != UnityWebRequest.Result.Success)
         {
-            Debug.Log(www.error);
+            InfoLog(this.ToString(), "ERROR", www.error);
         }
         else
         {
-            print("Form upload complete!");
+            InfoLog(this.ToString(), "UPLOAD", "Connect Successful");
         }
     }
 
@@ -351,11 +351,11 @@ public class LabLogger : MonoBehaviour
         {
             if (www.result != UnityWebRequest.Result.Success)
             {
-                Debug.Log(www.error);
+                InfoLog(this.ToString(), "ERROR", www.error);
             }
             else
             {
-                Debug.Log("Form Upload Completed!");
+                InfoLog(this.ToString(), "UPLOAD", "Log Uploaded");
             }
         }
 
@@ -374,11 +374,11 @@ public class LabLogger : MonoBehaviour
             {
                 if (www2.result != UnityWebRequest.Result.Success)
                 {
-                    Debug.Log(www2.error);
+                    InfoLog(this.ToString(), "ERROR", www2.error);
                 }
                 else
                 {
-                    Debug.Log("Form Upload Completed!");
+                    InfoLog(this.ToString(), "UPLOAD", "Transform data Uploaded");
                 }
             }
         }
