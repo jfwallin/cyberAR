@@ -6,6 +6,7 @@ using System;
 using MagicLeapTools;
 using TMPro;
 using System.Linq;
+using System.Text;
 
 public class Bridge
 {
@@ -73,6 +74,14 @@ public class Bridge
         if(GameObject.Find(obj.name))
     }
 
+    public void handleBufferSizeMessage()
+    {
+        // receives info about what to change local buffer size to
+        
+        // Then send back an acknowledgement
+
+    }
+
     /// <summary>
     /// Deletes all objects specified in the data argument
     /// </summary>
@@ -118,18 +127,20 @@ public class Bridge
             $"Creating object: {obj.name}, type: {obj.type}");
 
         GameObject myObject = GameObject.Find(obj.name);
+        TransmissionObject trObj = myObject?.GetComponent<TransmissionObject>();
         bool initialize = false;
 
         // If it does not, create it and perform first time setup
         if (myObject == null)
         {
             // Instantiate base GameObject
-            myObject = Transmission.Spawn(
+            trObj = Transmission.Spawn(
                 obj.type,
                 obj.position,
                 Quaternion.Euler(obj.eulerAngles),
                 obj.scale
-            ).gameObject;
+            );
+            myObject = trObj.gameObject;
             initialize = true;
         }
 
@@ -137,8 +148,25 @@ public class Bridge
             $"Sending Object Info to Peer, Obj Name: {obj.name}");
 
         // Now that the transmission object is made, send the rest of the info to the peers
+        // Convert object information to json
         String objInfoString = JsonUtility.ToJson(obj);
-        RPCMessage rpcMessage = new RPCMessage("handleTransmissionObjInfo", objInfoString);
+        // add the guid of the object to the front
+        String message = trObj.guid + "::_::" + objInfoString;
+        // Create a tag for the message, indicating how it should be handled
+        string tag = initialize ? "OBJ_SETUP" : "OBJ_SETUP";
+        // Create the message object
+        StringMessage strMessage = new StringMessage(message, tag);
+        // Check the size of the message
+        String serialized = JsonUtility.ToJson(strMessage);
+        byte[] bytes = Encoding.UTF8.GetBytes(serialized);
+        // Send message indicating to change the buffer size (use float message b/c there's no intmessage)
+        FloatMessage sizeMessage = new FloatMessage(bytes.Length, "BUFFER_SIZE");
+        Transmission.Send(sizeMessage);
+
+        // Wait for all known peers to send back acknowledgements
+
+        //Send back the message containing the object info
+        
 
         // Now Modify the object that was created
         if (initialize)
