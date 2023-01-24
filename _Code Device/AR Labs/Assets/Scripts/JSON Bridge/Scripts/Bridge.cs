@@ -7,6 +7,7 @@ using MagicLeapTools;
 using TMPro;
 using System.Linq;
 using System.Text;
+using System.Text.RegularExpressions;
 
 public class Bridge
 {
@@ -72,6 +73,47 @@ public class Bridge
         ObjectInfo obj = JsonUtility.FromJson<ObjectInfo>(infoStr);
 
         if(GameObject.Find(obj.name))
+    }
+
+    public void remoteInitObject(string data)
+    {
+        ObjectInfo objInfo;
+        String guid = "";
+        // Get the guid from the front of the string data
+        Regex rg = new Regex(@"^.+(?<guid>\w+)::_::");
+        Match match = rg.Match(data);
+        if (match.Success)
+        {
+            objInfo = JsonUtility.FromJson<ObjectInfo>(data.Substring(match.Index + match.Length));
+            guid = match.Groups["guid"].Value;
+        }
+        else
+        {
+            LabLogger.Instance.InfoLog(
+                this.ToString(),
+                "DEBUG",
+                "Failed to parse Transmission object information");
+            return;
+        }
+        // check if the object we need has been spawned
+        if (TransmissionObject.Exists(guid))
+        {
+            GameObject go = TransmissionObject.Get(guid).gameObject;
+            initializeObject(go, objInfo);
+        }
+        else
+        {
+            LabLogger.Instance.InfoLog(
+                this.ToString(),
+                "DEBUG",
+                $"Failed to find the transmission object with guid: {guid}");
+            return;
+        }
+    }
+
+    public void remoteModifyObject(string data)
+    {
+
     }
 
     public void handleBufferSizeMessage()
@@ -150,14 +192,14 @@ public class Bridge
         // Now that the transmission object is made, send the rest of the info to the peers
         // Convert object information to json
         String objInfoString = JsonUtility.ToJson(obj);
-        // add the guid of the object to the front
+        // Add the guid of the object to the front of the data
         String message = trObj.guid + "::_::" + objInfoString;
-        // Create a tag for the message, indicating how it should be handled
-        string tag = initialize ? "OBJ_SETUP" : "OBJ_SETUP";
+        // Specify what function should get the rpc call
+        String method = initialize ? "remoteInitObject" : "remoteModifyObject";
         // Create the message object
-        StringMessage strMessage = new StringMessage(message, tag);
+        RPCMessage rpcMessage = new RPCMessage(method, message);
         // Check the size of the message
-        String serialized = JsonUtility.ToJson(strMessage);
+        String serialized = JsonUtility.ToJson(rpcMessage);
         byte[] bytes = Encoding.UTF8.GetBytes(serialized);
         // Send message indicating to change the buffer size (use float message b/c there's no intmessage)
         FloatMessage sizeMessage = new FloatMessage(bytes.Length, "BUFFER_SIZE");
