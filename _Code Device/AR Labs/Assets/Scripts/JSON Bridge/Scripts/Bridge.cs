@@ -64,67 +64,6 @@ public class Bridge
     }
 
     /// <summary>
-    /// Called by transmission when a peer is creating an object on the network,
-    /// Starts the process of setting up the object locally
-    /// </summary>
-    /// <param name="infoStr">raw object info json</param>
-    public void handleTransmissionObjInfo(string infoStr)
-    {
-        ObjectInfo obj = JsonUtility.FromJson<ObjectInfo>(infoStr);
-
-        if(GameObject.Find(obj.name))
-    }
-
-    public void remoteInitObject(string data)
-    {
-        ObjectInfo objInfo;
-        String guid = "";
-        // Get the guid from the front of the string data
-        Regex rg = new Regex(@"^.+(?<guid>\w+)::_::");
-        Match match = rg.Match(data);
-        if (match.Success)
-        {
-            objInfo = JsonUtility.FromJson<ObjectInfo>(data.Substring(match.Index + match.Length));
-            guid = match.Groups["guid"].Value;
-        }
-        else
-        {
-            LabLogger.Instance.InfoLog(
-                this.ToString(),
-                "DEBUG",
-                "Failed to parse Transmission object information");
-            return;
-        }
-        // check if the object we need has been spawned
-        if (TransmissionObject.Exists(guid))
-        {
-            GameObject go = TransmissionObject.Get(guid).gameObject;
-            initializeObject(go, objInfo);
-        }
-        else
-        {
-            LabLogger.Instance.InfoLog(
-                this.ToString(),
-                "DEBUG",
-                $"Failed to find the transmission object with guid: {guid}");
-            return;
-        }
-    }
-
-    public void remoteModifyObject(string data)
-    {
-
-    }
-
-    public void handleBufferSizeMessage()
-    {
-        // receives info about what to change local buffer size to
-        
-        // Then send back an acknowledgement
-
-    }
-
-    /// <summary>
     /// Deletes all objects specified in the data argument
     /// </summary>
     /// <param name="data">JSON list of objects to delete</param>
@@ -148,6 +87,45 @@ public class Bridge
     }
     #endregion Public Methods
 
+    #region Public Callbacks
+    /// <summary>
+    /// RPC by transmission, used to set up Transmision Object for the first time
+    /// </summary>
+    /// <param name="data">contains guid of the Transmission Object
+    ///                    and the json describing it.</param>
+    public void remoteInitObject(string data)
+    {
+        GameObject go;
+        ObjectInfo newObjectInfo;
+        // Find the object to modify, and extract the ObjectInfo data
+        (go, newObjectInfo) = handleTransmissionObjectString(data);
+        // Setup the object
+        initializeObject(go, newObjectInfo);
+    }
+
+    /// <summary>
+    /// RPC by transmission, used to modify and existing Transmission Object
+    /// </summary>
+    /// <param name="data">contains guid of the Transmission Object
+    ///                    and the json describing it.</param>
+    public void remoteModifyObject(string data)
+    {
+        GameObject go;
+        ObjectInfo newObjectInfo;
+        // Find the object to modify, and extract the ObjectInfo data
+        (go, newObjectInfo) = handleTransmissionObjectString(data);
+        // Update the object
+        modifyObject(go, newObjectInfo);
+    }
+
+    public void handleBufferSizeMessage()
+    {
+        // receives info about what to change local buffer size to
+        
+        // Then send back an acknowledgement
+    }
+    #endregion Public Callbacks
+
     #region Private Methods
     private void makeScene(ObjectInfoCollection info)
     {
@@ -160,7 +138,8 @@ public class Bridge
     }
 
     /// <summary>
-    /// Create an object using the Transmission System
+    /// Create an object using the Transmission System,
+    /// Called once by the host of the shared experience
     /// </summary>
     /// <param name="obj">specification of the object to create</param>
     private void makeTransmissionObject(ObjectInfo obj)
@@ -207,7 +186,7 @@ public class Bridge
 
         // Wait for all known peers to send back acknowledgements
 
-        //Send back the message containing the object info
+        // Send back the message containing the object info
         
 
         // Now Modify the object that was created
@@ -217,6 +196,54 @@ public class Bridge
             modifyObject(myObject, obj);
     }
 
+    /// <summary>
+    /// Parses the guid and json from a string message sent 
+    /// to setup or modify a Transmission Object
+    /// </summary>
+    /// <param name="data">starts with guid of Transmission Object to be modified,
+    ///                    followed by the json describing that object</param>
+    /// <returns></returns>
+    private (GameObject, ObjectInfo) handleTransmissionObjectString(string data)
+    {
+        ObjectInfo objInfo;
+        String guid = "";
+
+        // Get the guid from the front of the string data
+        Regex rg = new Regex(@"^.+(?<guid>\w+)::_::");
+        Match match = rg.Match(data);
+        if (match.Success)
+        {
+            objInfo = JsonUtility.FromJson<ObjectInfo>(data.Substring(match.Index + match.Length));
+            guid = match.Groups["guid"].Value;
+        }
+        else // Failed to get guid and parse information
+        {
+            LabLogger.Instance.InfoLog(
+                this.ToString(),
+                "DEBUG",
+                "Failed to parse Transmission object information");
+            return (null, null);
+        }
+
+        // Check if the object we need has been spawned
+        if (TransmissionObject.Exists(guid))
+        {
+            GameObject go = TransmissionObject.Get(guid).gameObject;
+            return (go, objInfo);
+        }
+        // Else, log failure
+        LabLogger.Instance.InfoLog(
+            this.ToString(),
+            "DEBUG",
+            $"Failed to find the transmission object with guid: {guid}");
+        return (null, objInfo);
+    }
+
+    /// <summary>
+    /// Performs firsttime setup on an object
+    /// </summary>
+    /// <param name="myObject">object to be modified</param>
+    /// <param name="obj">specification of the object</param>
     private void initializeObject(GameObject myObject, ObjectInfo obj)
     {
         myObject.name = obj.name; 
@@ -247,6 +274,11 @@ public class Bridge
         modifyObject(myObject, obj);
     }
 
+    /// <summary>
+    /// Updates features on an existing object
+    /// </summary>
+    /// <param name="myObject"></param>
+    /// <param name="obj"></param>
     private void modifyObject(GameObject myObject, ObjectInfo obj)
     {
         // Do all the object setup
