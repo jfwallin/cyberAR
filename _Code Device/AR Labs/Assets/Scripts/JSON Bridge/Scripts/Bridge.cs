@@ -12,6 +12,7 @@ using System.Text.RegularExpressions;
 public class Bridge
 {
     static string canvasText;
+    private string msgParts;
 
     #region Public Methods
     // THIS FUNCTION CALLS A FUNCTION SIMILAR TO THE FUNCTION BELOW IT
@@ -88,41 +89,37 @@ public class Bridge
     #endregion Public Methods
 
     #region Public Callbacks
-    /// <summary>
-    /// RPC by transmission, used to set up Transmision Object for the first time
-    /// </summary>
-    /// <param name="data">contains guid of the Transmission Object
-    ///                    and the json describing it.</param>
-    public void remoteInitObject(string data)
+    public void handleStringMessage(StringMessage msg)
     {
-        GameObject go;
-        ObjectInfo newObjectInfo;
-        // Find the object to modify, and extract the ObjectInfo data
-        (go, newObjectInfo) = handleTransmissionObjectString(data);
-        // Setup the object
-        initializeObject(go, newObjectInfo);
-    }
+        // Check if this is about updating objects 
+        if (msg.d == "INIT" || msg.d == "CHNG")
+        {
+            GameObject go;
+            ObjectInfo newObjectInfo;
+            // Find the objects to modify, and extract the ObjectInfo data
+            (go, newObjectInfo) = handleTransmissionObjectString(msg.v);
 
-    /// <summary>
-    /// RPC by transmission, used to modify and existing Transmission Object
-    /// </summary>
-    /// <param name="data">contains guid of the Transmission Object
-    ///                    and the json describing it.</param>
-    public void remoteModifyObject(string data)
-    {
-        GameObject go;
-        ObjectInfo newObjectInfo;
-        // Find the object to modify, and extract the ObjectInfo data
-        (go, newObjectInfo) = handleTransmissionObjectString(data);
-        // Update the object
-        modifyObject(go, newObjectInfo);
-    }
+            if (msg.d == "INIT")
+                initializeObject(go, newObjectInfo);
+            if (msg.d == "MODIFY")
+                modifyObject(go, newObjectInfo);
+        }
+        if (msg.d == "PART")
+        {
+            msgParts += msg.v;
+        }
+        if (msg.d.StartsWith("END_"))
+        {
+            GameObject go;
+            ObjectInfo newObjectinfo;
+            (go, newObjectinfo) = handleTransmissionObjectString(msgParts + msg.v);
+            msgParts = "";
 
-    public void handleBufferSizeMessage()
-    {
-        // receives info about what to change local buffer size to
-        
-        // Then send back an acknowledgement
+            if (msg.d.EndsWith("INIT"))
+                initializeObject(go, newObjectinfo);
+            if (msg.d.EndsWith("CHNG"))
+                modifyObject(go, newObjectinfo);
+        }
     }
     #endregion Public Callbacks
 
@@ -174,20 +171,27 @@ public class Bridge
         // Add the guid of the object to the front of the data
         String message = trObj.guid + "::_::" + objInfoString;
         // Specify what function should get the rpc call
-        String method = initialize ? "remoteInitObject" : "remoteModifyObject";
+        String instruction = initialize ? "INIT" : "CHNG";
         // Create the message object
-        RPCMessage rpcMessage = new RPCMessage(method, message);
+        StringMessage strMessage = new StringMessage(message, instruction);
         // Check the size of the message
-        String serialized = JsonUtility.ToJson(rpcMessage);
+        String serialized = JsonUtility.ToJson(strMessage);
         byte[] bytes = Encoding.UTF8.GetBytes(serialized);
-        // Send message indicating to change the buffer size (use float message b/c there's no intmessage)
-        FloatMessage sizeMessage = new FloatMessage(bytes.Length, "BUFFER_SIZE");
-        Transmission.Send(sizeMessage);
-
-        // Wait for all known peers to send back acknowledgements
-
-        // Send back the message containing the object info
-        
+        int msgSize = bytes.Length;
+        int bufSize = Transmission.Instance.bufferSize;
+        // If the message is larger than the buffer, split message into smaller pieces
+        if (msgSize > bufSize)
+        {
+            // Each message portion must be sizeDiff long
+            int msgPartSize = msgSize - bufSize - 4;
+            int numMessages = (int)(msgSize / msgPartSize) + 1;
+            for (int i=0; i < numMessages; i++)
+            {
+                string data = i == numMessages - 1 ? "END_"+instruction : "PART";
+                StringMessage msgPart = new StringMessage(message.Substring(i * msgPartSize, msgPartSize), data);
+                Transmission.Send(msgPart);
+            }
+        }
 
         // Now Modify the object that was created
         if (initialize)
