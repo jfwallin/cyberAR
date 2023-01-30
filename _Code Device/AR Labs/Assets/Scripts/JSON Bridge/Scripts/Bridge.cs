@@ -11,10 +11,47 @@ using System.Text.RegularExpressions;
 
 public class Bridge
 {
-    static string canvasText;
-    private string msgParts;
+    #region Variables
+    private string msgParts;         // Holds pieces of large messages still being sent
+    private static Bridge _instance; // Singleton instance variable
+
+    // Singleton access
+    public static Bridge Instance
+    {
+        get
+        {
+
+            if (_instance == null)
+            {
+                LabLogger.Instance.InfoLog(
+                    "BRIDGE",
+                    "TRACE",
+                    "Creating Bridge Instance");
+                _instance = new Bridge();
+            }
+
+            return _instance;
+        }
+    }
+    #endregion Variables
 
     #region Public Methods
+    /// <summary>
+    /// Dummy Constructor
+    /// using this to hunt down everywhere Bridge gets instantiated
+    /// </summary>
+    public Bridge() { }
+
+    public void ConnectToTransmission()
+    {
+        Transmission.Instance.OnStringMessage.AddListener(handleStringMessage);
+    }
+
+    public void DisconnectFromTransmission()
+    {
+        Transmission.Instance.OnStringMessage.RemoveAllListeners();
+    }
+
     // THIS FUNCTION CALLS A FUNCTION SIMILAR TO THE FUNCTION BELOW IT
     // POTENTIAL REFACTOR
     /// <summary>
@@ -433,17 +470,6 @@ public class Bridge
                 mycomp.matchWallWhileDragging= pr.matchWallWhileDragging;
                 mycomp.invertForward= pr.invertForward;
             }
-        }
-
-        // Set canvas text on object?
-        if (obj.canvasText !=null)
-        {
-            Text tt = myObject.GetComponent<Text>();
-            if (tt == null)
-                tt = myObject.AddComponent<Text>();
-            // I'm not sure why this variable is neccesary
-            canvasText = obj.canvasText;
-            tt.text = obj.canvasText;
         }
 
         // Set text mesh pro object

@@ -2,40 +2,32 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using UnityEngine.Networking;
+using MagicLeapTools;
+using UnityEngine.XR.MagicLeap;
 using System;
-using System.IO;
 
 public class LabManager : MonoBehaviour
 {
     #region Variables
     [SerializeField]
-    private string[] modules;
-    private int index = 0;
-    private int indexIncrement = 1;
-    private GameObject currentModuleObject;
-    private ActivityModule currentModuleScript;
+    private string[] modules;                  // List of lab module data
+    private int index = 0;                     // index of currently running module in list
+    private int indexIncrement = 1;            // How to move to next module
+    private GameObject currentModuleObject;    // Reference to object holding the module script
+    private ActivityModule currentModuleScript;// Reference to current module script
+    private Bridge bridge;
 
-    [SerializeField]
-    GameObject instructionPrefab;
-    private GameObject instructionHolder;
-    private GameObject instructionCanvas;
-
-    //private InstructionBox ibox;
-
-    private LabLogger logger;
-    private string entity;
+    private LabLogger logger; // Easy reference to the logger object
+    private string entity;    // String of this class name, used when logging
     #endregion Variables
 
     #region Unity Methods
     public void Start()
     {
+        // Setup for logging
         entity = this.GetType().ToString();
         logger = LabLogger.Instance;
-
-
-        //ibox = InstructionBox.Instance;
-        //spawnDemoNew();
+        bridge = Bridge.Instance;
     }
     #endregion Unity Methods
 
@@ -43,65 +35,22 @@ public class LabManager : MonoBehaviour
     public void Initialize(LabDataObject data)
     {
         logger.InfoLog(entity, "Trace", "Initialize()");
+
+        // Initialize data
         modules = data.ActivityModules;
 
-        SpawnModule();
-        //spawnDemoNew();
-    }
-
-    public void Initialize(string[] moduleData)
-    {
-        logger.InfoLog(entity, "Trace", "Initialize()");
-        // this creates the instruction canvas
-        //createInstructions();
-
-        //Initialize data
-        modules = moduleData;
-
-        //Start Lab
-        SpawnModule();
-    }
-
-    // DEPRECATED, DO NOT USE
-    public void spawnDemoNew()
-    {
-
-        // this is a temporary way to load a json file
-        //string jsonpath = "C:/Users/jfwal/OneDrive/Documents/GitHub/cyberAR/_Code Device/AR Labs/Assets/Resources/jsonDefinitions/";
-        //string jsonpath = "Assets/Resources/jsonDefinitions/";
-        //string fname = "demo10.json";
-        //string fpath = jsonpath + fname;
-        //modules = System.IO.File.ReadAllLines(fpath);
-
-
-        string jdata = Resources.Load<TextAsset>("jsonDefinitions/demo10").text;
-        string[] modulesList = jdata.Split(new[] { "\r\n", "\r", "\n" }, StringSplitOptions.None);
-
-        // this is a kludge to problems associated with end of the file issues
-        // and random linefeeds within list of json files.  The splitting routine
-        // often adds a zero size module at the end of the file.  I will copy
-        // over any modules with length > 10 (a somewhat arbitrary choice)
-        // into the final array of modules.  This problem doesn't occur when you
-        // use the ReadAllLines option, but this is not available if you 
-        // are using a string array from a downloaded file or a Resource load.
-        int nonzero = 0;
-        for (int i = 0; i < modulesList.Length; i++)
-            if (modulesList[i].Length > 10)
-                nonzero = nonzero + 1;
-
-        int j = 0;
-        string[] modules = new string[nonzero];
-        for (int i = 0; i < modulesList.Length; i++)
+        // Check if Transmission
+        if(data.Transmission)
         {
-            if (modulesList[i].Length > 10)
-            {
-                modules[j] = modulesList[i];
-                j = j + 1;
-            }
+            // Enable components
+            GetComponent<MLPrivilegeRequesterBehavior>().enabled = true;
+            GetComponent<Transmission>().enabled = true;
+            GetComponent<SpatialAlignment>().enabled = true;
+            bridge.ConnectToTransmission();
         }
 
-        Initialize(modules);
-        SpawnModule();   
+        // Start the lab
+        SpawnModule();
     }
     #endregion Public Methods
 
@@ -123,10 +72,6 @@ public class LabManager : MonoBehaviour
         //Load prefab from resources
         GameObject tmpPrefab = (GameObject)Resources.Load($"Prefabs/{tmpData.prefabName}");
         print($"tmpPrefab for module is null: {tmpPrefab == null}");
-     //   if (tmpPrefab == null)
-     //       Debug.Log("it is null!");
-     //   else
-     //       Debug.Log("tmpdata = " + tmpData.prefabName);
 
         //There will need to be some sort of placement routine, but for now it will be placed at 0,0,0
         currentModuleObject = Instantiate(tmpPrefab, transform);
@@ -135,6 +80,7 @@ public class LabManager : MonoBehaviour
         //Start the module
         currentModuleScript.Initialize(modules[index]);
     }
+
     /// <summary>
     /// Called when the lab manager identifies that the lab is out of modules.
     /// </summary>
@@ -143,45 +89,15 @@ public class LabManager : MonoBehaviour
         // Get rid of current module objects and references
         Destroy(currentModuleObject);
         currentModuleScript = null;
+
+        // Disable Transmission tools
+        GetComponent<SpatialAlignment>().enabled = false;
+        GetComponent<Transmission>().enabled = false;
+        GetComponent<MLPrivilegeRequesterBehavior>().enabled = false;
+        bridge.DisconnectFromTransmission();
+
         // Notify the login manager that the lab is completed
         GameObject.Find("[LOGIC]").GetComponent<LoginManager>().LabComplete();
-    }
-    void createInstructions()
-    {
-        //GameObject root = GameObject.Find("Dynamic");
-        instructionHolder = Instantiate(instructionPrefab, new Vector3(0.0f, -0.3f, 2.0f), Quaternion.Euler(0.0f, 180.0f, 0.0f));
-        instructionCanvas = GameObject.Find("MainInstructions");
-        instructionCanvas.GetComponent<Text>().text = "Test Text";
-
-
-        FindObjectOfType<MagicLeapTools.ControlInput>().OnDoubleBumper.AddListener(InstructionBox.Instance.HandleDoubleBumper); //responds to double bumper to appear and disappear
-
-
-        //FindObjectOfType<MagicLeapTools.ControlInput>().OnDoubleBumper.AddListener(InstructionBox.Instance.HandleDoubleBumper); //responds to double bumper to appear and disappear
-        //FindObjectOfType<MagicLeapTools.ControlInput>().OnDoubleBumper.AddListener(InstructionBox.Instance.HandleDoubleBumper); //responds to double bumper to appear and disappear
-
-        //ibox.GetComponent<MagicLeapTools.InputReceiver>(). OnSelected.RemoveAllListeners();
-        //InstructionBox.Instance.transform.position = new Vector3(-0.3f, 1.5f, 1.0f); //Creates instance, places it. by default it points at the user
-        //FindObjectOfType<MagicLeapTools.ControlInput>().OnDoubleBumper.AddListener(InstructionBox.Instance.HandleDoubleBumper); //responds to double bumper to appear and disappear
-    }
-
-    void updateInstructions(ActivityModuleData tmpData)
-    {
-        // case the current data activity module data into a local variable
-        //ActivityModuleData tmpData = new ActivityModuleData();
-        //JsonUtility.FromJsonOverwrite(modules[index], tmpData);
-
-        string eobj = "Educational Objectives: \n\n";
-        string s;
-        for (int i = 0; i < tmpData.educationalObjectives.Length; i++)
-        {
-            s = tmpData.educationalObjectives[i];
-            eobj = eobj + i.ToString() + ") " + s + "\n";
-        }
-        //instructionCanvas.GetComponent<Text>().text = eobj;
-
-        InstructionBox.Instance.AddPage("Objectives", eobj, true); //Creates tab for the educational objectives and shows it.
-
     }
     #endregion Private Methods
 

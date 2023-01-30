@@ -13,4 +13,5 @@ public class LabDataObject
     public string[] Objectives;
     public string[] ActivityModules;
     public MediaInfo[] Assets;
+    public bool Transmission;
 }

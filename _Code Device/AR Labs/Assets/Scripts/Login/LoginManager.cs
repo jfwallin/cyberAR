@@ -480,7 +480,7 @@ public class LoginManager : MonoBehaviour
         logger.InfoLog(entity, "Trace", "InitializeLabManager()");
         LabManager lm = labStarter.GetComponent<LabManager>();
         lm.enabled = true;
-        lm.Initialize(labData.ActivityModules);
+        lm.Initialize(labData);
     }
 
     private void HidePointer() => ToggleControllerRendering(false);
