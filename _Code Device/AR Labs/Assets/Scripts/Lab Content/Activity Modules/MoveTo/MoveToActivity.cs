@@ -114,7 +114,7 @@ namespace MoveToRoutines
                 lightControl.sunlight();
 
             // instantiate the bridge and create the demo objects
-            bridge = new Bridge();
+            bridge = Bridge.Instance;
             if (moduleData.createObjects)
                 bridge.ParseJson(jsonString);
 

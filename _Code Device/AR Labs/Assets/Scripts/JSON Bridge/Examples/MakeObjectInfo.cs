@@ -7,7 +7,7 @@ using System.IO;
 //This script allows you to test the Bridge without a outside source.
 public class ExampleSpawner : MonoBehaviour
 {
-    private Bridge bridge = new Bridge(); //an instance of the bridge
+    private Bridge bridge = Bridge.Instance;
 
     public string[] paths; 
 

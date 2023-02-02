@@ -5,7 +5,7 @@ using System.IO;
 
 public class MakeModule : MonoBehaviour
 {
-    private Bridge bridge = new Bridge(); //an instance of the bridge
+    private Bridge bridge = Bridge.Instance;
 
     public string path;
 

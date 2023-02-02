@@ -31,7 +31,7 @@ public class demoSequence : MonoBehaviour
     {
         parentObj = GameObject.Find("[_DYNAMIC]");
         aud = GetComponent<AudioSource>();
-        bridge = new Bridge();
+        bridge = Bridge.Instance;
         theClips = sequenceData;
         currentState = 0;
 
@@ -142,7 +142,7 @@ public class demoSequence : MonoBehaviour
                     GameObject.Find(objectMods.name).SetActive(false);
                 }
                 else
-                    bridge.makeObject(objectMods as ObjectInfo);
+                    bridge.MakeObject(objectMods as ObjectInfo);
             }
         }
     }

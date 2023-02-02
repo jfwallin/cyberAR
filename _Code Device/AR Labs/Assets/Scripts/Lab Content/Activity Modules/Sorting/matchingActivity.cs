@@ -127,9 +127,9 @@ namespace sortingRoutines
                 lightControl.sunlight();
 
             // instantiate the bridge and create the demo objects
-            bridge = new Bridge();
+            bridge = Bridge.Instance;
             if (moduleData.createObjects)
-                bridge.makeObjects(moduleData.objects);
+                bridge.MakeObjects(moduleData.objects);
 
             // set the end criteria
             if (moduleData.timeToEnd > 0)

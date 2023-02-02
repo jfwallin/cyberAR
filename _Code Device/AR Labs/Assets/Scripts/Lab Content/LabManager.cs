@@ -27,6 +27,7 @@ public class LabManager : MonoBehaviour
         // Setup for logging
         entity = this.GetType().ToString();
         logger = LabLogger.Instance;
+        // Start up the Bridge for the lab
         bridge = Bridge.Instance;
     }
     #endregion Unity Methods
@@ -90,11 +91,14 @@ public class LabManager : MonoBehaviour
         Destroy(currentModuleObject);
         currentModuleScript = null;
 
-        // Disable Transmission tools
-        GetComponent<SpatialAlignment>().enabled = false;
-        GetComponent<Transmission>().enabled = false;
-        GetComponent<MLPrivilegeRequesterBehavior>().enabled = false;
-        bridge.DisconnectFromTransmission();
+        if (Transmission.Instance.enabled)
+        {
+            // Disable Transmission tools
+            GetComponent<SpatialAlignment>().enabled = false;
+            Transmission.Instance.enabled = false;
+            GetComponent<MLPrivilegeRequesterBehavior>().enabled = false;
+            bridge.DisconnectFromTransmission();
+        }
 
         // Notify the login manager that the lab is completed
         GameObject.Find("[LOGIC]").GetComponent<LoginManager>().LabComplete();

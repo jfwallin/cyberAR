@@ -8,7 +8,7 @@ using System.IO;
 //You can create the JSON in the inspector and then test if it is working corrrectly in one run in the Unity Editor.
 public class MakeObjectInfo : MonoBehaviour
 {
-    private Bridge bridge = new Bridge();
+    private Bridge bridge = Bridge.Instance;
 
     public string name;
     public string[] paths;

@@ -20,7 +20,6 @@ public class Bridge
     {
         get
         {
-
             if (_instance == null)
             {
                 LabLogger.Instance.InfoLog(
@@ -36,12 +35,6 @@ public class Bridge
     #endregion Variables
 
     #region Public Methods
-    /// <summary>
-    /// Dummy Constructor
-    /// using this to hunt down everywhere Bridge gets instantiated
-    /// </summary>
-    public Bridge() { }
-
     public void ConnectToTransmission()
     {
         Transmission.Instance.OnStringMessage.AddListener(handleStringMessage);
@@ -52,45 +45,23 @@ public class Bridge
         Transmission.Instance.OnStringMessage.RemoveAllListeners();
     }
 
-    // THIS FUNCTION CALLS A FUNCTION SIMILAR TO THE FUNCTION BELOW IT
-    // POTENTIAL REFACTOR
-    /// <summary>
-    /// Builds scene from JSON spec
-    /// One of the two main entry points to the bridge module
-    /// </summary>
-    /// <param name="data">JSON string specifying objects to make</param>
-    public void ParseJson(string data)
-    {
-        makeScene(JsonUtility.FromJson<ObjectInfoCollection>(data));
-    }
-
-    /// <summary>
-    /// Build/update objects as specified by data in passed array
-    /// </summary>
-    /// <param name="objectList">Array of ObjectInfo specifying what objects to make or update</param>
-    public void makeObjects(ObjectInfo[] objectList)
-    {
-        foreach (ObjectInfo obj in objectList)
-        {
-            if (obj.transmittable == false) makeObject(obj);
-            else if (obj.transmittable == true) makeTransmissionObject(obj);
-        }
-    }
-
     /// <summary>
     /// Creates an object and attaches all scripts and components as specified in the ObjectInfo argument
     /// </summary>
     /// <param name="obj">Specification of the object to create</param>
-    public void makeObject(ObjectInfo obj)
+    public void MakeObject(ObjectInfo obj)
     {
-        GameObject myObject = GameObject.Find(obj.name); //Object being created
-
         LabLogger.Instance.InfoLog(this.GetType().ToString(), "Debug",
             $"Creating object: {obj.name}, type: {obj.type}");
 
-        // If it does not, create it and perform first time setup
+        // Try to find the object
+        GameObject myObject = GameObject.Find(obj.name);
+
+
+        // If it doesn't exist already, create it
         if (myObject == null)
         {
+            myObject = instantiateObject(obj.type, obj.position, obj.eulerAngles, obj.scale, obj.transmittable);
             myObject = dealWithType(obj.type);
             initializeObject(myObject, obj);
         }
@@ -99,6 +70,64 @@ public class Bridge
             // Modify existing object
             modifyObject(myObject, obj);
         }
+    }
+    private GameObject instantiateObject(string prefabName, Vector3 position, Vector3 eulerAngles, Vector3 scale, bool transmittable)
+    {
+        GameObject myObject;
+
+        if(transmittable)
+        {
+            myObject = Transmission.Spawn(prefabName, position, Quaternion.Euler(eulerAngles), scale).gameObject;
+        }
+        else // Not transmitted
+        {
+            // Instantiate object
+            switch (prefabName)
+            {
+                case "":
+                    myObject = new GameObject();
+                    break;
+                case "empty":
+                    myObject = new GameObject();
+                    break;
+                case "plane":
+                    myObject = GameObject.CreatePrimitive(PrimitiveType.Plane);
+                    break;
+                case "cube":
+                    myObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
+                    break;
+                case "sphere":
+                    myObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
+                    break;
+                case "capsule":
+                    myObject = GameObject.CreatePrimitive(PrimitiveType.Capsule);
+                    break;
+                case "cylinder":
+                    myObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
+                    break;
+                default:
+                    myObject = GameObject.Instantiate(Resources.Load(prefabName, typeof(GameObject)) as GameObject);
+                    //Note that the above line requires your prefab to be located in a resources folder.
+                    break;
+            }
+
+            // Set transform values
+            myObject.transform.position = position;
+            myObject.transform.eulerAngles = eulerAngles;
+            myObject.transform.localScale = scale;
+        }
+
+        return myObject;
+    }
+
+    /// <summary>
+    /// Build/update objects as specified by data in passed array
+    /// </summary>
+    /// <param name="objectList">Array of ObjectInfo specifying what objects to make or update</param>
+    public void MakeObjects(ObjectInfo[] objectList)
+    {
+        foreach (ObjectInfo obj in objectList)
+            MakeObject(obj);
     }
 
     /// <summary>
@@ -161,13 +190,41 @@ public class Bridge
     #endregion Public Callbacks
 
     #region Private Methods
-    private void makeScene(ObjectInfoCollection info)
+    private void transmitObject(ObjectInfo obj, string guid, bool init)
     {
-        //In the event that transmission objects need to be created this will send each to thier apropriet category
-        foreach (ObjectInfo obj in info.objects)
+        LabLogger.Instance.InfoLog(this.GetType().ToString(), "Debug",
+            $"Sending Object Info to Peer, Obj Name: {obj.name}");
+
+        // Build the test message
+        // Convert object information to json
+        String objInfoString = JsonUtility.ToJson(obj);
+        // Add the guid of the object to the front of the data
+        String message = guid + "::_::" + objInfoString;
+        // Specify what function should get the rpc call
+        String instruction = init ? "INIT" : "CHNG";
+        // Create the message object
+        StringMessage strMessage = new StringMessage(message, instruction);
+
+        // Check the size of the message
+        String serialized = JsonUtility.ToJson(strMessage);
+        byte[] bytes = Encoding.UTF8.GetBytes(serialized);
+        int msgSize = bytes.Length;
+        int bufSize = Transmission.Instance.bufferSize;
+        // If the message is larger than the buffer, split message into smaller pieces
+        if (msgSize > bufSize)
         {
-            if (obj.transmittable == false) makeObject(obj);
-            else if (obj.transmittable == true) makeTransmissionObject(obj);
+            // Each message portion must be msgPartSize bytes long
+            int msgPartSize = msgSize - bufSize - 4;
+            // Calculate the number of messages to send
+            int numMessages = (int)(msgSize / msgPartSize) + 1;
+            for (int i=0; i < numMessages; i++)
+            {
+                // Specify whether this is an obj update or init with the last message
+                string data = i == numMessages - 1 ? "END_"+instruction : "PART";
+                // Build and send the message
+                StringMessage msgPart = new StringMessage(message.Substring(i * msgPartSize, msgPartSize), data);
+                Transmission.Send(msgPart);
+            }
         }
     }
 
@@ -199,36 +256,7 @@ public class Bridge
             initialize = true;
         }
 
-        LabLogger.Instance.InfoLog(this.GetType().ToString(), "Debug",
-            $"Sending Object Info to Peer, Obj Name: {obj.name}");
-
-        // Now that the transmission object is made, send the rest of the info to the peers
-        // Convert object information to json
-        String objInfoString = JsonUtility.ToJson(obj);
-        // Add the guid of the object to the front of the data
-        String message = trObj.guid + "::_::" + objInfoString;
-        // Specify what function should get the rpc call
-        String instruction = initialize ? "INIT" : "CHNG";
-        // Create the message object
-        StringMessage strMessage = new StringMessage(message, instruction);
-        // Check the size of the message
-        String serialized = JsonUtility.ToJson(strMessage);
-        byte[] bytes = Encoding.UTF8.GetBytes(serialized);
-        int msgSize = bytes.Length;
-        int bufSize = Transmission.Instance.bufferSize;
-        // If the message is larger than the buffer, split message into smaller pieces
-        if (msgSize > bufSize)
-        {
-            // Each message portion must be sizeDiff long
-            int msgPartSize = msgSize - bufSize - 4;
-            int numMessages = (int)(msgSize / msgPartSize) + 1;
-            for (int i=0; i < numMessages; i++)
-            {
-                string data = i == numMessages - 1 ? "END_"+instruction : "PART";
-                StringMessage msgPart = new StringMessage(message.Substring(i * msgPartSize, msgPartSize), data);
-                Transmission.Send(msgPart);
-            }
-        }
+        transmitObject(obj, trObj.guid, initialize);
 
         // Now Modify the object that was created
         if (initialize)
