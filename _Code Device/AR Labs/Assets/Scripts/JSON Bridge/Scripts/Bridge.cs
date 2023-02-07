@@ -35,11 +35,17 @@ public class Bridge
     #endregion Variables
 
     #region Public Methods
+    /// <summary>
+    /// Called to link the bridge to Transmission so it can handle String messages
+    /// </summary>
     public void ConnectToTransmission()
     {
         Transmission.Instance.OnStringMessage.AddListener(handleStringMessage);
     }
 
+    /// <summary>
+    /// Unlinks the String message handler from the bridge
+    /// </summary>
     public void DisconnectFromTransmission()
     {
         Transmission.Instance.OnStringMessage.RemoveAllListeners();
@@ -51,37 +57,141 @@ public class Bridge
     /// <param name="obj">Specification of the object to create</param>
     public void MakeObject(ObjectInfo obj)
     {
+        // Variables
+        bool initialize = false;    // Whether to setup new object, or modify existing
+        GameObject myObject = null; // Reference to gameobject being worked on
+
+        // Log Event
         LabLogger.Instance.InfoLog(this.GetType().ToString(), "Debug",
             $"Creating object: {obj.name}, type: {obj.type}");
 
         // Try to find the object
-        GameObject myObject = GameObject.Find(obj.name);
-
+        myObject = GameObject.Find(obj.name);
 
         // If it doesn't exist already, create it
         if (myObject == null)
         {
             myObject = instantiateObject(obj.type, obj.position, obj.eulerAngles, obj.scale, obj.transmittable);
-            myObject = dealWithType(obj.type);
-            initializeObject(myObject, obj);
+            // Flag that we are initializing a new object
+            initialize = true;
         }
-        else
+
+        // If a transmission object, transmit object details to peers
+        if(obj.transmittable)
         {
-            // Modify existing object
+            transmitObject(obj, myObject.GetComponent<TransmissionObject>().guid, initialize);
+        }
+        
+        // Setup the object
+        if (initialize)
+            initializeObject(myObject, obj);
+        else
             modifyObject(myObject, obj);
+    }
+
+    /// <summary>
+    /// Build/update objects as specified by data in passed array
+    /// </summary>
+    /// <param name="objectList">Array of ObjectInfo specifying what objects to make or update</param>
+    public void MakeObjects(ObjectInfo[] objectList)
+    {
+        foreach (ObjectInfo obj in objectList)
+            MakeObject(obj);
+    }
+
+    /// <summary>
+    /// Deletes all objects specified in the data argument
+    /// </summary>
+    /// <param name="data">JSON list of objects to delete</param>
+    public void CleanUp(string data)
+    {
+        ObjectInfoCollection info = JsonUtility.FromJson<ObjectInfoCollection>(data);
+        foreach (ObjectInfo obj in info.objects)
+        {
+            GameObject obj_dstry = GameObject.Find(obj.name);
+            PointerReceiver pr = obj_dstry.GetComponent<PointerReceiver>();
+            if (pr != null)
+            {
+                pr.OnTargetEnter.RemoveAllListeners();
+                pr.OnTargetExit.RemoveAllListeners();
+                pr.OnDragBegin.RemoveAllListeners();
+                pr.OnDragEnd.RemoveAllListeners();
+            }
+
+            GameObject.Destroy(obj_dstry);
         }
     }
+
+    #region Callbacks
+    /// <summary>
+    /// Receives string message from peer that has part of an objInfo serialization
+    /// </summary>
+    /// <param name="msg">the message data object</param>
+    public void handleStringMessage(StringMessage msg)
+    {
+        // If the object was able to be sent as one message
+        if (msg.d == "INIT" || msg.d == "CHNG")
+        {
+            GameObject go;
+            ObjectInfo newObjectInfo;
+            // Find the objects to modify, and extract the ObjectInfo data
+            (go, newObjectInfo) = parseTransmissionObjectString(msg.v);
+
+            // modify the object
+            if (msg.d == "INIT")
+                initializeObject(go, newObjectInfo);
+            if (msg.d == "MODIFY")
+                modifyObject(go, newObjectInfo);
+        }
+
+        // If we are receiving just part of the objectInfo
+        if (msg.d == "PART")
+        {
+            msgParts += msg.v;
+        }
+
+        // If we are receiving the last of the objectInfo
+        if (msg.d.StartsWith("END_"))
+        {
+            GameObject go;
+            ObjectInfo newObjectinfo;
+            // Find the objects to modify, and extract the ObjectInfo data
+            (go, newObjectinfo) = parseTransmissionObjectString(msgParts + msg.v);
+            // Reset the variable holding parts of the message
+            msgParts = "";
+
+            // modify the object
+            if (msg.d.EndsWith("INIT"))
+                initializeObject(go, newObjectinfo);
+            if (msg.d.EndsWith("CHNG"))
+                modifyObject(go, newObjectinfo);
+        }
+    }
+    #endregion Callbacks
+    #endregion Public Methods
+
+    #region Private Methods
+    /// <summary>
+    /// Creates an object either from a prefab instantiation, or a Transmission spawn
+    /// </summary>
+    /// <param name="prefabName">Name of the prefab to spawn from a resources folder</param>
+    /// <param name="position">Vector position of the object</param>
+    /// <param name="eulerAngles">Vector orientation of the object</param>
+    /// <param name="scale">Vector size of the object</param>
+    /// <param name="transmittable">Whether to use the transmission system</param>
+    /// <returns>Instantiated GameObject</returns>
     private GameObject instantiateObject(string prefabName, Vector3 position, Vector3 eulerAngles, Vector3 scale, bool transmittable)
     {
-        GameObject myObject;
+        GameObject myObject; // Reference to object being created
 
         if(transmittable)
         {
+            // Create the object using the transmission system
             myObject = Transmission.Spawn(prefabName, position, Quaternion.Euler(eulerAngles), scale).gameObject;
         }
         else // Not transmitted
         {
-            // Instantiate object
+            // Instantiate object normally
             switch (prefabName)
             {
                 case "":
@@ -121,75 +231,11 @@ public class Bridge
     }
 
     /// <summary>
-    /// Build/update objects as specified by data in passed array
+    /// Sends objInfo data for a transmission to peers
     /// </summary>
-    /// <param name="objectList">Array of ObjectInfo specifying what objects to make or update</param>
-    public void MakeObjects(ObjectInfo[] objectList)
-    {
-        foreach (ObjectInfo obj in objectList)
-            MakeObject(obj);
-    }
-
-    /// <summary>
-    /// Deletes all objects specified in the data argument
-    /// </summary>
-    /// <param name="data">JSON list of objects to delete</param>
-    public void CleanUp(string data)
-    {
-        ObjectInfoCollection info = JsonUtility.FromJson<ObjectInfoCollection>(data);
-        foreach (ObjectInfo obj in info.objects)
-        {
-            GameObject obj_dstry = GameObject.Find(obj.name);
-            PointerReceiver pr = obj_dstry.GetComponent<PointerReceiver>();
-            if (pr != null)
-            {
-                pr.OnTargetEnter.RemoveAllListeners();
-                pr.OnTargetExit.RemoveAllListeners();
-                pr.OnDragBegin.RemoveAllListeners();
-                pr.OnDragEnd.RemoveAllListeners();
-            }
-
-            GameObject.Destroy(obj_dstry);
-        }
-    }
-    #endregion Public Methods
-
-    #region Public Callbacks
-    public void handleStringMessage(StringMessage msg)
-    {
-        // Check if this is about updating objects 
-        if (msg.d == "INIT" || msg.d == "CHNG")
-        {
-            GameObject go;
-            ObjectInfo newObjectInfo;
-            // Find the objects to modify, and extract the ObjectInfo data
-            (go, newObjectInfo) = handleTransmissionObjectString(msg.v);
-
-            if (msg.d == "INIT")
-                initializeObject(go, newObjectInfo);
-            if (msg.d == "MODIFY")
-                modifyObject(go, newObjectInfo);
-        }
-        if (msg.d == "PART")
-        {
-            msgParts += msg.v;
-        }
-        if (msg.d.StartsWith("END_"))
-        {
-            GameObject go;
-            ObjectInfo newObjectinfo;
-            (go, newObjectinfo) = handleTransmissionObjectString(msgParts + msg.v);
-            msgParts = "";
-
-            if (msg.d.EndsWith("INIT"))
-                initializeObject(go, newObjectinfo);
-            if (msg.d.EndsWith("CHNG"))
-                modifyObject(go, newObjectinfo);
-        }
-    }
-    #endregion Public Callbacks
-
-    #region Private Methods
+    /// <param name="obj">objInfo to be sent</param>
+    /// <param name="guid">guid of transmission object to modify</param>
+    /// <param name="init">whether the object is being setup or not</param>
     private void transmitObject(ObjectInfo obj, string guid, bool init)
     {
         LabLogger.Instance.InfoLog(this.GetType().ToString(), "Debug",
@@ -214,6 +260,7 @@ public class Bridge
         if (msgSize > bufSize)
         {
             // Each message portion must be msgPartSize bytes long
+            // Include 4 byte allowance for additional message labels
             int msgPartSize = msgSize - bufSize - 4;
             // Calculate the number of messages to send
             int numMessages = (int)(msgSize / msgPartSize) + 1;
@@ -229,53 +276,18 @@ public class Bridge
     }
 
     /// <summary>
-    /// Create an object using the Transmission System,
-    /// Called once by the host of the shared experience
-    /// </summary>
-    /// <param name="obj">specification of the object to create</param>
-    private void makeTransmissionObject(ObjectInfo obj)
-    {
-        LabLogger.Instance.InfoLog(this.GetType().ToString(), "Debug",
-            $"Creating object: {obj.name}, type: {obj.type}");
-
-        GameObject myObject = GameObject.Find(obj.name);
-        TransmissionObject trObj = myObject?.GetComponent<TransmissionObject>();
-        bool initialize = false;
-
-        // If it does not, create it and perform first time setup
-        if (myObject == null)
-        {
-            // Instantiate base GameObject
-            trObj = Transmission.Spawn(
-                obj.type,
-                obj.position,
-                Quaternion.Euler(obj.eulerAngles),
-                obj.scale
-            );
-            myObject = trObj.gameObject;
-            initialize = true;
-        }
-
-        transmitObject(obj, trObj.guid, initialize);
-
-        // Now Modify the object that was created
-        if (initialize)
-            initializeObject(myObject, obj);
-        else
-            modifyObject(myObject, obj);
-    }
-
-    /// <summary>
     /// Parses the guid and json from a string message sent 
-    /// to setup or modify a Transmission Object
+    /// to setup or modify a Transmission Object.
+    /// Finds the transmission object to modify and builds the ObjectInfo
     /// </summary>
     /// <param name="data">starts with guid of Transmission Object to be modified,
     ///                    followed by the json describing that object</param>
     /// <returns></returns>
-    private (GameObject, ObjectInfo) handleTransmissionObjectString(string data)
+    private (GameObject, ObjectInfo) parseTransmissionObjectString(string data)
     {
-        ObjectInfo objInfo;
-        String guid = "";
+        // Variables
+        ObjectInfo objInfo; // Holds the data about the object
+        String guid = "";   // The transmission object's id
 
         // Get the guid from the front of the string data
         Regex rg = new Regex(@"^.+(?<guid>\w+)::_::");
@@ -309,7 +321,7 @@ public class Bridge
     }
 
     /// <summary>
-    /// Performs firsttime setup on an object
+    /// Performs firsttime setup on an object, calls modifyObject once done
     /// </summary>
     /// <param name="myObject">object to be modified</param>
     /// <param name="obj">specification of the object</param>
@@ -346,8 +358,8 @@ public class Bridge
     /// <summary>
     /// Updates features on an existing object
     /// </summary>
-    /// <param name="myObject"></param>
-    /// <param name="obj"></param>
+    /// <param name="myObject">object to be modified</param>
+    /// <param name="obj">specification of the modifications</param>
     private void modifyObject(GameObject myObject, ObjectInfo obj)
     {
         // Do all the object setup
@@ -534,47 +546,6 @@ public class Bridge
 
         // Enable the object
         myObject.SetActive(obj.enabled);
-    }
-
-    /// <summary>
-    /// Instantiates a base GameObject depending on the contents of `type`
-    /// </summary>
-    /// <param name="type">Specifies what base GameObject to instantiate</param>
-    /// <returns></returns>
-    private GameObject dealWithType(string type)
-    {
-        GameObject myObject;
-
-        switch (type)
-        {
-            case "":
-                myObject = new GameObject();
-                break;
-            case "empty":
-                myObject = new GameObject();
-                break;
-            case "plane":
-                myObject = GameObject.CreatePrimitive(PrimitiveType.Plane);
-                break;
-            case "cube":
-                myObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                break;
-            case "sphere":
-                myObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                break;
-            case "capsule":
-                myObject = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-                break;
-            case "cylinder":
-                myObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-                break;
-            default:
-                myObject = GameObject.Instantiate(Resources.Load(type, typeof(GameObject)) as GameObject);
-                //Note that the above line requires your prefab to be located in a resources folder.
-                break;
-        }
-
-        return myObject;
     }
     #endregion Private Methods
 }
