@@ -15,8 +15,10 @@ public class LabManager : MonoBehaviour
     private int indexIncrement = 1;            // How to move to next module
     private GameObject currentModuleObject;    // Reference to object holding the module script
     private ActivityModule currentModuleScript;// Reference to current module script
-    private Bridge bridge;
 
+    private DateTime transmissionStart;
+    private bool transmissionHost;
+    private Bridge bridge;
     private LabLogger logger; // Easy reference to the logger object
     private string entity;    // String of this class name, used when logging
     #endregion Variables
@@ -47,7 +49,16 @@ public class LabManager : MonoBehaviour
             GetComponent<MLPrivilegeRequesterBehavior>().enabled = true;
             GetComponent<Transmission>().enabled = true;
             GetComponent<SpatialAlignment>().enabled = true;
+            Transmission.Instance.OnGlobalStringChanged.AddListener(checkTransmissionStart);
+            Transmission.Instance.OnPeerFound.AddListener(handlePeerFound);
+            Transmission.Instance.OnOldestPeerUpdated
             bridge.ConnectToTransmission();
+
+            // Save the start time
+            transmissionStart = DateTime.Now;
+            // Assume we are the host for now
+            transmissionHost = true;
+
         }
 
         // Start the lab
@@ -106,6 +117,14 @@ public class LabManager : MonoBehaviour
     #endregion Private Methods
 
     #region Event Handlers
+    private void handlePeerFound(string s, long l)
+    {
+
+    }
+    private void checkTransmissionStart(string strKey)
+    {
+
+    }
     public void ModuleComplete()
     {
         index = index + indexIncrement;
@@ -150,8 +169,6 @@ public class LabManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         Destroy(currentModuleObject);
         SpawnModule();
-
     }
     #endregion Coroutines
-
 }
