@@ -116,7 +116,7 @@ namespace MoveToRoutines
             // instantiate the bridge and create the demo objects
             bridge = Bridge.Instance;
             if (moduleData.createObjects)
-                bridge.ParseJson(jsonString);
+                bridge.MakeObjects(JsonUtility.FromJson<ObjectInfoCollection>(jsonString).objects);
 
             // set the end criteria
             if (moduleData.timeToEnd > 0)

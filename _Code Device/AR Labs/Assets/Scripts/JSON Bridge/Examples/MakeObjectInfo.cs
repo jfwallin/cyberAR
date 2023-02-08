@@ -34,7 +34,7 @@ public class ExampleSpawner : MonoBehaviour
         foreach (string obj in json)
         {
             Debug.Log("obj is = " + obj); //print out json
-            bridge.ParseJson(obj); //make the objects in the JSON in the scene
+            bridge.MakeObjects(JsonUtility.FromJson<ObjectInfoCollection>(obj).objects);
 
             yield return new WaitForSeconds(15);
             bridge.CleanUp(obj); //remove the objects in the JSON from the scene

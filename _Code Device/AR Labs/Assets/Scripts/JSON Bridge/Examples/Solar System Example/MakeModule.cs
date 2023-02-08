@@ -18,6 +18,6 @@ public class MakeModule : MonoBehaviour
         line = reader.ReadToEnd();
 
         Debug.Log(line); //print out the json
-        bridge.ParseJson(line); //make the objects in the JSON in the scene
+        bridge.MakeObjects(JsonUtility.FromJson<ObjectInfoCollection>(line).objects);
     }
 }

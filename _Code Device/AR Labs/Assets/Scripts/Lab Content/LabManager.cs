@@ -49,16 +49,12 @@ public class LabManager : MonoBehaviour
             GetComponent<MLPrivilegeRequesterBehavior>().enabled = true;
             GetComponent<Transmission>().enabled = true;
             GetComponent<SpatialAlignment>().enabled = true;
-            Transmission.Instance.OnGlobalStringChanged.AddListener(checkTransmissionStart);
-            Transmission.Instance.OnPeerFound.AddListener(handlePeerFound);
-            Transmission.Instance.OnOldestPeerUpdated
             bridge.ConnectToTransmission();
 
-            // Save the start time
-            transmissionStart = DateTime.Now;
             // Assume we are the host for now
             transmissionHost = true;
-
+            // Listen if we find a peer that is older
+            Transmission.Instance.OnOldestPeerUpdated.AddListener(handleOldestPeerUpdated);
         }
 
         // Start the lab
@@ -117,12 +113,18 @@ public class LabManager : MonoBehaviour
     #endregion Private Methods
 
     #region Event Handlers
-    private void handlePeerFound(string s, long l)
+    /// <summary>
+    /// Listener to Transmission OnOldestPeerUpdated() event, receives a string
+    /// address of the new oldest peer. Your address can be found using 
+    /// MagicLeapTools.NetworkUtilities.MyAddress
+    /// </summary>
+    /// <param name="peerAddress"></param>
+    private void handleOldestPeerUpdated(string peerAddress)
     {
-
-    }
-    private void checkTransmissionStart(string strKey)
-    {
+        if (peerAddress != NetworkUtilities.MyAddress)
+        {
+            transmissionHost = false;
+        }
 
     }
     public void ModuleComplete()
