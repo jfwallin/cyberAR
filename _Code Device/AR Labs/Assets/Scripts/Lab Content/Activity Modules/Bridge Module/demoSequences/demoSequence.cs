@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class demoSequence : MonoBehaviour
 {
-    // Start is called before the first frame update
-    //private demoSequenceData sequenceData;
+    // Variables
     private int currentState = 0;
 
     private clipData theClip;
@@ -15,18 +14,22 @@ public class demoSequence : MonoBehaviour
     private Bridge bridge;
     private GameObject parentObj;
 
+    // These strings are compared to the names of objects invoking a callback
+    // to determine what action is taken
     private string actionNextClipName = "NextClip";
     private string actionPreviousClipName = "PreviousClip";
     private string actionNextModuleName = "NextModule";
     private string actionPreviousModuleName = "PreviousModule";
     private string actionEndApplicationName = "EndApplication";
 
-
+    // Could probably delete this, it never gets used, better to just have one entry point
     public void ParseJson(string data)
     {
         demoSequenceData sdata = (JsonUtility.FromJson<demoSequenceData>(data));
         makeEvents(sdata.clipList);
     }
+
+    // Takes a clip list, and starts iterating through it
     public void makeEvents( clipData[] sequenceData)
     {
         parentObj = GameObject.Find("[_DYNAMIC]");
@@ -38,35 +41,34 @@ public class demoSequence : MonoBehaviour
         newClip();
     }
 
+    // Checks if we have a next clip before trying to build it
     public void newClip()
     {
         LabLogger.Instance.InfoLog(
             this.GetType().ToString(),
             "Start State",
             theClips[currentState].clipName);
+
        if (currentState < theClips.Length)
-        {
-            //Debug.Log("current clip " + currentState.ToString());
+       {
             theClip = theClips[currentState];
             processClip(theClip);
-        } else
-        {
+       }
+       else
+       {
             //Debug.Log(" no more clips!!!");
-        }
+       }
     }
 
-
+    // Builds/modifies the scene from clip data
     public void processClip(clipData theClip)
     {
-
-        //Debug.Log("process clip  " + currentState.ToString() + 
-        //    "  timetoend=" + theClip.timeToEnd.ToString() + " *****************************");
-
-        // modify gameobject
+        // Modify gameobject
         int conditionFlag = 0;
         modifyObjects(conditionFlag, theClip);
 
-        // set up a time delay  if that is appropriate
+        // *** This doesn't do anything right now
+        // Set up a time delay  if that is appropriate
         float timeDelay;
         timeDelay = theClip.timeToEnd;
 
@@ -76,6 +78,9 @@ public class demoSequence : MonoBehaviour
         }
     }
 
+    // Modifies objects using the current clip and then starts a new clip
+    // Not sure why it does both
+    // This is specifically for an AUDIO clip being finished, not a module clip
     public void clipFinished()
     {
         // modify gameobjects
@@ -83,7 +88,7 @@ public class demoSequence : MonoBehaviour
         modifyObjects(conditionFlag, theClip);
 
 
-        //Debug.Log("clip finished ....");
+        // Start the next clip
         if (theClip.autoAdvance)
         {
             incrementClip();
@@ -91,7 +96,7 @@ public class demoSequence : MonoBehaviour
         }
     }
 
-
+    // Increments state index if possible
     public void incrementClip()
     {
         currentState = currentState + 1;
@@ -99,7 +104,7 @@ public class demoSequence : MonoBehaviour
             currentState = theClips.Length - 1;
     }
 
-
+    // 
     public void modifyObjects(int conditionFlag, clipData theClip)
     {
         int activationConditions;
@@ -147,7 +152,7 @@ public class demoSequence : MonoBehaviour
         }
     }
 
-
+    // Waits for an audio clip to play
     IEnumerator WaitForClip(float timeDelay)
     {
         aud.clip = MediaCatalogue.Instance.GetAudioClip(theClip.audioClipString);
@@ -155,16 +160,14 @@ public class demoSequence : MonoBehaviour
         if (aud.clip != null)
             aud.Play();
 
-        //Debug.Log("TTIME DELAY " + timeDelay.ToString() + "*********************************************************************************************");
-
         yield return new WaitForSeconds(timeDelay);
         clipFinished();
     }
 
-   
+    // Called by all the buttons, passed object that called
+    // Does different actions depending on the object name
     public void actionCallBack(GameObject sendingObject)
     {
-        //Debug.Log("actioncallback from " + sendingObject.name + "++++++++++++++++++++++++++++");
         if (sendingObject.name.IndexOf(actionNextClipName) >= 0)
             actionNextClip();
         else if (sendingObject.name.IndexOf(actionPreviousClipName) >= 0)
@@ -183,14 +186,10 @@ public class demoSequence : MonoBehaviour
 
     public void actionNextClip()
     {
-        //Debug.Log("action next!!!!!-----------------------------------------------------------");
-
-        // modify gameobjects
+        // Modify gameobjects
         int conditionFlag = 1;
         modifyObjects(conditionFlag, theClip);
        
-        //Debug.Log("new clips!!!! " + currentState.ToString());
-
         incrementClip();
         StopAllCoroutines();
         newClip();
@@ -198,9 +197,7 @@ public class demoSequence : MonoBehaviour
 
     public void actionPreviousClip ()
     {
-        //Debug.Log("action previous!!!!------------------------------------------------");
-
-        // modify gameobjects
+        // Modify gameobjects
         int conditionFlag = 1;
         modifyObjects(conditionFlag, theClip);
 
@@ -213,26 +210,15 @@ public class demoSequence : MonoBehaviour
 
     public void actionNextModule()
     {
-
-        Debug.Log("previous module");
-        //GameObject.Find("Manager").GetComponent<LabManager>().nextModuleCallback();
         GameObject go1 = GameObject.Find("demoModule");
         go1.GetComponent<demoRoutines.demo>().nextModuleCallback();
              
     }
+
     public void actionPreviousModule()
     {
-        Debug.Log("action next module");
-        //GameObject.Find("Manager").GetComponent<LabManager>().previousModuleCallback();
         GameObject go1 = GameObject.Find("demoModule");
         go1.GetComponent<demoRoutines.demo>().previousModuleCallback();
-
-    }
-
-
-    public void actionEndApplication()
-    {
-
     }
 }
 
