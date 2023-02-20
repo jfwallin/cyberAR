@@ -9,6 +9,14 @@ using System;
 public class LabManager : MonoBehaviour
 {
     #region Variables
+    [Header("Transmission Wait UI")]
+    [SerializeField]
+    private GameObject transmissionWaitUI;
+    [SerializeField]
+    private Button transmissionStartLabButton;
+    [SerializeField]
+    private Text peerCountText;
+    [Header("Lab Data")]
     [SerializeField]
     private string[] modules;                  // List of lab module data
     private int index = 0;                     // index of currently running module in list
@@ -43,7 +51,7 @@ public class LabManager : MonoBehaviour
         modules = data.ActivityModules;
 
         // Check if Transmission
-        if(data.Transmission)
+        if (data.Transmission)
         {
             // Enable components
             GetComponent<MLPrivilegeRequesterBehavior>().enabled = true;
@@ -51,14 +59,23 @@ public class LabManager : MonoBehaviour
             GetComponent<SpatialAlignment>().enabled = true;
             bridge.ConnectToTransmission();
 
+            // Start waiting for people to connect, setup and enable UI
+            transmissionWaitUI.SetActive(true);
+            transmissionStartLabButton.onClick.AddListener(handleStartLabButton);
             // Assume we are the host for now
             transmissionHost = true;
             // Listen if we find a peer that is older
             Transmission.Instance.OnOldestPeerUpdated.AddListener(handleOldestPeerUpdated);
+            // Track number of peers
+            peerCountText.text = Transmission.Instance.Peers.Length.ToString();
+            Transmission.Instance.OnPeerFound.AddListener((string ip, long time) => changeNumPeers(1));
+            Transmission.Instance.OnPeerLost.AddListener((string ip) => changeNumPeers(-1));
         }
-
-        // Start the lab
-        SpawnModule();
+        else
+        {
+            // Start the lab
+            SpawnModule();
+        }
     }
     #endregion Public Methods
 
@@ -124,9 +141,38 @@ public class LabManager : MonoBehaviour
         if (peerAddress != NetworkUtilities.MyAddress)
         {
             transmissionHost = false;
+            // Disable the button
+            transmissionStartLabButton.onClick.RemoveAllListeners();
+            transmissionStartLabButton.interactable = false;
+            transmissionStartLabButton.GetComponentInChildren<Text>().text = "Wait for Host";
         }
-
+        else
+        {
+            transmissionHost = true;
+            // Enable the button
+            transmissionStartLabButton.onClick.AddListener(handleStartLabButton);
+            transmissionStartLabButton.interactable = true;
+            transmissionStartLabButton.GetComponentInChildren<Text>().text = "Start Lab";
+        }
     }
+
+    private void handleStartLabButton()
+    {
+        if (transmissionHost)
+        {
+            // Disconnect and close UI
+            transmissionStartLabButton.onClick.RemoveAllListeners();
+            transmissionWaitUI.SetActive(false);
+            // Start the lab
+            SpawnModule();
+        }
+    }
+
+    private void changeNumPeers(int chg)
+    {
+        peerCountText.text = (int.Parse(peerCountText.text) + chg).ToString();
+    }
+
     public void ModuleComplete()
     {
         index = index + indexIncrement;

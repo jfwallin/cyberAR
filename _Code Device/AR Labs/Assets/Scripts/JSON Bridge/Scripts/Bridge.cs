@@ -13,6 +13,7 @@ public class Bridge
 {
     #region Variables
     private string msgParts;         // Holds pieces of large messages still being sent
+    private bool transmissionEnabled = false; // Flag marking if Transmission has been setup
     private static Bridge _instance; // Singleton instance variable
 
     // Singleton access
@@ -41,6 +42,7 @@ public class Bridge
     public void ConnectToTransmission()
     {
         Transmission.Instance.OnStringMessage.AddListener(handleStringMessage);
+        transmissionEnabled = true;
     }
 
     /// <summary>
@@ -49,6 +51,7 @@ public class Bridge
     public void DisconnectFromTransmission()
     {
         Transmission.Instance.OnStringMessage.RemoveAllListeners();
+        transmissionEnabled = false;
     }
 
     /// <summary>
@@ -76,8 +79,8 @@ public class Bridge
             initialize = true;
         }
 
-        // If a transmission object, transmit object details to peers
-        if(obj.transmittable)
+        // If a transmission object and Transmission is ready, transmit object details to peers
+        if(obj.transmittable && transmissionEnabled)
         {
             transmitObject(obj, myObject.GetComponent<TransmissionObject>().guid, initialize);
         }
@@ -184,7 +187,8 @@ public class Bridge
     {
         GameObject myObject; // Reference to object being created
 
-        if(transmittable)
+        // Only spawn transmission if we know Transmission has been setup
+        if(transmittable && transmissionEnabled)
         {
             // Create the object using the transmission system
             myObject = Transmission.Spawn(prefabName, position, Quaternion.Euler(eulerAngles), scale).gameObject;
@@ -192,34 +196,8 @@ public class Bridge
         else // Not transmitted
         {
             // Instantiate object normally
-            switch (prefabName)
-            {
-                case "":
-                    myObject = new GameObject();
-                    break;
-                case "empty":
-                    myObject = new GameObject();
-                    break;
-                case "plane":
-                    myObject = GameObject.CreatePrimitive(PrimitiveType.Plane);
-                    break;
-                case "cube":
-                    myObject = GameObject.CreatePrimitive(PrimitiveType.Cube);
-                    break;
-                case "sphere":
-                    myObject = GameObject.CreatePrimitive(PrimitiveType.Sphere);
-                    break;
-                case "capsule":
-                    myObject = GameObject.CreatePrimitive(PrimitiveType.Capsule);
-                    break;
-                case "cylinder":
-                    myObject = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
-                    break;
-                default:
-                    myObject = GameObject.Instantiate(Resources.Load(prefabName, typeof(GameObject)) as GameObject);
-                    //Note that the above line requires your prefab to be located in a resources folder.
-                    break;
-            }
+            myObject = GameObject.Instantiate(Resources.Load(prefabName, typeof(GameObject)) as GameObject);
+            //Note that the above line requires your prefab to be located in a resources folder.
 
             // Set transform values
             myObject.transform.position = position;

@@ -220,5 +220,8 @@ public class demoSequence : MonoBehaviour
         GameObject go1 = GameObject.Find("demoModule");
         go1.GetComponent<demoRoutines.demo>().previousModuleCallback();
     }
+
+    public void actionEndApplication()
+    { }
 }
 
