@@ -3,6 +3,7 @@
 using UnityEngine;
 using UnityEngine.Networking;
 using System.IO;
+using MagicLeapTools;
 
 using UnityEngine.UI;
 
@@ -47,31 +48,48 @@ namespace demoRoutines
 
             // Set the light if needed
             if (moduleData.useSunlight)
-                lightControl.sunlight();
-
-            // ***SHOULD CHECK IF RECEIVING FROM TRANSMISSION OR NOT***
-            // Instantiate the bridge and create the demo objects
-            bridge = Bridge.Instance;
-            if (moduleData.createObjects)
-                bridge.MakeObjects(moduleData.objects);
-
-            // ***SHOULD CHECK IF RECEIVING FROM TRANSMISSION OR NOT***
-            sequencer = gameObject.GetComponent<demoSequence>();
-            if (moduleData.clips != null)
             {
-                sequencer.makeEvents(moduleData.clips);
+                if (TransmissionActivity)
+                {
+                    if (TransmissionHost)
+                        Transmission.Send(new RPCMessage("Sunlight"));
+                }
+                else
+                    lightControl.sunlight();
             }
 
-            // Set the end criteria
-            if (moduleData.timeToEnd > 0)
-                StartCoroutine(EndByTime());
+            // Instantiate the bridge and create the demo objects
+            // Only if we are the transmission host
+            if (TransmissionHost)
+            {
+                bridge = Bridge.Instance;
+                if (moduleData.createObjects)
+                    bridge.MakeObjects(moduleData.objects);
+                sequencer = gameObject.GetComponent<demoSequence>();
+                if (moduleData.clips != null)
+                {
+                    sequencer.makeEvents(moduleData.clips);
+                }
+
+                // Set the end criteria
+                if (moduleData.timeToEnd > 0)
+                    StartCoroutine(EndByTime());
+            }
         }
 
         public override void EndOfModule()
         {
             // Undo Lighting changes
             if (moduleData.restoreLights)
-                lightControl.restoreLights();
+            {
+                if (TransmissionActivity)
+                {
+                    if (TransmissionHost)
+                        Transmission.Send(new RPCMessage("RestoreLights"));
+                }
+                else
+                    lightControl.restoreLights();
+            }
 
             // ***SHOULD CHECK IF RECEIVING FROM TRANSMISSION OR NOT***
             // Remove bridge spawned objects
@@ -100,6 +118,17 @@ namespace demoRoutines
             // Protecting against multiple module change events?
             if (callBackActive == false)
                 FindObjectOfType<LabManager>().ModuleComplete();
+        }
+
+        // Transmission RPC call methods
+        public void Sunlight()
+        {
+            lightControl.sunlight();
+        }
+
+        public void RestoreLights()
+        {
+            lightControl.restoreLights();
         }
 
         // Called by sequencer when the prev. module button is clicked?

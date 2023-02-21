@@ -8,6 +8,8 @@ using UnityEngine;
 public abstract class ActivityModule : MonoBehaviour
 {
     public ActivityModuleData data;
+    public bool TransmissionHost;
+    public bool TransmissionActivity;
 
     public abstract void Initialize(string jsonData );
     //jw change

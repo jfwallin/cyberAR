@@ -24,7 +24,7 @@ public class LabManager : MonoBehaviour
     private GameObject currentModuleObject;    // Reference to object holding the module script
     private ActivityModule currentModuleScript;// Reference to current module script
 
-    private DateTime transmissionStart;
+    private bool transmissionLab = false;
     private bool transmissionHost;
     private Bridge bridge;
     private LabLogger logger; // Easy reference to the logger object
@@ -53,6 +53,8 @@ public class LabManager : MonoBehaviour
         // Check if Transmission
         if (data.Transmission)
         {
+            transmissionLab = true;
+            transmissionHost = false;
             // Enable components
             GetComponent<MLPrivilegeRequesterBehavior>().enabled = true;
             GetComponent<Transmission>().enabled = true;
@@ -71,6 +73,7 @@ public class LabManager : MonoBehaviour
         }
         else
         {
+            transmissionLab = false;
             // Start the lab
             SpawnModule();
         }
@@ -114,7 +117,17 @@ public class LabManager : MonoBehaviour
         currentModuleObject = Instantiate(tmpPrefab, transform);
         currentModuleScript = currentModuleObject.GetComponent<ActivityModule>();
 
+        // If this is a transmission lab, then add the activity as a rpc target
+        if(transmissionLab)
+        {
+            List<GameObject> targets = new List<GameObject>(Transmission.Instance.rpcTargets);
+            targets.Add(gameObject);
+            Transmission.Instance.rpcTargets = targets.ToArray();
+        }
+
         //Start the module
+        currentModuleScript.TransmissionHost = transmissionHost;
+        currentModuleScript.TransmissionActivity = transmissionLab;
         currentModuleScript.Initialize(modules[index]);
     }
 
