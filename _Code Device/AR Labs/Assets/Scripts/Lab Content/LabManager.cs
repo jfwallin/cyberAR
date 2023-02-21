@@ -61,10 +61,8 @@ public class LabManager : MonoBehaviour
 
             // Start waiting for people to connect, setup and enable UI
             transmissionWaitUI.SetActive(true);
-            transmissionStartLabButton.onClick.AddListener(handleStartLabButton);
-            // Assume we are the host for now
-            transmissionHost = true;
             // Listen if we find a peer that is older
+            handleOldestPeerUpdated(Transmission.Instance.OldestPeer);
             Transmission.Instance.OnOldestPeerUpdated.AddListener(handleOldestPeerUpdated);
             // Track number of peers
             peerCountText.text = Transmission.Instance.Peers.Length.ToString();
@@ -76,6 +74,20 @@ public class LabManager : MonoBehaviour
             // Start the lab
             SpawnModule();
         }
+    }
+
+    /// <summary>
+    /// Called via Transmission RPC call, so all peers start the lab at the same time.
+    /// </summary>
+    public void TransmissionStartLab()
+    {
+        // Disconnect and close UI
+        transmissionStartLabButton.onClick.RemoveAllListeners();
+        Transmission.Instance.OnPeerFound.RemoveAllListeners();
+        Transmission.Instance.OnPeerLost.RemoveAllListeners();
+        transmissionWaitUI.SetActive(false);
+        // Start the lab
+        SpawnModule();
     }
     #endregion Public Methods
 
@@ -160,11 +172,10 @@ public class LabManager : MonoBehaviour
     {
         if (transmissionHost)
         {
-            // Disconnect and close UI
-            transmissionStartLabButton.onClick.RemoveAllListeners();
-            transmissionWaitUI.SetActive(false);
-            // Start the lab
-            SpawnModule();
+            // Start the lab by sending message to all peers
+            // (Including self) to call this method.
+            // Transmission is on this same gameobject, so the message should reach here.
+            Transmission.Send(new RPCMessage("TransmissionStartLab"));
         }
     }
 
