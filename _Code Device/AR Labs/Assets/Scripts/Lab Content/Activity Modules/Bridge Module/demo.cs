@@ -42,8 +42,16 @@ namespace demoRoutines
             // Play the introAudio
             if (moduleData.introAudio != "")
             {
-                aud.clip = MediaCatalogue.Instance.GetAudioClip(moduleData.introAudio);
-                aud.Play();
+                if (TransmissionActivity)
+                {
+                    if (TransmissionHost)
+                        Transmission.Send(new RPCMessage("PlayAudio", moduleData.introAudio));
+                }
+                else
+                {
+                    aud.clip = MediaCatalogue.Instance.GetAudioClip(moduleData.introAudio);
+                    aud.Play();
+                }
             }
 
             // Set the light if needed
@@ -129,6 +137,13 @@ namespace demoRoutines
         public void RestoreLights()
         {
             lightControl.restoreLights();
+        }
+
+        public void PlayAudio(string clipname)
+        {
+            aud.clip = MediaCatalogue.Instance.GetAudioClip(clipname);
+            if (aud.clip != null)
+                aud.Play();
         }
 
         // Called by sequencer when the prev. module button is clicked?

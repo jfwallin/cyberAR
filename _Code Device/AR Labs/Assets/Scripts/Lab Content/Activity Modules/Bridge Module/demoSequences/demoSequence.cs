@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using UnityEngine;
+using MagicLeapTools;
 
 public class demoSequence : MonoBehaviour
 {
@@ -155,10 +156,18 @@ public class demoSequence : MonoBehaviour
     // Waits for an audio clip to play
     IEnumerator WaitForClip(float timeDelay)
     {
-        aud.clip = MediaCatalogue.Instance.GetAudioClip(theClip.audioClipString);
-
-        if (aud.clip != null)
-            aud.Play();
+        if (GetComponent<demoRoutines.demo>().TransmissionActivity)
+        {
+            // Play the clip using the function on demo, not here
+            Transmission.Send(new RPCMessage("PlayAudio", theClip.audioClipString));
+        }
+        else
+        {
+            // Play the clip normally
+            aud.clip = MediaCatalogue.Instance.GetAudioClip(theClip.audioClipString);
+            if (aud.clip != null)
+                aud.Play();
+        }
 
         yield return new WaitForSeconds(timeDelay);
         clipFinished();
