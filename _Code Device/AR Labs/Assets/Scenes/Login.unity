@@ -2610,7 +2610,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1acab6330f349a0449376de50fbb3c94, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  pcf: {fileID: 0}
+  pcf: {fileID: 1223233975}
   port: 23000
   bufferSize: 4096
   appKey: 6900875598
@@ -4158,8 +4158,8 @@ MonoBehaviour:
   authTimeout: 15
   labParseTimeout: 15
   endpointsType: 0
-  debugLabListFilename: testlabs001.json
-  debugLabZipFilename: TestLab.zip
+  debugLabListFilename: dev_labs_list.json
+  debugLabZipFilename: TransmissionDemo.zip
   skipIntroAnimation: 0
   skipLoginAndDownload: 0
   debugLabResources: C:\Users\ishum\AppData\LocalLow\Walker Library\AR Labs\DebugZip\TestLab
