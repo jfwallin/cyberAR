@@ -57,8 +57,19 @@ public class LabManager : MonoBehaviour
             transmissionHost = false;
             // Enable components
             GetComponent<MLPrivilegeRequesterBehavior>().enabled = true;
-            GetComponent<Transmission>().enabled = true;
-            GetComponent<SpatialAlignment>().enabled = true;
+            try
+            {
+                GetComponent<Transmission>().enabled = true;
+                GetComponent<SpatialAlignment>().enabled = true;
+            }
+            catch (Exception ex)
+            {
+                LabLogger.Instance.InfoLog(
+                    this.ToString(),
+                    LabLogger.LogTag.ERROR,
+                    ex.ToString()
+                );
+            }
             bridge.ConnectToTransmission();
 
             // Start waiting for people to connect, setup and enable UI

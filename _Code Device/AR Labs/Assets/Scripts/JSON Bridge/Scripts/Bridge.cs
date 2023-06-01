@@ -41,6 +41,11 @@ public class Bridge
     /// </summary>
     public void ConnectToTransmission()
     {
+        LabLogger.Instance.InfoLog(
+            this.ToString(),
+            LabLogger.LogTag.TRACE,
+            "ConnectToTransmission()"
+        );
         Transmission.Instance.OnStringMessage.AddListener(handleStringMessage);
         transmissionEnabled = true;
     }
@@ -50,6 +55,11 @@ public class Bridge
     /// </summary>
     public void DisconnectFromTransmission()
     {
+        LabLogger.Instance.InfoLog(
+            this.ToString(),
+            LabLogger.LogTag.TRACE,
+            "DisconnectFromTransmission()"
+        );
         Transmission.Instance.OnStringMessage.RemoveAllListeners();
         transmissionEnabled = false;
     }
