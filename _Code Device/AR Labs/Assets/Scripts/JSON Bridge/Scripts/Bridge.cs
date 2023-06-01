@@ -25,7 +25,7 @@ public class Bridge
             {
                 LabLogger.Instance.InfoLog(
                     "BRIDGE",
-                    "TRACE",
+                    LabLogger.LogTag.TRACE,
                     "Creating Bridge Instance");
                 _instance = new Bridge();
             }
@@ -65,7 +65,7 @@ public class Bridge
         GameObject myObject = null; // Reference to gameobject being worked on
 
         // Log Event
-        LabLogger.Instance.InfoLog(this.GetType().ToString(), "Debug",
+        LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.TRACE,
             $"Creating object: {obj.name}, type: {obj.type}");
 
         // Try to find the object
@@ -216,7 +216,7 @@ public class Bridge
     /// <param name="init">whether the object is being setup or not</param>
     private void transmitObject(ObjectInfo obj, string guid, bool init)
     {
-        LabLogger.Instance.InfoLog(this.GetType().ToString(), "Debug",
+        LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.TRACE,
             $"Sending Object Info to Peer, Obj Name: {obj.name}");
 
         // Build the test message
@@ -279,7 +279,7 @@ public class Bridge
         {
             LabLogger.Instance.InfoLog(
                 this.ToString(),
-                "DEBUG",
+                LabLogger.LogTag.ERROR,
                 "Failed to parse Transmission object information");
             return (null, null);
         }
@@ -293,7 +293,7 @@ public class Bridge
         // Else, log failure
         LabLogger.Instance.InfoLog(
             this.ToString(),
-            "DEBUG",
+            LabLogger.LogTag.ERROR,
             $"Failed to find the transmission object with guid: {guid}");
         return (null, objInfo);
     }
@@ -319,13 +319,13 @@ public class Bridge
         if (obj.type.Contains("moveableSphere"))
         {
             PointerReceiver pr = myObject.GetComponent<PointerReceiver>();
-            pr.OnTargetEnter.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Object Targeted",
+            pr.OnTargetEnter.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, LabLogger.LogTag.EVENT,
                 myObject.name));
-            pr.OnTargetExit.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Object Detargeted",
+            pr.OnTargetExit.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, LabLogger.LogTag.EVENT,
                 myObject.name));
-            pr.OnDragBegin.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Drag Start",
+            pr.OnDragBegin.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, LabLogger.LogTag.EVENT,
                 myObject.name));
-            pr.OnDragEnd.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, "Drag End",
+            pr.OnDragEnd.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, LabLogger.LogTag.EVENT,
                 $"{myObject.name}:{myObject.transform.position.ToString("F3")}:{myObject.transform.eulerAngles.ToString("F3")}"));
         }
 
@@ -351,13 +351,13 @@ public class Bridge
             myObject.transform.localScale = obj.scale;
         if (obj.newEulerAngles)
             myObject.transform.localEulerAngles = obj.eulerAngles;
-        LabLogger.Instance.InfoLog( this.GetType().ToString(), "Debug",
+        LabLogger.Instance.InfoLog( this.GetType().ToString(), LabLogger.LogTag.DEBUG,
             $"Position: {obj.position.ToString("F3")}, Scale: {obj.scale.ToString("F3")}, EulerAngles: {obj.eulerAngles.ToString("F3")}");
 
         // Add custom scripted components to the object
         if (obj.componentsToAdd != null)
         {
-            LabLogger.Instance.InfoLog( this.GetType().ToString(), "Debug",
+            LabLogger.Instance.InfoLog( this.GetType().ToString(), LabLogger.LogTag.DEBUG,
                 $"Adding components: {obj.componentsToAdd.ToList().Aggregate("", (acc, x) => acc + $"{x} ")}");
 
             foreach (string compStr in obj.componentsToAdd)
@@ -519,7 +519,7 @@ public class Bridge
         // Log the size of the mesh
         MeshRenderer mesh = myObject.GetComponent<MeshRenderer>();
         if(mesh != null && mesh.bounds.extents != Vector3.zero)
-        LabLogger.Instance.InfoLog( this.GetType().ToString(), "Debug",
+        LabLogger.Instance.InfoLog( this.GetType().ToString(), LabLogger.LogTag.DEBUG,
             $"Mesh bounding box: {mesh.bounds.ToString("F3")}");
 
         // Enable the object

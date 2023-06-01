@@ -42,6 +42,18 @@ public class LabLogger : MonoBehaviour
         }
     }
 
+    public enum LogTag
+    {
+        STATE_START,
+        CONNECT,
+        INITIALIZE,
+        EVENT,
+        TRACE,
+        DEBUG,
+        ERROR,
+        SUBMIT
+    }
+
     private string logDirectory = "";            // Log filepath, will be updated with student's name and id
     private string logFileName = "";             // Name of the logfile, will have student's name and id
     private FileInfo logFileInfo;
@@ -115,11 +127,11 @@ public class LabLogger : MonoBehaviour
         connectionTimer = 0.0f;
 
         // Log where the files should be saving to
-        InfoLog("LOGGER", "TRACE", $"Saving files to persistent data path: {logFileInfo.FullName}");
+        InfoLog("LOGGER", LogTag.TRACE, $"Saving files to persistent data path: {logFileInfo.FullName}");
 
         // Sync up log files, initialize prevTime
         float prevTime = Time.time;
-        InfoLog("Logger", "Trace", $"Sync with transform log {prevTime}");
+        InfoLog("Logger", LogTag.TRACE, $"Sync with transform log {prevTime}");
 
         using var filestream = new FileStream(positionFileInfo.FullName, FileMode.Append, FileAccess.Write);
         using var bw = new BinaryWriter(filestream);
@@ -179,7 +191,7 @@ public class LabLogger : MonoBehaviour
         logFileName = newName + "_" + System.DateTime.Now.ToString("MM-dd-yyyy_HH-mm") + ".txt";
         logFileInfo.MoveTo(Path.Combine(logDirectory, logFileName));
         // Add initiliazation statement to the log
-        InfoLog(this.GetType().ToString(), "Initialize Log", $"Log file for student: {newName},  M{mNum}.");
+        InfoLog(this.GetType().ToString(), LogTag.INITIALIZE, $"Log file for student: {newName},  M{mNum}.");
         // Optionally initialize position log
         if(trackPositions)
         {
@@ -197,17 +209,16 @@ public class LabLogger : MonoBehaviour
     /// <param name="entity">name of the component that sent the log request</param>
     /// <param name="tag">descriptive tag for the info, used to make parsing for specific info easier</param>
     /// <param name="information">information to be added to the log, preformatted by sender</param>
-    public void InfoLog(string entity, string tag, string information)
+    public void InfoLog(string entity, LogTag tag, string information)
     {
         // Strip any newlines to make each log only on one line
         entity = entity.Replace("\n", " ");
-        tag = tag.Replace("\n", " ");
         information = information.Replace("\n", " ");
         // Get timing information
         string curTime = System.DateTime.Now.ToString("HH:mm:ss");
         string relTime = $"{Mathf.Round((Time.time-startTime)*100f)/100f}";
         // CURTIME, RELTIME | ENTITY, TAG : INFO
-        string log = $"{entity.ToUpper()} | {tag.ToUpper()} | {curTime} | {relTime} | {information}\n";
+        string log = $"{entity.ToUpper()} | {tag.ToString()} | {curTime} | {relTime} | {information}\n";
         appendToLog(log);
 
         // Print log to console if flag is set, and not final build
@@ -225,7 +236,7 @@ public class LabLogger : MonoBehaviour
         // Upload the files when it is a final build, or when it is a debug build with upload flag
         if(!Debug.isDebugBuild || (Debug.isDebugBuild && uploadLogs))
         {
-            InfoLog("LOGGER", "SUBMIT",
+            InfoLog("LOGGER", LogTag.SUBMIT,
                 $"Application ending after {Time.time - startTime} seconds, " +
                 $"time is now {DateTime.Now.ToString("HH:mm")}");
             StartCoroutine(Upload(onDoneSubmitting));
@@ -301,7 +312,7 @@ public class LabLogger : MonoBehaviour
     /// </summary>
     private IEnumerator Connect()
     {
-        InfoLog("LOGGER", "CONNECT", $"Connect called at " + DateTime.Now.ToString());
+        InfoLog("LOGGER", LogTag.CONNECT, $"Connect called at " + DateTime.Now.ToString());
       
         //create a webForm object
         WWWForm form = new WWWForm();

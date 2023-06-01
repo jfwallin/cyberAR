@@ -45,7 +45,7 @@ public class LabManager : MonoBehaviour
     #region Public Methods
     public void Initialize(LabDataObject data)
     {
-        logger.InfoLog(entity, "Trace", "Initialize()");
+        logger.InfoLog(entity, LabLogger.LogTag.TRACE, "Initialize()");
 
         // Initialize data
         modules = data.ActivityModules;
@@ -97,7 +97,7 @@ public class LabManager : MonoBehaviour
     #region Private Methods
     private void SpawnModule()
     {
-        logger.InfoLog(entity, "State Start", $"Module {index}");
+        logger.InfoLog(entity, LabLogger.LogTag.STATE_START, $"Module {index}");
         //Debug.Log("spawning module #" + index.ToString());
 
         //Deserialize JSON to get the prefab name
@@ -203,7 +203,7 @@ public class LabManager : MonoBehaviour
         if (index < 0)
             index = 0;
 
-        logger.InfoLog(entity, "Trace", "ModuleComplete()");
+        logger.InfoLog(entity, LabLogger.LogTag.TRACE, "ModuleComplete()");
 
         if (index < modules.Length)
         {

@@ -128,7 +128,7 @@ public class MediaCatalogue : MonoBehaviour
         // Log start of loading
         LabLogger.Instance.InfoLog(
             this.GetType().ToString(),
-            "Debug",
+            LabLogger.LogTag.DEBUG,
             $"Started Initializing Media Catlogue, {numResources} resources to load");
 
         // Start Asrynchronously loading the media
@@ -149,7 +149,7 @@ public class MediaCatalogue : MonoBehaviour
         {
             LabLogger.Instance.InfoLog(
                 this.GetType().ToString(),
-                "Error",
+                LabLogger.LogTag.ERROR,
                 $"Could not find texture in catalogue: {textureName}, returning null");
             return null;
         }
@@ -169,7 +169,7 @@ public class MediaCatalogue : MonoBehaviour
         {
             LabLogger.Instance.InfoLog(
                 this.GetType().ToString(),
-                "Error",
+                LabLogger.LogTag.ERROR,
                 $"Could not find audio in catalogue: {audioName}, returning null");
             return null;
         }
@@ -189,7 +189,7 @@ public class MediaCatalogue : MonoBehaviour
         {
             LabLogger.Instance.InfoLog(
                 this.GetType().ToString(),
-                "Error",
+                LabLogger.LogTag.ERROR,
                 $"Could not find video in catalogue: {videoName}, returning empty string");
             return "";
         }
@@ -215,7 +215,7 @@ public class MediaCatalogue : MonoBehaviour
                 {
                     LabLogger.Instance.InfoLog(
                         this.GetType().ToString(),
-                        "Debug",
+                        LabLogger.LogTag.DEBUG,
                         $"Started loading file: {file.Name}");
                     // Only Load files from folders describing asset types
                     if (folder.Name == "Audios")
@@ -250,7 +250,7 @@ public class MediaCatalogue : MonoBehaviour
             if (uwr.result != UnityWebRequest.Result.Success)
                 LabLogger.Instance.InfoLog(
                     this.GetType().ToString(),
-                    "Error",
+                    LabLogger.LogTag.ERROR,
                     $"Error loading texture asset: {uwr.error}");
             else // If successful, add the texture to the catalogue
                 labTextures.Add(
@@ -281,7 +281,7 @@ public class MediaCatalogue : MonoBehaviour
             if (uwr.result != UnityWebRequest.Result.Success)
                 LabLogger.Instance.InfoLog(
                     this.GetType().ToString(),
-                    "Error",
+                    LabLogger.LogTag.ERROR,
                     $"Error loading audio asset: {uwr.error}");
             else // If successful, add to the catalogue
                 labAudio.Add(

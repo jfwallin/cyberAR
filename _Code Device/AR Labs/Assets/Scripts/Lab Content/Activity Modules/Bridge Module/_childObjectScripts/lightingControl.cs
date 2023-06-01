@@ -69,7 +69,7 @@ public class lightingControl : MonoBehaviour
     {
         LabLogger.Instance.InfoLog(
             this.GetType().ToString(),
-            "Trace",
+            LabLogger.LogTag.TRACE,
             "saveLights()");
         //sceneLight.color = Color.white;
         position = theLight.transform.position;
@@ -88,7 +88,7 @@ public class lightingControl : MonoBehaviour
     {
         LabLogger.Instance.InfoLog(
             this.GetType().ToString(),
-            "Trace",
+            LabLogger.LogTag.TRACE,
             "restoreLights()");
         theLight.transform.position = position;
         theLight.transform.rotation = angle;
@@ -106,7 +106,7 @@ public class lightingControl : MonoBehaviour
     {
         LabLogger.Instance.InfoLog(
             this.GetType().ToString(),
-            "Trace",
+            LabLogger.LogTag.TRACE,
             "sunlight()");
         theLight.transform.localPosition = sunlightPosition;
         theLight.transform.localRotation = sunlightAngle;

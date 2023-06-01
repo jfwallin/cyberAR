@@ -146,11 +146,11 @@ public class LoginManager : MonoBehaviour
 
     private void Start()
     {
-        logger.InfoLog(entity, "State Start", "Introduction");
+        logger.InfoLog(entity, LabLogger.LogTag.STATE_START, "Introduction");
         // If we are skipping login/download, check that debug resources folder exists
         if (skipLoginAndDownload == true && (debugLabResources == "" || !Directory.Exists(debugLabResources)))
             logger.InfoLog(entity,
-                "Error",
+                LabLogger.LogTag.ERROR,
                 $"Skipping login, but path to local lab resources not set correctly: {debugLabResources}");
 
         // Make sure controller isn't visible
@@ -195,7 +195,7 @@ public class LoginManager : MonoBehaviour
         {
             case state.placement:
                 {
-                    logger.InfoLog(entity, "State Start", "Placement");
+                    logger.InfoLog(entity, LabLogger.LogTag.STATE_START, "Placement");
                     HidePointer();
                     // Hide the intro animation
                     // introAnimation.gameObject.transform.GetChild(0).gameObject.SetActive(false);
@@ -220,7 +220,7 @@ public class LoginManager : MonoBehaviour
                 }
             case state.pin_entry:
                 {
-                    logger.InfoLog(entity, "State Start", "Pin Entry");
+                    logger.InfoLog(entity, LabLogger.LogTag.STATE_START, "Pin Entry");
                     ShowPointer();
                     // Hide placement object
                     placementProp.SetActive(false);
@@ -238,7 +238,7 @@ public class LoginManager : MonoBehaviour
                 }
             case state.authentication:
                 {
-                    logger.InfoLog(entity, "State Start", "Authentication");
+                    logger.InfoLog(entity, LabLogger.LogTag.STATE_START, "Authentication");
                     // Disable pin entry
                     pin.SetActive(false);
                     keyboard.SetActive(false);
@@ -258,7 +258,7 @@ public class LoginManager : MonoBehaviour
                 }
             case state.lab_selection:
                 {
-                    logger.InfoLog(entity, "State Start", "Lab Selection");
+                    logger.InfoLog(entity, LabLogger.LogTag.STATE_START, "Lab Selection");
                     // Disable Login UI and keyboard
                     loginUI.SetActive(false);
                     keyboard.SetActive(false);
@@ -284,7 +284,7 @@ public class LoginManager : MonoBehaviour
                 }
             case state.lab_initiation:
                 {
-                    logger.InfoLog(entity, "State Start", "Lab Initiation");
+                    logger.InfoLog(entity, LabLogger.LogTag.STATE_START, "Lab Initiation");
                     // Disable all UI
                     labOptions.SetActive(false);
 
@@ -334,7 +334,7 @@ public class LoginManager : MonoBehaviour
     /// </summary>
     private void Place()
     {
-        logger.InfoLog(entity, "Trace", "Place()");
+        logger.InfoLog(entity, LabLogger.LogTag.TRACE, "Place()");
         // Unbind place function from trigger
         controller.GetComponent<ControlInput>().OnTriggerDown.RemoveListener(Place);
         labStarter.transform.position = placementProp.transform.position;
@@ -356,7 +356,7 @@ public class LoginManager : MonoBehaviour
     /// </summary>
     private void ParseLabs()
     {
-        logger.InfoLog(entity, "Trace", "ParseLabs()");
+        logger.InfoLog(entity, LabLogger.LogTag.TRACE, "ParseLabs()");
         // Trim leading and trailing [{}]
         string labsString = allLabsFileInfo.OpenText().ReadToEnd().Trim(new char[] { '[', '{', '}', ']' });
         // Split by },{ which only occurs between labs in the list
@@ -387,7 +387,7 @@ public class LoginManager : MonoBehaviour
         string labNames = "";
         foreach(LabInfo lab in labInfoList)
             labNames += lab.name + ", ";
-        logger.InfoLog(entity, "Debug", $"Finished parsing labs:" + labNames);
+        logger.InfoLog(entity, LabLogger.LogTag.DEBUG, $"Finished parsing labs:" + labNames);
         labsReady = true;
     }
 
@@ -396,7 +396,7 @@ public class LoginManager : MonoBehaviour
     /// </summary>
     private void GenerateLabListUI()
     {
-        logger.InfoLog(entity, "Trace", "GenerateLabListUI()");
+        logger.InfoLog(entity, LabLogger.LogTag.TRACE, "GenerateLabListUI()");
         // Generate 5 lab buttons, or less if the list of available labs is short
         int i = 0;
         while(i < 5 && i < labInfoList.Count)
@@ -453,7 +453,7 @@ public class LoginManager : MonoBehaviour
         }
         if (labJsonInfo == null)
         {
-            logger.InfoLog(entity, "Error", $"Could not find lab json after lab zip downloaded and extracted, stopping");
+            logger.InfoLog(entity, LabLogger.LogTag.ERROR, $"Could not find lab json after lab zip downloaded and extracted, stopping");
             return;
         }
 
@@ -477,7 +477,7 @@ public class LoginManager : MonoBehaviour
     /// <param name="labData">Data object describing the lab</param>
     private void InitializeLabManager(LabDataObject labData)
     {
-        logger.InfoLog(entity, "Trace", "InitializeLabManager()");
+        logger.InfoLog(entity, LabLogger.LogTag.TRACE, "InitializeLabManager()");
         LabManager lm = labStarter.GetComponent<LabManager>();
         lm.enabled = true;
         lm.Initialize(labData);
@@ -489,7 +489,7 @@ public class LoginManager : MonoBehaviour
     {
         controller.GetComponent<LineRenderer>().enabled = flag;
         controller.GetComponentInChildren<MeshRenderer>().enabled = flag;
-        logger.InfoLog(entity, "Trace", "ToggleControllerRendering()");
+        logger.InfoLog(entity, LabLogger.LogTag.TRACE, "ToggleControllerRendering()");
     }
 
     /// <summary>
@@ -512,7 +512,7 @@ public class LoginManager : MonoBehaviour
     /// </summary>
     private IEnumerator SetupIntroAnimation()
     {
-        logger.InfoLog(entity, "Trace", "SetupIntroAnimation()");
+        logger.InfoLog(entity, LabLogger.LogTag.TRACE, "SetupIntroAnimation()");
         // Go ahead and start the animation
         introAnimation.SetActive(true);
 
@@ -574,7 +574,7 @@ public class LoginManager : MonoBehaviour
             // Check and see if we time out
             if (countdown <= 0)
             {
-                logger.InfoLog(entity, "Error", $"Authentication timed out, waited {authTimeout} seconds.");
+                logger.InfoLog(entity, LabLogger.LogTag.ERROR, $"Authentication timed out, waited {authTimeout} seconds.");
                 ChangeStateTo(state.pin_entry);
                 // Exit the coroutine
                 yield break;
@@ -588,13 +588,13 @@ public class LoginManager : MonoBehaviour
             string mNum = auth.PinToMNum(pin);
             // Initialize the logger with the student information
             logger.InitializeLog(studentName, mNum);
-            logger.InfoLog(entity, "Debug", $"Student authenticated: {studentName}, M{mNum}");
+            logger.InfoLog(entity, LabLogger.LogTag.DEBUG, $"Student authenticated: {studentName}, M{mNum}");
             // Go to lab selection state
             ChangeStateTo(state.lab_selection);
         }
         else // Pin was not authenticated
         {
-            logger.InfoLog(entity, "Debug", "Pin failed to authenticate");
+            logger.InfoLog(entity, LabLogger.LogTag.DEBUG, "Pin failed to authenticate");
             ChangeStateTo(state.pin_entry);
         }
     }
@@ -614,7 +614,7 @@ public class LoginManager : MonoBehaviour
 
             if(countdown <= 0)
             {
-                logger.InfoLog(entity, "Error", $"Lab Parsing timed out, waited ${labParseTimeout} seconds. STOPPING");
+                logger.InfoLog(entity, LabLogger.LogTag.ERROR, $"Lab Parsing timed out, waited ${labParseTimeout} seconds. STOPPING");
                 yield break;
             }
         }
@@ -638,13 +638,13 @@ public class LoginManager : MonoBehaviour
     /// </summary>
     public void PinEntered()
     {
-        logger.InfoLog(entity, "Trace", "PinEntered()");
+        logger.InfoLog(entity, LabLogger.LogTag.TRACE, "PinEntered()");
         ChangeStateTo(state.authentication);
     }
 
     public void GuestLogin()
     {
-        logger.InfoLog(entity, "Trace", "GuestLogin()");
+        logger.InfoLog(entity, LabLogger.LogTag.TRACE, "GuestLogin()");
         pinInput.text = "000000";
         ChangeStateTo(state.authentication);
     }
@@ -654,7 +654,7 @@ public class LoginManager : MonoBehaviour
     /// </summary>
     public void LabComplete()
     {
-        logger.InfoLog(entity, "Trace", "LabComplete()");
+        logger.InfoLog(entity, LabLogger.LogTag.TRACE, "LabComplete()");
         ChangeStateTo(state.lab_selection);
     }    
     #endregion Public Callbacks
@@ -673,7 +673,7 @@ public class LoginManager : MonoBehaviour
         }
         else // Download Failed
         {
-            logger.InfoLog(entity, "Error", "Labs failed to download");
+            logger.InfoLog(entity, LabLogger.LogTag.ERROR, "Labs failed to download");
         }
     }
 
@@ -683,11 +683,11 @@ public class LoginManager : MonoBehaviour
     /// <param name="labID">id of the lab that was selected</param>
     private void LabSelected(string labID)
     {
-        logger.InfoLog(entity, "Trace", "LabSelected()");
+        logger.InfoLog(entity, LabLogger.LogTag.TRACE, "LabSelected()");
         // Set the current selected lab to match the passed id
         selectedLab = labInfoList.Find(x => x.id == labID);
         // Log what lab was selected
-        logger.InfoLog(entity, "Debug", $"Lab Selected: {selectedLab.id}, {selectedLab.name}");
+        logger.InfoLog(entity, LabLogger.LogTag.DEBUG, $"Lab Selected: {selectedLab.id}, {selectedLab.name}");
         // Transition to next state
         ChangeStateTo(state.lab_initiation);
     }
@@ -697,7 +697,7 @@ public class LoginManager : MonoBehaviour
     /// </summary>
     private void ExitSelected()
     {
-        logger.InfoLog(entity, "Trace", "ExitSelected()");
+        logger.InfoLog(entity, LabLogger.LogTag.TRACE, "ExitSelected()");
         logger.SubmitLog(LogSubmitted);
     }
 
@@ -720,7 +720,7 @@ public class LoginManager : MonoBehaviour
                     selectedLab.id)));
         }
         else // Download failed
-            logger.InfoLog(entity, "Error", $"LabZip failed to download. Stopping Program");
+            logger.InfoLog(entity, LabLogger.LogTag.ERROR, $"LabZip failed to download. Stopping Program");
     }
 
     /// <summary>

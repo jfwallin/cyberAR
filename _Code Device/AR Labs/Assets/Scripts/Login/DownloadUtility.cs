@@ -89,7 +89,7 @@ public class DownloadUtility : MonoBehaviour
             //    callback.Invoke(0);
             //    return;
             //}
-            logger.InfoLog(entity, "Debug", $"Starting download of file ${path} from url: {url}");
+            logger.InfoLog(entity, LabLogger.LogTag.DEBUG, $"Starting download of file ${path} from url: {url}");
             StartCoroutine(downloadRoutine(url, path, callback));
         }
         else // Use local files
@@ -119,7 +119,7 @@ public class DownloadUtility : MonoBehaviour
                 callback.Invoke(0);
                 return;
             }*/
-            logger.InfoLog(entity, "Debug", $"Starting download of file ${path} from url: {url}");
+            logger.InfoLog(entity, LabLogger.LogTag.DEBUG, $"Starting download of file ${path} from url: {url}");
             StartCoroutine(downloadRoutine(url, path, (int x) => ExtractZip(x, path, callback)));
         }
         else // Use local files
@@ -152,24 +152,24 @@ public class DownloadUtility : MonoBehaviour
         // Check the file path
         if (!File.Exists(path) || !path.EndsWith(".zip"))
         {
-            logger.InfoLog(entity, "Error",
+            logger.InfoLog(entity, LabLogger.LogTag.ERROR,
                 $"Failed to extract zip file '{path}', file either does not exist or does not end with '.zip'");
             callback.Invoke(-1);
             return;
         }
-        logger.InfoLog(entity, "Trace", $"Starting to extract file: {path}");
+        logger.InfoLog(entity, LabLogger.LogTag.TRACE, $"Starting to extract file: {path}");
 
         // Open the zip file and iterate through each item in the compressed archive
         FileStream zipstream = new FileStream(path, FileMode.Open);
         ZipArchive archive = new ZipArchive(zipstream);
-        logger.InfoLog(entity, "Debug",
+        logger.InfoLog(entity, LabLogger.LogTag.DEBUG,
             $"Number of entries to extract: {archive.Entries.Count}");
         foreach(ZipArchiveEntry entry in archive.Entries)
         {
             // If this entry is not a file but just a folder, it's name will be blank, and don't extract it
             if(entry.Name.Length != 0)
             {
-                logger.InfoLog(entity, "Debug",
+                logger.InfoLog(entity, LabLogger.LogTag.DEBUG,
                     $"Extracting file: {entry.Name}");
                 FileInfo entryInfo = new FileInfo(Path.Combine(
                     Application.persistentDataPath,
@@ -196,18 +196,18 @@ public class DownloadUtility : MonoBehaviour
         // Download code taken from Nico's work
         var uwr = new UnityWebRequest(url, UnityWebRequest.kHttpVerbGET);
         uwr.downloadHandler = new DownloadHandlerFile(path);
-        logger.InfoLog(entity, "Debug", $"Inside download coroutine, URL: {url}, path: {path}");
+        logger.InfoLog(entity, LabLogger.LogTag.DEBUG, $"Inside download coroutine, URL: {url}, path: {path}");
         yield return uwr.SendWebRequest();
         if (uwr.result != UnityWebRequest.Result.Success)
         {
-            logger.InfoLog(entity, "Error", $"Download of {path} failed with error:\n{uwr.result.ToString()} | {uwr.error}");
+            logger.InfoLog(entity, LabLogger.LogTag.ERROR, $"Download of {path} failed with error:\n{uwr.result.ToString()} | {uwr.error}");
             // Invoke callback w/-1, telling client the download failed
             uwr.Dispose();
             callback.Invoke(-1);
         }
         else
         {
-            logger.InfoLog(entity, "Debug", $"Successfully downloaded {path}");
+            logger.InfoLog(entity, LabLogger.LogTag.TRACE, $"Successfully downloaded {path}");
             // Invoke callback w/0, telling client the download succeeded
             uwr.Dispose();
             callback.Invoke(0);
