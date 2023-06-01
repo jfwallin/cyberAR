@@ -1029,6 +1029,9 @@ MonoBehaviour:
   controller: {fileID: 0}
   headset: {fileID: 0}
   logDeltaTime: 0.1
+  prevTime: 0
+  logger: {fileID: 0}
+  entity: 
 --- !u!1 &248395418
 GameObject:
   m_ObjectHideFlags: 0
@@ -2594,9 +2597,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 442d0e05bc05b7648bf7a4414de0daa4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  transmissionWaitUI: {fileID: 0}
-  transmissionStartLabButton: {fileID: 0}
-  peerCountText: {fileID: 0}
+  transmissionWaitUI: {fileID: 1145454128}
+  transmissionStartLabButton: {fileID: 2063704138}
+  peerCountText: {fileID: 270676759}
   modules: []
 --- !u!114 &636720215
 MonoBehaviour:

@@ -40,7 +40,8 @@ lab_info = Dict(
         "Test that Transmission Interactions are working"
     ],
     "ActivityModules" => modules_json,
-    "Assets" => []
+    "Assets" => [],
+    "Transmission" => "true"
 )
 
 # Write the labinfo json to a file
