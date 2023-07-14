@@ -1,0 +1,144 @@
+LOGINMANAGER | STATE_START | 10:06:33 | 3.71 | Introduction
+LOGINMANAGER | TRACE | 10:06:33 | 3.71 | ToggleControllerRendering()
+DOWNLOADUTILITY | DEBUG | 10:06:33 | 3.71 | Starting download of file $/documents/C2/login/All_Labs.json from url: https://cyberlearnar.cs.mtsu.edu/show_uploaded/dev_labs_list.json
+DOWNLOADUTILITY | DEBUG | 10:06:33 | 3.71 | Inside download coroutine, URL: https://cyberlearnar.cs.mtsu.edu/show_uploaded/dev_labs_list.json, path: /documents/C2/login/All_Labs.json
+LOGINMANAGER | TRACE | 10:06:33 | 3.71 | SetupIntroAnimation()
+DOWNLOADUTILITY | DEBUG | 10:06:33 | 3.71 | Starting download of file $/documents/C2/login/pin_ids.csv from url: https://cyberlearnar.cs.mtsu.edu/show_uploaded/pin_ids.csv
+DOWNLOADUTILITY | DEBUG | 10:06:33 | 3.71 | Inside download coroutine, URL: https://cyberlearnar.cs.mtsu.edu/show_uploaded/pin_ids.csv, path: /documents/C2/login/pin_ids.csv
+LOGGER | CONNECT | 10:06:33 | 0 | Connect called at 07/14/2023 10:06:33
+LOGGER | TRACE | 10:06:33 | 0 | Saving files to persistent data path: /documents/C2/Logs/07-14-2023_10-06.txt
+LOGGER | TRACE | 10:06:33 | 0 | Sync with transform log 3.711379
+DOWNLOADUTILITY | TRACE | 10:06:34 | 0.09 | Successfully downloaded /documents/C2/login/All_Labs.json
+LOGINMANAGER | TRACE | 10:06:34 | 0.09 | ParseLabs()
+LOGINMANAGER | DEBUG | 10:06:34 | 0.09 | Finished parsing labs:Moon Lab, Multi-Person Moon Lab, 
+DOWNLOADUTILITY | TRACE | 10:06:34 | 0.09 | Successfully downloaded /documents/C2/login/pin_ids.csv
+AUTHENTICATE | TRACE | 10:06:34 | 0.09 | ParseCSV()
+AUTHENTICATE | DEBUG | 10:06:45 | 0.09 | CSVs Parsed
+LOGINMANAGER | STATE_START | 10:06:53 | 8.68 | Placement
+LOGINMANAGER | TRACE | 10:06:53 | 8.68 | ToggleControllerRendering()
+LOGINMANAGER | TRACE | 10:06:59 | 14.02 | Place()
+LOGINMANAGER | STATE_START | 10:06:59 | 14.02 | Pin Entry
+LOGINMANAGER | TRACE | 10:06:59 | 14.02 | ToggleControllerRendering()
+LOGINMANAGER | TRACE | 10:07:01 | 15.83 | GuestLogin()
+LOGINMANAGER | STATE_START | 10:07:01 | 15.83 | Authentication
+AUTHENTICATE | DEBUG | 10:07:01 | 15.83 | Attempting to authenticate pin: 000000
+AUTHENTICATE | DEBUG | 10:07:01 | 15.83 | Attempting to authenticate pin: 000000
+AUTHENTICATE | DEBUG | 10:07:01 | 15.83 | Attempting to authenticate pin: 000000
+LABLOGGER | INITIALIZE | 10:07:01 | 15.83 | Log file for student: Guest_Guest,  M00000000.
+LOGINMANAGER | DEBUG | 10:07:01 | 15.83 | Student authenticated: Guest Guest, M00000000
+LOGINMANAGER | STATE_START | 10:07:01 | 15.83 | Lab Selection
+LOGINMANAGER | TRACE | 10:07:01 | 15.83 | GenerateLabListUI()
+LOGINMANAGER | TRACE | 10:07:03 | 17.91 | LabSelected()
+LOGINMANAGER | DEBUG | 10:07:03 | 17.91 | Lab Selected: 2, Multi-Person Moon Lab
+LOGINMANAGER | STATE_START | 10:07:03 | 17.91 | Lab Initiation
+DOWNLOADUTILITY | DEBUG | 10:07:03 | 17.91 | Starting download of file $/documents/C2/lab_resources/TransmissionDemo.zip from url: https://cyberlearnar.cs.mtsu.edu/show_uploaded/TransmissionDemo.zip
+DOWNLOADUTILITY | DEBUG | 10:07:03 | 17.91 | Inside download coroutine, URL: https://cyberlearnar.cs.mtsu.edu/show_uploaded/TransmissionDemo.zip, path: /documents/C2/lab_resources/TransmissionDemo.zip
+BRIDGE | TRACE | 10:07:03 | 17.91 | Creating Bridge Instance
+DOWNLOADUTILITY | TRACE | 10:07:08 | 22.32 | Successfully downloaded /documents/C2/lab_resources/TransmissionDemo.zip
+DOWNLOADUTILITY | TRACE | 10:07:08 | 22.32 | Starting to extract file: /documents/C2/lab_resources/TransmissionDemo.zip
+DOWNLOADUTILITY | DEBUG | 10:07:08 | 22.32 | Number of entries to extract: 26
+DOWNLOADUTILITY | DEBUG | 10:07:08 | 22.32 | Extracting file: basketball.wav
+DOWNLOADUTILITY | DEBUG | 10:07:08 | 22.32 | Extracting file: bigearthmoon.wav
+DOWNLOADUTILITY | DEBUG | 10:07:08 | 22.32 | Extracting file: Grab.wav
+DOWNLOADUTILITY | DEBUG | 10:07:08 | 22.32 | Extracting file: introduction.wav
+DOWNLOADUTILITY | DEBUG | 10:07:08 | 22.32 | Extracting file: labintro.wav
+DOWNLOADUTILITY | DEBUG | 10:07:08 | 22.32 | Extracting file: newfinalie.wav
+DOWNLOADUTILITY | DEBUG | 10:07:08 | 22.32 | Extracting file: not_in_order1.wav
+DOWNLOADUTILITY | DEBUG | 10:07:08 | 22.32 | Extracting file: not_in_order2.wav
+DOWNLOADUTILITY | DEBUG | 10:07:08 | 22.32 | Extracting file: not_in_order3.wav
+DOWNLOADUTILITY | DEBUG | 10:07:08 | 22.32 | Extracting file: Release.wav
+DOWNLOADUTILITY | DEBUG | 10:07:08 | 22.32 | Extracting file: seeing the moon.wav
+DOWNLOADUTILITY | DEBUG | 10:07:08 | 22.32 | Extracting file: sorting_instructions.wav
+DOWNLOADUTILITY | DEBUG | 10:07:08 | 22.32 | Extracting file: sort-nicejob.wav
+DOWNLOADUTILITY | DEBUG | 10:07:08 | 22.32 | Extracting file: startbasketball.mp3
+DOWNLOADUTILITY | DEBUG | 10:07:08 | 22.32 | Extracting file: startsim.wav
+DOWNLOADUTILITY | DEBUG | 10:07:08 | 22.32 | Extracting file: starttinyearthmoons.wav
+DOWNLOADUTILITY | DEBUG | 10:07:08 | 22.32 | Extracting file: Test55.mp3
+DOWNLOADUTILITY | DEBUG | 10:07:09 | 22.32 | Extracting file: tinyearthmoon.wav
+DOWNLOADUTILITY | DEBUG | 10:07:09 | 22.32 | Extracting file: 2k_earth_daymap.jpg
+DOWNLOADUTILITY | DEBUG | 10:07:09 | 22.32 | Extracting file: 2k_moon.jpg
+DOWNLOADUTILITY | DEBUG | 10:07:09 | 22.32 | Extracting file: 2k_sun.jpg
+DOWNLOADUTILITY | DEBUG | 10:07:09 | 22.32 | Extracting file: balldimpled.png
+DOWNLOADUTILITY | DEBUG | 10:07:09 | 22.32 | Extracting file: transmission_demo_labinfo.json
+MEDIACATALOGUE | DEBUG | 10:07:09 | 22.32 | Started Initializing Media Catlogue, 22 resources to load
+MEDIACATALOGUE | DEBUG | 10:07:09 | 22.32 | Started loading file: basketball.wav
+MEDIACATALOGUE | DEBUG | 10:07:09 | 22.67 | Started loading file: bigearthmoon.wav
+MEDIACATALOGUE | DEBUG | 10:07:09 | 22.71 | Started loading file: Grab.wav
+MEDIACATALOGUE | DEBUG | 10:07:09 | 22.73 | Started loading file: introduction.wav
+MEDIACATALOGUE | DEBUG | 10:07:09 | 22.74 | Started loading file: labintro.wav
+MEDIACATALOGUE | DEBUG | 10:07:09 | 22.76 | Started loading file: newfinalie.wav
+MEDIACATALOGUE | DEBUG | 10:07:09 | 22.78 | Started loading file: not_in_order1.wav
+MEDIACATALOGUE | DEBUG | 10:07:09 | 22.79 | Started loading file: not_in_order2.wav
+MEDIACATALOGUE | DEBUG | 10:07:09 | 22.81 | Started loading file: not_in_order3.wav
+MEDIACATALOGUE | DEBUG | 10:07:09 | 22.83 | Started loading file: Release.wav
+MEDIACATALOGUE | DEBUG | 10:07:09 | 22.84 | Started loading file: seeing the moon.wav
+MEDIACATALOGUE | DEBUG | 10:07:09 | 22.88 | Started loading file: sorting_instructions.wav
+MEDIACATALOGUE | DEBUG | 10:07:09 | 22.92 | Started loading file: sort-nicejob.wav
+MEDIACATALOGUE | DEBUG | 10:07:09 | 22.93 | Started loading file: startbasketball.mp3
+MEDIACATALOGUE | DEBUG | 10:07:10 | 22.95 | Started loading file: startsim.wav
+MEDIACATALOGUE | DEBUG | 10:07:10 | 23.04 | Started loading file: starttinyearthmoons.wav
+MEDIACATALOGUE | DEBUG | 10:07:10 | 23.05 | Started loading file: Test55.mp3
+MEDIACATALOGUE | DEBUG | 10:07:15 | 23.14 | Started loading file: tinyearthmoon.wav
+MEDIACATALOGUE | DEBUG | 10:07:15 | 23.49 | Started loading file: 2k_earth_daymap.jpg
+MEDIACATALOGUE | DEBUG | 10:07:16 | 23.75 | Started loading file: 2k_moon.jpg
+MEDIACATALOGUE | DEBUG | 10:07:16 | 24.04 | Started loading file: 2k_sun.jpg
+MEDIACATALOGUE | DEBUG | 10:07:16 | 24.32 | Started loading file: balldimpled.png
+LOGINMANAGER | TRACE | 10:07:16 | 24.38 | InitializeLabManager()
+LABMANAGER | TRACE | 10:07:16 | 24.38 | Initialize()
+BRIDGE | TRACE | 10:07:16 | 24.38 | ConnectToTransmission()
+LABMANAGER | STATE_START | 10:11:51 | 299.32 | Module 0
+LIGHTINGCONTROL | TRACE | 10:11:51 | 299.32 | saveLights()
+BRIDGE | TRACE | 10:11:51 | 299.32 | Creating object: Sun, type: Prefabs/SunPrefab
+BRIDGE | DEBUG | 10:11:51 | 299.32 | Position: (-39.000, 0.000, 0.000), Scale: (5.000, 5.000, 5.000), EulerAngles: (0.000, 0.000, 0.000)
+BRIDGE | DEBUG | 10:11:51 | 299.32 | Adding components: 
+BRIDGE | DEBUG | 10:11:51 | 299.32 | Mesh bounding box: Center: (-38.943, 0.087, 2.627), Extents: (2.687, 2.500, 2.687)
+BRIDGE | TRACE | 10:11:51 | 299.32 | Creating object: Earth, type: Prefabs/moveableSphere
+BRIDGE | DEBUG | 10:11:52 | 299.32 | Position: (0.000, 0.000, 1.500), Scale: (0.080, 0.080, 0.080), EulerAngles: (0.000, 0.000, 0.000)
+BRIDGE | DEBUG | 10:11:52 | 299.32 | Adding components: {"name": "simpleRotation", "timeRate": 1.0, "rotationTime": 2.0} 
+MEDIACATALOGUE | ERROR | 10:11:52 | 299.32 | Could not find texture in catalogue: Textures/2k_earth_daymap, returning null
+BRIDGE | DEBUG | 10:11:52 | 299.32 | Mesh bounding box: Center: (0.055, 0.087, 1.082), Extents: (0.043, 0.040, 0.043)
+BRIDGE | TRACE | 10:11:52 | 299.32 | Creating object: Moon, type: Prefabs/moveableSphere
+BRIDGE | DEBUG | 10:11:52 | 299.32 | Position: (2.400, 0.000, 1.500), Scale: (0.020, 0.020, 0.020), EulerAngles: (0.000, 0.000, 0.000)
+BRIDGE | DEBUG | 10:11:52 | 299.32 | Adding components: {"name": "simpleOrbit", "moonPosition": {"x": 2.4, "y": 0.0, "z": 1.5}, "orbitalPeriod": 56.0, "timeRate": 1.0, "orbitalScale": 1.0, "synchronousRotation": true} 
+MEDIACATALOGUE | ERROR | 10:11:52 | 299.32 | Could not find texture in catalogue: Textures/_k_moon, returning null
+BRIDGE | DEBUG | 10:11:52 | 299.32 | Mesh bounding box: Center: (2.447, 0.087, 0.895), Extents: (0.011, 0.010, 0.011)
+BRIDGE | TRACE | 10:11:52 | 299.32 | Creating object: earthLabel, type: Prefabs/textPrefab
+BRIDGE | DEBUG | 10:11:52 | 299.32 | Position: (0.000, 2.000, 0.000), Scale: (10.000, 10.000, 10.000), EulerAngles: (0.000, 0.000, 0.000)
+BRIDGE | TRACE | 10:11:52 | 299.32 | Creating object: earthSizeLabel, type: Prefabs/textPrefab
+BRIDGE | DEBUG | 10:11:52 | 299.32 | Position: (0.000, -2.000, 0.000), Scale: (0.100, 0.100, 0.100), EulerAngles: (0.000, 0.000, 0.000)
+BRIDGE | TRACE | 10:11:52 | 299.32 | Creating object: moonLabel, type: Prefabs/textPrefab
+BRIDGE | DEBUG | 10:11:52 | 299.32 | Position: (0.000, 4.000, 0.000), Scale: (20.000, 20.000, 20.000), EulerAngles: (0.000, -90.000, 0.000)
+BRIDGE | TRACE | 10:11:52 | 299.32 | Creating object: moonSizeLabel, type: Prefabs/textPrefab
+BRIDGE | DEBUG | 10:11:52 | 299.32 | Position: (0.000, -4.000, 0.000), Scale: (0.100, 0.100, 0.100), EulerAngles: (0.000, -90.000, 0.000)
+BRIDGE | TRACE | 10:11:52 | 299.32 | Creating object: moonDistanceLabel, type: Prefabs/textPrefab
+BRIDGE | DEBUG | 10:11:52 | 299.32 | Position: (45.000, 0.000, 0.000), Scale: (0.100, 0.100, 0.100), EulerAngles: (0.000, 180.000, 0.000)
+BRIDGE | TRACE | 10:11:52 | 299.32 | Creating object: taskLabel, type: Prefabs/textPrefab
+BRIDGE | DEBUG | 10:11:53 | 299.32 | Position: (0.000, 0.600, 2.500), Scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 0.000, 0.000)
+BRIDGE | TRACE | 10:11:53 | 299.32 | Creating object: sectionLabel, type: Prefabs/textPrefab
+BRIDGE | DEBUG | 10:11:53 | 299.32 | Position: (0.000, 0.750, 2.500), Scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 0.000, 0.000)
+BRIDGE | TRACE | 10:11:53 | 299.32 | Creating object: brbNextModule, type: Prefabs/demoButtonPrefab
+BRIDGE | DEBUG | 10:11:53 | 299.32 | Position: (1.200, 0.000, 0.000), Scale: (1.000, 1.000, 1.000), EulerAngles: (90.000, 180.000, 0.000)
+BRIDGE | DEBUG | 10:11:53 | 299.32 | Adding components: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]} 
+BRIDGE | TRACE | 10:11:53 | 299.32 | Creating object: brbNextModuleLabel, type: Prefabs/textPrefab
+BRIDGE | DEBUG | 10:11:53 | 299.32 | Position: (0.000, 0.000, 0.130), Scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 180.000, 0.000)
+BRIDGE | TRACE | 10:11:53 | 299.32 | Creating object: brbPreviousModule, type: Prefabs/demoButtonPrefab
+BRIDGE | DEBUG | 10:11:53 | 299.32 | Position: (-1.200, 0.000, 0.000), Scale: (1.000, 1.000, 1.000), EulerAngles: (90.000, 180.000, 0.000)
+BRIDGE | DEBUG | 10:11:53 | 299.32 | Adding components: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]} 
+BRIDGE | TRACE | 10:11:53 | 299.32 | Creating object: brbPreviousModuleLabel, type: Prefabs/textPrefab
+BRIDGE | DEBUG | 10:11:53 | 299.32 | Position: (0.000, 0.000, 0.130), Scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 180.000, 0.000)
+BRIDGE | TRACE | 10:11:53 | 299.32 | Creating object: brbNextClip, type: Prefabs/demoButtonPrefab
+BRIDGE | DEBUG | 10:11:53 | 299.32 | Position: (1.000, 0.000, 0.000), Scale: (1.000, 1.000, 1.000), EulerAngles: (90.000, 180.000, 0.000)
+BRIDGE | DEBUG | 10:11:53 | 299.32 | Adding components: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]} 
+BRIDGE | TRACE | 10:11:53 | 299.32 | Creating object: brbNextClipLabel, type: Prefabs/textPrefab
+BRIDGE | DEBUG | 10:11:53 | 299.32 | Position: (0.000, 0.000, 0.100), Scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 180.000, 0.000)
+BRIDGE | TRACE | 10:11:53 | 299.32 | Creating object: brbPreviousClip, type: Prefabs/demoButtonPrefab
+BRIDGE | DEBUG | 10:11:53 | 299.32 | Position: (-1.000, 0.000, 0.000), Scale: (1.000, 1.000, 1.000), EulerAngles: (90.000, 180.000, 0.000)
+BRIDGE | DEBUG | 10:11:53 | 299.32 | Adding components: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]} 
+BRIDGE | TRACE | 10:11:53 | 299.32 | Creating object: brbPreviousClipLabel, type: Prefabs/textPrefab
+BRIDGE | DEBUG | 10:11:54 | 299.32 | Position: (0.000, 0.000, 0.100), Scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 180.000, 0.000)
+DEMOSEQUENCE | STATE_START | 10:11:54 | 299.32 | clip1
+BRIDGE | TRACE | 10:11:54 | 299.32 | Creating object: taskLabel, type: 
+BRIDGE | DEBUG | 10:11:54 | 299.32 | Position: (0.000, 0.000, 0.000), Scale: (0.000, 0.000, 0.000), EulerAngles: (0.000, 0.000, 0.000)
+BRIDGE | TRACE | 10:11:54 | 299.32 | Creating object: MainInstructions, type: 
+EARTH | EVENT | 10:11:55 | 300.84 | Earth
+EARTH | EVENT | 10:11:56 | 301.6 | Earth

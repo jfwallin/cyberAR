@@ -1026,12 +1026,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7ee1fea6529c5a843aa16e1d318b9196, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  controller: {fileID: 0}
-  headset: {fileID: 0}
-  logDeltaTime: 0.1
-  prevTime: 0
-  logger: {fileID: 0}
-  entity: 
 --- !u!1 &248395418
 GameObject:
   m_ObjectHideFlags: 0
@@ -2707,7 +2701,8 @@ MonoBehaviour:
   bufferSize: 4096
   appKey: 6900875598
   privateKey: 
-  rpcTargets: []
+  rpcTargets:
+  - {fileID: 0}
   sharedOrigin:
     position: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 0}
@@ -14474,19 +14469,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2063704139}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1137755970}
-        m_TargetAssemblyTypeName: LoginManager, Assembly-CSharp
-        m_MethodName: GuestLogin
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!114 &2063704139
 MonoBehaviour:
   m_ObjectHideFlags: 0

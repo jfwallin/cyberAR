@@ -70,12 +70,20 @@ public class LabManager : MonoBehaviour
                     ex.ToString()
                 );
             }
+            // Sets up Transmission to listen for general lab messages from peers
             bridge.ConnectToTransmission();
 
             // Start waiting for people to connect, setup and enable UI
             transmissionWaitUI.SetActive(true);
-            // Listen if we find a peer that is older
+            // Initialize UI to wait for peers
+            peerCountText.text = "0";
+            transmissionStartLabButton.onClick.RemoveAllListeners();
+            transmissionStartLabButton.interactable = false;
+            transmissionStartLabButton.GetComponentInChildren<Text>().text = "Waiting for Peers";
+
+            // Check if we have already conencted to an older peer
             handleOldestPeerUpdated(Transmission.Instance.OldestPeer);
+            // Listen if we find a peer that is older
             Transmission.Instance.OnOldestPeerUpdated.AddListener(handleOldestPeerUpdated);
             // Track number of peers
             peerCountText.text = Transmission.Instance.Peers.Length.ToString();
@@ -95,6 +103,7 @@ public class LabManager : MonoBehaviour
     /// </summary>
     public void TransmissionStartLab()
     {
+        LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.TRACE, "TransmissionStartLab()");
         // Disconnect and close UI
         transmissionStartLabButton.onClick.RemoveAllListeners();
         Transmission.Instance.OnPeerFound.RemoveAllListeners();
@@ -174,6 +183,13 @@ public class LabManager : MonoBehaviour
     /// <param name="peerAddress"></param>
     private void handleOldestPeerUpdated(string peerAddress)
     {
+        LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.TRACE, $"handleOldestPeerUpdated({peerAddress})");
+        if (String.IsNullOrEmpty(peerAddress))
+        {
+            transmissionStartLabButton.onClick.RemoveAllListeners();
+            transmissionStartLabButton.interactable = false;
+            transmissionStartLabButton.GetComponentInChildren<Text>().text = "Wait for Host";
+        }
         if (peerAddress != NetworkUtilities.MyAddress)
         {
             transmissionHost = false;
@@ -194,6 +210,7 @@ public class LabManager : MonoBehaviour
 
     private void handleStartLabButton()
     {
+        LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.TRACE, "handleStartLabButton()");
         if (transmissionHost)
         {
             // Start the lab by sending message to all peers
@@ -205,6 +222,7 @@ public class LabManager : MonoBehaviour
 
     private void changeNumPeers(int chg)
     {
+        LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.TRACE, $"changeNumPeers({chg})");
         peerCountText.text = (int.Parse(peerCountText.text) + chg).ToString();
     }
 

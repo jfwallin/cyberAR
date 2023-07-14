@@ -1,0 +1,89 @@
+LOGINMANAGER | STATE_START | 11:15:21 | 3.68 | Introduction
+LOGINMANAGER | TRACE | 11:15:21 | 3.68 | ToggleControllerRendering()
+DOWNLOADUTILITY | DEBUG | 11:15:21 | 3.68 | Starting download of file $/documents/C2/login/All_Labs.json from url: https://cyberlearnar.cs.mtsu.edu/show_uploaded/dev_labs_list.json
+DOWNLOADUTILITY | DEBUG | 11:15:21 | 3.68 | Inside download coroutine, URL: https://cyberlearnar.cs.mtsu.edu/show_uploaded/dev_labs_list.json, path: /documents/C2/login/All_Labs.json
+LOGINMANAGER | TRACE | 11:15:21 | 3.68 | SetupIntroAnimation()
+DOWNLOADUTILITY | DEBUG | 11:15:21 | 3.68 | Starting download of file $/documents/C2/login/pin_ids.csv from url: https://cyberlearnar.cs.mtsu.edu/show_uploaded/pin_ids.csv
+DOWNLOADUTILITY | DEBUG | 11:15:21 | 3.68 | Inside download coroutine, URL: https://cyberlearnar.cs.mtsu.edu/show_uploaded/pin_ids.csv, path: /documents/C2/login/pin_ids.csv
+LOGGER | CONNECT | 11:15:21 | 0 | Connect called at 07/14/2023 11:15:21
+LOGGER | TRACE | 11:15:21 | 0 | Saving files to persistent data path: /documents/C2/Logs/07-14-2023_11-15.txt
+LOGGER | TRACE | 11:15:21 | 0 | Sync with transform log 3.677438
+DOWNLOADUTILITY | TRACE | 11:15:22 | 0.15 | Successfully downloaded /documents/C2/login/All_Labs.json
+LOGINMANAGER | TRACE | 11:15:22 | 0.15 | ParseLabs()
+LOGINMANAGER | DEBUG | 11:15:22 | 0.15 | Finished parsing labs:Moon Lab, Multi-Person Moon Lab, 
+DOWNLOADUTILITY | TRACE | 11:15:22 | 0.19 | Successfully downloaded /documents/C2/login/pin_ids.csv
+AUTHENTICATE | TRACE | 11:15:22 | 0.19 | ParseCSV()
+AUTHENTICATE | DEBUG | 11:15:33 | 0.19 | CSVs Parsed
+LOGINMANAGER | STATE_START | 11:15:42 | 8.68 | Placement
+LOGINMANAGER | TRACE | 11:15:42 | 8.68 | ToggleControllerRendering()
+LOGINMANAGER | TRACE | 11:15:45 | 12.48 | Place()
+LOGINMANAGER | STATE_START | 11:15:45 | 12.48 | Pin Entry
+LOGINMANAGER | TRACE | 11:15:46 | 12.48 | ToggleControllerRendering()
+LOGINMANAGER | TRACE | 11:15:47 | 14.1 | GuestLogin()
+LOGINMANAGER | STATE_START | 11:15:47 | 14.1 | Authentication
+AUTHENTICATE | DEBUG | 11:15:47 | 14.1 | Attempting to authenticate pin: 000000
+AUTHENTICATE | DEBUG | 11:15:47 | 14.1 | Attempting to authenticate pin: 000000
+AUTHENTICATE | DEBUG | 11:15:48 | 14.1 | Attempting to authenticate pin: 000000
+LABLOGGER | INITIALIZE | 11:15:48 | 14.1 | Log file for student: Guest_Guest,  M00000000.
+LOGINMANAGER | DEBUG | 11:15:48 | 14.1 | Student authenticated: Guest Guest, M00000000
+LOGINMANAGER | STATE_START | 11:15:48 | 14.1 | Lab Selection
+LOGINMANAGER | TRACE | 11:15:48 | 14.1 | GenerateLabListUI()
+LOGINMANAGER | TRACE | 11:15:49 | 15.38 | LabSelected()
+LOGINMANAGER | DEBUG | 11:15:49 | 15.38 | Lab Selected: 2, Multi-Person Moon Lab
+LOGINMANAGER | STATE_START | 11:15:49 | 15.38 | Lab Initiation
+DOWNLOADUTILITY | DEBUG | 11:15:49 | 15.38 | Starting download of file $/documents/C2/lab_resources/TransmissionDemo.zip from url: https://cyberlearnar.cs.mtsu.edu/show_uploaded/TransmissionDemo.zip
+DOWNLOADUTILITY | DEBUG | 11:15:49 | 15.38 | Inside download coroutine, URL: https://cyberlearnar.cs.mtsu.edu/show_uploaded/TransmissionDemo.zip, path: /documents/C2/lab_resources/TransmissionDemo.zip
+BRIDGE | TRACE | 11:15:49 | 15.38 | Creating Bridge Instance
+DOWNLOADUTILITY | TRACE | 11:15:53 | 19.65 | Successfully downloaded /documents/C2/lab_resources/TransmissionDemo.zip
+DOWNLOADUTILITY | TRACE | 11:15:53 | 19.65 | Starting to extract file: /documents/C2/lab_resources/TransmissionDemo.zip
+DOWNLOADUTILITY | DEBUG | 11:15:53 | 19.65 | Number of entries to extract: 26
+DOWNLOADUTILITY | DEBUG | 11:15:53 | 19.65 | Extracting file: basketball.wav
+DOWNLOADUTILITY | DEBUG | 11:15:53 | 19.65 | Extracting file: bigearthmoon.wav
+DOWNLOADUTILITY | DEBUG | 11:15:53 | 19.65 | Extracting file: Grab.wav
+DOWNLOADUTILITY | DEBUG | 11:15:53 | 19.65 | Extracting file: introduction.wav
+DOWNLOADUTILITY | DEBUG | 11:15:53 | 19.65 | Extracting file: labintro.wav
+DOWNLOADUTILITY | DEBUG | 11:15:54 | 19.65 | Extracting file: newfinalie.wav
+DOWNLOADUTILITY | DEBUG | 11:15:54 | 19.65 | Extracting file: not_in_order1.wav
+DOWNLOADUTILITY | DEBUG | 11:15:54 | 19.65 | Extracting file: not_in_order2.wav
+DOWNLOADUTILITY | DEBUG | 11:15:54 | 19.65 | Extracting file: not_in_order3.wav
+DOWNLOADUTILITY | DEBUG | 11:15:54 | 19.65 | Extracting file: Release.wav
+DOWNLOADUTILITY | DEBUG | 11:15:54 | 19.65 | Extracting file: seeing the moon.wav
+DOWNLOADUTILITY | DEBUG | 11:15:54 | 19.65 | Extracting file: sorting_instructions.wav
+DOWNLOADUTILITY | DEBUG | 11:15:54 | 19.65 | Extracting file: sort-nicejob.wav
+DOWNLOADUTILITY | DEBUG | 11:15:54 | 19.65 | Extracting file: startbasketball.mp3
+DOWNLOADUTILITY | DEBUG | 11:15:54 | 19.65 | Extracting file: startsim.wav
+DOWNLOADUTILITY | DEBUG | 11:15:54 | 19.65 | Extracting file: starttinyearthmoons.wav
+DOWNLOADUTILITY | DEBUG | 11:15:54 | 19.65 | Extracting file: Test55.mp3
+DOWNLOADUTILITY | DEBUG | 11:15:55 | 19.65 | Extracting file: tinyearthmoon.wav
+DOWNLOADUTILITY | DEBUG | 11:15:55 | 19.65 | Extracting file: 2k_earth_daymap.jpg
+DOWNLOADUTILITY | DEBUG | 11:15:55 | 19.65 | Extracting file: 2k_moon.jpg
+DOWNLOADUTILITY | DEBUG | 11:15:55 | 19.65 | Extracting file: 2k_sun.jpg
+DOWNLOADUTILITY | DEBUG | 11:15:55 | 19.65 | Extracting file: balldimpled.png
+DOWNLOADUTILITY | DEBUG | 11:15:55 | 19.65 | Extracting file: transmission_demo_labinfo.json
+MEDIACATALOGUE | DEBUG | 11:15:55 | 19.65 | Started Initializing Media Catlogue, 22 resources to load
+MEDIACATALOGUE | DEBUG | 11:15:55 | 19.65 | Started loading file: basketball.wav
+MEDIACATALOGUE | DEBUG | 11:15:55 | 20 | Started loading file: bigearthmoon.wav
+MEDIACATALOGUE | DEBUG | 11:15:55 | 20.04 | Started loading file: Grab.wav
+MEDIACATALOGUE | DEBUG | 11:15:55 | 20.06 | Started loading file: introduction.wav
+MEDIACATALOGUE | DEBUG | 11:15:55 | 20.1 | Started loading file: labintro.wav
+MEDIACATALOGUE | DEBUG | 11:15:55 | 20.11 | Started loading file: newfinalie.wav
+MEDIACATALOGUE | DEBUG | 11:15:55 | 20.15 | Started loading file: not_in_order1.wav
+MEDIACATALOGUE | DEBUG | 11:15:55 | 20.17 | Started loading file: not_in_order2.wav
+MEDIACATALOGUE | DEBUG | 11:15:55 | 20.18 | Started loading file: not_in_order3.wav
+MEDIACATALOGUE | DEBUG | 11:15:55 | 20.2 | Started loading file: Release.wav
+MEDIACATALOGUE | DEBUG | 11:15:55 | 20.22 | Started loading file: seeing the moon.wav
+MEDIACATALOGUE | DEBUG | 11:15:55 | 20.25 | Started loading file: sorting_instructions.wav
+MEDIACATALOGUE | DEBUG | 11:15:55 | 20.29 | Started loading file: sort-nicejob.wav
+MEDIACATALOGUE | DEBUG | 11:15:55 | 20.3 | Started loading file: startbasketball.mp3
+MEDIACATALOGUE | DEBUG | 11:15:55 | 20.32 | Started loading file: startsim.wav
+MEDIACATALOGUE | DEBUG | 11:15:55 | 20.41 | Started loading file: starttinyearthmoons.wav
+MEDIACATALOGUE | DEBUG | 11:15:55 | 20.43 | Started loading file: Test55.mp3
+MEDIACATALOGUE | DEBUG | 11:16:01 | 20.53 | Started loading file: tinyearthmoon.wav
+MEDIACATALOGUE | DEBUG | 11:16:01 | 20.89 | Started loading file: 2k_earth_daymap.jpg
+MEDIACATALOGUE | DEBUG | 11:16:01 | 21.16 | Started loading file: 2k_moon.jpg
+MEDIACATALOGUE | DEBUG | 11:16:01 | 21.46 | Started loading file: 2k_sun.jpg
+MEDIACATALOGUE | DEBUG | 11:16:02 | 21.76 | Started loading file: balldimpled.png
+LOGINMANAGER | TRACE | 11:16:02 | 21.82 | InitializeLabManager()
+LABMANAGER | TRACE | 11:16:02 | 21.82 | Initialize()
+BRIDGE | TRACE | 11:16:02 | 21.82 | ConnectToTransmission()
+LABMANAGER | TRACE | 11:16:02 | 21.82 | handleOldestPeerUpdated(

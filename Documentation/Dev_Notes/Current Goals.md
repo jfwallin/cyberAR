@@ -1,0 +1,11 @@
+- Get Transmission labs Working!
+	- Get the test lab running from start to finish
+	- Add some loading screens at the start and lab loading times
+- Write a paper using the AR data
+	- Finalize research questions
+	- Figure out how to present and frame the data
+	- Work on a literature review to help understand how to frame this paper
+- Work on Data processing
+	- Put all data into one nice csv
+	- Try building the scripts like a julia package, and include tests!
+- NSF CC* equipment grant
