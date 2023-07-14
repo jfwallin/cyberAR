@@ -75,11 +75,10 @@ public class LabManager : MonoBehaviour
 
             // Start waiting for people to connect, setup and enable UI
             transmissionWaitUI.SetActive(true);
-            // Initialize UI to wait for peers
-            peerCountText.text = "0";
-            transmissionStartLabButton.onClick.RemoveAllListeners();
-            transmissionStartLabButton.interactable = false;
-            transmissionStartLabButton.GetComponentInChildren<Text>().text = "Waiting for Peers";
+            // Set Peer count
+            peerCountText.text = Transmission.Instance.Peers.Length.ToString();
+            // Check if we are the oldest peer
+            if (Transmission.Instance.OldestPeer == NetworkUtilities.MyAddress)
 
             // Check if we have already conencted to an older peer
             handleOldestPeerUpdated(Transmission.Instance.OldestPeer);
@@ -188,7 +187,7 @@ public class LabManager : MonoBehaviour
         {
             transmissionStartLabButton.onClick.RemoveAllListeners();
             transmissionStartLabButton.interactable = false;
-            transmissionStartLabButton.GetComponentInChildren<Text>().text = "Wait for Host";
+            transmissionStartLabButton.GetComponentInChildren<Text>().text = "Wait for Peers";
         }
         if (peerAddress != NetworkUtilities.MyAddress)
         {

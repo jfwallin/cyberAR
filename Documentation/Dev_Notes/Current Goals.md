@@ -9,3 +9,5 @@
 	- Put all data into one nice csv
 	- Try building the scripts like a julia package, and include tests!
 - NSF CC* equipment grant
+- Research Journals
+	- Education Journals - Jennifer Kaplin

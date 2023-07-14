@@ -23,12 +23,8 @@
             "id": "5457ace93970fac5",
             "type": "leaf",
             "state": {
-              "type": "markdown",
-              "state": {
-                "file": "Daily Notes/2023-07-14.md",
-                "mode": "source",
-                "source": false
-              }
+              "type": "graph",
+              "state": {}
             }
           }
         ],
@@ -98,7 +94,6 @@
             "state": {
               "type": "backlink",
               "state": {
-                "file": "Daily Notes/2023-07-14.md",
                 "collapseAll": false,
                 "extraContext": false,
                 "sortOrder": "alphabetical",
@@ -115,7 +110,6 @@
             "state": {
               "type": "outgoing-link",
               "state": {
-                "file": "Daily Notes/2023-07-14.md",
                 "linksCollapsed": false,
                 "unlinkedCollapsed": true
               }
@@ -137,9 +131,7 @@
             "type": "leaf",
             "state": {
               "type": "outline",
-              "state": {
-                "file": "Daily Notes/2023-07-14.md"
-              }
+              "state": {}
             }
           }
         ]
@@ -161,8 +153,8 @@
   },
   "active": "5457ace93970fac5",
   "lastOpenFiles": [
-    "Current Goals.md",
     "Daily Notes/2023-07-14.md",
+    "Current Goals.md",
     "dev_9_2.txt",
     "dev_4_2.txt",
     "2023-07-14.md",
