@@ -706,7 +706,7 @@ PlayerSettings:
     m_ModelFolderPath: 
     m_PortalFolderPath: 
   luminCert:
-    m_CertPath: C:/Users/irs2e/Documents/Work/AR_Key/transmission_dev.cert
+    m_CertPath: C:/Users/ishum/Documents/Work/keys/privatekey/home_dev.cert
     m_SignPackage: 1
   luminIsChannelApp: 0
   luminVersion:

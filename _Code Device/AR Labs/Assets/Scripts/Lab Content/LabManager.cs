@@ -70,24 +70,22 @@ public class LabManager : MonoBehaviour
                     ex.ToString()
                 );
             }
+            // Start waiting for people to connect, setup and enable UI
+            transmissionWaitUI.SetActive(true);
+
             // Sets up Transmission to listen for general lab messages from peers
             bridge.ConnectToTransmission();
 
-            // Start waiting for people to connect, setup and enable UI
-            transmissionWaitUI.SetActive(true);
             // Set Peer count
-            peerCountText.text = Transmission.Instance.Peers.Length.ToString();
-            // Check if we are the oldest peer
-            if (Transmission.Instance.OldestPeer == NetworkUtilities.MyAddress)
+            peerCountText.text = "0";
 
-            // Check if we have already conencted to an older peer
-            handleOldestPeerUpdated(Transmission.Instance.OldestPeer);
-            // Listen if we find a peer that is older
-            Transmission.Instance.OnOldestPeerUpdated.AddListener(handleOldestPeerUpdated);
             // Track number of peers
             peerCountText.text = Transmission.Instance.Peers.Length.ToString();
             Transmission.Instance.OnPeerFound.AddListener((string ip, long time) => changeNumPeers(1));
             Transmission.Instance.OnPeerLost.AddListener((string ip) => changeNumPeers(-1));
+
+            // Listen if we find a peer that is older
+            Transmission.Instance.OnOldestPeerUpdated.AddListener(handleOldestPeerUpdated);
         }
         else
         {
@@ -183,27 +181,45 @@ public class LabManager : MonoBehaviour
     private void handleOldestPeerUpdated(string peerAddress)
     {
         LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.TRACE, $"handleOldestPeerUpdated({peerAddress})");
-        if (String.IsNullOrEmpty(peerAddress))
-        {
-            transmissionStartLabButton.onClick.RemoveAllListeners();
-            transmissionStartLabButton.interactable = false;
-            transmissionStartLabButton.GetComponentInChildren<Text>().text = "Wait for Peers";
-        }
         if (peerAddress != NetworkUtilities.MyAddress)
         {
             transmissionHost = false;
-            // Disable the button
-            transmissionStartLabButton.onClick.RemoveAllListeners();
-            transmissionStartLabButton.interactable = false;
-            transmissionStartLabButton.GetComponentInChildren<Text>().text = "Wait for Host";
+            setTransmissionUI(TransmissionWaitStatus.Host);
         }
         else
         {
             transmissionHost = true;
-            // Enable the button
-            transmissionStartLabButton.onClick.AddListener(handleStartLabButton);
-            transmissionStartLabButton.interactable = true;
-            transmissionStartLabButton.GetComponentInChildren<Text>().text = "Start Lab";
+            setTransmissionUI(TransmissionWaitStatus.Peer);
+        }
+    }
+
+    /// <summary>
+    /// Identifies if we have found peers and what our relationship to them is
+    /// </summary>
+    private enum TransmissionWaitStatus { Wait, Host, Peer };
+    /// <summary>
+    /// Sets button and text on the Transmission connection UI
+    /// </summary>
+    /// <param name="status"></param>
+    private void setTransmissionUI(TransmissionWaitStatus status)
+    {
+        switch(status)
+        {
+            case TransmissionWaitStatus.Wait:
+                transmissionStartLabButton.onClick.RemoveAllListeners();
+                transmissionStartLabButton.interactable = false;
+                transmissionStartLabButton.GetComponentInChildren<Text>().text = "Wait for Peers";
+                break;
+            case TransmissionWaitStatus.Host:
+                transmissionStartLabButton.onClick.AddListener(handleStartLabButton);
+                transmissionStartLabButton.interactable = true;
+                transmissionStartLabButton.GetComponentInChildren<Text>().text = "Start Lab";
+                break;
+            case TransmissionWaitStatus.Peer:
+                transmissionStartLabButton.onClick.RemoveAllListeners();
+                transmissionStartLabButton.interactable = false;
+                transmissionStartLabButton.GetComponentInChildren<Text>().text = "Wait for Host";
+                break;
         }
     }
 
