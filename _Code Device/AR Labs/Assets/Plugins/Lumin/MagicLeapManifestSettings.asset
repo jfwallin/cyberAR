@@ -84,7 +84,7 @@ MonoBehaviour:
       m_Enabled: 0
       m_Name: Occlusion
     - m_ApiLevel: 6
-      m_Enabled: 0
+      m_Enabled: 1
       m_Name: PcfRead
     - m_ApiLevel: 6
       m_Enabled: 0
@@ -111,7 +111,7 @@ MonoBehaviour:
       m_Enabled: 1
       m_Name: WifiStatusRead
     - m_ApiLevel: 1
-      m_Enabled: 0
+      m_Enabled: 1
       m_Name: WorldReconstruction
   - m_Name: Sensitive
     m_Privileges:
@@ -128,7 +128,7 @@ MonoBehaviour:
       m_Enabled: 0
       m_Name: Expressions
     - m_ApiLevel: 1
-      m_Enabled: 0
+      m_Enabled: 1
       m_Name: LocalAreaNetwork
     - m_ApiLevel: 8
       m_Enabled: 0

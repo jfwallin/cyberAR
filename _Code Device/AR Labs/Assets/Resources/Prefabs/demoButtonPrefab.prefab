@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!114 &8401917008472978141
+--- !u!114 &1035751093810801320
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -9,9 +9,43 @@ MonoBehaviour:
   m_GameObject: {fileID: 1274545037564365233}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1383347cfdaf1cb4cb9026d253c3426b, type: 3}
+  m_Script: {fileID: 11500000, guid: e4df325599c129541b666e09bde34c30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  motionSource: {fileID: 0}
+  smoothTime: 0.04
+  sendFrameRate: 24
+  remotePrefab: {fileID: 0}
+  ownershipLocked: 1
+  resourceFileName: 
+  creator: 
+  guid: 
+  localPosition: {x: 0, y: 0, z: 0}
+  rotationOffset: {x: 0, y: 0, z: 0, w: 0}
+  targetScale: {x: 0, y: 0, z: 0}
+--- !u!114 &9160989363904618997
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1274545037564365233}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4df325599c129541b666e09bde34c30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  motionSource: {fileID: 0}
+  smoothTime: 0.04
+  sendFrameRate: 24
+  remotePrefab: {fileID: 0}
+  ownershipLocked: 1
+  resourceFileName: 
+  creator: 
+  guid: 
+  localPosition: {x: 0, y: 0, z: 0}
+  rotationOffset: {x: 0, y: 0, z: 0, w: 0}
+  targetScale: {x: 0, y: 0, z: 0}
 --- !u!1001 &904439863805317355
 PrefabInstance:
   m_ObjectHideFlags: 0

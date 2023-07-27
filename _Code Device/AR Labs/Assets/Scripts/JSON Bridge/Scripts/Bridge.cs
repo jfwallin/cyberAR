@@ -76,7 +76,7 @@ public class Bridge
 
         // Log Event
         LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.TRACE,
-            $"Creating object: {obj.name}, type: {obj.type}");
+            $"MakeObject() : {obj.name}, type: {obj.type}, transmitted: {obj.transmittable}");
 
         // Try to find the object
         myObject = GameObject.Find(obj.name);
@@ -90,7 +90,8 @@ public class Bridge
         }
 
         // If a transmission object and Transmission is ready, transmit object details to peers
-        if(obj.transmittable && transmissionEnabled)
+        // if(obj.transmittable && transmissionEnabled)
+        if(transmissionEnabled)
         {
             transmitObject(obj, myObject.GetComponent<TransmissionObject>().guid, initialize);
         }
@@ -142,6 +143,8 @@ public class Bridge
     /// <param name="msg">the message data object</param>
     public void handleStringMessage(StringMessage msg)
     {
+        LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.TRACE, $"handleStringMessage() : {msg}");
+
         // If the object was able to be sent as one message
         if (msg.d == "INIT" || msg.d == "CHNG")
         {
@@ -195,13 +198,28 @@ public class Bridge
     /// <returns>Instantiated GameObject</returns>
     private GameObject instantiateObject(string prefabName, Vector3 position, Vector3 eulerAngles, Vector3 scale, bool transmittable)
     {
+        LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.TRACE, "instantiateObject()");
+
         GameObject myObject; // Reference to object being created
 
         // Only spawn transmission if we know Transmission has been setup
-        if(transmittable && transmissionEnabled)
+        // if(transmittable && transmissionEnabled)
+        if(transmissionEnabled)
         {
             // Create the object using the transmission system
-            myObject = Transmission.Spawn(prefabName, position, Quaternion.Euler(eulerAngles), scale).gameObject;
+            try
+            {
+                myObject = Transmission.Spawn(prefabName, position, Quaternion.Euler(eulerAngles), scale).gameObject;
+            }
+            catch (Exception ex)
+            {
+                LabLogger.Instance.InfoLog(
+                    this.ToString(),
+                    LabLogger.LogTag.ERROR,
+                    ex.ToString()
+                );
+                myObject = null;
+            }
         }
         else // Not transmitted
         {
@@ -227,7 +245,7 @@ public class Bridge
     private void transmitObject(ObjectInfo obj, string guid, bool init)
     {
         LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.TRACE,
-            $"Sending Object Info to Peer, Obj Name: {obj.name}");
+            $"transmitObject(), Obj Name: {obj.name}, guid: {guid}");
 
         // Build the test message
         // Convert object information to json
@@ -261,6 +279,12 @@ public class Bridge
                 Transmission.Send(msgPart);
             }
         }
+        else
+        {
+            Transmission.Send(strMessage);
+        }
+
+        return;
     }
 
     /// <summary>
@@ -278,10 +302,11 @@ public class Bridge
         String guid = "";   // The transmission object's id
 
         // Get the guid from the front of the string data
-        Regex rg = new Regex(@"^.+(?<guid>\w+)::_::");
+        Regex rg = new Regex(@"^(?<guid>[\w-]+)::_::");
         Match match = rg.Match(data);
         if (match.Success)
         {
+            // Use the rest of the string after the regex match for the object info
             objInfo = JsonUtility.FromJson<ObjectInfo>(data.Substring(match.Index + match.Length));
             guid = match.Groups["guid"].Value;
         }
@@ -315,6 +340,8 @@ public class Bridge
     /// <param name="obj">specification of the object</param>
     private void initializeObject(GameObject myObject, ObjectInfo obj)
     {
+        LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.TRACE, $"initializeObject() : {obj.name}");
+
         myObject.name = obj.name; 
         obj.newPosition = true;
         obj.newScale = true;
@@ -329,13 +356,10 @@ public class Bridge
         if (obj.type.Contains("moveableSphere"))
         {
             PointerReceiver pr = myObject.GetComponent<PointerReceiver>();
-            pr.OnTargetEnter.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, LabLogger.LogTag.EVENT,
-                myObject.name));
-            pr.OnTargetExit.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, LabLogger.LogTag.EVENT,
-                myObject.name));
-            pr.OnDragBegin.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, LabLogger.LogTag.EVENT,
-                myObject.name));
-            pr.OnDragEnd.AddListener((x) => LabLogger.Instance.InfoLog(pr.name, LabLogger.LogTag.EVENT,
+            pr.OnTargetEnter.AddListener((x) => LabLogger.Instance.InfoLog(pr.GetType().ToString(), LabLogger.LogTag.EVENT, $"{obj.name} Targetted"));
+            pr.OnTargetExit.AddListener((x) => LabLogger.Instance.InfoLog(pr.GetType().ToString(), LabLogger.LogTag.EVENT, $"{obj.name} UnTargetted"));
+            pr.OnDragBegin.AddListener((x) => LabLogger.Instance.InfoLog(pr.GetType().ToString(), LabLogger.LogTag.EVENT, $"{obj.name} Targetted"));
+            pr.OnDragEnd.AddListener((x) => LabLogger.Instance.InfoLog(pr.GetType().ToString(), LabLogger.LogTag.EVENT,
                 $"{myObject.name}:{myObject.transform.position.ToString("F3")}:{myObject.transform.eulerAngles.ToString("F3")}"));
         }
 
@@ -350,6 +374,7 @@ public class Bridge
     /// <param name="obj">specification of the modifications</param>
     private void modifyObject(GameObject myObject, ObjectInfo obj)
     {
+        LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.TRACE, $"modifyObject() : {obj.name}");
         // Do all the object setup
 
         // three new key words have been added to the objectInfo class.

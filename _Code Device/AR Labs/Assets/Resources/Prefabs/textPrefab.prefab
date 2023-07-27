@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 8807304999592186326}
   - component: {fileID: 8258231043605740113}
   - component: {fileID: 7466313973709305924}
+  - component: {fileID: 3800058718972710546}
   m_Layer: 0
   m_Name: textPrefab
   m_TagString: Untagged
@@ -170,3 +171,26 @@ MonoBehaviour:
   _SortingLayer: 0
   _SortingLayerID: 0
   _SortingOrder: 0
+--- !u!114 &3800058718972710546
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6622556214803836517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4df325599c129541b666e09bde34c30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  motionSource: {fileID: 0}
+  smoothTime: 0.04
+  sendFrameRate: 24
+  remotePrefab: {fileID: 0}
+  ownershipLocked: 1
+  resourceFileName: 
+  creator: 
+  guid: 
+  localPosition: {x: 0, y: 0, z: 0}
+  rotationOffset: {x: 0, y: 0, z: 0, w: 0}
+  targetScale: {x: 0, y: 0, z: 0}

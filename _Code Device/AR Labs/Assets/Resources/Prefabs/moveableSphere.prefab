@@ -19,6 +19,7 @@ GameObject:
   - component: {fileID: 5852801425856087174}
   - component: {fileID: 5852801425856087178}
   - component: {fileID: 5852801425856087179}
+  - component: {fileID: 8777217914369183349}
   m_Layer: 0
   m_Name: moveableSphere
   m_TagString: Untagged
@@ -366,3 +367,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   multiplier: 1
   flippedForward: 0
+--- !u!114 &8777217914369183349
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5852801425856087294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e4df325599c129541b666e09bde34c30, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  motionSource: {fileID: 0}
+  smoothTime: 0.04
+  sendFrameRate: 24
+  remotePrefab: {fileID: 0}
+  ownershipLocked: 1
+  resourceFileName: 
+  creator: 
+  guid: 
+  localPosition: {x: 0, y: 0, z: 0}
+  rotationOffset: {x: 0, y: 0, z: 0, w: 0}
+  targetScale: {x: 0, y: 0, z: 0}

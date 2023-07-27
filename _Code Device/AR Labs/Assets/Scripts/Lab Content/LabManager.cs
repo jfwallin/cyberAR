@@ -70,17 +70,19 @@ public class LabManager : MonoBehaviour
                     ex.ToString()
                 );
             }
+
             // Start waiting for people to connect, setup and enable UI
             transmissionWaitUI.SetActive(true);
+            setTransmissionUI(TransmissionWaitStatus.Wait);
 
             // Sets up Transmission to listen for general lab messages from peers
             bridge.ConnectToTransmission();
+            LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.DEBUG, $"Our Address: {NetworkUtilities.MyAddress}");
 
-            // Set Peer count
-            peerCountText.text = "0";
+            // Check if we already have peers  NOT SURE IF WE NEED THIS ANYMORE
+            // StartCoroutine("CheckForPeers");
 
-            // Track number of peers
-            peerCountText.text = Transmission.Instance.Peers.Length.ToString();
+            // Track changes to number of peers
             Transmission.Instance.OnPeerFound.AddListener((string ip, long time) => changeNumPeers(1));
             Transmission.Instance.OnPeerLost.AddListener((string ip) => changeNumPeers(-1));
 
@@ -105,6 +107,7 @@ public class LabManager : MonoBehaviour
         transmissionStartLabButton.onClick.RemoveAllListeners();
         Transmission.Instance.OnPeerFound.RemoveAllListeners();
         Transmission.Instance.OnPeerLost.RemoveAllListeners();
+        Transmission.Instance.OnOldestPeerUpdated.RemoveAllListeners();
         transmissionWaitUI.SetActive(false);
         // Start the lab
         SpawnModule();
@@ -112,6 +115,39 @@ public class LabManager : MonoBehaviour
     #endregion Public Methods
 
     #region Private Methods
+    /// <summary>
+    /// Identifies if we have found peers and what our relationship to them is
+    /// </summary>
+    private enum TransmissionWaitStatus { Wait, Host, Peer };
+
+    /// <summary>
+    /// Sets button and text on the Transmission connection UI
+    /// </summary>
+    /// <param name="status"></param>
+    private void setTransmissionUI(TransmissionWaitStatus status)
+    {
+        LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.TRACE, $"setTransmissionUI({status})");
+        switch(status)
+        {
+            case TransmissionWaitStatus.Wait:
+                peerCountText.text = "0";
+                transmissionStartLabButton.onClick.RemoveAllListeners();
+                transmissionStartLabButton.interactable = false;
+                transmissionStartLabButton.GetComponentInChildren<Text>().text = "Wait for Peers";
+                break;
+            case TransmissionWaitStatus.Host:
+                transmissionStartLabButton.onClick.AddListener(handleStartLabButton);
+                transmissionStartLabButton.interactable = true;
+                transmissionStartLabButton.GetComponentInChildren<Text>().text = "Start Lab";
+                break;
+            case TransmissionWaitStatus.Peer:
+                transmissionStartLabButton.onClick.RemoveAllListeners();
+                transmissionStartLabButton.interactable = false;
+                transmissionStartLabButton.GetComponentInChildren<Text>().text = "Wait for Host";
+                break;
+        }
+    }
+
     private void SpawnModule()
     {
         logger.InfoLog(entity, LabLogger.LogTag.STATE_START, $"Module {index}");
@@ -135,12 +171,12 @@ public class LabManager : MonoBehaviour
         currentModuleScript = currentModuleObject.GetComponent<ActivityModule>();
 
         // If this is a transmission lab, then add the activity as a rpc target
-        if(transmissionLab)
-        {
-            List<GameObject> targets = new List<GameObject>(Transmission.Instance.rpcTargets);
-            targets.Add(gameObject);
-            Transmission.Instance.rpcTargets = targets.ToArray();
-        }
+        //if(transmissionLab)
+        //{
+        //    List<GameObject> targets = new List<GameObject>(Transmission.Instance.rpcTargets);
+        //    targets.Add(gameObject);
+        //    Transmission.Instance.rpcTargets = targets.ToArray();
+        //}
 
         //Start the module
         currentModuleScript.TransmissionHost = transmissionHost;
@@ -184,42 +220,12 @@ public class LabManager : MonoBehaviour
         if (peerAddress != NetworkUtilities.MyAddress)
         {
             transmissionHost = false;
-            setTransmissionUI(TransmissionWaitStatus.Host);
+            setTransmissionUI(TransmissionWaitStatus.Peer);
         }
         else
         {
             transmissionHost = true;
-            setTransmissionUI(TransmissionWaitStatus.Peer);
-        }
-    }
-
-    /// <summary>
-    /// Identifies if we have found peers and what our relationship to them is
-    /// </summary>
-    private enum TransmissionWaitStatus { Wait, Host, Peer };
-    /// <summary>
-    /// Sets button and text on the Transmission connection UI
-    /// </summary>
-    /// <param name="status"></param>
-    private void setTransmissionUI(TransmissionWaitStatus status)
-    {
-        switch(status)
-        {
-            case TransmissionWaitStatus.Wait:
-                transmissionStartLabButton.onClick.RemoveAllListeners();
-                transmissionStartLabButton.interactable = false;
-                transmissionStartLabButton.GetComponentInChildren<Text>().text = "Wait for Peers";
-                break;
-            case TransmissionWaitStatus.Host:
-                transmissionStartLabButton.onClick.AddListener(handleStartLabButton);
-                transmissionStartLabButton.interactable = true;
-                transmissionStartLabButton.GetComponentInChildren<Text>().text = "Start Lab";
-                break;
-            case TransmissionWaitStatus.Peer:
-                transmissionStartLabButton.onClick.RemoveAllListeners();
-                transmissionStartLabButton.interactable = false;
-                transmissionStartLabButton.GetComponentInChildren<Text>().text = "Wait for Host";
-                break;
+            setTransmissionUI(TransmissionWaitStatus.Host);
         }
     }
 
@@ -228,10 +234,10 @@ public class LabManager : MonoBehaviour
         LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.TRACE, "handleStartLabButton()");
         if (transmissionHost)
         {
-            // Start the lab by sending message to all peers
-            // (Including self) to call this method.
-            // Transmission is on this same gameobject, so the message should reach here.
-            Transmission.Send(new RPCMessage("TransmissionStartLab"));
+            // Start the lab by sending message to all known peers
+            // Since this does not include ourselves, we must also call it explicitly here.
+            Transmission.Send(new RPCMessage("TransmissionStartLab", "", "", TransmissionAudience.KnownPeers));
+            TransmissionStartLab();
         }
     }
 
@@ -285,6 +291,27 @@ public class LabManager : MonoBehaviour
         yield return new WaitForSeconds(1.0f);
         Destroy(currentModuleObject);
         SpawnModule();
+    }
+
+    IEnumerator CheckForPeers()
+    {
+        yield return new WaitForSeconds(1.0f);
+        int initNumPeers = Transmission.Instance.Peers.Length;
+        LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.DEBUG, $"Delayed Checking for peers, found {initNumPeers}");
+        if (initNumPeers > 0)
+        {
+            peerCountText.text = initNumPeers.ToString();
+            if (Transmission.Instance.OldestPeer != NetworkUtilities.MyAddress) // Not sure if this works
+            {
+                transmissionHost = false;
+                setTransmissionUI(TransmissionWaitStatus.Peer);
+            }
+            else // We are the oldest
+            {
+                transmissionHost = true;
+                setTransmissionUI(TransmissionWaitStatus.Host);
+            }
+        }
     }
     #endregion Coroutines
 }

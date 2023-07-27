@@ -2652,7 +2652,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c890bdf354698ba429472b626542bcc7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _privileges: ab000000
+  _privileges: ab00000057010000
 --- !u!114 &636720213
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2660,7 +2660,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 636720211}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9617c44d29ca71d4498e3baeaa01cd21, type: 3}
   m_Name: 
@@ -2691,7 +2691,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 636720211}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1acab6330f349a0449376de50fbb3c94, type: 3}
   m_Name: 
@@ -2702,7 +2702,7 @@ MonoBehaviour:
   appKey: 6900875598
   privateKey: 
   rpcTargets:
-  - {fileID: 636720211}
+  - {fileID: 0}
   sharedOrigin:
     position: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 0}
