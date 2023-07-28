@@ -42,33 +42,27 @@ namespace demoRoutines
             // Play the introAudio
             if (moduleData.introAudio != "")
             {
-                if (TransmissionActivity)
+                PlayAudio(moduleData.introAudio);
+                // Tell others to play the audio too if neccessary
+                if (TransmissionActivity && TransmissionHost)
                 {
-                    if (TransmissionHost)
-                        Transmission.Send(new RPCMessage("PlayAudio", moduleData.introAudio));
-                }
-                else
-                {
-                    aud.clip = MediaCatalogue.Instance.GetAudioClip(moduleData.introAudio);
-                    aud.Play();
+                    Transmission.Send(new RPCMessage("PlayAudio", moduleData.introAudio));
                 }
             }
 
             // Set the light if needed
             if (moduleData.useSunlight)
             {
-                if (TransmissionActivity)
+                Sunlight();
+                if (TransmissionActivity && TransmissionHost)
                 {
-                    if (TransmissionHost)
-                        Transmission.Send(new RPCMessage("Sunlight"));
+                    Transmission.Send(new RPCMessage("Sunlight"));
                 }
-                else
-                    lightControl.sunlight();
             }
 
             // Instantiate the bridge and create the demo objects
-            // Only if we are the transmission host
-            if (TransmissionHost)
+            // Only if we are the transmission host, or we are alone.
+            if (!TransmissionActivity || (TransmissionActivity && TransmissionHost))
             {
                 bridge = Bridge.Instance;
                 if (moduleData.createObjects)
