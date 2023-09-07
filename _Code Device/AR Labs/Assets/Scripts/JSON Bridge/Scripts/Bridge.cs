@@ -358,9 +358,9 @@ public class Bridge
             PointerReceiver pr = myObject.GetComponent<PointerReceiver>();
             pr.OnTargetEnter.AddListener((x) => LabLogger.Instance.InfoLog(pr.GetType().ToString(), LabLogger.LogTag.EVENT, $"{obj.name} Targetted"));
             pr.OnTargetExit.AddListener((x) => LabLogger.Instance.InfoLog(pr.GetType().ToString(), LabLogger.LogTag.EVENT, $"{obj.name} UnTargetted"));
-            pr.OnDragBegin.AddListener((x) => LabLogger.Instance.InfoLog(pr.GetType().ToString(), LabLogger.LogTag.EVENT, $"{obj.name} Targetted"));
+            pr.OnDragBegin.AddListener((x) => LabLogger.Instance.InfoLog(pr.GetType().ToString(), LabLogger.LogTag.EVENT, $"{obj.name} Start Drag"));
             pr.OnDragEnd.AddListener((x) => LabLogger.Instance.InfoLog(pr.GetType().ToString(), LabLogger.LogTag.EVENT,
-                $"{myObject.name}:{myObject.transform.position.ToString("F3")}:{myObject.transform.eulerAngles.ToString("F3")}"));
+                $"End Drag, Pos: {myObject.name}:{myObject.transform.position.ToString("F3")}, Eul: {myObject.transform.eulerAngles.ToString("F3")}"));
         }
 
         // Now that we are done initializing, modify the object

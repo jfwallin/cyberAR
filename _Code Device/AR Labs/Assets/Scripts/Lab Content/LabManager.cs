@@ -72,6 +72,7 @@ public class LabManager : MonoBehaviour
             }
 
             // Start waiting for people to connect, setup and enable UI
+            transmissionWaitUI.transform.SetPositionAndRotation(transmissionWaitUI.transform.position + Camera.main.transform.forward * 2, Quaternion.LookRotation(Camera.main.transform.forward*-1, Vector3.up));
             transmissionWaitUI.SetActive(true);
             setTransmissionUI(TransmissionWaitStatus.Wait);
 
