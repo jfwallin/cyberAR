@@ -305,7 +305,7 @@ public class LabLogger : MonoBehaviour
     /// </summary>
     private IEnumerator Connect()
     {
-        InfoLog("LOGGER", "CONNECT", $"Connect called at " + DateTime.Now.ToString());
+        InfoLog(this.GetType().ToString(), "CONNECT", $"Connect called at " + DateTime.Now.ToString());
       
         //create a webForm object
         WWWForm form = new WWWForm();
@@ -316,17 +316,19 @@ public class LabLogger : MonoBehaviour
         form.AddField("username", "rafet.al-tobasei@mtsu.edu");
 
         //submit information the server 
-        UnityWebRequest www = UnityWebRequest.Post("https://cyberlearnar.cs.mtsu.edu/login", form);
-
-        yield return www.SendWebRequest();
-
-        if (www.result != UnityWebRequest.Result.Success)
+        using (var www = UnityWebRequest.Post("https://cyberlearnar.cs.mtsu.edu/login", form))
         {
-            Debug.Log(www.error);
-        }
-        else
-        {
-            print("Form upload complete!");
+            www.certificateHandler = new DownloadUtility.BypassCertificate();
+            yield return www.SendWebRequest();
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                Debug.Log(www.error);
+            }
+            else
+            {
+                print("Form upload complete!");
+            }
         }
     }
 
@@ -344,18 +346,28 @@ public class LabLogger : MonoBehaviour
         form.AddBinaryData("file", txtByte, logFileName, "txt");
 
         //// submit file to server
-        UnityWebRequest www = UnityWebRequest.Post("https://cyberlearnar.cs.mtsu.edu/upload_file", form);
-        yield return www.SendWebRequest();
-        // Check result
-        if(Debug.isDebugBuild)
+        // UnityWebRequest www = UnityWebRequest.Post("https://cyberlearnar.cs.mtsu.edu/upload_file", form);
+        using(var www = UnityWebRequest.Post("https://cyberlearnar.cs.mtsu.edu/upload_file", form))
         {
-            if (www.result != UnityWebRequest.Result.Success)
+            www.certificateHandler = new DownloadUtility.BypassCertificate();
+            yield return www.SendWebRequest();
+            // Check result
+            if(Debug.isDebugBuild)
             {
-                Debug.Log(www.error);
-            }
-            else
-            {
-                Debug.Log("Form Upload Completed!");
+                if (www.result != UnityWebRequest.Result.Success)
+                {
+                    Debug.Log(www.error);
+                    InfoLog(this.GetType().ToString(),
+                        "LOG UPLOAD",
+                        $"Log {logFileName}failed to upload with error {www.error}");
+                }
+                else
+                {
+                    Debug.Log("Form Upload Completed!");
+                    InfoLog(this.GetType().ToString(),
+                        "LOG UPLOAD",
+                        $"Log {logFileName} uploaded");
+                }
             }
         }
 
@@ -367,18 +379,27 @@ public class LabLogger : MonoBehaviour
             form2.AddBinaryData("file", txtByte2, positionFileName, "txt");
 
             //// submit file to server
-            UnityWebRequest www2 = UnityWebRequest.Post("https://cyberlearnar.cs.mtsu.edu/upload_file", form2);
-            yield return www2.SendWebRequest();
-            // Check result
-            if(Debug.isDebugBuild)
+            using (var www2 = UnityWebRequest.Post("https://cyberlearnar.cs.mtsu.edu/upload_file", form2))
             {
-                if (www2.result != UnityWebRequest.Result.Success)
+                www2.certificateHandler = new DownloadUtility.BypassCertificate();
+                yield return www2.SendWebRequest();
+                // Check result
+                if(Debug.isDebugBuild)
                 {
-                    Debug.Log(www2.error);
-                }
-                else
-                {
-                    Debug.Log("Form Upload Completed!");
+                    if (www2.result != UnityWebRequest.Result.Success)
+                    {
+                        Debug.Log(www2.error);
+                        InfoLog(this.GetType().ToString(),
+                            "LOG UPLOAD",
+                            $"Log {positionFileName} failed to upload with error {www2.error}");
+                    }
+                    else
+                    {
+                        Debug.Log("Form Upload Completed!");
+                        InfoLog(this.GetType().ToString(),
+                            "LOG UPLOAD",
+                            $"Log {positionFileName} uploaded");
+                    }
                 }
             }
         }

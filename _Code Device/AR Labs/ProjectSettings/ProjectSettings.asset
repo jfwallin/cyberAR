@@ -699,7 +699,7 @@ PlayerSettings:
     m_ModelFolderPath: 
     m_PortalFolderPath: 
   luminCert:
-    m_CertPath: C:/Users/ishum/OneDrive/Documents/Work/devkey/cyberardevkey.cert
+    m_CertPath: C:/Users/ishum/Documents/Work/keys/privatekey/home_dev.cert
     m_SignPackage: 1
   luminIsChannelApp: 0
   luminVersion:

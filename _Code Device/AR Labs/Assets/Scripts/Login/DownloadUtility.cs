@@ -191,27 +191,40 @@ public class DownloadUtility : MonoBehaviour
     #endregion
 
     #region Coroutines
+    public class BypassCertificate : CertificateHandler
+    {
+        protected override bool ValidateCertificate(byte[] certificateData)
+        {
+            //Simply return true no matter what
+            return true;
+        }
+    }
+
     private IEnumerator downloadRoutine(string url, string path, System.Action<int> callback)
     {
         // Download code taken from Nico's work
-        var uwr = new UnityWebRequest(url, UnityWebRequest.kHttpVerbGET);
-        uwr.downloadHandler = new DownloadHandlerFile(path);
-        logger.InfoLog(entity, "Debug", $"Inside download coroutine, URL: {url}, path: {path}");
-        yield return uwr.SendWebRequest();
-        if (uwr.result != UnityWebRequest.Result.Success)
+        using(var uwr = UnityWebRequest.Get(url))
         {
-            logger.InfoLog(entity, "Error", $"Download of {path} failed with error:\n{uwr.result.ToString()} | {uwr.error}");
-            // Invoke callback w/-1, telling client the download failed
-            uwr.Dispose();
-            callback.Invoke(-1);
+            uwr.certificateHandler = new BypassCertificate();
+            uwr.downloadHandler = new DownloadHandlerFile(path);
+            logger.InfoLog(entity, "Debug", $"Inside download coroutine, URL: {url}, path: {path}");
+            yield return uwr.SendWebRequest();
+            if (uwr.result != UnityWebRequest.Result.Success)
+            {
+                logger.InfoLog(entity, "Error", $"Download of {path} failed with error:\n{uwr.result.ToString()} | {uwr.error}");
+                // Invoke callback w/-1, telling client the download failed
+                uwr.Dispose();
+                callback.Invoke(-1);
+            }
+            else
+            {
+                logger.InfoLog(entity, "Debug", $"Successfully downloaded {path}");
+                // Invoke callback w/0, telling client the download succeeded
+                uwr.Dispose();
+                callback.Invoke(0);
+            }
         }
-        else
-        {
-            logger.InfoLog(entity, "Debug", $"Successfully downloaded {path}");
-            // Invoke callback w/0, telling client the download succeeded
-            uwr.Dispose();
-            callback.Invoke(0);
-        }
+        // var uwr = new UnityWebRequest(url, UnityWebRequest.kHttpVerbGET);
     }
     #endregion Coroutines
 }
