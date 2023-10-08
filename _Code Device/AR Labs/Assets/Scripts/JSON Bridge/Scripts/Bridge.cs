@@ -90,7 +90,7 @@ public class Bridge
         if (obj.newEulerAngles)
             myObject.transform.localEulerAngles = obj.eulerAngles;
         LabLogger.Instance.InfoLog( this.GetType().ToString(), "Debug",
-            $"Position: {obj.position.ToString("F3")}, Scale: {obj.scale.ToString("F3")}, EulerAngles: {obj.eulerAngles.ToString("F3")}");
+            $"Position: {myObject.transform.position.ToString("F3")}, Scale: {myObject.transform.lossyScale.ToString("F3")}, EulerAngles: {myObject.transform.eulerAngles.ToString("F3")}");
 
         // Add custom scripted components to the object
         if (obj.componentsToAdd != null)

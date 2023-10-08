@@ -63,6 +63,7 @@ public class LoginManager : MonoBehaviour
     [Tooltip("What to append to show_uploaded/ to download the zipped lab resources:")]
     [SerializeField]
     private string debugLabZipFilename = "";
+    public bool ForceFileDownloads = false;
 
     enum EndpointType { debug, production };
     [Header("Local Development")]
@@ -163,12 +164,13 @@ public class LoginManager : MonoBehaviour
             // This could eventually be changed to pull only the labs related to the pin->cnum->CRNs,
             // eventually not in Start
             if (endpointsType == EndpointType.production)
-                DownloadUtility.Instance.DownloadFile(LABS_URL, allLabsFileInfo.FullName, LabsDownloaded);
+                DownloadUtility.Instance.DownloadFile(LABS_URL, allLabsFileInfo.FullName, LabsDownloaded, false);
             else if (endpointsType == EndpointType.debug)
                 DownloadUtility.Instance.DownloadFile(
                     Path.Combine(DEBUG_URL, debugLabListFilename),
                     allLabsFileInfo.FullName,
-                    LabsDownloaded);
+                    LabsDownloaded,
+                    false);
         }
 
         // Run the Intro animation if this is a production build, or a debug build that is not skipping the anim
@@ -306,7 +308,8 @@ public class LoginManager : MonoBehaviour
                             DownloadUtility.Instance.DownloadAndExtractZip(
                                 Path.Combine(LAB_ZIP_BASE_URL, selectedLab.id = ".zip"),
                                 labZipFileInfo.FullName,
-                                LabZipDownloadedAndExtracted);
+                                LabZipDownloadedAndExtracted,
+                                !ForceFileDownloads);
                         }
                         else if (endpointsType == EndpointType.debug)
                         {
@@ -315,7 +318,8 @@ public class LoginManager : MonoBehaviour
                             DownloadUtility.Instance.DownloadAndExtractZip(
                                 Path.Combine(DEBUG_URL, debugLabZipFilename),
                                 labZipFileInfo.FullName,
-                                LabZipDownloadedAndExtracted);
+                                LabZipDownloadedAndExtracted,
+                                !ForceFileDownloads);
                         }
                     }
 
@@ -581,6 +585,10 @@ public class LoginManager : MonoBehaviour
             }
         }
 
+        // If the pin isn't 6 characters, left pad to 6 characters
+        if (pin.Length < 6)
+            pin = pin.PadLeft(6, '0');
+
         // If Auth is ready, authenticate the pin
         if(auth.AuthenticatePin(pin))
         {
@@ -594,7 +602,7 @@ public class LoginManager : MonoBehaviour
         }
         else // Pin was not authenticated
         {
-            logger.InfoLog(entity, "Debug", "Pin failed to authenticate");
+            logger.InfoLog(entity, "Debug", $"::{pin}:: failed to authenticate");
             ChangeStateTo(state.pin_entry);
         }
     }
@@ -633,6 +641,11 @@ public class LoginManager : MonoBehaviour
     #endregion Coroutines
 
     #region Public Callbacks
+    public void ForceDownloadToggleClicked(bool val)
+    {
+        ForceFileDownloads = val;
+    }
+
     /// <summary>
     /// Called by the enter key on the keyboard, start authentication
     /// </summary>
