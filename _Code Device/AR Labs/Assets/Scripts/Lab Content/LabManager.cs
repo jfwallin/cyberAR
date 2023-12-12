@@ -72,7 +72,7 @@ public class LabManager : MonoBehaviour
             }
 
             // Start waiting for people to connect, setup and enable UI
-            transmissionWaitUI.transform.SetPositionAndRotation(transmissionWaitUI.transform.position + Camera.main.transform.forward * 2, Quaternion.LookRotation(Camera.main.transform.forward*-1, Vector3.up));
+            transmissionWaitUI.transform.SetPositionAndRotation(Camera.main.transform.position + Camera.main.transform.forward * 2, Quaternion.LookRotation(Camera.main.transform.forward, Vector3.up));
             transmissionWaitUI.SetActive(true);
             setTransmissionUI(TransmissionWaitStatus.Wait);
 
@@ -81,7 +81,7 @@ public class LabManager : MonoBehaviour
             LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.DEBUG, $"Our Address: {NetworkUtilities.MyAddress}");
 
             // Check if we already have peers  NOT SURE IF WE NEED THIS ANYMORE
-            // StartCoroutine("CheckForPeers");
+            StartCoroutine("CheckForPeers");
 
             // Track changes to number of peers
             Transmission.Instance.OnPeerFound.AddListener((string ip, long time) => changeNumPeers(1));
@@ -209,6 +209,11 @@ public class LabManager : MonoBehaviour
     #endregion Private Methods
 
     #region Event Handlers
+    public void AlignmentOnLocalized()
+    {
+        LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.EVENT, "SPATIAL ALIGNMENT LOCALIZED");
+    }
+
     /// <summary>
     /// Listener to Transmission OnOldestPeerUpdated() event, receives a string
     /// address of the new oldest peer. Your address can be found using 
@@ -313,6 +318,10 @@ public class LabManager : MonoBehaviour
                 setTransmissionUI(TransmissionWaitStatus.Host);
             }
         }
+        var started = MLPersistentCoordinateFrames.IsStarted;
+        var pcf_localized = MLPersistentCoordinateFrames.IsLocalized;
+        var spatial_localized = SpatialAlignment.Localized;
+        LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.EVENT, $"pcf started: ${started}, pcf localized : ${pcf_localized}, spatial_localized : ${spatial_localized}");
     }
     #endregion Coroutines
 }

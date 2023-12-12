@@ -337,8 +337,10 @@ public class LoginManager : MonoBehaviour
         logger.InfoLog(entity, LabLogger.LogTag.TRACE, "Place()");
         // Unbind place function from trigger
         controller.GetComponent<ControlInput>().OnTriggerDown.RemoveListener(Place);
-        labStarter.transform.position = placementProp.transform.position;
-        labStarter.transform.rotation = placementProp.transform.rotation;
+        anchor.transform.position = placementProp.transform.position;
+        anchor.transform.rotation = placementProp.transform.rotation;
+        //labStarter.transform.position = placementProp.transform.position;
+        //labStarter.transform.rotation = placementProp.transform.rotation;
         GameObject.Find("Directional Light").transform.SetParent(labStarter.transform);
         // Set placed flag, and move to the next state
         placed = true;
@@ -549,8 +551,8 @@ public class LoginManager : MonoBehaviour
     {
         while(placementProp.activeSelf && !placed)
         {
-            anchor.transform.position = controller.transform.position;
-            anchor.transform.eulerAngles = new Vector3(0, Camera.main.transform.eulerAngles.y, 0);
+            placementProp.transform.position = controller.transform.position;
+            placementProp.transform.eulerAngles = new Vector3(0, controller.transform.eulerAngles.y, 0);
             yield return null;
         }
     }

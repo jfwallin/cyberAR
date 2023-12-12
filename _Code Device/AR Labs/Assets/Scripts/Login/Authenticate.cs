@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
 using System.Linq;
+using System;
 
 /// <summary>
 /// stores identity data about a user, links name to pin/mNumber
@@ -28,6 +29,7 @@ public class Authenticate : MonoBehaviour
 
     // Runtime holds the pins and ids, used to authenticate user logins
     private List<pin_id_record> ids = null;
+    private Dictionary<string, pin_id_record> ids_map;
 
     // Whether the file has been parsed
     private bool authReady = false;
@@ -55,7 +57,7 @@ public class Authenticate : MonoBehaviour
     void Start()
     {
         // Get the most recent csv file downloaded
-        DownloadUtility.Instance.DownloadFile(PIN_ID_CSV_URL, pinCsvFileInfo.FullName, downloadComplete);
+        DownloadUtility.Instance.DownloadFile(PIN_ID_CSV_URL, pinCsvFileInfo.FullName, downloadComplete, false);
     }
     #endregion Unity Methods
 
@@ -98,6 +100,9 @@ public class Authenticate : MonoBehaviour
             foreach (pin_id_record id in ids)
                 Debug.Log(id.pin);
         }
+        // After the list is populated, convert to a dictionary for quick authentication
+        ids_map = ids.Distinct().ToDictionary(record => record.pin);
+
 
         logger.InfoLog(entity, LabLogger.LogTag.DEBUG, "CSVs Parsed");
         // Set flag to allow auth queries
@@ -111,8 +116,9 @@ public class Authenticate : MonoBehaviour
     /// <returns>true if the pin is found, false if not</returns>
     public bool AuthenticatePin(string pin)
     {
-        logger.InfoLog(entity, LabLogger.LogTag.DEBUG, $"Attempting to authenticate pin: {pin}");
-        return ids.Exists(x => { Debug.Log($"pin :{pin}:, length : {pin.Length}, x.pin :{x.pin}:, length : {x.pin.Length}, x.pin == pin :{x.pin==pin}:"); return x.pin == pin; });
+        if (ids_map.ContainsKey(pin))
+            return true;
+        return false;
     }
 
     /// <summary>

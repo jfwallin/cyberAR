@@ -11,11 +11,6 @@ using UnityEngine.Networking;
 public class DownloadUtility : MonoBehaviour
 {
     #region Variables
-    // Local File Toggle
-    [Header("Toggle Downloading")]
-    [Tooltip("This toggle allows for use of local files instead of pulling them from the web")]
-    public bool useLocalFiles = false;
-
     // Singelton implementation
     private static DownloadUtility _instance;
     public static DownloadUtility Instance
@@ -79,9 +74,9 @@ public class DownloadUtility : MonoBehaviour
     /// <param name="path">full filepath to store at</param>
     /// <param name="callback">function to call once the download is complete,
     ///                        called with -1: error occured, 0: success</param>
-    public void DownloadFile(string url, string path, System.Action<int> callback)
+    public void DownloadFile(string url, string path, System.Action<int> callback, bool tryUseLocalFiles=true)
     {
-        if(!useLocalFiles)
+        if(!tryUseLocalFiles)
         {
             //if (File.Exists(path))
             //{
@@ -89,16 +84,22 @@ public class DownloadUtility : MonoBehaviour
             //    callback.Invoke(0);
             //    return;
             //}
-            logger.InfoLog(entity, LabLogger.LogTag.DEBUG, $"Starting download of file ${path} from url: {url}");
+            logger.InfoLog(entity, LabLogger.LogTag.TRACE, $"Starting download of file ${path} from url: {url}");
             StartCoroutine(downloadRoutine(url, path, callback));
         }
         else // Use local files
         {
             // Check if the local file is there
-            if(File.Exists(path))
+            if (File.Exists(path))
+            {
+                logger.InfoLog(entity, LabLogger.LogTag.TRACE, $"Found local file ${path}, Not downloading");
                 callback.Invoke(0); // Local file exists
+            }
             else // There is no local file
+            {
+                logger.InfoLog(entity, LabLogger.LogTag.TRACE, $"Could not find local file ${path}, Trying to download from {url}");
                 callback.Invoke(-1); // Local file does not exist
+            }
         }
     }
 
@@ -109,9 +110,9 @@ public class DownloadUtility : MonoBehaviour
     /// <param name="path">full filepath to store at</param>
     /// <param name="callback">function to call once the download is complete,
     ///                        called with -1: error occured, 0: success</param>
-    public void DownloadAndExtractZip(string url, string path, System.Action<int> callback)
+    public void DownloadAndExtractZip(string url, string path, System.Action<int> callback, bool tryUseLocalFiles=true)
     {
-        if(!useLocalFiles)
+        if(!tryUseLocalFiles)
         {
             // Check if files exist locally, remove it if it does
             /*if (File.Exists(path))
@@ -128,7 +129,7 @@ public class DownloadUtility : MonoBehaviour
             if (File.Exists(path))
                 ExtractZip(0, path, callback); // Local file exists, continue to extraction
             else // There is no local file
-                callback.Invoke(-1); // Local file does not exist, invoke callback with error rc
+                StartCoroutine(downloadRoutine(url, path, (int x) => ExtractZip(x, path, callback)));
         }
     }
     #endregion Public Methods
@@ -191,26 +192,37 @@ public class DownloadUtility : MonoBehaviour
     #endregion
 
     #region Coroutines
+    public class BypassCertificate : CertificateHandler
+    {
+        protected override bool ValidateCertificate(byte[] certificateData)
+        {
+            // Return true no matter what
+            return true;
+        }
+    }
     private IEnumerator downloadRoutine(string url, string path, System.Action<int> callback)
     {
         // Download code taken from Nico's work
-        var uwr = new UnityWebRequest(url, UnityWebRequest.kHttpVerbGET);
-        uwr.downloadHandler = new DownloadHandlerFile(path);
-        logger.InfoLog(entity, LabLogger.LogTag.DEBUG, $"Inside download coroutine, URL: {url}, path: {path}");
-        yield return uwr.SendWebRequest();
-        if (uwr.result != UnityWebRequest.Result.Success)
+        using (var uwr = UnityWebRequest.Get(url))
         {
-            logger.InfoLog(entity, LabLogger.LogTag.ERROR, $"Download of {path} failed with error:\n{uwr.result.ToString()} | {uwr.error}");
-            // Invoke callback w/-1, telling client the download failed
-            uwr.Dispose();
-            callback.Invoke(-1);
-        }
-        else
-        {
-            logger.InfoLog(entity, LabLogger.LogTag.TRACE, $"Successfully downloaded {path}");
-            // Invoke callback w/0, telling client the download succeeded
-            uwr.Dispose();
-            callback.Invoke(0);
+            uwr.certificateHandler = new BypassCertificate();
+            uwr.downloadHandler = new DownloadHandlerFile(path);
+            logger.InfoLog(entity, LabLogger.LogTag.DEBUG, $"Inside download coroutine, URL: {url}, path: {path}");
+            yield return uwr.SendWebRequest();
+            if (uwr.result != UnityWebRequest.Result.Success)
+            {
+                logger.InfoLog(entity, LabLogger.LogTag.ERROR, $"Download of {path} failed with error:\n{uwr.result.ToString()} | {uwr.error}");
+                // Invoke callback w/-1, telling client the download failed
+                uwr.Dispose();
+                callback.Invoke(-1);
+            }
+            else
+            {
+                logger.InfoLog(entity, LabLogger.LogTag.TRACE, $"Successfully downloaded {path}");
+                // Invoke callback w/0, telling client the download succeeded
+                uwr.Dispose();
+                callback.Invoke(0);
+            }
         }
     }
     #endregion Coroutines
