@@ -1,5 +1,13 @@
 {
   "dependencies": {
+    "com.magicleap.unitysdk": {
+      "version": "file:C:/Users/irs2e/MagicLeap/tools/unity/v0.26.0/com.magicleap.unitysdk",
+      "depth": 0,
+      "source": "local",
+      "dependencies": {
+        "com.unity.xr.magicleap": "6.2.2"
+      }
+    },
     "com.unity.collab-proxy": {
       "version": "1.7.1",
       "depth": 0,
@@ -138,7 +146,7 @@
       "depth": 1,
       "source": "registry",
       "dependencies": {
-        "com.unity.subsystemregistration": "1.0.6"
+        "com.unity.subsystemregistration": "1.0.5"
       },
       "url": "https://packages.unity.com"
     },

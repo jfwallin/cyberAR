@@ -1,5 +1,15 @@
 {
+  "scopedRegistries": [
+    {
+      "name": "Magic Leap",
+      "url": "https://registry.npmjs.org",
+      "scopes": [
+        "com.magicleap"
+      ]
+    }
+  ],
   "dependencies": {
+    "com.magicleap.unitysdk": "file:C:/Users/irs2e/MagicLeap/tools/unity/v0.26.0/com.magicleap.unitysdk",
     "com.unity.collab-proxy": "1.7.1",
     "com.unity.ext.nunit": "1.0.6",
     "com.unity.ide.rider": "2.0.7",

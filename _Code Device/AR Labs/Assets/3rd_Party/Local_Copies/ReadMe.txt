@@ -1,2 +1,0 @@
-Local_Copies - Used to store copies of heavily modified 3rd party assets, so that they do not get overwritten by 3rd part updates.
-Rename the copies to make sure they are differentiated from the original.
