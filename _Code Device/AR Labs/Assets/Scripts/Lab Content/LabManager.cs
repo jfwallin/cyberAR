@@ -89,6 +89,10 @@ public class LabManager : MonoBehaviour
 
             // Listen if we find a peer that is older
             Transmission.Instance.OnOldestPeerUpdated.AddListener(handleOldestPeerUpdated);
+
+            // Set Shared origin
+            Pose newOrigin = new Pose(transform.position, transform.rotation);
+            Transmission.Instance.sharedOrigin = newOrigin;
         }
         else
         {

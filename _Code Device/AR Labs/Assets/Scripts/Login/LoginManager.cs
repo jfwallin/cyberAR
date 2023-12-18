@@ -5,6 +5,8 @@ using UnityEngine;
 using UnityEngine.Assertions;
 using UnityEngine.UI;
 using MagicLeapTools;
+using MagicLeap.Core;
+using UnityEngine.XR.MagicLeap;
 
 public struct LabInfo
 {
@@ -28,6 +30,7 @@ public class LoginManager : MonoBehaviour
     public GameObject introAnimation;  //Intro animation UI
     public GameObject placementProp;   //Shown during the placement phase to identify the anchor point
     public GameObject anchor;          //Root transform of anchored content.
+    public MagicLeap.Core.MLImageTrackerBehavior tracker1;
 
     [Header("Login UI")]
     public GameObject loginUI;         //UI panel for login
@@ -195,6 +198,14 @@ public class LoginManager : MonoBehaviour
         {
             case state.placement:
                 {
+                    introAnimation.SetActive(false);
+                    placed = false;
+                    tracker1.OnTargetFound += OnTarget1Found;
+                    tracker1.OnTargetUpdated += OnTarget1Updated;
+                    tracker1.OnTargetLost += OnTarget1Lost;
+                    tracker1.enabled = true;
+                    break;
+
                     logger.InfoLog(entity, LabLogger.LogTag.STATE_START, "Placement");
                     HidePointer();
                     // Hide the intro animation
@@ -347,6 +358,24 @@ public class LoginManager : MonoBehaviour
         // Stop Audio playback
         placementProp.GetComponent<AudioSource>()?.Stop();
         // Either move to login, or skip to lab start for quick local debugging
+        if (Debug.isDebugBuild && skipLoginAndDownload)
+            ChangeStateTo(state.lab_initiation);
+        else
+            ChangeStateTo(state.pin_entry);
+    }
+
+    private void ConfirmTarget1()
+    {
+        logger.InfoLog(entity, LabLogger.LogTag.TRACE, "ConfirmTarget1()");
+        controller.GetComponent<ControlInput>().OnTriggerDown.RemoveListener(ConfirmTarget1);
+        anchor.transform.position = placementProp.transform.position;
+        anchor.transform.rotation = placementProp.transform.rotation;
+        GameObject.Find("Directional Light").transform.SetParent(labStarter.transform);
+        tracker1.OnTargetFound -= OnTarget1Found;
+        tracker1.OnTargetUpdated -= OnTarget1Updated;
+        tracker1.OnTargetLost -= OnTarget1Lost;
+        tracker1.enabled = false;
+        placed = true;
         if (Debug.isDebugBuild && skipLoginAndDownload)
             ChangeStateTo(state.lab_initiation);
         else
@@ -543,6 +572,12 @@ public class LoginManager : MonoBehaviour
         ChangeStateTo(state.placement);
     }
 
+    private IEnumerator TurnOffProp()
+    {
+        yield return new WaitForSeconds(2.0f);
+        placementProp.SetActive(false);
+    }
+
     /// <summary>
     /// Sets position of the UI anchor, effectively making all ui and the prop follow
     /// the controller. 
@@ -662,6 +697,26 @@ public class LoginManager : MonoBehaviour
     #endregion Public Callbacks
 
     #region Private Event Handlers
+    private void OnTarget1Found(MLImageTracker.Target target, MLImageTracker.Target.Result result)
+    {
+        placementProp.transform.position = result.Position;
+        placementProp.transform.eulerAngles = new Vector3(0, result.Rotation.eulerAngles.y, 0);
+        placementProp.SetActive(true);
+        controller.GetComponent<ControlInput>().OnTriggerDown.AddListener(ConfirmTarget1);
+    }
+
+    private void OnTarget1Updated(MLImageTracker.Target target, MLImageTracker.Target.Result result)
+    {
+        placementProp.transform.position = result.Position;
+        placementProp.transform.eulerAngles = new Vector3(0, result.Rotation.eulerAngles.y, 0);
+    }
+
+    private void OnTarget1Lost(MLImageTracker.Target target, MLImageTracker.Target.Result result)
+    {
+        placementProp.SetActive(false);
+        controller.GetComponent<ControlInput>().OnTriggerDown.RemoveListener(ConfirmTarget1);
+    }
+
     /// <summary>
     /// Called by DownloadUtility once it is done with the lab list download
     /// </summary>

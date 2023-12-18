@@ -4221,6 +4221,7 @@ GameObject:
   - component: {fileID: 1137755971}
   - component: {fileID: 1137755972}
   - component: {fileID: 1137755975}
+  - component: {fileID: 1137755976}
   m_Layer: 0
   m_Name: '[LOGIC]'
   m_TagString: Untagged
@@ -4244,6 +4245,7 @@ MonoBehaviour:
   introAnimation: {fileID: 1292638484}
   placementProp: {fileID: 1352143256}
   anchor: {fileID: 1223233974}
+  tracker1: {fileID: 1137755976}
   loginUI: {fileID: 121354330}
   guestButton: {fileID: 1171612584}
   pin: {fileID: 1362177865}
@@ -4333,6 +4335,22 @@ MonoBehaviour:
   controller: {fileID: 1580690876}
   headset: {fileID: 2031694668}
   deltaTime: 0.2
+--- !u!114 &1137755976
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137755969}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1da823422228d9249b370f716c67750a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  image: {fileID: 2800000, guid: edcd24815d0314639a6ad2bebbdd4c4e, type: 3}
+  isStationary: 1
+  autoUpdate: 0
+  longerDimensionInSceneUnits: 0.267
 --- !u!1 &1145454128
 GameObject:
   m_ObjectHideFlags: 0
