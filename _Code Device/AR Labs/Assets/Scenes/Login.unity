@@ -684,6 +684,7 @@ GameObject:
   - component: {fileID: 121354334}
   - component: {fileID: 121354333}
   - component: {fileID: 121354332}
+  - component: {fileID: 121354336}
   m_Layer: 5
   m_Name: '[LOGIN UI]'
   m_TagString: Untagged
@@ -707,6 +708,7 @@ RectTransform:
   - {fileID: 1362177866}
   - {fileID: 1772510102}
   - {fileID: 1171612585}
+  - {fileID: 1835202740}
   m_Father: {fileID: 1223233975}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -793,6 +795,23 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &121354336
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 121354330}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e88db8bc30bf7434d9465ae1f8dcd654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CanvasDistanceForwards: 2
+  CanvasDistanceUpwards: 0
+  PositionLerpSpeed: 5
+  RotationLerpSpeed: 5
+  keepVertical: 1
 --- !u!1 &157487782
 GameObject:
   m_ObjectHideFlags: 0
@@ -2856,7 +2875,7 @@ Transform:
   m_Children:
   - {fileID: 1145454129}
   m_Father: {fileID: 1223233975}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &651261779
 GameObject:
@@ -3215,6 +3234,7 @@ GameObject:
   - component: {fileID: 751735133}
   - component: {fileID: 751735132}
   - component: {fileID: 751735131}
+  - component: {fileID: 751735135}
   m_Layer: 0
   m_Name: '[LABS]'
   m_TagString: Untagged
@@ -3323,6 +3343,23 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &751735135
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 751735129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e88db8bc30bf7434d9465ae1f8dcd654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CanvasDistanceForwards: 2
+  CanvasDistanceUpwards: 0
+  PositionLerpSpeed: 5
+  RotationLerpSpeed: 5
+  keepVertical: 1
 --- !u!1 &839098926
 GameObject:
   m_ObjectHideFlags: 0
@@ -4364,6 +4401,7 @@ GameObject:
   - component: {fileID: 1145454132}
   - component: {fileID: 1145454131}
   - component: {fileID: 1145454130}
+  - component: {fileID: 1145454134}
   m_Layer: 5
   m_Name: TransmissionWaitUI
   m_TagString: Untagged
@@ -4475,6 +4513,23 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
+--- !u!114 &1145454134
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1145454128}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e88db8bc30bf7434d9465ae1f8dcd654, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  CanvasDistanceForwards: 2
+  CanvasDistanceUpwards: 0
+  PositionLerpSpeed: 5
+  RotationLerpSpeed: 5
+  keepVertical: 1
 --- !u!1 &1152053444
 GameObject:
   m_ObjectHideFlags: 0
@@ -4876,7 +4931,6 @@ Transform:
   - {fileID: 1352143257}
   - {fileID: 121354331}
   - {fileID: 751735130}
-  - {fileID: 1835202740}
   - {fileID: 636720216}
   m_Father: {fileID: 0}
   m_RootOrder: 3
@@ -12922,18 +12976,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1835202739}
-  m_LocalRotation: {x: 0.38268343, y: 0, z: 0, w: 0.92387956}
-  m_LocalPosition: {x: 0, y: 0, z: 0.438}
-  m_LocalScale: {x: 0.001, y: 0.001, z: 0.001}
+  m_LocalRotation: {x: 0.38268343, y: -0, z: -0, w: 0.92387956}
+  m_LocalPosition: {x: 0, y: 0, z: -351.25003}
+  m_LocalScale: {x: 0.625, y: 0.625, z: 0.625}
   m_Children:
   - {fileID: 651261780}
   - {fileID: 1434839914}
-  m_Father: {fileID: 1223233975}
-  m_RootOrder: 4
+  m_Father: {fileID: 121354331}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 45, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: -0.218}
+  m_AnchoredPosition: {x: 222.95, y: -34.44999}
   m_SizeDelta: {x: 200, y: 330}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1835202741

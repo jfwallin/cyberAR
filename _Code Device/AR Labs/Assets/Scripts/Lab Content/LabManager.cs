@@ -60,7 +60,7 @@ public class LabManager : MonoBehaviour
             try
             {
                 GetComponent<Transmission>().enabled = true;
-                GetComponent<SpatialAlignment>().enabled = true;
+                //GetComponent<SpatialAlignment>().enabled = true;
             }
             catch (Exception ex)
             {
@@ -86,6 +86,7 @@ public class LabManager : MonoBehaviour
             // Track changes to number of peers
             Transmission.Instance.OnPeerFound.AddListener((string ip, long time) => changeNumPeers(1));
             Transmission.Instance.OnPeerLost.AddListener((string ip) => changeNumPeers(-1));
+            Transmission.Instance.OnSharedOriginUpdated.AddListener((pose) => LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.DEBUG, $"Shared Origin changed to : {pose}"));
 
             // Listen if we find a peer that is older
             Transmission.Instance.OnOldestPeerUpdated.AddListener(handleOldestPeerUpdated);
@@ -114,6 +115,7 @@ public class LabManager : MonoBehaviour
         Transmission.Instance.OnPeerLost.RemoveAllListeners();
         Transmission.Instance.OnOldestPeerUpdated.RemoveAllListeners();
         transmissionWaitUI.SetActive(false);
+
         // Start the lab
         SpawnModule();
     }
@@ -244,6 +246,8 @@ public class LabManager : MonoBehaviour
         LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.TRACE, "handleStartLabButton()");
         if (transmissionHost)
         {
+            // Debug sphere at shared origin
+            Transmission.Spawn("Prefabs/moveableSphere", Vector3.zero, Quaternion.identity, new Vector3(0.4f, 0.4f, 0.4f));
             // Start the lab by sending message to all known peers
             // Since this does not include ourselves, we must also call it explicitly here.
             Transmission.Send(new RPCMessage("TransmissionStartLab", "", "", TransmissionAudience.KnownPeers));

@@ -348,6 +348,7 @@ public class Bridge
         obj.newEulerAngles = true;
         if (obj.parentName != "")
         {
+            LabLogger.Instance.InfoLog(this.ToString(), LabLogger.LogTag.DEBUG, $"Setting object {myObject.name} parent to {obj.parentName}");
             GameObject parent = GameObject.Find(obj.parentName);
             myObject.transform.SetParent(parent?.transform);
         }

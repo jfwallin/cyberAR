@@ -301,8 +301,8 @@ public class LoginManager : MonoBehaviour
 
                     // Enable the object that contains the lab objects
                     labStarter.SetActive(true);
-                    labStarter.transform.eulerAngles = new Vector3(0, Camera.main.transform.eulerAngles.y, 0);
-                    labStarter.transform.position = Camera.main.transform.position - Vector3.up * 0.2f;
+                    //labStarter.transform.eulerAngles = new Vector3(0, Camera.main.transform.eulerAngles.y, 0);
+                    //labStarter.transform.position = Camera.main.transform.position - Vector3.up * 0.2f;
 
                     // If skipLogin is true, just use the provided local resources for quick lab debugging
                     if (Debug.isDebugBuild && skipLoginAndDownload)
