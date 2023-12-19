@@ -26,6 +26,7 @@ public class LabManager : MonoBehaviour
 
     private bool transmissionLab = false;
     private bool transmissionHost;
+    private bool checkForPeers = false;
     private Bridge bridge;
     private LabLogger logger; // Easy reference to the logger object
     private string entity;    // String of this class name, used when logging
@@ -81,15 +82,8 @@ public class LabManager : MonoBehaviour
             LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.DEBUG, $"Our Address: {NetworkUtilities.MyAddress}");
 
             // Check if we already have peers  NOT SURE IF WE NEED THIS ANYMORE
+            checkForPeers = true;
             StartCoroutine("CheckForPeers");
-
-            // Track changes to number of peers
-            Transmission.Instance.OnPeerFound.AddListener((string ip, long time) => changeNumPeers(1));
-            Transmission.Instance.OnPeerLost.AddListener((string ip) => changeNumPeers(-1));
-            Transmission.Instance.OnSharedOriginUpdated.AddListener((pose) => LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.DEBUG, $"Shared Origin changed to : {pose}"));
-
-            // Listen if we find a peer that is older
-            Transmission.Instance.OnOldestPeerUpdated.AddListener(handleOldestPeerUpdated);
 
             // Set Shared origin
             Pose newOrigin = new Pose(transform.position, transform.rotation);
@@ -220,27 +214,6 @@ public class LabManager : MonoBehaviour
         LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.EVENT, "SPATIAL ALIGNMENT LOCALIZED");
     }
 
-    /// <summary>
-    /// Listener to Transmission OnOldestPeerUpdated() event, receives a string
-    /// address of the new oldest peer. Your address can be found using 
-    /// MagicLeapTools.NetworkUtilities.MyAddress
-    /// </summary>
-    /// <param name="peerAddress"></param>
-    private void handleOldestPeerUpdated(string peerAddress)
-    {
-        LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.TRACE, $"handleOldestPeerUpdated({peerAddress})");
-        if (peerAddress != NetworkUtilities.MyAddress)
-        {
-            transmissionHost = false;
-            setTransmissionUI(TransmissionWaitStatus.Peer);
-        }
-        else
-        {
-            transmissionHost = true;
-            setTransmissionUI(TransmissionWaitStatus.Host);
-        }
-    }
-
     private void handleStartLabButton()
     {
         LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.TRACE, "handleStartLabButton()");
@@ -253,12 +226,6 @@ public class LabManager : MonoBehaviour
             Transmission.Send(new RPCMessage("TransmissionStartLab", "", "", TransmissionAudience.KnownPeers));
             TransmissionStartLab();
         }
-    }
-
-    private void changeNumPeers(int chg)
-    {
-        LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.TRACE, $"changeNumPeers({chg})");
-        peerCountText.text = (int.Parse(peerCountText.text) + chg).ToString();
     }
 
     public void ModuleComplete()
@@ -309,27 +276,25 @@ public class LabManager : MonoBehaviour
 
     IEnumerator CheckForPeers()
     {
-        yield return new WaitForSeconds(1.0f);
-        int initNumPeers = Transmission.Instance.Peers.Length;
-        LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.DEBUG, $"Delayed Checking for peers, found {initNumPeers}");
-        if (initNumPeers > 0)
+        while( checkForPeers)
         {
-            peerCountText.text = initNumPeers.ToString();
-            if (Transmission.Instance.OldestPeer != NetworkUtilities.MyAddress) // Not sure if this works
+            int initNumPeers = Transmission.Instance.Peers.Length;
+            if (initNumPeers > 0)
             {
-                transmissionHost = false;
-                setTransmissionUI(TransmissionWaitStatus.Peer);
+                peerCountText.text = initNumPeers.ToString();
+                if (Transmission.Instance.OldestPeer != NetworkUtilities.MyAddress) // Not sure if this works
+                {
+                    transmissionHost = false;
+                    setTransmissionUI(TransmissionWaitStatus.Peer);
+                }
+                else // We are the oldest
+                {
+                    transmissionHost = true;
+                    setTransmissionUI(TransmissionWaitStatus.Host);
+                }
             }
-            else // We are the oldest
-            {
-                transmissionHost = true;
-                setTransmissionUI(TransmissionWaitStatus.Host);
-            }
+            yield return new WaitForSeconds(2.0f);
         }
-        var started = MLPersistentCoordinateFrames.IsStarted;
-        var pcf_localized = MLPersistentCoordinateFrames.IsLocalized;
-        var spatial_localized = SpatialAlignment.Localized;
-        LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.EVENT, $"pcf started: ${started}, pcf localized : ${pcf_localized}, spatial_localized : ${spatial_localized}");
     }
     #endregion Coroutines
 }

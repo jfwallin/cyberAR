@@ -804,14 +804,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 121354330}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e88db8bc30bf7434d9465ae1f8dcd654, type: 3}
+  m_Script: {fileID: 11500000, guid: 49a3c9783d85e704180bbe6ac2c4ce7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanvasDistanceForwards: 2
-  CanvasDistanceUpwards: 0
-  PositionLerpSpeed: 5
-  RotationLerpSpeed: 5
-  keepVertical: 1
+  offset: {x: 0, y: 0, z: 1}
+  surfaceOffset: 0.07
+  allowedDistance: 1
+  minimumScale: 0.5
+  arrivalSpeed: 7
+  flipForward: 0
+  matchGravity: 1
+  flatLocation: 0
 --- !u!1 &157487782
 GameObject:
   m_ObjectHideFlags: 0
@@ -3234,7 +3237,7 @@ GameObject:
   - component: {fileID: 751735133}
   - component: {fileID: 751735132}
   - component: {fileID: 751735131}
-  - component: {fileID: 751735135}
+  - component: {fileID: 751735136}
   m_Layer: 0
   m_Name: '[LABS]'
   m_TagString: Untagged
@@ -3343,7 +3346,7 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
---- !u!114 &751735135
+--- !u!114 &751735136
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -3352,14 +3355,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 751735129}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e88db8bc30bf7434d9465ae1f8dcd654, type: 3}
+  m_Script: {fileID: 11500000, guid: 49a3c9783d85e704180bbe6ac2c4ce7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanvasDistanceForwards: 2
-  CanvasDistanceUpwards: 0
-  PositionLerpSpeed: 5
-  RotationLerpSpeed: 5
-  keepVertical: 1
+  offset: {x: 0, y: 0, z: 2}
+  surfaceOffset: 0.07
+  allowedDistance: 1
+  minimumScale: 0.5
+  arrivalSpeed: 7
+  flipForward: 0
+  matchGravity: 1
+  flatLocation: 0
 --- !u!1 &839098926
 GameObject:
   m_ObjectHideFlags: 0
@@ -4522,14 +4528,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 1145454128}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e88db8bc30bf7434d9465ae1f8dcd654, type: 3}
+  m_Script: {fileID: 11500000, guid: 49a3c9783d85e704180bbe6ac2c4ce7a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  CanvasDistanceForwards: 2
-  CanvasDistanceUpwards: 0
-  PositionLerpSpeed: 5
-  RotationLerpSpeed: 5
-  keepVertical: 1
+  offset: {x: 0, y: 0, z: 1}
+  surfaceOffset: 0.07
+  allowedDistance: 1
+  minimumScale: 0.5
+  arrivalSpeed: 7
+  flipForward: 0
+  matchGravity: 1
+  flatLocation: 0
 --- !u!1 &1152053444
 GameObject:
   m_ObjectHideFlags: 0
