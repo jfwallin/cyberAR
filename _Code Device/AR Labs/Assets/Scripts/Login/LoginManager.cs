@@ -66,6 +66,9 @@ public class LoginManager : MonoBehaviour
     [Tooltip("What to append to show_uploaded/ to download the zipped lab resources:")]
     [SerializeField]
     private string debugLabZipFilename = "";
+    [Tooltip("Whether to download new files if we have local copies already")]
+    [SerializeField]
+    private bool forceDownloads = false;
 
     enum EndpointType { debug, production };
     [Header("Local Development")]
@@ -166,12 +169,13 @@ public class LoginManager : MonoBehaviour
             // This could eventually be changed to pull only the labs related to the pin->cnum->CRNs,
             // eventually not in Start
             if (endpointsType == EndpointType.production)
-                DownloadUtility.Instance.DownloadFile(LABS_URL, allLabsFileInfo.FullName, LabsDownloaded);
+                DownloadUtility.Instance.DownloadFile(LABS_URL, allLabsFileInfo.FullName, LabsDownloaded, !forceDownloads);
             else if (endpointsType == EndpointType.debug)
                 DownloadUtility.Instance.DownloadFile(
                     Path.Combine(DEBUG_URL, debugLabListFilename),
                     allLabsFileInfo.FullName,
-                    LabsDownloaded);
+                    LabsDownloaded,
+                    !forceDownloads);
         }
 
         // Run the Intro animation if this is a production build, or a debug build that is not skipping the anim
@@ -317,7 +321,8 @@ public class LoginManager : MonoBehaviour
                             DownloadUtility.Instance.DownloadAndExtractZip(
                                 Path.Combine(LAB_ZIP_BASE_URL, selectedLab.id + ".zip"),
                                 labZipFileInfo.FullName,
-                                LabZipDownloadedAndExtracted);
+                                LabZipDownloadedAndExtracted,
+                                !forceDownloads);
                         }
                         else if (endpointsType == EndpointType.debug)
                         {
@@ -326,7 +331,8 @@ public class LoginManager : MonoBehaviour
                             DownloadUtility.Instance.DownloadAndExtractZip(
                                 Path.Combine(DEBUG_URL, debugLabZipFilename),
                                 labZipFileInfo.FullName,
-                                LabZipDownloadedAndExtracted);
+                                LabZipDownloadedAndExtracted,
+                                !forceDownloads);
                         }
                     }
 
@@ -670,6 +676,11 @@ public class LoginManager : MonoBehaviour
     #endregion Coroutines
 
     #region Public Callbacks
+    public void SetForceDownload(bool val)
+    {
+        forceDownloads = val;
+    }
+
     /// <summary>
     /// Called by the enter key on the keyboard, start authentication
     /// </summary>
@@ -693,7 +704,16 @@ public class LoginManager : MonoBehaviour
     {
         logger.InfoLog(entity, LabLogger.LogTag.TRACE, "LabComplete()");
         ChangeStateTo(state.lab_selection);
-    }    
+    }
+
+    /// <summary>
+    /// Called by the exit button on the lab selection screen, starts uploading log before quitting
+    /// </summary>
+    public void ExitSelected()
+    {
+        logger.InfoLog(entity, LabLogger.LogTag.TRACE, "ExitSelected()");
+        logger.SubmitLog(LogSubmitted);
+    }
     #endregion Public Callbacks
 
     #region Private Event Handlers
@@ -747,15 +767,6 @@ public class LoginManager : MonoBehaviour
         logger.InfoLog(entity, LabLogger.LogTag.DEBUG, $"Lab Selected: {selectedLab.id}, {selectedLab.name}");
         // Transition to next state
         ChangeStateTo(state.lab_initiation);
-    }
-
-    /// <summary>
-    /// Called by the exit button on the lab selection screen, starts uploading log before quitting
-    /// </summary>
-    private void ExitSelected()
-    {
-        logger.InfoLog(entity, LabLogger.LogTag.TRACE, "ExitSelected()");
-        logger.SubmitLog(LogSubmitted);
     }
 
     /// <summary>

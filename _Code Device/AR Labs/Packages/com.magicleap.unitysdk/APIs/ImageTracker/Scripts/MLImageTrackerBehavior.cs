@@ -115,6 +115,7 @@ namespace MagicLeap.Core
         /// </summary>
         private MLImageTracker.Target _imageTarget = null;
 
+        /*
         /// <summary>
         /// Starts the image tracker and adds the image target to the tracking system.
         /// </summary>
@@ -127,6 +128,19 @@ namespace MagicLeap.Core
         /// Removes the image target from the tracking system and then stops the starter kit.
         /// </summary>
         void OnDestroy()
+        {
+#if PLATFORM_LUMIN
+            MLImageTracker.RemoveTarget(gameObject.GetInstanceID().ToString());
+#endif
+        }
+        */
+
+        void OnEnable()
+        {
+            AddTarget();
+        }
+
+        void OnDisable()
         {
 #if PLATFORM_LUMIN
             MLImageTracker.RemoveTarget(gameObject.GetInstanceID().ToString());

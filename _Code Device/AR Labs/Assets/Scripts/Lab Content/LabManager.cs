@@ -61,7 +61,6 @@ public class LabManager : MonoBehaviour
             try
             {
                 GetComponent<Transmission>().enabled = true;
-                //GetComponent<SpatialAlignment>().enabled = true;
             }
             catch (Exception ex)
             {
@@ -197,7 +196,6 @@ public class LabManager : MonoBehaviour
         if (Transmission.Instance.enabled)
         {
             // Disable Transmission tools
-            GetComponent<SpatialAlignment>().enabled = false;
             Transmission.Instance.enabled = false;
             GetComponent<MLPrivilegeRequesterBehavior>().enabled = false;
             bridge.DisconnectFromTransmission();
@@ -209,11 +207,6 @@ public class LabManager : MonoBehaviour
     #endregion Private Methods
 
     #region Event Handlers
-    public void AlignmentOnLocalized()
-    {
-        LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.EVENT, "SPATIAL ALIGNMENT LOCALIZED");
-    }
-
     private void handleStartLabButton()
     {
         LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.TRACE, "handleStartLabButton()");
@@ -276,7 +269,7 @@ public class LabManager : MonoBehaviour
 
     IEnumerator CheckForPeers()
     {
-        while( checkForPeers)
+        while(checkForPeers)
         {
             int initNumPeers = Transmission.Instance.Peers.Length;
             if (initNumPeers > 0)

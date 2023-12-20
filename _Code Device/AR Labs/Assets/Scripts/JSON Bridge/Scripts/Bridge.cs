@@ -98,9 +98,9 @@ public class Bridge
         
         // Setup the object
         if (initialize)
-            initializeObject(myObject, obj);
+            initializeObject(myObject, obj, true);
         else
-            modifyObject(myObject, obj);
+            modifyObject(myObject, obj, true);
     }
 
     /// <summary>
@@ -131,8 +131,13 @@ public class Bridge
                 pr.OnDragBegin.RemoveAllListeners();
                 pr.OnDragEnd.RemoveAllListeners();
             }
-
-            GameObject.Destroy(obj_dstry);
+            var to = obj_dstry.GetComponent<TransmissionObject>();
+            if (to != null)
+            {
+                to.Despawn();
+            }
+            else
+                GameObject.Destroy(obj_dstry);
         }
     }
 
@@ -155,9 +160,9 @@ public class Bridge
 
             // modify the object
             if (msg.d == "INIT")
-                initializeObject(go, newObjectInfo);
+                initializeObject(go, newObjectInfo, false);
             if (msg.d == "MODIFY")
-                modifyObject(go, newObjectInfo);
+                modifyObject(go, newObjectInfo, false);
         }
 
         // If we are receiving just part of the objectInfo
@@ -169,6 +174,7 @@ public class Bridge
         // If we are receiving the last of the objectInfo
         if (msg.d.StartsWith("END_"))
         {
+            LabLogger.Instance.InfoLog(this.ToString(), LabLogger.LogTag.DEBUG, $"Received Last part of multi-part instruction: {msgParts + msg.v}");
             GameObject go;
             ObjectInfo newObjectinfo;
             // Find the objects to modify, and extract the ObjectInfo data
@@ -178,9 +184,9 @@ public class Bridge
 
             // modify the object
             if (msg.d.EndsWith("INIT"))
-                initializeObject(go, newObjectinfo);
+                initializeObject(go, newObjectinfo, false);
             if (msg.d.EndsWith("CHNG"))
-                modifyObject(go, newObjectinfo);
+                modifyObject(go, newObjectinfo, false);
         }
     }
     #endregion Callbacks
@@ -276,11 +282,13 @@ public class Bridge
                 string data = i == numMessages - 1 ? "END_"+instruction : "PART";
                 // Build and send the message
                 StringMessage msgPart = new StringMessage(message.Substring(i * msgPartSize, msgPartSize), data);
+                msgPart.r = 1;
                 Transmission.Send(msgPart);
             }
         }
         else
         {
+            strMessage.r = 1;
             Transmission.Send(strMessage);
         }
 
@@ -338,7 +346,7 @@ public class Bridge
     /// </summary>
     /// <param name="myObject">object to be modified</param>
     /// <param name="obj">specification of the object</param>
-    private void initializeObject(GameObject myObject, ObjectInfo obj)
+    private void initializeObject(GameObject myObject, ObjectInfo obj, bool areHost)
     {
         LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.TRACE, $"initializeObject() : {obj.name}");
 
@@ -365,7 +373,7 @@ public class Bridge
         }
 
         // Now that we are done initializing, modify the object
-        modifyObject(myObject, obj);
+        modifyObject(myObject, obj, areHost);
     }
 
     /// <summary>
@@ -373,7 +381,7 @@ public class Bridge
     /// </summary>
     /// <param name="myObject">object to be modified</param>
     /// <param name="obj">specification of the modifications</param>
-    private void modifyObject(GameObject myObject, ObjectInfo obj)
+    private void modifyObject(GameObject myObject, ObjectInfo obj, bool areHost)
     {
         LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.TRACE, $"modifyObject() : {obj.name}");
         // Do all the object setup
@@ -381,12 +389,15 @@ public class Bridge
         // three new key words have been added to the objectInfo class.
         // The keywords allow use to not override the postions, scales, and
         // orientation of an existing object if we don't want to do that.
-        if (obj.newPosition)
-            myObject.transform.localPosition = obj.position;
-        if (obj.newScale)
-            myObject.transform.localScale = obj.scale;
-        if (obj.newEulerAngles)
-            myObject.transform.localEulerAngles = obj.eulerAngles;
+        if( areHost)
+        {
+            if (obj.newPosition)
+                myObject.transform.localPosition = obj.position;
+            if (obj.newScale)
+                myObject.transform.localScale = obj.scale;
+            if (obj.newEulerAngles)
+                myObject.transform.localEulerAngles = obj.eulerAngles;
+        }
         LabLogger.Instance.InfoLog( this.GetType().ToString(), LabLogger.LogTag.DEBUG,
             $"Position: {myObject.transform.position.ToString("F3")}, scale: {myObject.transform.lossyScale.ToString("F3")}, EulerAngles: {myObject.transform.eulerAngles.ToString("F3")}");
         

@@ -95,20 +95,27 @@ namespace demoRoutines
 
             // ***SHOULD CHECK IF RECEIVING FROM TRANSMISSION OR NOT***
             // Remove bridge spawned objects
-            if (moduleData.destroyObjects)
+            if (moduleData.destroyObjects && TransmissionHost)
                 bridge.CleanUp(jsonString);
 
             // ***SHOULD CHECK IF RECEIVING FROM TRANSMISSION OR NOT***
             // More cleanup? Does the bridge not get it all?
-            GameObject currentLabObject = GameObject.Find("[CURRENT_LAB]");
-            foreach (Transform child in currentLabObject.transform)
+            if (TransmissionHost)
             {
-                if (child.gameObject.name != "instructionCanvas"
-                    && child.gameObject.name != "MainInstruction"
-                    && child.gameObject.name != "Directional Light"
-                    && child.gameObject.name != "Point Light")
+                GameObject currentLabObject = GameObject.Find("[CURRENT_LAB]");
+                foreach (Transform child in currentLabObject.transform)
                 {
-                    GameObject.Destroy(child.gameObject);
+                    if (child.gameObject.name != "instructionCanvas"
+                        && child.gameObject.name != "MainInstruction"
+                        && child.gameObject.name != "Directional Light"
+                        && child.gameObject.name != "Point Light")
+                    {
+                        var to = child.GetComponent<TransmissionObject>();
+                        if (to != null)
+                            to.Despawn();
+                        else
+                            GameObject.Destroy(child.gameObject);
+                    }
                 }
             }
 
