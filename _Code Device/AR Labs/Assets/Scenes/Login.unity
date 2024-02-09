@@ -4841,7 +4841,7 @@ MonoBehaviour:
   labParseTimeout: 15
   endpointsType: 0
   debugLabListFilename: dev_labs_list.json
-  debugLabZipFilename: TransmissionDemo.zip
+  debugLabZipFilename: FullTransmissionLab.zip
   forceDownloads: 0
   skipIntroAnimation: 0
   skipLoginAndDownload: 0

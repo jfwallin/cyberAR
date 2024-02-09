@@ -482,6 +482,7 @@ public class LoginManager : MonoBehaviour
         FileInfo labJsonInfo = null;
         foreach (FileInfo file in labResourcesFolderInfo.GetFiles())
         {
+            logger.InfoLog(entity, LabLogger.LogTag.DEBUG, $"Checking file {file.Name}, in Directory {file.DirectoryName}");
             if (file.Name.EndsWith(".json"))
             {
                 labJsonInfo = file;

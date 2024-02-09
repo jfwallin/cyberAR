@@ -168,6 +168,7 @@ public class Bridge
         // If we are receiving just part of the objectInfo
         if (msg.d == "PART")
         {
+            LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.DEBUG, $"Received message Part, Begins with: {msg.v.Substring(0, 20)}");
             msgParts += msg.v;
         }
 
@@ -538,11 +539,15 @@ public class Bridge
             }
         }
 
-        // Set text mesh pro object
-        TextMeshPro textBox = myObject.GetComponent<TextMeshPro>();
-        if (textBox != null)
+        if (obj.tmp != null)
         {
-            if (obj.tmp != null)
+            if (myObject.GetComponents<TextMeshPro>().Length > 1)
+            {
+                LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.DEBUG, $"Trying to access single TextMeshPro on object with multiple of them: {myObject.name}");
+                
+            }
+            TextMeshPro textBox = myObject.GetComponent<TextMeshPro>();
+            if (textBox != null)
             {
                 // Copy data from component into a class that can be overwritten from JSON
                 textProClass tpc = new textProClass();
@@ -560,10 +565,10 @@ public class Bridge
                 textBox.color = tpc.color;
                 textBox.enableWordWrapping = tpc.wrapText;
                 textBox.SetAllDirty();
+                textBox.ForceMeshUpdate();
             }
-            textBox.SetAllDirty();
         }
-        
+
         // Log the size of the mesh
         MeshRenderer mesh = myObject.GetComponent<MeshRenderer>();
         if(mesh != null && mesh.bounds.extents != Vector3.zero)

@@ -60,7 +60,13 @@ public class LabManager : MonoBehaviour
             GetComponent<MLPrivilegeRequesterBehavior>().enabled = true;
             try
             {
-                GetComponent<Transmission>().enabled = true;
+                var transmission = GetComponent<Transmission>();
+                transmission.enabled = true;
+                transmission.OnSendMessageFailure.AddListener(
+                    (guid) => LabLogger.Instance.InfoLog(
+                        this.ToString(),
+                        LabLogger.LogTag.DEBUG,
+                        $"reliable string message failed to send, GUID: {guid}"));
             }
             catch (Exception ex)
             {
