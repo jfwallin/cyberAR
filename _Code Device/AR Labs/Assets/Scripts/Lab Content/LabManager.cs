@@ -66,7 +66,7 @@ public class LabManager : MonoBehaviour
                     (guid) => LabLogger.Instance.InfoLog(
                         this.ToString(),
                         LabLogger.LogTag.DEBUG,
-                        $"reliable string message failed to send, GUID: {guid}"));
+                        $"reliable string message failed to send, message GUID: {guid}"));
             }
             catch (Exception ex)
             {

@@ -433,7 +433,6 @@ namespace MagicLeapTools
         /// </summary>
         public static TransmissionObject Spawn(string resourceFileName, Vector3 position, Quaternion rotation, Vector3 scale)
         {
-            LabLogger.Instance.InfoLog("Transmission", LabLogger.LogTag.TRACE, $"Spawn() : {resourceFileName}");
             //get relative data:
             Vector3 relativePosition = TransformUtilities.LocalPosition(_instance.sharedOrigin.position, _instance.sharedOrigin.rotation, position);
             Quaternion relativeRotation = TransformUtilities.GetRotationOffset(_instance.sharedOrigin.rotation, rotation);
@@ -453,7 +452,6 @@ namespace MagicLeapTools
                 //if we have peers then let them know we spawned something:
                 if (_peers.Count != 0)
                 {
-                    LabLogger.Instance.InfoLog("Transmission", LabLogger.LogTag.DEBUG, "Sending Object Spawn message");
                     SpawnMessage spawnMessage = new SpawnMessage(resourceFileName, spawned.guid, relativePosition, relativeRotation, scale);
                     Send(spawnMessage);
                 }
@@ -1125,8 +1123,6 @@ namespace MagicLeapTools
 
                         case TransmissionMessageType.SpawnMessage:
                             SpawnMessage spawnMessage = UnpackMessage<SpawnMessage>(rawMessage);
-
-                            LabLogger.Instance.InfoLog("Transmission", LabLogger.LogTag.DEBUG, $"Spawn Message received, guid: {spawnMessage.i}");
 
                             Vector3 relativeSpawnPosition = new Vector3((float)spawnMessage.px, (float)spawnMessage.py, (float)spawnMessage.pz);
                             Quaternion relativeSpawnRotation  = new Quaternion((float)spawnMessage.rx, (float)spawnMessage.ry, (float)spawnMessage.rz, (float)spawnMessage.rw);

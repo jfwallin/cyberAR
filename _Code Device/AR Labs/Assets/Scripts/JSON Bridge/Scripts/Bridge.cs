@@ -148,7 +148,7 @@ public class Bridge
     /// <param name="msg">the message data object</param>
     public void handleStringMessage(StringMessage msg)
     {
-        LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.TRACE, $"handleStringMessage() : {msg}");
+        LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.TRACE, $"handleStringMessage, message guid: {msg.g}");
 
         // If the object was able to be sent as one message
         if (msg.d == "INIT" || msg.d == "CHNG")
@@ -252,7 +252,7 @@ public class Bridge
     private void transmitObject(ObjectInfo obj, string guid, bool init)
     {
         LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.TRACE,
-            $"transmitObject(), Obj Name: {obj.name}, guid: {guid}");
+            $"transmitObject(), Obj Name: {obj.name}, object guid: {guid}");
 
         // Build the test message
         // Convert object information to json
@@ -285,12 +285,14 @@ public class Bridge
                 StringMessage msgPart = new StringMessage(message.Substring(i * msgPartSize, msgPartSize), data);
                 msgPart.r = 1;
                 Transmission.Send(msgPart);
+                LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.TRACE, $"Sending message part, message guid: {msgPart.g}");
             }
         }
         else
         {
             strMessage.r = 1;
             Transmission.Send(strMessage);
+            LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.TRACE, $"Transmitting Object, message guid: {strMessage.g}");
         }
 
         return;
@@ -413,6 +415,9 @@ public class Bridge
             {
                 // Read component into a simple class to just get its name
                 ComponentName cName = JsonUtility.FromJson<ComponentName>(compStr);
+                // skip applying orbit if you aren't host
+                if (cName.name == "simpleOrbit")
+                    continue;
                 // Use name to create the actual component and initialize its values
                 Component myComp = myObject.GetComponent(Type.GetType(cName.name));
                 if (myComp == null)
@@ -558,9 +563,10 @@ public class Bridge
 
                 // Update the class with the JSON data
                 JsonUtility.FromJsonOverwrite(obj.tmp, tpc);
+                LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.DEBUG, $"Modifying Text: {tpc.textField}");
 
                 // Copy the info back into the component
-                textBox.SetText(tpc.textField);
+    textBox.SetText(tpc.textField);
                 textBox.fontSize = tpc.fontSize;
                 textBox.color = tpc.color;
                 textBox.enableWordWrapping = tpc.wrapText;
