@@ -333,8 +333,13 @@ public class Bridge
         // Check if the object we need has been spawned
         if (TransmissionObject.Exists(guid))
         {
+            LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.DEBUG, $"Found Object to modify over transmission, object guid: {guid}");
             GameObject go = TransmissionObject.Get(guid).gameObject;
             return (go, objInfo);
+        }
+        else
+        {
+            LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.DEBUG, $"Could not find object to modify over transmission, object guid: {guid}");
         }
         // Else, log failure
         LabLogger.Instance.InfoLog(
@@ -408,16 +413,15 @@ public class Bridge
         // Add custom scripted components to the object
         if (obj.componentsToAdd != null)
         {
-            LabLogger.Instance.InfoLog( this.GetType().ToString(), LabLogger.LogTag.DEBUG,
-                $"Adding components: {obj.componentsToAdd.ToList().Aggregate("", (acc, x) => acc + $"{x} ")}");
-
             foreach (string compStr in obj.componentsToAdd)
             {
+                if (compStr == "simpleRotation" || compStr == "simpleOrbit")
+                    continue;
+
+                LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.DEBUG,
+                    $" Adding component: {compStr}");
                 // Read component into a simple class to just get its name
                 ComponentName cName = JsonUtility.FromJson<ComponentName>(compStr);
-                // skip applying orbit if you aren't host
-                if (cName.name == "simpleOrbit")
-                    continue;
                 // Use name to create the actual component and initialize its values
                 Component myComp = myObject.GetComponent(Type.GetType(cName.name));
                 if (myComp == null)
@@ -549,7 +553,6 @@ public class Bridge
             if (myObject.GetComponents<TextMeshPro>().Length > 1)
             {
                 LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.DEBUG, $"Trying to access single TextMeshPro on object with multiple of them: {myObject.name}");
-                
             }
             TextMeshPro textBox = myObject.GetComponent<TextMeshPro>();
             if (textBox != null)
@@ -572,6 +575,10 @@ public class Bridge
                 textBox.enableWordWrapping = tpc.wrapText;
                 textBox.SetAllDirty();
                 textBox.ForceMeshUpdate();
+            }
+            else
+            {
+                LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.DEBUG, $"Could not find TextMeshPro component on object that was supposed to be updated: {obj.name}");
             }
         }
 
