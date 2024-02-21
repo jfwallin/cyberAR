@@ -156,18 +156,8 @@ public class demoSequence : MonoBehaviour
     // Waits for an audio clip to play
     IEnumerator WaitForClip(float timeDelay)
     {
-        if (GetComponent<demoRoutines.demo>().TransmissionActivity)
-        {
-            // Play the clip using the function on demo, not here
-            Transmission.Send(new RPCMessage("PlayAudio", theClip.audioClipString));
-        }
-        else
-        {
-            // Play the clip normally
-            aud.clip = MediaCatalogue.Instance.GetAudioClip(theClip.audioClipString);
-            if (aud.clip != null)
-                aud.Play();
-        }
+        // Play through the audiohandler, it manages transmission or not
+        AudioHandler.Instance.PlayAudio(theClip.audioClipString);
 
         yield return new WaitForSeconds(timeDelay);
         clipFinished();

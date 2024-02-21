@@ -65,7 +65,7 @@ public class LabManager : MonoBehaviour
                 transmission.OnSendMessageFailure.AddListener(
                     (guid) => LabLogger.Instance.InfoLog(
                         this.ToString(),
-                        LabLogger.LogTag.DEBUG,
+                        LabLogger.LogTag.ERROR,
                         $"reliable string message failed to send, message GUID: {guid}"));
             }
             catch (Exception ex)
@@ -108,6 +108,7 @@ public class LabManager : MonoBehaviour
     public void TransmissionStartLab()
     {
         LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.TRACE, "TransmissionStartLab()");
+        StopCoroutine("CheckForPeers");
         // Disconnect and close UI
         transmissionStartLabButton.onClick.RemoveAllListeners();
         Transmission.Instance.OnPeerFound.RemoveAllListeners();
@@ -216,10 +217,9 @@ public class LabManager : MonoBehaviour
     private void handleStartLabButton()
     {
         LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.TRACE, "handleStartLabButton()");
+
         if (transmissionHost)
         {
-            // Debug sphere at shared origin
-            Transmission.Spawn("Prefabs/moveableSphere", Vector3.zero, Quaternion.identity, new Vector3(0.4f, 0.4f, 0.4f));
             // Start the lab by sending message to all known peers
             // Since this does not include ourselves, we must also call it explicitly here.
             Transmission.Send(new RPCMessage("TransmissionStartLab", "", "", TransmissionAudience.KnownPeers));

@@ -84,16 +84,8 @@ public class checkAngle : MonoBehaviour
 
     IEnumerator WaitForClip(float timeDelay)
     {
-
-
-        AudioSource  aud = gameObject.GetComponent<AudioSource>();
-
-        aud.clip = MediaCatalogue.Instance.GetAudioClip("mixkit-game-bonus-reached-2065");
-
-        if (aud.clip != null)
-            aud.Play();
-
-        Debug.Log("TTIME DELAY " + timeDelay.ToString() + "*********************************************************************************************");
+        // Play audio through audio handler, it manages transmission or not
+        AudioHandler.Instance.PlayAudio("mixkit-game-bonus-reached-2065");
 
         yield return new WaitForSeconds(timeDelay);
         

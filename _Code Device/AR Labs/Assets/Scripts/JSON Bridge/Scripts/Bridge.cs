@@ -161,7 +161,7 @@ public class Bridge
             // modify the object
             if (msg.d == "INIT")
                 initializeObject(go, newObjectInfo, false);
-            if (msg.d == "MODIFY")
+            if (msg.d == "CHNG")
                 modifyObject(go, newObjectInfo, false);
         }
 
@@ -415,13 +415,12 @@ public class Bridge
         {
             foreach (string compStr in obj.componentsToAdd)
             {
-                if (compStr == "simpleRotation" || compStr == "simpleOrbit")
-                    continue;
-
-                LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.DEBUG,
-                    $" Adding component: {compStr}");
                 // Read component into a simple class to just get its name
                 ComponentName cName = JsonUtility.FromJson<ComponentName>(compStr);
+                if (!areHost && (cName.name == "simpleRotation" || cName.name == "simpleOrbit"))
+                    continue;
+                LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.DEBUG,
+                    $" Adding component: {compStr}");
                 // Use name to create the actual component and initialize its values
                 Component myComp = myObject.GetComponent(Type.GetType(cName.name));
                 if (myComp == null)
@@ -548,7 +547,7 @@ public class Bridge
             }
         }
 
-        if (obj.tmp != null)
+        if (obj.tmp != "")
         {
             if (myObject.GetComponents<TextMeshPro>().Length > 1)
             {
@@ -569,7 +568,7 @@ public class Bridge
                 LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.DEBUG, $"Modifying Text: {tpc.textField}");
 
                 // Copy the info back into the component
-    textBox.SetText(tpc.textField);
+                textBox.SetText(tpc.textField);
                 textBox.fontSize = tpc.fontSize;
                 textBox.color = tpc.color;
                 textBox.enableWordWrapping = tpc.wrapText;
