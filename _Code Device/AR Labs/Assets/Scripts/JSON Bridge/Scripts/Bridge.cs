@@ -70,6 +70,11 @@ public class Bridge
     /// <param name="obj">Specification of the object to create</param>
     public void MakeObject(ObjectInfo obj)
     {
+        // Don't try to make MainInstructions, it's broken
+        if (obj.name == "MainInstructions")
+            return;
+
+
         // Variables
         bool initialize = false;    // Whether to setup new object, or modify existing
         GameObject myObject = null; // Reference to gameobject being worked on

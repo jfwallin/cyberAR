@@ -3141,6 +3141,7 @@ GameObject:
   - component: {fileID: 636720214}
   - component: {fileID: 636720215}
   - component: {fileID: 636720212}
+  - component: {fileID: 636720213}
   m_Layer: 0
   m_Name: '[CURRENT_LAB]'
   m_TagString: Untagged
@@ -3161,6 +3162,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _privileges: ab000000570100008a010000430100006f010000
+--- !u!114 &636720213
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 636720211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 66d02e75406f81f428dc8280d291e43c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  transmissionHost: 0
 --- !u!114 &636720214
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3195,7 +3209,7 @@ MonoBehaviour:
   appKey: 6900875598
   privateKey: 
   rpcTargets:
-  - {fileID: 1137755969}
+  - {fileID: 636720211}
   sharedOrigin:
     position: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 0}
@@ -15820,7 +15834,7 @@ AudioSource:
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

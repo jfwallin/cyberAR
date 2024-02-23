@@ -93,6 +93,17 @@ public class LabManager : MonoBehaviour
             // Set Shared origin
             Pose newOrigin = new Pose(transform.position, transform.rotation);
             Transmission.Instance.sharedOrigin = newOrigin;
+
+            // Setup the Audio Handler to use Transmission to play audio on peers
+            AudioHandler audioHandler = GetComponent<AudioHandler>();
+            if (audioHandler == null)
+            {
+                LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.ERROR, "Could not find Audio Handler to initialize");
+            }
+            else
+            {
+                audioHandler.transmissionHost = true;
+            }
         }
         else
         {

@@ -79,11 +79,14 @@ public class AudioHandler : MonoBehaviour
     /// <param name="clipName">Name of the audio clip file to play, pulled from the MediaCatalogue</param>
     public void PlayAudioLocal(string clipName)
     {
+        LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.TRACE, $"Attempting to play local Audio: {clipName}");
         AudioClip audioclip;
 
         if (mediacatalogue.DoneLoadingAssets)
         {
             audioclip = mediacatalogue.GetAudioClip(clipName);
+            speaker.clip = audioclip;
+            speaker.Play();
         }
         else
         {
