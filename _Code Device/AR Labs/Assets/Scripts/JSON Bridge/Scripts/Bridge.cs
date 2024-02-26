@@ -12,11 +12,8 @@ using System.Text.RegularExpressions;
 public class Bridge
 {
     #region Variables
-    private string msgParts;         // Holds pieces of large messages still being sent
-    private bool transmissionEnabled = false; // Flag marking if Transmission has been setup
-    private static Bridge _instance; // Singleton instance variable
-
     // Singleton access
+    private static Bridge _instance; // Singleton instance variable
     public static Bridge Instance
     {
         get
@@ -33,6 +30,12 @@ public class Bridge
             return _instance;
         }
     }
+
+    private string msgParts;         // Holds pieces of large messages still being sent
+    private bool transmissionEnabled = false; // Flag marking if Transmission has been setup
+    [SerializeField]
+    [Tooltip("Set for how long we keep trying to find a transmission object")]
+    private float findTransmissionObjectRetryTimeout = 10.0f;
     #endregion Variables
 
     #region Public Methods
@@ -148,7 +151,7 @@ public class Bridge
 
     #region Callbacks
     /// <summary>
-    /// Receives string message from peer that has part of an objInfo serialization
+    /// Receives string message from Host, checks if it is an object modification instruction, part or whole
     /// </summary>
     /// <param name="msg">the message data object</param>
     public void handleStringMessage(StringMessage msg)
@@ -158,16 +161,11 @@ public class Bridge
         // If the object was able to be sent as one message
         if (msg.d == "INIT" || msg.d == "CHNG")
         {
-            GameObject go;
-            ObjectInfo newObjectInfo;
-            // Find the objects to modify, and extract the ObjectInfo data
-            (go, newObjectInfo) = parseTransmissionObjectString(msg.v);
-
-            // modify the object
+            // Pass message on to build object
             if (msg.d == "INIT")
-                initializeObject(go, newObjectInfo, false);
+                handleTransmissionObjectInstructions(msg.v, true);
             if (msg.d == "CHNG")
-                modifyObject(go, newObjectInfo, false);
+                handleTransmissionObjectInstructions(msg.v, false);
         }
 
         // If we are receiving just part of the objectInfo
@@ -181,24 +179,74 @@ public class Bridge
         if (msg.d.StartsWith("END_"))
         {
             LabLogger.Instance.InfoLog(this.ToString(), LabLogger.LogTag.DEBUG, $"Received Last part of multi-part instruction: {msgParts + msg.v}");
-            GameObject go;
-            ObjectInfo newObjectinfo;
-            // Find the objects to modify, and extract the ObjectInfo data
-            (go, newObjectinfo) = parseTransmissionObjectString(msgParts + msg.v);
-            // Reset the variable holding parts of the message
-            msgParts = "";
 
-            // modify the object
+            // Pass message on to build object
             if (msg.d.EndsWith("INIT"))
-                initializeObject(go, newObjectinfo, false);
+                handleTransmissionObjectInstructions(msgParts + msg.v, true);
             if (msg.d.EndsWith("CHNG"))
-                modifyObject(go, newObjectinfo, false);
+                handleTransmissionObjectInstructions(msgParts + msg.v, false);
         }
     }
     #endregion Callbacks
     #endregion Public Methods
 
     #region Private Methods
+    /// <summary>
+    /// Parses the guid and objectInfo json from a string message from host
+    /// Finds the transmission object to modify and builds the ObjectInfo, and calls modification functions
+    /// If it can't find the transmission object, call retry coroutine.
+    /// </summary>
+    /// <param name="data">starts with guid of Transmission Object to be modified,
+    ///                    followed by the json describing that object</param>
+    /// <returns></returns>
+    private void handleTransmissionObjectInstructions(string data, bool initialize)
+    {
+        // Variables
+        ObjectInfo objInfo; // Holds the data about the object
+        string guid;   // The transmission object's id
+
+        // Get the guid from the front of the string data
+        Regex rg = new Regex(@"^(?<guid>[\w-]+)::_::");
+        Match match = rg.Match(data);
+
+        // Check if we successfully parsed the string message
+        if (match.Success)
+        {
+            // Use the rest of the string after the regex match for the object info
+            objInfo = JsonUtility.FromJson<ObjectInfo>(data.Substring(match.Index + match.Length));
+            guid = match.Groups["guid"].Value;
+        }
+        else // Failed to get guid and parse information
+        {
+            LabLogger.Instance.InfoLog(
+                this.ToString(),
+                LabLogger.LogTag.ERROR,
+                "Failed to parse Transmission object information");
+            // Give up trying to make this object
+            return;
+        }
+
+        // Check if the object we need has been spawned
+        if (TransmissionObject.Exists(guid))
+        {
+            LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.DEBUG, $"Found Object to modify over transmission, object guid: {guid}");
+            GameObject go = TransmissionObject.Get(guid).gameObject;
+            if (initialize)
+                initializeObject(go, objInfo, false);
+            else // Modify
+                modifyObject(go, objInfo, false);
+            return;
+        }
+        else // Can't find transmission object, may be a race condition, so recheck later
+        {
+            LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.DEBUG, $"Could not find object to modify over transmission, checking again after delay. object guid: {guid}");
+            IEnumerator recheck = recheckForTransmissionObject(guid, objInfo, initialize);
+            // Hijack Transmission, since its a monobehaviour, to run our coroutine
+            Transmission.Instance.StartCoroutine(recheck);
+            return;
+        }
+    }
+
     /// <summary>
     /// Creates an object either from a prefab instantiation, or a Transmission spawn
     /// </summary>
@@ -301,57 +349,6 @@ public class Bridge
         }
 
         return;
-    }
-
-    /// <summary>
-    /// Parses the guid and json from a string message sent 
-    /// to setup or modify a Transmission Object.
-    /// Finds the transmission object to modify and builds the ObjectInfo
-    /// </summary>
-    /// <param name="data">starts with guid of Transmission Object to be modified,
-    ///                    followed by the json describing that object</param>
-    /// <returns></returns>
-    private (GameObject, ObjectInfo) parseTransmissionObjectString(string data)
-    {
-        // Variables
-        ObjectInfo objInfo; // Holds the data about the object
-        String guid = "";   // The transmission object's id
-
-        // Get the guid from the front of the string data
-        Regex rg = new Regex(@"^(?<guid>[\w-]+)::_::");
-        Match match = rg.Match(data);
-        if (match.Success)
-        {
-            // Use the rest of the string after the regex match for the object info
-            objInfo = JsonUtility.FromJson<ObjectInfo>(data.Substring(match.Index + match.Length));
-            guid = match.Groups["guid"].Value;
-        }
-        else // Failed to get guid and parse information
-        {
-            LabLogger.Instance.InfoLog(
-                this.ToString(),
-                LabLogger.LogTag.ERROR,
-                "Failed to parse Transmission object information");
-            return (null, null);
-        }
-
-        // Check if the object we need has been spawned
-        if (TransmissionObject.Exists(guid))
-        {
-            LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.DEBUG, $"Found Object to modify over transmission, object guid: {guid}");
-            GameObject go = TransmissionObject.Get(guid).gameObject;
-            return (go, objInfo);
-        }
-        else
-        {
-            LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.DEBUG, $"Could not find object to modify over transmission, object guid: {guid}");
-        }
-        // Else, log failure
-        LabLogger.Instance.InfoLog(
-            this.ToString(),
-            LabLogger.LogTag.ERROR,
-            $"Failed to find the transmission object with guid: {guid}");
-        return (null, objInfo);
     }
 
     /// <summary>
@@ -596,4 +593,26 @@ public class Bridge
         myObject.SetActive(obj.enabled);
     }
     #endregion Private Methods
+
+    #region Coroutines
+    private IEnumerator recheckForTransmissionObject(string guid, ObjectInfo objInfo, bool initialize)
+    {
+        float deltaTime = 0.0f;
+        while (deltaTime < findTransmissionObjectRetryTimeout)
+        {
+            yield return new WaitForSecondsRealtime(1.0f);
+            deltaTime += 1.0f;
+            if (TransmissionObject.Exists(guid))
+            {
+                GameObject go = TransmissionObject.Get(guid).gameObject;
+                if (initialize)
+                    initializeObject(go, objInfo, false);
+                else
+                    modifyObject(go, objInfo, false);
+                break;
+            }
+        }
+    }
+
+    #endregion Coroutines
 }

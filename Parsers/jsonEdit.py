@@ -4,7 +4,7 @@ import tkinter as tk
 from tkinter import messagebox
 import tkinter.scrolledtext
 import copy
-from scrolledFrame import VerticalScrolledFrame
+from tkScrolledFrame import VerticalScrolledFrame
 from tkinter import filedialog as fd
 
 

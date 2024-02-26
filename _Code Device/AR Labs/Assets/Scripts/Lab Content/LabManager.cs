@@ -14,6 +14,7 @@ public class LabManager : MonoBehaviour
     private GameObject transmissionWaitUI;
     [SerializeField]
     private Button transmissionStartLabButton;
+    private TransmissionWaitStatus waitUIStatus;
     [SerializeField]
     private Text peerCountText;
     [Header("Lab Data")]
@@ -26,7 +27,6 @@ public class LabManager : MonoBehaviour
 
     private bool transmissionLab = false;
     private bool transmissionHost;
-    private bool checkForPeers = false;
     private Bridge bridge;
     private LabLogger logger; // Easy reference to the logger object
     private string entity;    // String of this class name, used when logging
@@ -80,6 +80,7 @@ public class LabManager : MonoBehaviour
             // Start waiting for people to connect, setup and enable UI
             transmissionWaitUI.transform.SetPositionAndRotation(Camera.main.transform.position + Camera.main.transform.forward * 2, Quaternion.LookRotation(Camera.main.transform.forward, Vector3.up));
             transmissionWaitUI.SetActive(true);
+            transmissionStartLabButton.onClick.AddListener(handleStartLabButton);
             setTransmissionUI(TransmissionWaitStatus.Wait);
 
             // Sets up Transmission to listen for general lab messages from peers
@@ -87,7 +88,6 @@ public class LabManager : MonoBehaviour
             LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.DEBUG, $"Our Address: {NetworkUtilities.MyAddress}");
 
             // Check if we already have peers  NOT SURE IF WE NEED THIS ANYMORE
-            checkForPeers = true;
             StartCoroutine("CheckForPeers");
 
             // Set Shared origin
@@ -120,6 +120,7 @@ public class LabManager : MonoBehaviour
     {
         LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.TRACE, "TransmissionStartLab()");
         StopCoroutine("CheckForPeers");
+        transmissionStartLabButton.onClick.RemoveAllListeners();
         // Disconnect and close UI
         transmissionStartLabButton.onClick.RemoveAllListeners();
         Transmission.Instance.OnPeerFound.RemoveAllListeners();
@@ -148,18 +149,18 @@ public class LabManager : MonoBehaviour
         switch(status)
         {
             case TransmissionWaitStatus.Wait:
+                waitUIStatus = status;
                 peerCountText.text = "0";
-                transmissionStartLabButton.onClick.RemoveAllListeners();
                 transmissionStartLabButton.interactable = false;
                 transmissionStartLabButton.GetComponentInChildren<Text>().text = "Wait for Peers";
                 break;
             case TransmissionWaitStatus.Host:
-                transmissionStartLabButton.onClick.AddListener(handleStartLabButton);
+                waitUIStatus = status;
                 transmissionStartLabButton.interactable = true;
                 transmissionStartLabButton.GetComponentInChildren<Text>().text = "Start Lab";
                 break;
             case TransmissionWaitStatus.Peer:
-                transmissionStartLabButton.onClick.RemoveAllListeners();
+                waitUIStatus = status;
                 transmissionStartLabButton.interactable = false;
                 transmissionStartLabButton.GetComponentInChildren<Text>().text = "Wait for Host";
                 break;
@@ -286,7 +287,7 @@ public class LabManager : MonoBehaviour
 
     IEnumerator CheckForPeers()
     {
-        while(checkForPeers)
+        while(true)
         {
             int initNumPeers = Transmission.Instance.Peers.Length;
             if (initNumPeers > 0)
@@ -295,12 +296,14 @@ public class LabManager : MonoBehaviour
                 if (Transmission.Instance.OldestPeer != NetworkUtilities.MyAddress) // Not sure if this works
                 {
                     transmissionHost = false;
-                    setTransmissionUI(TransmissionWaitStatus.Peer);
+                    if (waitUIStatus != TransmissionWaitStatus.Peer)
+                        setTransmissionUI(TransmissionWaitStatus.Peer);
                 }
                 else // We are the oldest
                 {
                     transmissionHost = true;
-                    setTransmissionUI(TransmissionWaitStatus.Host);
+                    if (waitUIStatus != TransmissionWaitStatus.Host)
+                        setTransmissionUI(TransmissionWaitStatus.Host);
                 }
             }
             yield return new WaitForSeconds(2.0f);
