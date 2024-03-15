@@ -45,6 +45,9 @@ public class demoSequence : MonoBehaviour
     // Checks if we have a next clip before trying to build it
     public void newClip()
     {
+        // If we move to a new clip, stop audio from the previous clip
+        AudioHandler.Instance.StopAudio();
+
         LabLogger.Instance.InfoLog(
             this.GetType().ToString(),
             LabLogger.LogTag.STATE_START,

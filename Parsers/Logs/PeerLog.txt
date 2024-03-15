@@ -1,1143 +1,533 @@
-BRIDGE | TRACE | 11:26:50 | 3.79 | Creating Bridge Instance
-LOGINMANAGER | STATE_START | 11:26:50 | 3.79 | Introduction
-LOGINMANAGER | TRACE | 11:26:50 | 3.79 | ToggleControllerRendering()
-DOWNLOADUTILITY | TRACE | 11:26:50 | 3.79 | Found local file $/documents/C2/login/All_Labs.json, Not downloading
-LOGINMANAGER | TRACE | 11:26:50 | 3.79 | ParseLabs()
-LOGINMANAGER | DEBUG | 11:26:50 | 3.79 | Finished parsing labs:Moon Lab, 
-LOGINMANAGER | TRACE | 11:26:50 | 3.79 | SetupIntroAnimation()
-DOWNLOADUTILITY | TRACE | 11:26:50 | 3.79 | Starting download of file $/documents/C2/login/pin_ids.csv from url: https://cyberlearnar.cs.mtsu.edu/show_uploaded/pin_ids.csv
-DOWNLOADUTILITY | DEBUG | 11:26:50 | 3.79 | Inside download coroutine, URL: https://cyberlearnar.cs.mtsu.edu/show_uploaded/pin_ids.csv, path: /documents/C2/login/pin_ids.csv
-LOGGER | CONNECT | 11:26:50 | 0 | Connect called at 02/26/2024 11:26:50
-LOGGER | TRACE | 11:26:50 | 0 | Saving files to persistent data path: /documents/C2/Logs/02-26-2024_11-26.txt
-LOGGER | TRACE | 11:26:50 | 0 | Sync with transform log 3.793527
-DOWNLOADUTILITY | TRACE | 11:26:51 | 0.12 | Successfully downloaded /documents/C2/login/pin_ids.csv
-AUTHENTICATE | TRACE | 11:26:51 | 0.12 | ParseCSV()
-AUTHENTICATE | DEBUG | 11:27:00 | 0.12 | CSVs Parsed
-LOGINMANAGER | TRACE | 11:27:11 | 9.97 | ConfirmTarget1()
-LOGINMANAGER | STATE_START | 11:27:11 | 9.97 | Pin Entry
-LOGINMANAGER | TRACE | 11:27:11 | 9.97 | ToggleControllerRendering()
-LOGINMANAGER | TRACE | 11:27:13 | 11.97 | GuestLogin()
-LOGINMANAGER | STATE_START | 11:27:13 | 11.97 | Authentication
-LABLOGGER | INITIALIZE | 11:27:13 | 11.97 | Log file for student: Guest_Guest,  M00000000.
-LOGINMANAGER | DEBUG | 11:27:13 | 11.97 | Student authenticated: Guest Guest, M00000000
-LOGINMANAGER | STATE_START | 11:27:13 | 11.97 | Lab Selection
-LOGINMANAGER | TRACE | 11:27:13 | 11.97 | GenerateLabListUI()
-LOGINMANAGER | TRACE | 11:27:14 | 13.32 | LabSelected()
-LOGINMANAGER | DEBUG | 11:27:14 | 13.32 | Lab Selected: 1, Moon Lab
-LOGINMANAGER | STATE_START | 11:27:14 | 13.32 | Lab Initiation
-DOWNLOADUTILITY | TRACE | 11:27:14 | 13.32 | Starting to extract file: /documents/C2/lab_resources/FullTransmissionLab.zip
-DOWNLOADUTILITY | DEBUG | 11:27:14 | 13.32 | Number of entries to extract: 64
-DOWNLOADUTILITY | DEBUG | 11:27:14 | 13.32 | Extracting file: basketball.wav
-DOWNLOADUTILITY | DEBUG | 11:27:14 | 13.32 | Extracting file: bigearthmoon.wav
-DOWNLOADUTILITY | DEBUG | 11:27:15 | 13.32 | Extracting file: Grab.wav
-DOWNLOADUTILITY | DEBUG | 11:27:15 | 13.32 | Extracting file: introduction.wav
-DOWNLOADUTILITY | DEBUG | 11:27:15 | 13.32 | Extracting file: labintro.wav
-DOWNLOADUTILITY | DEBUG | 11:27:15 | 13.32 | Extracting file: mixkit-game-bonus-reached-2065.wav
-DOWNLOADUTILITY | DEBUG | 11:27:15 | 13.32 | Extracting file: moonlab_1_1_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:15 | 13.32 | Extracting file: moonlab_1_10_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:15 | 13.32 | Extracting file: moonlab_1_11_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:15 | 13.32 | Extracting file: moonlab_1_2_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:15 | 13.32 | Extracting file: moonlab_1_3_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:15 | 13.32 | Extracting file: moonlab_1_4_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:15 | 13.32 | Extracting file: moonlab_1_5_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:15 | 13.32 | Extracting file: moonlab_1_6_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:16 | 13.32 | Extracting file: moonlab_1_7_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:16 | 13.32 | Extracting file: moonlab_1_7_notused.wav
-DOWNLOADUTILITY | DEBUG | 11:27:16 | 13.32 | Extracting file: moonlab_1_8_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:16 | 13.32 | Extracting file: moonlab_1_9_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:16 | 13.32 | Extracting file: moonlab_2_0_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:16 | 13.32 | Extracting file: moonlab_2_1_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:16 | 13.32 | Extracting file: moonlab_2_10_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:16 | 13.32 | Extracting file: moonlab_2_11_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:16 | 13.32 | Extracting file: moonlab_2_2_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:16 | 13.32 | Extracting file: moonlab_2_20_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:16 | 13.32 | Extracting file: moonlab_2_3_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:16 | 13.32 | Extracting file: moonlab_2_4_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:16 | 13.32 | Extracting file: moonlab_2_5_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:17 | 13.32 | Extracting file: moonlab_2_6_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:17 | 13.32 | Extracting file: moonlab_2_7_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:17 | 13.32 | Extracting file: moonlab_2_8_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:17 | 13.32 | Extracting file: moonlab_2_9_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:17 | 13.32 | Extracting file: moonlab_3_0_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:17 | 13.32 | Extracting file: moonlab_3_1_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:17 | 13.32 | Extracting file: moonlab_4_0_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:17 | 13.32 | Extracting file: moonlab_5_0_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:17 | 13.32 | Extracting file: moonlab_6_0_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:17 | 13.32 | Extracting file: moonlab_7_0_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:17 | 13.32 | Extracting file: moonlab_7_1_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:17 | 13.32 | Extracting file: moonlab_7_2_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:17 | 13.32 | Extracting file: moonlab_7_3_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:17 | 13.32 | Extracting file: moonlab_7_4_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:17 | 13.32 | Extracting file: moonlab_7_5_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:18 | 13.32 | Extracting file: moonlab_7_6_0.wav
-DOWNLOADUTILITY | DEBUG | 11:27:18 | 13.32 | Extracting file: newfinalie.wav
-DOWNLOADUTILITY | DEBUG | 11:27:18 | 13.32 | Extracting file: not_in_order1.wav
-DOWNLOADUTILITY | DEBUG | 11:27:18 | 13.32 | Extracting file: not_in_order2.wav
-DOWNLOADUTILITY | DEBUG | 11:27:18 | 13.32 | Extracting file: not_in_order3.wav
-DOWNLOADUTILITY | DEBUG | 11:27:18 | 13.32 | Extracting file: Release.wav
-DOWNLOADUTILITY | DEBUG | 11:27:18 | 13.32 | Extracting file: seeing the moon.wav
-DOWNLOADUTILITY | DEBUG | 11:27:18 | 13.32 | Extracting file: sorting_instructions.wav
-DOWNLOADUTILITY | DEBUG | 11:27:18 | 13.32 | Extracting file: sort-nicejob.wav
-DOWNLOADUTILITY | DEBUG | 11:27:18 | 13.32 | Extracting file: startbasketball.mp3
-DOWNLOADUTILITY | DEBUG | 11:27:18 | 13.32 | Extracting file: startsim.wav
-DOWNLOADUTILITY | DEBUG | 11:27:18 | 13.32 | Extracting file: starttinyearthmoons.wav
-DOWNLOADUTILITY | DEBUG | 11:27:18 | 13.32 | Extracting file: Test55.mp3
-DOWNLOADUTILITY | DEBUG | 11:27:19 | 13.32 | Extracting file: tinyearthmoon.wav
-DOWNLOADUTILITY | DEBUG | 11:27:19 | 13.32 | Extracting file: Full_Lab_Transmission.json
-DOWNLOADUTILITY | DEBUG | 11:27:19 | 13.32 | Extracting file: 2k_earth_daymap.jpg
-DOWNLOADUTILITY | DEBUG | 11:27:19 | 13.32 | Extracting file: 2k_moon.jpg
-DOWNLOADUTILITY | DEBUG | 11:27:19 | 13.32 | Extracting file: 2k_sun.jpg
-DOWNLOADUTILITY | DEBUG | 11:27:19 | 13.32 | Extracting file: balldimpled.png
-LOGINMANAGER | DEBUG | 11:27:19 | 13.32 | Checking file Full_Lab_Transmission.json, in Directory /documents/C2/lab_resources/FullTransmissionLab
-MEDIACATALOGUE | DEBUG | 11:27:19 | 13.32 | Started Initializing Media Catlogue, 60 resources to load
-MEDIACATALOGUE | DEBUG | 11:27:19 | 13.32 | Started loading file: basketball.wav
-MEDIACATALOGUE | DEBUG | 11:27:19 | 13.66 | Started loading file: bigearthmoon.wav
-MEDIACATALOGUE | DEBUG | 11:27:20 | 13.68 | Started loading file: Grab.wav
-MEDIACATALOGUE | DEBUG | 11:27:20 | 13.71 | Started loading file: introduction.wav
-MEDIACATALOGUE | DEBUG | 11:27:20 | 13.74 | Started loading file: labintro.wav
-MEDIACATALOGUE | DEBUG | 11:27:20 | 13.76 | Started loading file: newfinalie.wav
-MEDIACATALOGUE | DEBUG | 11:27:20 | 13.79 | Started loading file: not_in_order1.wav
-MEDIACATALOGUE | DEBUG | 11:27:20 | 13.83 | Started loading file: not_in_order2.wav
-MEDIACATALOGUE | DEBUG | 11:27:20 | 13.85 | Started loading file: not_in_order3.wav
-MEDIACATALOGUE | DEBUG | 11:27:20 | 13.86 | Started loading file: Release.wav
-MEDIACATALOGUE | DEBUG | 11:27:20 | 13.88 | Started loading file: seeing the moon.wav
-MEDIACATALOGUE | DEBUG | 11:27:20 | 13.93 | Started loading file: sorting_instructions.wav
-MEDIACATALOGUE | DEBUG | 11:27:20 | 13.97 | Started loading file: sort-nicejob.wav
-MEDIACATALOGUE | DEBUG | 11:27:20 | 13.99 | Started loading file: startbasketball.mp3
-MEDIACATALOGUE | DEBUG | 11:27:20 | 14.01 | Started loading file: startsim.wav
-MEDIACATALOGUE | DEBUG | 11:27:20 | 14.1 | Started loading file: starttinyearthmoons.wav
-MEDIACATALOGUE | DEBUG | 11:27:20 | 14.13 | Started loading file: Test55.mp3
-MEDIACATALOGUE | DEBUG | 11:27:26 | 14.23 | Started loading file: tinyearthmoon.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 14.58 | Started loading file: mixkit-game-bonus-reached-2065.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 14.6 | Started loading file: moonlab_1_1_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 14.62 | Started loading file: moonlab_1_10_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 14.66 | Started loading file: moonlab_1_11_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 14.69 | Started loading file: moonlab_1_2_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 14.73 | Started loading file: moonlab_1_3_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 14.76 | Started loading file: moonlab_1_4_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 14.79 | Started loading file: moonlab_1_5_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 14.81 | Started loading file: moonlab_1_6_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 14.85 | Started loading file: moonlab_1_7_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 14.88 | Started loading file: moonlab_1_7_notused.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 14.9 | Started loading file: moonlab_1_8_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 14.93 | Started loading file: moonlab_1_9_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 14.99 | Started loading file: moonlab_2_0_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 15.03 | Started loading file: moonlab_2_1_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 15.07 | Started loading file: moonlab_2_10_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 15.08 | Started loading file: moonlab_2_11_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 15.1 | Started loading file: moonlab_2_2_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 15.13 | Started loading file: moonlab_2_20_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 15.16 | Started loading file: moonlab_2_3_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 15.18 | Started loading file: moonlab_2_4_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 15.19 | Started loading file: moonlab_2_5_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 15.23 | Started loading file: moonlab_2_6_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 15.26 | Started loading file: moonlab_2_7_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 15.28 | Started loading file: moonlab_2_8_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 15.29 | Started loading file: moonlab_2_9_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 15.31 | Started loading file: moonlab_3_0_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 15.34 | Started loading file: moonlab_3_1_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 15.38 | Started loading file: moonlab_4_0_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 15.42 | Started loading file: moonlab_5_0_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:26 | 15.46 | Started loading file: moonlab_6_0_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:27 | 15.49 | Started loading file: moonlab_7_0_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:27 | 15.51 | Started loading file: moonlab_7_1_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:27 | 15.53 | Started loading file: moonlab_7_2_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:27 | 15.55 | Started loading file: moonlab_7_3_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:27 | 15.56 | Started loading file: moonlab_7_4_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:27 | 15.58 | Started loading file: moonlab_7_5_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:27 | 15.6 | Started loading file: moonlab_7_6_0.wav
-MEDIACATALOGUE | DEBUG | 11:27:27 | 15.63 | Started loading file: 2k_earth_daymap.jpg
-MEDIACATALOGUE | DEBUG | 11:27:27 | 15.89 | Started loading file: 2k_moon.jpg
-MEDIACATALOGUE | DEBUG | 11:27:27 | 16.19 | Started loading file: 2k_sun.jpg
-MEDIACATALOGUE | DEBUG | 11:27:27 | 16.47 | Started loading file: balldimpled.png
-LOGINMANAGER | TRACE | 11:27:28 | 16.53 | InitializeLabManager()
-LABMANAGER | TRACE | 11:27:28 | 16.53 | Initialize()
-LABMANAGER | TRACE | 11:27:28 | 16.53 | setTransmissionUI(Wait)
-BRIDGE | TRACE | 11:27:28 | 16.53 | ConnectToTransmission()
-LABMANAGER | DEBUG | 11:27:28 | 16.53 | Our Address: 192.168.177.154
-LABMANAGER | TRACE | 11:27:41 | 30.38 | TransmissionStartLab()
-LABMANAGER | STATE_START | 11:27:41 | 30.38 | Module 0
-LIGHTINGCONTROL | TRACE | 11:27:41 | 30.38 | saveLights()
-LIGHTINGCONTROL | TRACE | 11:27:42 | 30.38 | sunlight()
-LABMANAGER | TRACE | 11:27:42 | 30.38 | TransmissionStartLab()
-LABMANAGER | STATE_START | 11:27:42 | 30.38 | Module 0
-LIGHTINGCONTROL | TRACE | 11:27:42 | 30.38 | saveLights()
-LIGHTINGCONTROL | TRACE | 11:27:42 | 30.38 | sunlight()
-BRIDGE | TRACE | 11:27:42 | 30.68 | handleStringMessage, message guid: 02bfe6ab-afee-4865-8336-a759e3459fa1
-BRIDGE | DEBUG | 11:27:42 | 30.68 | Found Object to modify over transmission, object guid: 3c1918c6-09a6-43de-ac6f-27a21cdb2471
-BRIDGE | TRACE | 11:27:42 | 30.68 | initializeObject() : Sun
-BRIDGE | DEBUG | 11:27:42 | 30.68 | Setting object Sun parent to [CURRENT_LAB]
-BRIDGE | TRACE | 11:27:42 | 30.68 | modifyObject() : Sun
-BRIDGE | DEBUG | 11:27:42 | 30.68 | Position: (-29.799, 0.001, -9.035), scale: (5.000, 5.000, 5.000), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:27:42 | 30.68 | Mesh bounding box: Center: (-29.799, 0.001, -9.035), Extents: (3.120, 2.500, 3.120)
-BRIDGE | TRACE | 11:27:42 | 31.2 | handleStringMessage, message guid: d4092ce4-cd26-4ea3-a442-998e8c6d63ec
-BRIDGE | DEBUG | 11:27:42 | 31.2 | Found Object to modify over transmission, object guid: 1a331f5b-5d39-4c45-bb91-50939aec289f
-BRIDGE | TRACE | 11:27:42 | 31.2 | initializeObject() : Earth
-BRIDGE | DEBUG | 11:27:42 | 31.2 | Setting object Earth parent to [CURRENT_LAB]
-BRIDGE | TRACE | 11:27:42 | 31.2 | modifyObject() : Earth
-BRIDGE | DEBUG | 11:27:42 | 31.2 | Position: (-0.583, 0.001, 1.435), scale: (0.080, 0.080, 0.080), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:27:42 | 31.2 | Mesh bounding box: Center: (-0.583, 0.001, 1.435), Extents: (0.050, 0.040, 0.050)
-BRIDGE | TRACE | 11:27:43 | 31.66 | handleStringMessage, message guid: 873e32ce-36a0-4a47-9d1a-62783099d561
-BRIDGE | DEBUG | 11:27:43 | 31.66 | Found Object to modify over transmission, object guid: 55c5bfe0-0115-4a7c-b0cf-7bf809b1b8a3
-BRIDGE | TRACE | 11:27:43 | 31.66 | initializeObject() : Moon
-BRIDGE | DEBUG | 11:27:43 | 31.66 | Setting object Moon parent to [CURRENT_LAB]
-BRIDGE | TRACE | 11:27:43 | 31.66 | modifyObject() : Moon
-BRIDGE | DEBUG | 11:27:43 | 31.66 | Position: (1.714, 0.001, 2.134), scale: (0.020, 0.020, 0.020), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:27:43 | 31.66 | Mesh bounding box: Center: (1.714, 0.001, 2.134), Extents: (0.012, 0.010, 0.012)
-BRIDGE | TRACE | 11:27:43 | 32.38 | handleStringMessage, message guid: 80817676-e30d-4950-8e33-eba435476212
-BRIDGE | DEBUG | 11:27:43 | 32.38 | Found Object to modify over transmission, object guid: c871d411-5b28-4f6f-8f49-3f75cd7f2143
-BRIDGE | TRACE | 11:27:44 | 32.38 | initializeObject() : earthLabel
-BRIDGE | DEBUG | 11:27:44 | 32.38 | Setting object earthLabel parent to Earth
-BRIDGE | TRACE | 11:27:44 | 32.38 | modifyObject() : earthLabel
-BRIDGE | DEBUG | 11:27:44 | 32.38 | Position: (-0.145, 2.001, 0.000), scale: (10.000, 10.000, 10.000), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:27:44 | 32.38 | Modifying Text: Earth
-BRIDGE | DEBUG | 11:27:44 | 32.38 | Mesh bounding box: Center: (-0.134, 2.009, 0.004), Extents: (1.093, 0.381, 0.333)
-BRIDGE | TRACE | 11:27:44 | 32.62 | handleStringMessage, message guid: 4b845d4e-36e9-4aa4-811c-1b84b6c4fcef
-BRIDGE | DEBUG | 11:27:44 | 32.62 | Found Object to modify over transmission, object guid: 01604e23-290e-4581-80e1-75827988b212
-BRIDGE | TRACE | 11:27:44 | 32.62 | initializeObject() : earthSizeLabel
-BRIDGE | DEBUG | 11:27:44 | 32.62 | Setting object earthSizeLabel parent to Earth
-BRIDGE | TRACE | 11:27:44 | 32.62 | modifyObject() : earthSizeLabel
-BRIDGE | DEBUG | 11:27:44 | 32.62 | Position: (-0.003, -0.034, 0.000), scale: (0.100, 0.100, 0.100), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:27:44 | 32.62 | Modifying Text: 8000 miles
-BRIDGE | DEBUG | 11:27:44 | 32.62 | Mesh bounding box: Center: (-0.002, -0.034, 0.000), Extents: (0.023, 0.004, 0.007)
-BRIDGE | TRACE | 11:27:44 | 33.21 | handleStringMessage, message guid: 0bcdd2b8-8532-4fff-b814-b91dcf327186
-BRIDGE | DEBUG | 11:27:44 | 33.21 | Found Object to modify over transmission, object guid: 560015b8-f868-4912-b131-74c0675b027a
-BRIDGE | TRACE | 11:27:44 | 33.21 | initializeObject() : moonLabel
-BRIDGE | DEBUG | 11:27:44 | 33.21 | Setting object moonLabel parent to Moon
-BRIDGE | TRACE | 11:27:44 | 33.21 | modifyObject() : moonLabel
-BRIDGE | DEBUG | 11:27:44 | 33.21 | Position: (-0.145, 4.001, 0.000), scale: (20.000, 20.000, 20.000), EulerAngles: (0.000, 253.080, 0.000)
-BRIDGE | DEBUG | 11:27:44 | 33.21 | Modifying Text: The Moon
-BRIDGE | DEBUG | 11:27:44 | 33.21 | Mesh bounding box: Center: (-0.132, 4.017, -0.043), Extents: (1.298, 0.762, 4.266)
-BRIDGE | TRACE | 11:27:45 | 33.8 | handleStringMessage, message guid: 8de7fe7d-d2ee-475b-9fce-3ffdce971dec
-BRIDGE | DEBUG | 11:27:45 | 33.8 | Found Object to modify over transmission, object guid: 18df0cd3-bb89-4f6e-884d-39c78811cef9
-BRIDGE | TRACE | 11:27:45 | 33.8 | initializeObject() : moonSizeLabel
-BRIDGE | DEBUG | 11:27:45 | 33.8 | Setting object moonSizeLabel parent to Moon
-BRIDGE | TRACE | 11:27:45 | 33.8 | modifyObject() : moonSizeLabel
-BRIDGE | DEBUG | 11:27:45 | 33.8 | Position: (-0.145, -3.999, 0.000), scale: (0.100, 0.100, 0.100), EulerAngles: (0.000, 253.080, 0.000)
-BRIDGE | DEBUG | 11:27:45 | 33.8 | Modifying Text: 2000 miles
-BRIDGE | DEBUG | 11:27:45 | 33.8 | Mesh bounding box: Center: (-0.145, -3.999, 0.000), Extents: (0.007, 0.004, 0.023)
-BRIDGE | TRACE | 11:27:45 | 33.8 | handleStringMessage, message guid: 7d4d076c-c05e-40ba-af48-887deae4b47a
-BRIDGE | DEBUG | 11:27:45 | 33.8 | Found Object to modify over transmission, object guid: 63975af7-247a-4bcf-b529-2d8d38d54dca
-BRIDGE | TRACE | 11:27:45 | 33.8 | initializeObject() : moonDistanceLabel
-BRIDGE | DEBUG | 11:27:45 | 33.8 | Setting object moonDistanceLabel parent to Moon
-BRIDGE | TRACE | 11:27:45 | 33.8 | modifyObject() : moonDistanceLabel
-BRIDGE | DEBUG | 11:27:45 | 33.8 | Position: (42.904, 0.001, 13.104), scale: (0.100, 0.100, 0.100), EulerAngles: (0.000, 163.054, 0.000)
-BRIDGE | DEBUG | 11:27:45 | 33.8 | Modifying Text: 240,000 miles
-BRIDGE | DEBUG | 11:27:45 | 33.8 | Mesh bounding box: Center: (42.904, 0.000, 13.103), Extents: (0.074, 0.011, 0.023)
-BRIDGE | TRACE | 11:27:45 | 34.44 | handleStringMessage, message guid: 324597e7-4059-4d70-b948-5f52a618e953
-BRIDGE | DEBUG | 11:27:46 | 34.44 | Found Object to modify over transmission, object guid: 7275578f-377a-4a9e-9ef5-6d5a69d08784
-BRIDGE | TRACE | 11:27:46 | 34.44 | initializeObject() : taskLabel
-BRIDGE | DEBUG | 11:27:46 | 34.44 | Setting object taskLabel parent to [CURRENT_LAB]
-BRIDGE | TRACE | 11:27:46 | 34.44 | modifyObject() : taskLabel
-BRIDGE | DEBUG | 11:27:46 | 34.44 | Position: (-0.873, 0.601, 2.392), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:27:46 | 34.44 | Modifying Text: Introduction
-BRIDGE | DEBUG | 11:27:46 | 34.44 | Mesh bounding box: Center: (-0.873, 0.601, 2.392), Extents: (0.147, 0.023, 0.045)
-BRIDGE | TRACE | 11:27:46 | 34.84 | handleStringMessage, message guid: 39885b73-bb66-4057-ad16-478ae0bd280b
-BRIDGE | DEBUG | 11:27:46 | 34.84 | Found Object to modify over transmission, object guid: 329e1132-d30e-4b9f-850c-8f5515c62a07
-BRIDGE | TRACE | 11:27:46 | 34.84 | initializeObject() : sectionLabel
-BRIDGE | DEBUG | 11:27:46 | 34.84 | Setting object sectionLabel parent to [CURRENT_LAB]
-BRIDGE | TRACE | 11:27:46 | 34.84 | modifyObject() : sectionLabel
-BRIDGE | DEBUG | 11:27:46 | 34.84 | Position: (-0.687, 0.591, 1.881), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:27:46 | 34.84 | Modifying Text: Sizes and Scales of the Earth and Moon
-BRIDGE | DEBUG | 11:27:46 | 34.84 | Mesh bounding box: Center: (-0.688, 0.591, 1.881), Extents: (0.511, 0.023, 0.156)
-BRIDGE | TRACE | 11:27:47 | 35.46 | handleStringMessage, message guid: 16ae2b1e-0ff5-4d8a-9c0a-82cc0703ec01
-BRIDGE | DEBUG | 11:27:47 | 35.46 | Found Object to modify over transmission, object guid: cbb92ceb-ddfa-4b88-af99-bd24ab9ca3cd
-BRIDGE | TRACE | 11:27:47 | 35.46 | initializeObject() : brbNextModule
-BRIDGE | DEBUG | 11:27:47 | 35.46 | Setting object brbNextModule parent to sectionLabel
-BRIDGE | TRACE | 11:27:47 | 35.46 | modifyObject() : brbNextModule
-BRIDGE | DEBUG | 11:27:47 | 35.46 | Position: (1.003, 0.001, 0.349), scale: (1.000, 1.000, 1.000), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:27:47 | 35.46 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:27:47 | 35.74 | handleStringMessage, message guid: b0849bd9-0063-4d02-8a13-f69aaad944c9
-BRIDGE | DEBUG | 11:27:47 | 35.74 | Found Object to modify over transmission, object guid: 7206be2d-5fe3-4ad8-9bd2-60c0cb99e3ed
-BRIDGE | TRACE | 11:27:47 | 35.74 | initializeObject() : brbNextModuleLabel
-BRIDGE | DEBUG | 11:27:47 | 35.74 | Setting object brbNextModuleLabel parent to brbNextModule
-BRIDGE | TRACE | 11:27:47 | 35.74 | modifyObject() : brbNextModuleLabel
-BRIDGE | DEBUG | 11:27:47 | 35.74 | Position: (-0.091, 0.000, 0.062), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:27:47 | 35.74 | Modifying Text: Next  Module
-BRIDGE | DEBUG | 11:27:47 | 35.74 | Mesh bounding box: Center: (-0.101, 0.000, 0.059), Extents: (0.108, 0.000, 0.082)
-BRIDGE | TRACE | 11:27:48 | 36.69 | handleStringMessage, message guid: e785cba3-8e86-4a00-92ec-33a11fc0eb3e
-BRIDGE | DEBUG | 11:27:48 | 36.69 | Found Object to modify over transmission, object guid: a8e83892-c76e-4da2-81ed-d53eff2f2ad7
-BRIDGE | TRACE | 11:27:48 | 36.69 | initializeObject() : brbPreviousModule
-BRIDGE | DEBUG | 11:27:48 | 36.69 | Setting object brbPreviousModule parent to sectionLabel
-BRIDGE | TRACE | 11:27:48 | 36.69 | modifyObject() : brbPreviousModule
-BRIDGE | DEBUG | 11:27:48 | 36.69 | Position: (-1.294, 0.001, -0.350), scale: (1.000, 1.000, 1.000), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:27:48 | 36.69 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:27:48 | 36.69 | handleStringMessage, message guid: 2e93c27a-f71c-4f12-be11-d708e86c1666
-BRIDGE | DEBUG | 11:27:48 | 36.69 | Found Object to modify over transmission, object guid: 84656fa6-8b03-4823-a5f6-ba8cad978e99
-BRIDGE | TRACE | 11:27:48 | 36.69 | initializeObject() : brbPreviousModuleLabel
-BRIDGE | DEBUG | 11:27:48 | 36.69 | Setting object brbPreviousModuleLabel parent to brbPreviousModule
-BRIDGE | TRACE | 11:27:48 | 36.69 | modifyObject() : brbPreviousModuleLabel
-BRIDGE | DEBUG | 11:27:48 | 36.69 | Position: (-0.184, 0.001, 0.124), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:27:48 | 36.69 | Modifying Text: Previous   Module
-BRIDGE | DEBUG | 11:27:48 | 36.69 | Mesh bounding box: Center: (-0.185, 0.001, 0.123), Extents: (0.126, 0.000, 0.088)
-BRIDGE | TRACE | 11:27:48 | 37.19 | handleStringMessage, message guid: 15f9b65b-f5fb-4680-bebe-b97c315ca226
-BRIDGE | DEBUG | 11:27:48 | 37.19 | Found Object to modify over transmission, object guid: 04f3cfdb-17e1-4863-9f1d-efaceb1c48c3
-BRIDGE | TRACE | 11:27:48 | 37.19 | initializeObject() : brbNextClip
-BRIDGE | DEBUG | 11:27:48 | 37.19 | Setting object brbNextClip parent to taskLabel
-BRIDGE | TRACE | 11:27:48 | 37.19 | modifyObject() : brbNextClip
-BRIDGE | DEBUG | 11:27:48 | 37.19 | Position: (0.616, 0.001, 0.221), scale: (1.000, 1.000, 1.000), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:27:48 | 37.19 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:27:49 | 37.93 | handleStringMessage, message guid: 8d936d30-d3b4-4b70-b3d6-a534dfed7768
-BRIDGE | DEBUG | 11:27:49 | 37.93 | Found Object to modify over transmission, object guid: 46e33dd6-907a-4d0f-8f3c-d18ec52fd423
-BRIDGE | TRACE | 11:27:49 | 37.93 | initializeObject() : brbNextClipLabel
-BRIDGE | DEBUG | 11:27:49 | 37.93 | Setting object brbNextClipLabel parent to brbNextClip
-BRIDGE | TRACE | 11:27:49 | 37.93 | modifyObject() : brbNextClipLabel
-BRIDGE | DEBUG | 11:27:49 | 37.93 | Position: (-0.175, 0.001, 0.095), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:27:49 | 37.93 | Modifying Text: Next
-BRIDGE | DEBUG | 11:27:49 | 37.93 | Mesh bounding box: Center: (-0.177, 0.001, 0.095), Extents: (0.064, 0.000, 0.038)
-BRIDGE | TRACE | 11:27:49 | 38.14 | handleStringMessage, message guid: df6fc065-c292-4a57-ad23-8cea6efd3b46
-BRIDGE | DEBUG | 11:27:49 | 38.14 | Found Object to modify over transmission, object guid: 9e1b6044-90b7-4b83-9b1a-e94b99448f10
-BRIDGE | TRACE | 11:27:49 | 38.14 | initializeObject() : brbPreviousClip
-BRIDGE | DEBUG | 11:27:49 | 38.14 | Setting object brbPreviousClip parent to taskLabel
-BRIDGE | TRACE | 11:27:49 | 38.14 | modifyObject() : brbPreviousClip
-BRIDGE | DEBUG | 11:27:49 | 38.14 | Position: (-0.870, 0.001, -0.230), scale: (1.000, 1.000, 1.000), EulerAngles: (89.972, 163.080, 0.000)
-BRIDGE | DEBUG | 11:27:49 | 38.14 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:27:50 | 39.1 | handleStringMessage, message guid: 6b1cf32d-574e-4a30-9123-2dcd70d77b7d
-BRIDGE | DEBUG | 11:27:50 | 39.1 | Found Object to modify over transmission, object guid: c6a12cf6-41db-42fd-9b95-03f57713cf6e
-BRIDGE | TRACE | 11:27:50 | 39.1 | initializeObject() : brbPreviousClipLabel
-BRIDGE | DEBUG | 11:27:50 | 39.1 | Setting object brbPreviousClipLabel parent to brbPreviousClip
-BRIDGE | TRACE | 11:27:50 | 39.1 | modifyObject() : brbPreviousClipLabel
-BRIDGE | DEBUG | 11:27:50 | 39.1 | Position: (-0.175, 0.001, 0.095), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:27:50 | 39.1 | Modifying Text: Previous
-BRIDGE | DEBUG | 11:27:50 | 39.1 | Mesh bounding box: Center: (-0.176, 0.001, 0.094), Extents: (0.116, 0.000, 0.055)
-BRIDGE | TRACE | 11:27:50 | 39.1 | handleStringMessage, message guid: 629810e8-580a-49d1-a4e1-2afb6977964a
-BRIDGE | DEBUG | 11:27:50 | 39.1 | Found Object to modify over transmission, object guid: 7275578f-377a-4a9e-9ef5-6d5a69d08784
-BRIDGE | TRACE | 11:27:50 | 39.1 | modifyObject() : taskLabel
-BRIDGE | DEBUG | 11:27:50 | 39.1 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:27:50 | 39.1 | Modifying Text: 1 inch= 1000 miles
-BRIDGE | DEBUG | 11:27:50 | 39.1 | Mesh bounding box: Center: (0.001, 0.000, 0.000), Extents: (0.239, 0.023, 0.073)
-BRIDGE | TRACE | 11:27:50 | 39.42 | handleStringMessage, message guid: 433f12e2-f32d-4d89-9bbb-ee9a87ff7eb9
-BRIDGE | DEBUG | 11:27:50 | 39.42 | Found Object to modify over transmission, object guid: 9e1b6044-90b7-4b83-9b1a-e94b99448f10
-BRIDGE | TRACE | 11:27:51 | 39.42 | modifyObject() : brbPreviousClip
-BRIDGE | DEBUG | 11:27:51 | 39.42 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (89.972, 163.080, 0.000)
-BRIDGE | TRACE | 11:27:51 | 39.77 | handleStringMessage, message guid: de81bdc2-f86a-41f6-92b4-40507d920ce0
-BRIDGE | DEBUG | 11:27:51 | 39.77 | Found Object to modify over transmission, object guid: 04f3cfdb-17e1-4863-9f1d-efaceb1c48c3
-BRIDGE | TRACE | 11:27:51 | 39.77 | modifyObject() : brbNextClip
-BRIDGE | DEBUG | 11:27:51 | 39.77 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | TRACE | 11:27:51 | 40.11 | handleStringMessage, message guid: 3e9b9cc1-e958-436f-b1b3-7c2755b4167a
-BRIDGE | DEBUG | 11:27:51 | 40.11 | Found Object to modify over transmission, object guid: cbb92ceb-ddfa-4b88-af99-bd24ab9ca3cd
-BRIDGE | TRACE | 11:27:51 | 40.11 | modifyObject() : brbNextModule
-BRIDGE | DEBUG | 11:27:51 | 40.11 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-AUDIOHANDLER | TRACE | 11:27:51 | 40.29 | Attempting to play local Audio: moonlab_1_1_0
-AUDIOHANDLER | TRACE | 11:27:51 | 40.29 | Attempting to play local Audio: moonlab_1_1_0
-LABMANAGER | TRACE | 11:27:51 | 40.34 | TransmissionStartLab()
-LABMANAGER | STATE_START | 11:27:51 | 40.34 | Module 0
-LIGHTINGCONTROL | TRACE | 11:27:51 | 40.34 | saveLights()
-LIGHTINGCONTROL | TRACE | 11:27:51 | 40.34 | sunlight()
-LABMANAGER | TRACE | 11:27:52 | 40.34 | TransmissionStartLab()
-LABMANAGER | STATE_START | 11:27:52 | 40.34 | Module 0
-LIGHTINGCONTROL | TRACE | 11:27:52 | 40.34 | saveLights()
-LIGHTINGCONTROL | TRACE | 11:27:52 | 40.34 | sunlight()
-BRIDGE | TRACE | 11:27:52 | 40.8 | handleStringMessage, message guid: 2f88f8c1-51f7-411a-8ab0-a42b72223011
-BRIDGE | DEBUG | 11:27:52 | 40.8 | Found Object to modify over transmission, object guid: 3c1918c6-09a6-43de-ac6f-27a21cdb2471
-BRIDGE | TRACE | 11:27:52 | 40.8 | modifyObject() : Sun
-BRIDGE | DEBUG | 11:27:52 | 40.8 | Position: (0.000, 0.000, 0.000), scale: (5.000, 5.000, 5.000), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:27:52 | 40.8 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (3.120, 2.500, 3.120)
-BRIDGE | TRACE | 11:27:52 | 40.99 | handleStringMessage, message guid: 4d0e8776-7c6e-4842-8d36-663bf8470dd3
-BRIDGE | DEBUG | 11:27:52 | 40.99 | Found Object to modify over transmission, object guid: 1a331f5b-5d39-4c45-bb91-50939aec289f
-BRIDGE | TRACE | 11:27:52 | 40.99 | modifyObject() : Earth
-BRIDGE | DEBUG | 11:27:52 | 40.99 | Position: (0.000, 0.000, 0.000), scale: (0.080, 0.080, 0.080), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:27:52 | 40.99 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.050, 0.040, 0.050)
-BRIDGE | TRACE | 11:27:52 | 41.4 | handleStringMessage, message guid: a3e37c3b-a4da-4353-aef8-1497580a0330
-BRIDGE | DEBUG | 11:27:52 | 41.4 | Found Object to modify over transmission, object guid: 55c5bfe0-0115-4a7c-b0cf-7bf809b1b8a3
-BRIDGE | TRACE | 11:27:52 | 41.4 | modifyObject() : Moon
-BRIDGE | DEBUG | 11:27:53 | 41.4 | Position: (0.000, 0.000, 0.000), scale: (0.020, 0.020, 0.020), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:27:53 | 41.4 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.012, 0.010, 0.012)
-BRIDGE | TRACE | 11:27:53 | 41.93 | handleStringMessage, message guid: 4cd0ef8a-e4a1-46e3-b49d-b8a081e0c97c
-BRIDGE | DEBUG | 11:27:53 | 41.93 | Found Object to modify over transmission, object guid: c871d411-5b28-4f6f-8f49-3f75cd7f2143
-BRIDGE | TRACE | 11:27:53 | 41.93 | modifyObject() : earthLabel
-BRIDGE | DEBUG | 11:27:53 | 41.93 | Position: (0.000, 0.000, 0.000), scale: (0.800, 0.800, 0.800), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:27:53 | 41.93 | Modifying Text: Earth
-BRIDGE | DEBUG | 11:27:53 | 41.93 | Mesh bounding box: Center: (0.001, 0.001, 0.000), Extents: (0.087, 0.030, 0.027)
-BRIDGE | TRACE | 11:27:53 | 41.93 | handleStringMessage, message guid: f4eaa3d0-c2ac-42c1-90ed-ac9384bd078b
-BRIDGE | DEBUG | 11:27:53 | 41.93 | Found Object to modify over transmission, object guid: 01604e23-290e-4581-80e1-75827988b212
-BRIDGE | TRACE | 11:27:53 | 41.93 | modifyObject() : earthSizeLabel
-BRIDGE | DEBUG | 11:27:53 | 41.93 | Position: (0.000, 0.000, 0.000), scale: (0.008, 0.008, 0.008), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:27:53 | 41.93 | Modifying Text: 8000 miles
-BRIDGE | DEBUG | 11:27:53 | 41.93 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.002, 0.000, 0.001)
-BRIDGE | TRACE | 11:27:53 | 42.31 | handleStringMessage, message guid: 93339d8b-3f6c-4119-a50b-4fd3ce45af17
-BRIDGE | DEBUG | 11:27:53 | 42.31 | Found Object to modify over transmission, object guid: 560015b8-f868-4912-b131-74c0675b027a
-BRIDGE | TRACE | 11:27:53 | 42.31 | modifyObject() : moonLabel
-BRIDGE | DEBUG | 11:27:53 | 42.31 | Position: (0.000, 0.000, 0.000), scale: (0.400, 0.400, 0.400), EulerAngles: (0.000, 253.079, 0.000)
-BRIDGE | DEBUG | 11:27:53 | 42.31 | Modifying Text: The Moon
-BRIDGE | DEBUG | 11:27:53 | 42.31 | Mesh bounding box: Center: (0.000, 0.000, -0.001), Extents: (0.026, 0.015, 0.085)
-BRIDGE | TRACE | 11:27:54 | 42.83 | handleStringMessage, message guid: 663cde43-82c6-4e36-9efd-53420d0cee21
-BRIDGE | DEBUG | 11:27:54 | 42.83 | Found Object to modify over transmission, object guid: 18df0cd3-bb89-4f6e-884d-39c78811cef9
-BRIDGE | TRACE | 11:27:54 | 42.83 | modifyObject() : moonSizeLabel
-BRIDGE | DEBUG | 11:27:54 | 42.83 | Position: (0.000, 0.000, 0.000), scale: (0.002, 0.002, 0.002), EulerAngles: (0.000, 253.079, 0.000)
-BRIDGE | DEBUG | 11:27:54 | 42.83 | Modifying Text: 2000 miles
-BRIDGE | DEBUG | 11:27:54 | 42.83 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.000, 0.000, 0.000)
-BRIDGE | TRACE | 11:27:54 | 42.83 | handleStringMessage, message guid: b7c04031-060c-4ebe-85d9-ac7347c59c89
-BRIDGE | DEBUG | 11:27:54 | 42.83 | Found Object to modify over transmission, object guid: 63975af7-247a-4bcf-b529-2d8d38d54dca
-BRIDGE | TRACE | 11:27:54 | 42.83 | modifyObject() : moonDistanceLabel
-BRIDGE | DEBUG | 11:27:54 | 42.83 | Position: (0.000, 0.000, 0.000), scale: (0.002, 0.002, 0.002), EulerAngles: (0.000, 163.054, 0.000)
-BRIDGE | DEBUG | 11:27:54 | 42.83 | Modifying Text: 240,000 miles
-BRIDGE | DEBUG | 11:27:54 | 42.83 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.001, 0.000, 0.000)
-BRIDGE | TRACE | 11:27:54 | 43.21 | handleStringMessage, message guid: 50a4b5e4-78d7-4799-a28c-44864f713d5a
-BRIDGE | DEBUG | 11:27:54 | 43.21 | Found Object to modify over transmission, object guid: 7275578f-377a-4a9e-9ef5-6d5a69d08784
-BRIDGE | TRACE | 11:27:54 | 43.21 | modifyObject() : taskLabel
-BRIDGE | DEBUG | 11:27:54 | 43.21 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:27:54 | 43.21 | Modifying Text: Introduction
-BRIDGE | DEBUG | 11:27:54 | 43.21 | Mesh bounding box: Center: (0.001, 0.000, 0.000), Extents: (0.147, 0.023, 0.045)
-BRIDGE | TRACE | 11:27:55 | 43.55 | handleStringMessage, message guid: bd90dbd3-f7cf-416f-b651-7af30e43920a
-BRIDGE | DEBUG | 11:27:55 | 43.55 | Found Object to modify over transmission, object guid: 329e1132-d30e-4b9f-850c-8f5515c62a07
-BRIDGE | TRACE | 11:27:55 | 43.55 | modifyObject() : sectionLabel
-BRIDGE | DEBUG | 11:27:55 | 43.55 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:27:55 | 43.55 | Modifying Text: Sizes and Scales of the Earth and Moon
-BRIDGE | DEBUG | 11:27:55 | 43.55 | Mesh bounding box: Center: (-0.001, 0.000, 0.000), Extents: (0.511, 0.023, 0.156)
-BRIDGE | TRACE | 11:27:55 | 44.17 | handleStringMessage, message guid: 5899a634-71ed-444d-aebd-d668fbe8fb30
-BRIDGE | DEBUG | 11:27:55 | 44.17 | Found Object to modify over transmission, object guid: cbb92ceb-ddfa-4b88-af99-bd24ab9ca3cd
-BRIDGE | TRACE | 11:27:55 | 44.17 | modifyObject() : brbNextModule
-BRIDGE | DEBUG | 11:27:55 | 44.17 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:27:55 | 44.17 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:27:55 | 44.17 | handleStringMessage, message guid: 9317d9f3-479a-49ec-91db-3022c063b02c
-BRIDGE | DEBUG | 11:27:55 | 44.17 | Found Object to modify over transmission, object guid: 7206be2d-5fe3-4ad8-9bd2-60c0cb99e3ed
-BRIDGE | TRACE | 11:27:55 | 44.17 | modifyObject() : brbNextModuleLabel
-BRIDGE | DEBUG | 11:27:55 | 44.17 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:27:55 | 44.17 | Modifying Text: Next  Module
-BRIDGE | DEBUG | 11:27:55 | 44.17 | Mesh bounding box: Center: (-0.006, 0.000, -0.001), Extents: (0.065, 0.000, 0.049)
-BRIDGE | TRACE | 11:27:55 | 44.43 | handleStringMessage, message guid: 4b760e34-8ace-4585-bfab-d8211f35f59f
-BRIDGE | DEBUG | 11:27:55 | 44.43 | Found Object to modify over transmission, object guid: a8e83892-c76e-4da2-81ed-d53eff2f2ad7
-BRIDGE | TRACE | 11:27:56 | 44.43 | modifyObject() : brbPreviousModule
-BRIDGE | DEBUG | 11:27:56 | 44.43 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:27:56 | 44.43 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:27:56 | 44.8 | handleStringMessage, message guid: 88f0fec7-9da6-4d79-ba5b-e102530d4676
-BRIDGE | DEBUG | 11:27:56 | 44.8 | Found Object to modify over transmission, object guid: 84656fa6-8b03-4823-a5f6-ba8cad978e99
-BRIDGE | TRACE | 11:27:56 | 44.8 | modifyObject() : brbPreviousModuleLabel
-BRIDGE | DEBUG | 11:27:56 | 44.8 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:27:56 | 44.8 | Modifying Text: Previous   Module
-BRIDGE | DEBUG | 11:27:56 | 44.8 | Mesh bounding box: Center: (-0.001, 0.000, -0.001), Extents: (0.076, 0.000, 0.053)
-BRIDGE | TRACE | 11:27:56 | 45 | handleStringMessage, message guid: 97921786-3d7c-4e07-b104-132ed6884d41
-BRIDGE | DEBUG | 11:27:56 | 45 | Found Object to modify over transmission, object guid: 04f3cfdb-17e1-4863-9f1d-efaceb1c48c3
-BRIDGE | TRACE | 11:27:56 | 45 | modifyObject() : brbNextClip
-BRIDGE | DEBUG | 11:27:56 | 45 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:27:56 | 45 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:27:56 | 45.29 | handleStringMessage, message guid: 15b0e591-110d-46d3-aa7a-d08da7c82f91
-BRIDGE | DEBUG | 11:27:56 | 45.29 | Found Object to modify over transmission, object guid: 46e33dd6-907a-4d0f-8f3c-d18ec52fd423
-BRIDGE | TRACE | 11:27:56 | 45.29 | modifyObject() : brbNextClipLabel
-BRIDGE | DEBUG | 11:27:56 | 45.29 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:27:56 | 45.29 | Modifying Text: Next
-BRIDGE | DEBUG | 11:27:56 | 45.29 | Mesh bounding box: Center: (-0.002, 0.000, 0.000), Extents: (0.038, 0.000, 0.023)
-BRIDGE | TRACE | 11:27:57 | 45.81 | handleStringMessage, message guid: 6b5431d4-ebcb-4379-ac64-627160711487
-BRIDGE | DEBUG | 11:27:57 | 45.81 | Found Object to modify over transmission, object guid: 9e1b6044-90b7-4b83-9b1a-e94b99448f10
-BRIDGE | TRACE | 11:27:57 | 45.81 | modifyObject() : brbPreviousClip
-BRIDGE | DEBUG | 11:27:57 | 45.81 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:27:57 | 45.81 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:27:57 | 45.81 | handleStringMessage, message guid: 4b209e8f-a19f-4b61-9979-852350e6dea2
-BRIDGE | DEBUG | 11:27:57 | 45.81 | Found Object to modify over transmission, object guid: c6a12cf6-41db-42fd-9b95-03f57713cf6e
-BRIDGE | TRACE | 11:27:57 | 45.81 | modifyObject() : brbPreviousClipLabel
-BRIDGE | DEBUG | 11:27:57 | 45.81 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:27:57 | 45.81 | Modifying Text: Previous
-BRIDGE | DEBUG | 11:27:57 | 45.81 | Mesh bounding box: Center: (-0.001, 0.000, -0.001), Extents: (0.070, 0.000, 0.033)
-BRIDGE | TRACE | 11:27:57 | 46.24 | handleStringMessage, message guid: f5b3ecad-2acb-491a-ace3-951453106ee5
-BRIDGE | DEBUG | 11:27:57 | 46.24 | Found Object to modify over transmission, object guid: 7275578f-377a-4a9e-9ef5-6d5a69d08784
-BRIDGE | TRACE | 11:27:57 | 46.24 | modifyObject() : taskLabel
-BRIDGE | DEBUG | 11:27:57 | 46.24 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:27:57 | 46.24 | Modifying Text: 1 inch= 1000 miles
-BRIDGE | DEBUG | 11:27:57 | 46.24 | Mesh bounding box: Center: (0.001, 0.000, 0.000), Extents: (0.239, 0.023, 0.073)
-BRIDGE | TRACE | 11:27:58 | 47.04 | handleStringMessage, message guid: 41097730-7c15-4a6a-a0f5-ee53d6274eda
-BRIDGE | DEBUG | 11:27:58 | 47.04 | Found Object to modify over transmission, object guid: 9e1b6044-90b7-4b83-9b1a-e94b99448f10
-BRIDGE | TRACE | 11:27:58 | 47.04 | modifyObject() : brbPreviousClip
-BRIDGE | DEBUG | 11:27:58 | 47.04 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (89.972, 163.080, 0.000)
-BRIDGE | TRACE | 11:27:58 | 47.04 | handleStringMessage, message guid: 87466ec6-f10b-4672-94c7-5eba6b0cbfba
-BRIDGE | DEBUG | 11:27:58 | 47.04 | Found Object to modify over transmission, object guid: 04f3cfdb-17e1-4863-9f1d-efaceb1c48c3
-BRIDGE | TRACE | 11:27:58 | 47.04 | modifyObject() : brbNextClip
-BRIDGE | DEBUG | 11:27:58 | 47.04 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (89.972, 163.080, 0.000)
-BRIDGE | TRACE | 11:27:58 | 47.21 | handleStringMessage, message guid: 82ff133c-5fa6-4b9d-bceb-453ff30e8d09
-BRIDGE | DEBUG | 11:27:58 | 47.21 | Found Object to modify over transmission, object guid: cbb92ceb-ddfa-4b88-af99-bd24ab9ca3cd
-BRIDGE | TRACE | 11:27:58 | 47.21 | modifyObject() : brbNextModule
-BRIDGE | DEBUG | 11:27:58 | 47.21 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-AUDIOHANDLER | TRACE | 11:27:58 | 47.41 | Attempting to play local Audio: moonlab_1_1_0
-AUDIOHANDLER | TRACE | 11:27:58 | 47.41 | Attempting to play local Audio: moonlab_1_1_0
-LABMANAGER | TRACE | 11:27:59 | 47.5 | TransmissionStartLab()
-LABMANAGER | STATE_START | 11:27:59 | 47.5 | Module 0
-LIGHTINGCONTROL | TRACE | 11:27:59 | 47.5 | saveLights()
-LIGHTINGCONTROL | TRACE | 11:27:59 | 47.5 | sunlight()
-LABMANAGER | TRACE | 11:27:59 | 47.5 | TransmissionStartLab()
-LABMANAGER | STATE_START | 11:27:59 | 47.5 | Module 0
-LIGHTINGCONTROL | TRACE | 11:27:59 | 47.5 | saveLights()
-LIGHTINGCONTROL | TRACE | 11:27:59 | 47.5 | sunlight()
-BRIDGE | TRACE | 11:27:59 | 47.85 | handleStringMessage, message guid: 85a75a77-88a8-4feb-aaee-eb893f7f45d0
-BRIDGE | DEBUG | 11:27:59 | 47.85 | Found Object to modify over transmission, object guid: 3c1918c6-09a6-43de-ac6f-27a21cdb2471
-BRIDGE | TRACE | 11:27:59 | 47.85 | modifyObject() : Sun
-BRIDGE | DEBUG | 11:27:59 | 47.85 | Position: (0.000, 0.000, 0.000), scale: (5.000, 5.000, 5.000), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:27:59 | 47.85 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (3.120, 2.500, 3.120)
-BRIDGE | TRACE | 11:27:59 | 48.13 | handleStringMessage, message guid: 76384edf-51f3-440b-96d4-2c5216a11f4d
-BRIDGE | DEBUG | 11:27:59 | 48.13 | Found Object to modify over transmission, object guid: 1a331f5b-5d39-4c45-bb91-50939aec289f
-BRIDGE | TRACE | 11:27:59 | 48.13 | modifyObject() : Earth
-BRIDGE | DEBUG | 11:27:59 | 48.13 | Position: (0.000, 0.000, 0.000), scale: (0.080, 0.080, 0.080), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:27:59 | 48.13 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.050, 0.040, 0.050)
-BRIDGE | TRACE | 11:28:00 | 48.88 | handleStringMessage, message guid: fd84423a-985d-4755-bfe6-18135445ff87
-BRIDGE | DEBUG | 11:28:00 | 48.88 | Found Object to modify over transmission, object guid: 55c5bfe0-0115-4a7c-b0cf-7bf809b1b8a3
-BRIDGE | TRACE | 11:28:00 | 48.88 | modifyObject() : Moon
-BRIDGE | DEBUG | 11:28:00 | 48.88 | Position: (0.000, 0.000, 0.000), scale: (0.020, 0.020, 0.020), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:00 | 48.88 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.012, 0.010, 0.012)
-BRIDGE | TRACE | 11:28:00 | 48.88 | handleStringMessage, message guid: b476e879-bef9-46e0-a06f-48dcc8a09d84
-BRIDGE | DEBUG | 11:28:00 | 48.88 | Found Object to modify over transmission, object guid: c871d411-5b28-4f6f-8f49-3f75cd7f2143
-BRIDGE | TRACE | 11:28:00 | 48.88 | modifyObject() : earthLabel
-BRIDGE | DEBUG | 11:28:00 | 48.88 | Position: (0.000, 0.000, 0.000), scale: (0.800, 0.800, 0.800), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:00 | 48.88 | Modifying Text: Earth
-BRIDGE | DEBUG | 11:28:00 | 48.88 | Mesh bounding box: Center: (0.001, 0.001, 0.000), Extents: (0.087, 0.030, 0.027)
-BRIDGE | TRACE | 11:28:00 | 49.1 | handleStringMessage, message guid: 9605a3d4-d2f3-4adb-9786-64cd0716ef52
-BRIDGE | DEBUG | 11:28:00 | 49.1 | Found Object to modify over transmission, object guid: 01604e23-290e-4581-80e1-75827988b212
-BRIDGE | TRACE | 11:28:00 | 49.1 | modifyObject() : earthSizeLabel
-BRIDGE | DEBUG | 11:28:00 | 49.1 | Position: (0.000, 0.000, 0.000), scale: (0.008, 0.008, 0.008), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:00 | 49.1 | Modifying Text: 8000 miles
-BRIDGE | DEBUG | 11:28:00 | 49.1 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.002, 0.000, 0.001)
-BRIDGE | TRACE | 11:28:00 | 49.42 | handleStringMessage, message guid: 3a920927-6720-459c-a65f-42f466e282bc
-BRIDGE | DEBUG | 11:28:00 | 49.42 | Found Object to modify over transmission, object guid: 560015b8-f868-4912-b131-74c0675b027a
-BRIDGE | TRACE | 11:28:01 | 49.42 | modifyObject() : moonLabel
-BRIDGE | DEBUG | 11:28:01 | 49.42 | Position: (0.000, 0.000, 0.000), scale: (0.400, 0.400, 0.400), EulerAngles: (0.000, 253.079, 0.000)
-BRIDGE | DEBUG | 11:28:01 | 49.42 | Modifying Text: The Moon
-BRIDGE | DEBUG | 11:28:01 | 49.42 | Mesh bounding box: Center: (0.000, 0.000, -0.001), Extents: (0.026, 0.015, 0.085)
-BRIDGE | TRACE | 11:28:01 | 50.25 | handleStringMessage, message guid: 4603477a-d8d3-4c23-9566-3f5bd6123fb1
-BRIDGE | DEBUG | 11:28:01 | 50.25 | Found Object to modify over transmission, object guid: 18df0cd3-bb89-4f6e-884d-39c78811cef9
-BRIDGE | TRACE | 11:28:01 | 50.25 | modifyObject() : moonSizeLabel
-BRIDGE | DEBUG | 11:28:01 | 50.25 | Position: (0.000, 0.000, 0.000), scale: (0.002, 0.002, 0.002), EulerAngles: (0.000, 253.079, 0.000)
-BRIDGE | DEBUG | 11:28:01 | 50.25 | Modifying Text: 2000 miles
-BRIDGE | DEBUG | 11:28:01 | 50.25 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.000, 0.000, 0.000)
-BRIDGE | TRACE | 11:28:01 | 50.25 | handleStringMessage, message guid: 3b597133-7544-4f25-ae4f-4496a14e025f
-BRIDGE | DEBUG | 11:28:01 | 50.25 | Found Object to modify over transmission, object guid: 63975af7-247a-4bcf-b529-2d8d38d54dca
-BRIDGE | TRACE | 11:28:01 | 50.25 | modifyObject() : moonDistanceLabel
-BRIDGE | DEBUG | 11:28:01 | 50.25 | Position: (0.000, 0.000, 0.000), scale: (0.002, 0.002, 0.002), EulerAngles: (0.000, 163.054, 0.000)
-BRIDGE | DEBUG | 11:28:01 | 50.25 | Modifying Text: 240,000 miles
-BRIDGE | DEBUG | 11:28:01 | 50.25 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.001, 0.000, 0.000)
-BRIDGE | TRACE | 11:28:01 | 50.25 | handleStringMessage, message guid: 38bd4875-f175-4990-b710-8b999e7c0b94
-BRIDGE | DEBUG | 11:28:01 | 50.25 | Found Object to modify over transmission, object guid: 7275578f-377a-4a9e-9ef5-6d5a69d08784
-BRIDGE | TRACE | 11:28:02 | 50.25 | modifyObject() : taskLabel
-BRIDGE | DEBUG | 11:28:02 | 50.25 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:02 | 50.25 | Modifying Text: Introduction
-BRIDGE | DEBUG | 11:28:02 | 50.25 | Mesh bounding box: Center: (0.001, 0.000, 0.000), Extents: (0.147, 0.023, 0.045)
-BRIDGE | TRACE | 11:28:02 | 50.58 | handleStringMessage, message guid: 863c6708-3873-4b2e-ba33-cd816aeafa77
-BRIDGE | DEBUG | 11:28:02 | 50.58 | Found Object to modify over transmission, object guid: 329e1132-d30e-4b9f-850c-8f5515c62a07
-BRIDGE | TRACE | 11:28:02 | 50.58 | modifyObject() : sectionLabel
-BRIDGE | DEBUG | 11:28:02 | 50.58 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:02 | 50.58 | Modifying Text: Sizes and Scales of the Earth and Moon
-BRIDGE | DEBUG | 11:28:02 | 50.58 | Mesh bounding box: Center: (-0.001, 0.000, 0.000), Extents: (0.511, 0.023, 0.156)
-BRIDGE | TRACE | 11:28:02 | 50.93 | handleStringMessage, message guid: 131a95c2-6f31-48a1-bdff-e3880be7a802
-BRIDGE | DEBUG | 11:28:02 | 50.93 | Found Object to modify over transmission, object guid: cbb92ceb-ddfa-4b88-af99-bd24ab9ca3cd
-BRIDGE | TRACE | 11:28:02 | 50.93 | modifyObject() : brbNextModule
-BRIDGE | DEBUG | 11:28:02 | 50.93 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:02 | 50.93 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:28:02 | 51.18 | handleStringMessage, message guid: 21a307ad-1fb5-4018-a123-560ace7be5ee
-BRIDGE | DEBUG | 11:28:02 | 51.18 | Found Object to modify over transmission, object guid: 7206be2d-5fe3-4ad8-9bd2-60c0cb99e3ed
-BRIDGE | TRACE | 11:28:02 | 51.18 | modifyObject() : brbNextModuleLabel
-BRIDGE | DEBUG | 11:28:02 | 51.18 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:02 | 51.18 | Modifying Text: Next  Module
-BRIDGE | DEBUG | 11:28:02 | 51.18 | Mesh bounding box: Center: (-0.006, 0.000, -0.001), Extents: (0.065, 0.000, 0.049)
-BRIDGE | TRACE | 11:28:03 | 51.47 | handleStringMessage, message guid: 86550fc6-085d-444b-84a5-5e24b57bbddb
-BRIDGE | DEBUG | 11:28:03 | 51.47 | Found Object to modify over transmission, object guid: a8e83892-c76e-4da2-81ed-d53eff2f2ad7
-BRIDGE | TRACE | 11:28:03 | 51.47 | modifyObject() : brbPreviousModule
-BRIDGE | DEBUG | 11:28:03 | 51.47 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:03 | 51.47 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:28:03 | 52 | handleStringMessage, message guid: 786394b4-ff89-485a-9896-8e988f329cab
-BRIDGE | DEBUG | 11:28:03 | 52 | Found Object to modify over transmission, object guid: 84656fa6-8b03-4823-a5f6-ba8cad978e99
-BRIDGE | TRACE | 11:28:03 | 52 | modifyObject() : brbPreviousModuleLabel
-BRIDGE | DEBUG | 11:28:03 | 52 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:03 | 52 | Modifying Text: Previous   Module
-BRIDGE | DEBUG | 11:28:03 | 52 | Mesh bounding box: Center: (-0.001, 0.000, -0.001), Extents: (0.076, 0.000, 0.053)
-BRIDGE | TRACE | 11:28:03 | 52 | handleStringMessage, message guid: 430fc216-a601-4b50-b582-867ce5c25bd5
-BRIDGE | DEBUG | 11:28:03 | 52 | Found Object to modify over transmission, object guid: 04f3cfdb-17e1-4863-9f1d-efaceb1c48c3
-BRIDGE | TRACE | 11:28:03 | 52 | modifyObject() : brbNextClip
-BRIDGE | DEBUG | 11:28:03 | 52 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:03 | 52 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:28:03 | 52.42 | handleStringMessage, message guid: 5cf124d9-48b1-48c8-8aec-e3133bb50368
-BRIDGE | DEBUG | 11:28:03 | 52.42 | Found Object to modify over transmission, object guid: 46e33dd6-907a-4d0f-8f3c-d18ec52fd423
-BRIDGE | TRACE | 11:28:04 | 52.42 | modifyObject() : brbNextClipLabel
-BRIDGE | DEBUG | 11:28:04 | 52.42 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:04 | 52.42 | Modifying Text: Next
-BRIDGE | DEBUG | 11:28:04 | 52.42 | Mesh bounding box: Center: (-0.002, 0.000, 0.000), Extents: (0.038, 0.000, 0.023)
-BRIDGE | TRACE | 11:28:04 | 52.65 | handleStringMessage, message guid: a48f4558-9319-4452-9346-d2fe5a15e167
-BRIDGE | DEBUG | 11:28:04 | 52.65 | Found Object to modify over transmission, object guid: 9e1b6044-90b7-4b83-9b1a-e94b99448f10
-BRIDGE | TRACE | 11:28:04 | 52.65 | modifyObject() : brbPreviousClip
-BRIDGE | DEBUG | 11:28:04 | 52.65 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:04 | 52.65 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:28:04 | 52.98 | handleStringMessage, message guid: cd6cc4b1-eea5-4f42-aea6-18bd02583362
-BRIDGE | DEBUG | 11:28:04 | 52.98 | Found Object to modify over transmission, object guid: c6a12cf6-41db-42fd-9b95-03f57713cf6e
-BRIDGE | TRACE | 11:28:04 | 52.98 | modifyObject() : brbPreviousClipLabel
-BRIDGE | DEBUG | 11:28:04 | 52.98 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:04 | 52.98 | Modifying Text: Previous
-BRIDGE | DEBUG | 11:28:04 | 52.98 | Mesh bounding box: Center: (-0.001, 0.000, -0.001), Extents: (0.070, 0.000, 0.033)
-BRIDGE | TRACE | 11:28:04 | 53.29 | handleStringMessage, message guid: 4d58a782-142d-42c4-a597-fc69b7f3c3e0
-BRIDGE | DEBUG | 11:28:04 | 53.29 | Found Object to modify over transmission, object guid: 7275578f-377a-4a9e-9ef5-6d5a69d08784
-BRIDGE | TRACE | 11:28:04 | 53.29 | modifyObject() : taskLabel
-BRIDGE | DEBUG | 11:28:04 | 53.29 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:04 | 53.29 | Modifying Text: 1 inch= 1000 miles
-BRIDGE | DEBUG | 11:28:04 | 53.29 | Mesh bounding box: Center: (0.001, 0.000, 0.000), Extents: (0.239, 0.023, 0.073)
-BRIDGE | TRACE | 11:28:05 | 53.66 | handleStringMessage, message guid: d676a720-8245-49a7-8b74-1f2166d9c663
-BRIDGE | DEBUG | 11:28:05 | 53.66 | Found Object to modify over transmission, object guid: 9e1b6044-90b7-4b83-9b1a-e94b99448f10
-BRIDGE | TRACE | 11:28:05 | 53.66 | modifyObject() : brbPreviousClip
-BRIDGE | DEBUG | 11:28:05 | 53.66 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | TRACE | 11:28:05 | 54 | handleStringMessage, message guid: be862cf4-abf1-4fba-9f0c-3cdf02cac3bb
-BRIDGE | DEBUG | 11:28:05 | 54 | Found Object to modify over transmission, object guid: 04f3cfdb-17e1-4863-9f1d-efaceb1c48c3
-BRIDGE | TRACE | 11:28:05 | 54 | modifyObject() : brbNextClip
-BRIDGE | DEBUG | 11:28:05 | 54 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | TRACE | 11:28:05 | 54.28 | handleStringMessage, message guid: d6581c5f-0fe9-464d-886f-085df8c16a8b
-BRIDGE | DEBUG | 11:28:05 | 54.28 | Found Object to modify over transmission, object guid: cbb92ceb-ddfa-4b88-af99-bd24ab9ca3cd
-BRIDGE | TRACE | 11:28:05 | 54.28 | modifyObject() : brbNextModule
-BRIDGE | DEBUG | 11:28:05 | 54.28 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-AUDIOHANDLER | TRACE | 11:28:06 | 54.49 | Attempting to play local Audio: moonlab_1_1_0
-AUDIOHANDLER | TRACE | 11:28:06 | 54.49 | Attempting to play local Audio: moonlab_1_1_0
-LABMANAGER | TRACE | 11:28:06 | 54.59 | TransmissionStartLab()
-LABMANAGER | STATE_START | 11:28:06 | 54.59 | Module 0
-LIGHTINGCONTROL | TRACE | 11:28:06 | 54.59 | saveLights()
-LIGHTINGCONTROL | TRACE | 11:28:06 | 54.59 | sunlight()
-LABMANAGER | TRACE | 11:28:06 | 54.59 | TransmissionStartLab()
-LABMANAGER | STATE_START | 11:28:06 | 54.59 | Module 0
-LIGHTINGCONTROL | TRACE | 11:28:06 | 54.59 | saveLights()
-LIGHTINGCONTROL | TRACE | 11:28:06 | 54.59 | sunlight()
-BRIDGE | TRACE | 11:28:06 | 54.92 | handleStringMessage, message guid: dc97792c-34c2-4418-9520-664ba1ba5996
-BRIDGE | DEBUG | 11:28:06 | 54.92 | Found Object to modify over transmission, object guid: 3c1918c6-09a6-43de-ac6f-27a21cdb2471
-BRIDGE | TRACE | 11:28:06 | 54.92 | modifyObject() : Sun
-BRIDGE | DEBUG | 11:28:06 | 54.92 | Position: (0.000, 0.000, 0.000), scale: (5.000, 5.000, 5.000), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:06 | 54.92 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (3.120, 2.500, 3.120)
-BRIDGE | TRACE | 11:28:06 | 55.19 | handleStringMessage, message guid: 62e215e7-3d28-4622-8933-23b352827ff3
-BRIDGE | DEBUG | 11:28:06 | 55.19 | Found Object to modify over transmission, object guid: 1a331f5b-5d39-4c45-bb91-50939aec289f
-BRIDGE | TRACE | 11:28:06 | 55.19 | modifyObject() : Earth
-BRIDGE | DEBUG | 11:28:06 | 55.19 | Position: (0.000, 0.000, 0.000), scale: (0.080, 0.080, 0.080), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:06 | 55.19 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.050, 0.040, 0.050)
-BRIDGE | TRACE | 11:28:07 | 55.63 | handleStringMessage, message guid: a4f34992-f72c-4a4c-b058-0fecdebfefba
-BRIDGE | DEBUG | 11:28:07 | 55.63 | Found Object to modify over transmission, object guid: 55c5bfe0-0115-4a7c-b0cf-7bf809b1b8a3
-BRIDGE | TRACE | 11:28:07 | 55.63 | modifyObject() : Moon
-BRIDGE | DEBUG | 11:28:07 | 55.63 | Position: (0.000, 0.000, 0.000), scale: (0.020, 0.020, 0.020), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:07 | 55.63 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.012, 0.010, 0.012)
-BRIDGE | TRACE | 11:28:07 | 55.86 | handleStringMessage, message guid: c461f49d-f7c5-4e98-acde-7cbb1d9a91d1
-BRIDGE | DEBUG | 11:28:07 | 55.86 | Found Object to modify over transmission, object guid: c871d411-5b28-4f6f-8f49-3f75cd7f2143
-BRIDGE | TRACE | 11:28:07 | 55.86 | modifyObject() : earthLabel
-BRIDGE | DEBUG | 11:28:07 | 55.86 | Position: (0.000, 0.000, 0.000), scale: (0.800, 0.800, 0.800), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:07 | 55.86 | Modifying Text: Earth
-BRIDGE | DEBUG | 11:28:07 | 55.86 | Mesh bounding box: Center: (0.001, 0.001, 0.000), Extents: (0.087, 0.030, 0.027)
-BRIDGE | TRACE | 11:28:07 | 56.16 | handleStringMessage, message guid: d0692b0e-b2d1-4121-a1b3-089b0b7762ef
-BRIDGE | DEBUG | 11:28:07 | 56.16 | Found Object to modify over transmission, object guid: 01604e23-290e-4581-80e1-75827988b212
-BRIDGE | TRACE | 11:28:07 | 56.16 | modifyObject() : earthSizeLabel
-BRIDGE | DEBUG | 11:28:07 | 56.16 | Position: (0.000, 0.000, 0.000), scale: (0.008, 0.008, 0.008), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:07 | 56.16 | Modifying Text: 8000 miles
-BRIDGE | DEBUG | 11:28:07 | 56.16 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.002, 0.000, 0.001)
-BRIDGE | TRACE | 11:28:08 | 56.46 | handleStringMessage, message guid: 691bd53e-eb54-415e-8ea9-e3c0c46b3d3f
-BRIDGE | DEBUG | 11:28:08 | 56.46 | Found Object to modify over transmission, object guid: 560015b8-f868-4912-b131-74c0675b027a
-BRIDGE | TRACE | 11:28:08 | 56.46 | modifyObject() : moonLabel
-BRIDGE | DEBUG | 11:28:08 | 56.46 | Position: (0.000, 0.000, 0.000), scale: (0.400, 0.400, 0.400), EulerAngles: (0.000, 253.079, 0.000)
-BRIDGE | DEBUG | 11:28:08 | 56.46 | Modifying Text: The Moon
-BRIDGE | DEBUG | 11:28:08 | 56.46 | Mesh bounding box: Center: (0.000, 0.000, -0.001), Extents: (0.026, 0.015, 0.085)
-BRIDGE | TRACE | 11:28:08 | 56.86 | handleStringMessage, message guid: 562f3e5b-d475-446d-935b-1dcc466d4ae8
-BRIDGE | DEBUG | 11:28:08 | 56.86 | Found Object to modify over transmission, object guid: 18df0cd3-bb89-4f6e-884d-39c78811cef9
-BRIDGE | TRACE | 11:28:08 | 56.86 | modifyObject() : moonSizeLabel
-BRIDGE | DEBUG | 11:28:08 | 56.86 | Position: (0.000, 0.000, 0.000), scale: (0.002, 0.002, 0.002), EulerAngles: (0.000, 253.079, 0.000)
-BRIDGE | DEBUG | 11:28:08 | 56.86 | Modifying Text: 2000 miles
-BRIDGE | DEBUG | 11:28:08 | 56.86 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.000, 0.000, 0.000)
-BRIDGE | TRACE | 11:28:08 | 57.08 | handleStringMessage, message guid: 606ff6b6-df6b-4af3-b1f1-8c375011ede6
-BRIDGE | DEBUG | 11:28:08 | 57.08 | Found Object to modify over transmission, object guid: 63975af7-247a-4bcf-b529-2d8d38d54dca
-BRIDGE | TRACE | 11:28:08 | 57.08 | modifyObject() : moonDistanceLabel
-BRIDGE | DEBUG | 11:28:08 | 57.08 | Position: (0.000, 0.000, 0.000), scale: (0.002, 0.002, 0.002), EulerAngles: (0.000, 163.054, 0.000)
-BRIDGE | DEBUG | 11:28:08 | 57.08 | Modifying Text: 240,000 miles
-BRIDGE | DEBUG | 11:28:08 | 57.08 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.001, 0.000, 0.000)
-BRIDGE | TRACE | 11:28:08 | 57.38 | handleStringMessage, message guid: 4c9649bd-fcc2-4087-ae44-0baeddd8debb
-BRIDGE | DEBUG | 11:28:08 | 57.38 | Found Object to modify over transmission, object guid: 7275578f-377a-4a9e-9ef5-6d5a69d08784
-BRIDGE | TRACE | 11:28:08 | 57.38 | modifyObject() : taskLabel
-BRIDGE | DEBUG | 11:28:08 | 57.38 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:08 | 57.38 | Modifying Text: Introduction
-BRIDGE | DEBUG | 11:28:09 | 57.38 | Mesh bounding box: Center: (0.001, 0.000, 0.000), Extents: (0.147, 0.023, 0.045)
-BRIDGE | TRACE | 11:28:09 | 57.68 | handleStringMessage, message guid: ad7b6013-6574-4884-8d85-8a119295dea9
-BRIDGE | DEBUG | 11:28:09 | 57.68 | Found Object to modify over transmission, object guid: 329e1132-d30e-4b9f-850c-8f5515c62a07
-BRIDGE | TRACE | 11:28:09 | 57.68 | modifyObject() : sectionLabel
-BRIDGE | DEBUG | 11:28:09 | 57.68 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:09 | 57.68 | Modifying Text: Sizes and Scales of the Earth and Moon
-BRIDGE | DEBUG | 11:28:09 | 57.68 | Mesh bounding box: Center: (-0.001, 0.000, 0.000), Extents: (0.511, 0.023, 0.156)
-BRIDGE | TRACE | 11:28:09 | 58.3 | handleStringMessage, message guid: 040a4b13-ded6-4660-9e5d-3ae3f552cebe
-BRIDGE | DEBUG | 11:28:09 | 58.3 | Found Object to modify over transmission, object guid: cbb92ceb-ddfa-4b88-af99-bd24ab9ca3cd
-BRIDGE | TRACE | 11:28:09 | 58.3 | modifyObject() : brbNextModule
-BRIDGE | DEBUG | 11:28:09 | 58.3 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:09 | 58.3 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:28:09 | 58.3 | handleStringMessage, message guid: f673c778-cf93-46cc-82d2-f4127b76f2b5
-BRIDGE | DEBUG | 11:28:09 | 58.3 | Found Object to modify over transmission, object guid: 7206be2d-5fe3-4ad8-9bd2-60c0cb99e3ed
-BRIDGE | TRACE | 11:28:09 | 58.3 | modifyObject() : brbNextModuleLabel
-BRIDGE | DEBUG | 11:28:09 | 58.3 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:10 | 58.3 | Modifying Text: Next  Module
-BRIDGE | DEBUG | 11:28:10 | 58.3 | Mesh bounding box: Center: (-0.006, 0.000, -0.001), Extents: (0.065, 0.000, 0.049)
-BRIDGE | TRACE | 11:28:10 | 58.57 | handleStringMessage, message guid: d5536a29-1d18-4cd6-a972-c8fb66f6595c
-BRIDGE | DEBUG | 11:28:10 | 58.57 | Found Object to modify over transmission, object guid: a8e83892-c76e-4da2-81ed-d53eff2f2ad7
-BRIDGE | TRACE | 11:28:10 | 58.57 | modifyObject() : brbPreviousModule
-BRIDGE | DEBUG | 11:28:10 | 58.57 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:10 | 58.57 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:28:10 | 58.96 | handleStringMessage, message guid: 52f7802c-b534-4117-8dd1-c30bcca3c053
-BRIDGE | DEBUG | 11:28:10 | 58.96 | Found Object to modify over transmission, object guid: 84656fa6-8b03-4823-a5f6-ba8cad978e99
-BRIDGE | TRACE | 11:28:10 | 58.96 | modifyObject() : brbPreviousModuleLabel
-BRIDGE | DEBUG | 11:28:10 | 58.96 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:10 | 58.96 | Modifying Text: Previous   Module
-BRIDGE | DEBUG | 11:28:10 | 58.96 | Mesh bounding box: Center: (-0.001, 0.000, -0.001), Extents: (0.076, 0.000, 0.053)
-BRIDGE | TRACE | 11:28:10 | 59.18 | handleStringMessage, message guid: f0999134-9c82-41eb-a0ef-5e12afd4d09a
-BRIDGE | DEBUG | 11:28:10 | 59.18 | Found Object to modify over transmission, object guid: 04f3cfdb-17e1-4863-9f1d-efaceb1c48c3
-BRIDGE | TRACE | 11:28:10 | 59.18 | modifyObject() : brbNextClip
-BRIDGE | DEBUG | 11:28:10 | 59.18 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:10 | 59.18 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:28:11 | 59.57 | handleStringMessage, message guid: 727817df-8d28-45fc-a432-9f99a15c80e5
-BRIDGE | DEBUG | 11:28:11 | 59.57 | Found Object to modify over transmission, object guid: 46e33dd6-907a-4d0f-8f3c-d18ec52fd423
-BRIDGE | TRACE | 11:28:11 | 59.57 | modifyObject() : brbNextClipLabel
-BRIDGE | DEBUG | 11:28:11 | 59.57 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:11 | 59.57 | Modifying Text: Next
-BRIDGE | DEBUG | 11:28:11 | 59.57 | Mesh bounding box: Center: (-0.002, 0.000, 0.000), Extents: (0.038, 0.000, 0.023)
-BRIDGE | TRACE | 11:28:11 | 59.81 | handleStringMessage, message guid: 7073130d-9cc5-46c2-bd67-e629df07c599
-BRIDGE | DEBUG | 11:28:11 | 59.81 | Found Object to modify over transmission, object guid: 9e1b6044-90b7-4b83-9b1a-e94b99448f10
-BRIDGE | TRACE | 11:28:11 | 59.81 | modifyObject() : brbPreviousClip
-BRIDGE | DEBUG | 11:28:11 | 59.81 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:11 | 59.81 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:28:11 | 60.14 | handleStringMessage, message guid: f1657eb8-f54b-446e-8d80-b8f94f7a7e70
-BRIDGE | DEBUG | 11:28:11 | 60.14 | Found Object to modify over transmission, object guid: c6a12cf6-41db-42fd-9b95-03f57713cf6e
-BRIDGE | TRACE | 11:28:11 | 60.14 | modifyObject() : brbPreviousClipLabel
-BRIDGE | DEBUG | 11:28:11 | 60.14 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:11 | 60.14 | Modifying Text: Previous
-BRIDGE | DEBUG | 11:28:11 | 60.14 | Mesh bounding box: Center: (-0.001, 0.000, -0.001), Extents: (0.070, 0.000, 0.033)
-BRIDGE | TRACE | 11:28:12 | 60.54 | handleStringMessage, message guid: c2482c1a-5823-4f0a-be4d-4f82395827ad
-BRIDGE | DEBUG | 11:28:12 | 60.54 | Found Object to modify over transmission, object guid: 7275578f-377a-4a9e-9ef5-6d5a69d08784
-BRIDGE | TRACE | 11:28:12 | 60.54 | modifyObject() : taskLabel
-BRIDGE | DEBUG | 11:28:12 | 60.54 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:12 | 60.54 | Modifying Text: 1 inch= 1000 miles
-BRIDGE | DEBUG | 11:28:12 | 60.54 | Mesh bounding box: Center: (0.001, 0.000, 0.000), Extents: (0.239, 0.023, 0.073)
-BRIDGE | TRACE | 11:28:12 | 60.99 | handleStringMessage, message guid: 7d44499f-395d-4369-8323-da48e0fba3a4
-BRIDGE | DEBUG | 11:28:12 | 60.99 | Found Object to modify over transmission, object guid: 9e1b6044-90b7-4b83-9b1a-e94b99448f10
-BRIDGE | TRACE | 11:28:12 | 60.99 | modifyObject() : brbPreviousClip
-BRIDGE | DEBUG | 11:28:12 | 60.99 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | TRACE | 11:28:12 | 61.09 | handleStringMessage, message guid: a38f0947-3e8e-4b86-bfe5-a50f657f21ba
-BRIDGE | DEBUG | 11:28:12 | 61.09 | Found Object to modify over transmission, object guid: 04f3cfdb-17e1-4863-9f1d-efaceb1c48c3
-BRIDGE | TRACE | 11:28:12 | 61.09 | modifyObject() : brbNextClip
-BRIDGE | DEBUG | 11:28:12 | 61.09 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | TRACE | 11:28:13 | 61.57 | handleStringMessage, message guid: e5819e29-3e47-4b32-8c57-074895557247
-BRIDGE | DEBUG | 11:28:13 | 61.57 | Found Object to modify over transmission, object guid: cbb92ceb-ddfa-4b88-af99-bd24ab9ca3cd
-BRIDGE | TRACE | 11:28:13 | 61.57 | modifyObject() : brbNextModule
-BRIDGE | DEBUG | 11:28:13 | 61.57 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-AUDIOHANDLER | TRACE | 11:28:13 | 61.57 | Attempting to play local Audio: moonlab_1_1_0
-AUDIOHANDLER | TRACE | 11:28:13 | 61.57 | Attempting to play local Audio: moonlab_1_1_0
-LABMANAGER | TRACE | 11:28:13 | 61.71 | TransmissionStartLab()
-LABMANAGER | STATE_START | 11:28:13 | 61.71 | Module 0
-LIGHTINGCONTROL | TRACE | 11:28:13 | 61.71 | saveLights()
-LIGHTINGCONTROL | TRACE | 11:28:13 | 61.71 | sunlight()
-LABMANAGER | TRACE | 11:28:13 | 61.71 | TransmissionStartLab()
-LABMANAGER | STATE_START | 11:28:13 | 61.71 | Module 0
-LIGHTINGCONTROL | TRACE | 11:28:13 | 61.71 | saveLights()
-LIGHTINGCONTROL | TRACE | 11:28:13 | 61.71 | sunlight()
-BRIDGE | TRACE | 11:28:13 | 62.06 | handleStringMessage, message guid: c32ecfa1-406f-412f-ae0b-3f070e205dc0
-BRIDGE | DEBUG | 11:28:13 | 62.06 | Found Object to modify over transmission, object guid: 3c1918c6-09a6-43de-ac6f-27a21cdb2471
-BRIDGE | TRACE | 11:28:13 | 62.06 | modifyObject() : Sun
-BRIDGE | DEBUG | 11:28:13 | 62.06 | Position: (0.000, 0.000, 0.000), scale: (5.000, 5.000, 5.000), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:13 | 62.06 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (3.120, 2.500, 3.120)
-BRIDGE | TRACE | 11:28:13 | 62.4 | handleStringMessage, message guid: da7d7729-643d-4689-a25c-e64b9ecad199
-BRIDGE | DEBUG | 11:28:13 | 62.4 | Found Object to modify over transmission, object guid: 1a331f5b-5d39-4c45-bb91-50939aec289f
-BRIDGE | TRACE | 11:28:13 | 62.4 | modifyObject() : Earth
-BRIDGE | DEBUG | 11:28:13 | 62.4 | Position: (0.000, 0.000, 0.000), scale: (0.080, 0.080, 0.080), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:14 | 62.4 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.050, 0.040, 0.050)
-BRIDGE | TRACE | 11:28:14 | 62.72 | handleStringMessage, message guid: 2b2591ad-efea-4ec5-b2eb-3ff74ae9a842
-BRIDGE | DEBUG | 11:28:14 | 62.72 | Found Object to modify over transmission, object guid: 55c5bfe0-0115-4a7c-b0cf-7bf809b1b8a3
-BRIDGE | TRACE | 11:28:14 | 62.72 | modifyObject() : Moon
-BRIDGE | DEBUG | 11:28:14 | 62.72 | Position: (0.000, 0.000, 0.000), scale: (0.020, 0.020, 0.020), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:14 | 62.72 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.012, 0.010, 0.012)
-BRIDGE | TRACE | 11:28:14 | 63.22 | handleStringMessage, message guid: fc4fad15-0051-4170-bdcc-09ba024622f9
-BRIDGE | DEBUG | 11:28:14 | 63.22 | Found Object to modify over transmission, object guid: c871d411-5b28-4f6f-8f49-3f75cd7f2143
-BRIDGE | TRACE | 11:28:14 | 63.22 | modifyObject() : earthLabel
-BRIDGE | DEBUG | 11:28:14 | 63.22 | Position: (0.000, 0.000, 0.000), scale: (0.800, 0.800, 0.800), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:14 | 63.22 | Modifying Text: Earth
-BRIDGE | DEBUG | 11:28:14 | 63.22 | Mesh bounding box: Center: (0.001, 0.001, 0.000), Extents: (0.087, 0.030, 0.027)
-BRIDGE | TRACE | 11:28:14 | 63.37 | handleStringMessage, message guid: fd318256-83cb-4c96-be45-6245eeaedda9
-BRIDGE | DEBUG | 11:28:14 | 63.37 | Found Object to modify over transmission, object guid: 01604e23-290e-4581-80e1-75827988b212
-BRIDGE | TRACE | 11:28:14 | 63.37 | modifyObject() : earthSizeLabel
-BRIDGE | DEBUG | 11:28:14 | 63.37 | Position: (0.000, 0.000, 0.000), scale: (0.008, 0.008, 0.008), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:14 | 63.37 | Modifying Text: 8000 miles
-BRIDGE | DEBUG | 11:28:15 | 63.37 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.002, 0.000, 0.001)
-BRIDGE | TRACE | 11:28:15 | 63.75 | handleStringMessage, message guid: 3a307881-7e44-4337-b51d-6d835edd0704
-BRIDGE | DEBUG | 11:28:15 | 63.75 | Found Object to modify over transmission, object guid: 560015b8-f868-4912-b131-74c0675b027a
-BRIDGE | TRACE | 11:28:15 | 63.75 | modifyObject() : moonLabel
-BRIDGE | DEBUG | 11:28:15 | 63.75 | Position: (0.000, 0.000, 0.000), scale: (0.400, 0.400, 0.400), EulerAngles: (0.000, 253.079, 0.000)
-BRIDGE | DEBUG | 11:28:15 | 63.75 | Modifying Text: The Moon
-BRIDGE | DEBUG | 11:28:15 | 63.75 | Mesh bounding box: Center: (0.000, 0.000, -0.001), Extents: (0.026, 0.015, 0.085)
-BRIDGE | TRACE | 11:28:15 | 63.96 | handleStringMessage, message guid: 8b511cdf-420c-4fe5-9e39-f4e7b89d6567
-BRIDGE | DEBUG | 11:28:15 | 63.96 | Found Object to modify over transmission, object guid: 18df0cd3-bb89-4f6e-884d-39c78811cef9
-BRIDGE | TRACE | 11:28:15 | 63.96 | modifyObject() : moonSizeLabel
-BRIDGE | DEBUG | 11:28:15 | 63.96 | Position: (0.000, 0.000, 0.000), scale: (0.002, 0.002, 0.002), EulerAngles: (0.000, 253.079, 0.000)
-BRIDGE | DEBUG | 11:28:15 | 63.96 | Modifying Text: 2000 miles
-BRIDGE | DEBUG | 11:28:15 | 63.96 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.000, 0.000, 0.000)
-BRIDGE | TRACE | 11:28:16 | 64.44 | handleStringMessage, message guid: 47215eba-9aa5-4404-a20c-abd1309af356
-BRIDGE | DEBUG | 11:28:16 | 64.44 | Found Object to modify over transmission, object guid: 63975af7-247a-4bcf-b529-2d8d38d54dca
-BRIDGE | TRACE | 11:28:16 | 64.44 | modifyObject() : moonDistanceLabel
-BRIDGE | DEBUG | 11:28:16 | 64.44 | Position: (0.000, 0.000, 0.000), scale: (0.002, 0.002, 0.002), EulerAngles: (0.000, 163.054, 0.000)
-BRIDGE | DEBUG | 11:28:16 | 64.44 | Modifying Text: 240,000 miles
-BRIDGE | DEBUG | 11:28:16 | 64.44 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.001, 0.000, 0.000)
-BRIDGE | TRACE | 11:28:16 | 64.44 | handleStringMessage, message guid: faadba83-7cd9-4700-92e7-cfe354c1203f
-BRIDGE | DEBUG | 11:28:16 | 64.44 | Found Object to modify over transmission, object guid: 7275578f-377a-4a9e-9ef5-6d5a69d08784
-BRIDGE | TRACE | 11:28:16 | 64.44 | modifyObject() : taskLabel
-BRIDGE | DEBUG | 11:28:16 | 64.44 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:16 | 64.44 | Modifying Text: Introduction
-BRIDGE | DEBUG | 11:28:16 | 64.44 | Mesh bounding box: Center: (0.001, 0.000, 0.000), Extents: (0.147, 0.023, 0.045)
-BRIDGE | TRACE | 11:28:16 | 64.96 | handleStringMessage, message guid: 7136dbf8-49fa-4d87-b277-17a7876afe25
-BRIDGE | DEBUG | 11:28:16 | 64.96 | Found Object to modify over transmission, object guid: 329e1132-d30e-4b9f-850c-8f5515c62a07
-BRIDGE | TRACE | 11:28:16 | 64.96 | modifyObject() : sectionLabel
-BRIDGE | DEBUG | 11:28:16 | 64.96 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:16 | 64.96 | Modifying Text: Sizes and Scales of the Earth and Moon
-BRIDGE | DEBUG | 11:28:16 | 64.96 | Mesh bounding box: Center: (-0.001, 0.000, 0.000), Extents: (0.511, 0.023, 0.156)
-BRIDGE | TRACE | 11:28:16 | 65.4 | handleStringMessage, message guid: fa973247-1f44-4a3c-803a-0bf5e2508e61
-BRIDGE | DEBUG | 11:28:16 | 65.4 | Found Object to modify over transmission, object guid: cbb92ceb-ddfa-4b88-af99-bd24ab9ca3cd
-BRIDGE | TRACE | 11:28:17 | 65.4 | modifyObject() : brbNextModule
-BRIDGE | DEBUG | 11:28:17 | 65.4 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:17 | 65.4 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:28:17 | 65.4 | handleStringMessage, message guid: 3f2a17b4-b7ee-44be-a66f-2b68a7e319a9
-BRIDGE | DEBUG | 11:28:17 | 65.4 | Found Object to modify over transmission, object guid: 7206be2d-5fe3-4ad8-9bd2-60c0cb99e3ed
-BRIDGE | TRACE | 11:28:17 | 65.4 | modifyObject() : brbNextModuleLabel
-BRIDGE | DEBUG | 11:28:17 | 65.4 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:17 | 65.4 | Modifying Text: Next  Module
-BRIDGE | DEBUG | 11:28:17 | 65.4 | Mesh bounding box: Center: (-0.006, 0.000, -0.001), Extents: (0.065, 0.000, 0.049)
-BRIDGE | TRACE | 11:28:17 | 65.96 | handleStringMessage, message guid: 209c02b8-fbb3-40f8-9ed6-8da6c61eafb3
-BRIDGE | DEBUG | 11:28:17 | 65.96 | Found Object to modify over transmission, object guid: a8e83892-c76e-4da2-81ed-d53eff2f2ad7
-BRIDGE | TRACE | 11:28:17 | 65.96 | modifyObject() : brbPreviousModule
-BRIDGE | DEBUG | 11:28:17 | 65.96 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:17 | 65.96 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:28:17 | 65.96 | handleStringMessage, message guid: bf7cec49-5640-4f12-b0ea-e44737ea1421
-BRIDGE | DEBUG | 11:28:17 | 65.96 | Found Object to modify over transmission, object guid: 84656fa6-8b03-4823-a5f6-ba8cad978e99
-BRIDGE | TRACE | 11:28:17 | 65.96 | modifyObject() : brbPreviousModuleLabel
-BRIDGE | DEBUG | 11:28:17 | 65.96 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:17 | 65.96 | Modifying Text: Previous   Module
-BRIDGE | DEBUG | 11:28:17 | 65.96 | Mesh bounding box: Center: (-0.001, 0.000, -0.001), Extents: (0.076, 0.000, 0.053)
-BRIDGE | TRACE | 11:28:18 | 66.49 | handleStringMessage, message guid: 100d2942-37d4-49de-8549-d546d692285b
-BRIDGE | DEBUG | 11:28:18 | 66.49 | Found Object to modify over transmission, object guid: 04f3cfdb-17e1-4863-9f1d-efaceb1c48c3
-BRIDGE | TRACE | 11:28:18 | 66.49 | modifyObject() : brbNextClip
-BRIDGE | DEBUG | 11:28:18 | 66.49 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:18 | 66.49 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:28:18 | 66.82 | handleStringMessage, message guid: b54b171e-21e1-496b-ae80-bf010674a883
-BRIDGE | DEBUG | 11:28:18 | 66.82 | Found Object to modify over transmission, object guid: 46e33dd6-907a-4d0f-8f3c-d18ec52fd423
-BRIDGE | TRACE | 11:28:18 | 66.82 | modifyObject() : brbNextClipLabel
-BRIDGE | DEBUG | 11:28:18 | 66.82 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:18 | 66.82 | Modifying Text: Next
-BRIDGE | DEBUG | 11:28:18 | 66.82 | Mesh bounding box: Center: (-0.002, 0.000, 0.000), Extents: (0.038, 0.000, 0.023)
-BRIDGE | TRACE | 11:28:18 | 67.29 | handleStringMessage, message guid: dd20ae74-d1f0-46bf-bf47-e1dca431de6b
-BRIDGE | DEBUG | 11:28:18 | 67.29 | Found Object to modify over transmission, object guid: 9e1b6044-90b7-4b83-9b1a-e94b99448f10
-BRIDGE | TRACE | 11:28:18 | 67.29 | modifyObject() : brbPreviousClip
-BRIDGE | DEBUG | 11:28:18 | 67.29 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:19 | 67.29 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:28:19 | 67.71 | handleStringMessage, message guid: 8cf6ab22-2c5f-46f9-8690-98cface606bc
-BRIDGE | DEBUG | 11:28:19 | 67.71 | Found Object to modify over transmission, object guid: c6a12cf6-41db-42fd-9b95-03f57713cf6e
-BRIDGE | TRACE | 11:28:19 | 67.71 | modifyObject() : brbPreviousClipLabel
-BRIDGE | DEBUG | 11:28:19 | 67.71 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:19 | 67.71 | Modifying Text: Previous
-BRIDGE | DEBUG | 11:28:19 | 67.71 | Mesh bounding box: Center: (-0.001, 0.000, -0.001), Extents: (0.070, 0.000, 0.033)
-BRIDGE | TRACE | 11:28:19 | 68.19 | handleStringMessage, message guid: 83ed32f0-13a4-426a-b3c8-e783447a5e27
-BRIDGE | DEBUG | 11:28:19 | 68.19 | Found Object to modify over transmission, object guid: 7275578f-377a-4a9e-9ef5-6d5a69d08784
-BRIDGE | TRACE | 11:28:19 | 68.19 | modifyObject() : taskLabel
-BRIDGE | DEBUG | 11:28:19 | 68.19 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:19 | 68.19 | Modifying Text: 1 inch= 1000 miles
-BRIDGE | DEBUG | 11:28:19 | 68.19 | Mesh bounding box: Center: (0.001, 0.000, 0.000), Extents: (0.239, 0.023, 0.073)
-BRIDGE | TRACE | 11:28:20 | 68.41 | handleStringMessage, message guid: 0f676966-e7c0-4f3f-806d-f30a26f35a75
-BRIDGE | DEBUG | 11:28:20 | 68.41 | Found Object to modify over transmission, object guid: 9e1b6044-90b7-4b83-9b1a-e94b99448f10
-BRIDGE | TRACE | 11:28:20 | 68.41 | modifyObject() : brbPreviousClip
-BRIDGE | DEBUG | 11:28:20 | 68.41 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | TRACE | 11:28:20 | 68.82 | handleStringMessage, message guid: 242b666e-3ec7-4dd0-a29d-d6e1b94167b8
-BRIDGE | DEBUG | 11:28:20 | 68.82 | Found Object to modify over transmission, object guid: 04f3cfdb-17e1-4863-9f1d-efaceb1c48c3
-BRIDGE | TRACE | 11:28:20 | 68.82 | modifyObject() : brbNextClip
-BRIDGE | DEBUG | 11:28:20 | 68.82 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | TRACE | 11:28:20 | 69.23 | handleStringMessage, message guid: 8ffc6f28-cdcc-45f0-bd82-c59e11553ed9
-BRIDGE | DEBUG | 11:28:20 | 69.23 | Found Object to modify over transmission, object guid: cbb92ceb-ddfa-4b88-af99-bd24ab9ca3cd
-BRIDGE | TRACE | 11:28:20 | 69.23 | modifyObject() : brbNextModule
-BRIDGE | DEBUG | 11:28:20 | 69.23 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-AUDIOHANDLER | TRACE | 11:28:21 | 69.41 | Attempting to play local Audio: moonlab_1_1_0
-AUDIOHANDLER | TRACE | 11:28:21 | 69.41 | Attempting to play local Audio: moonlab_1_1_0
-LABMANAGER | TRACE | 11:28:21 | 69.74 | TransmissionStartLab()
-LABMANAGER | STATE_START | 11:28:21 | 69.74 | Module 0
-LIGHTINGCONTROL | TRACE | 11:28:21 | 69.74 | saveLights()
-LIGHTINGCONTROL | TRACE | 11:28:21 | 69.74 | sunlight()
-LABMANAGER | TRACE | 11:28:21 | 69.74 | TransmissionStartLab()
-LABMANAGER | STATE_START | 11:28:21 | 69.74 | Module 0
-LIGHTINGCONTROL | TRACE | 11:28:21 | 69.74 | saveLights()
-LIGHTINGCONTROL | TRACE | 11:28:21 | 69.74 | sunlight()
-BRIDGE | TRACE | 11:28:21 | 69.74 | handleStringMessage, message guid: 4dc22dc3-648f-47a5-a49f-7b51a63d3550
-BRIDGE | DEBUG | 11:28:21 | 69.74 | Found Object to modify over transmission, object guid: 3c1918c6-09a6-43de-ac6f-27a21cdb2471
-BRIDGE | TRACE | 11:28:21 | 69.74 | modifyObject() : Sun
-BRIDGE | DEBUG | 11:28:21 | 69.74 | Position: (0.000, 0.000, 0.000), scale: (5.000, 5.000, 5.000), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:21 | 69.74 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (3.120, 2.500, 3.120)
-BRIDGE | TRACE | 11:28:22 | 70.21 | handleStringMessage, message guid: 78d240f0-ce1a-4ab1-9e2c-cfffa26efddc
-BRIDGE | DEBUG | 11:28:22 | 70.21 | Found Object to modify over transmission, object guid: 1a331f5b-5d39-4c45-bb91-50939aec289f
-BRIDGE | TRACE | 11:28:22 | 70.21 | modifyObject() : Earth
-BRIDGE | DEBUG | 11:28:22 | 70.21 | Position: (0.000, 0.000, 0.000), scale: (0.080, 0.080, 0.080), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:22 | 70.21 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.050, 0.040, 0.050)
-BRIDGE | TRACE | 11:28:22 | 70.65 | handleStringMessage, message guid: 86b236a4-1343-4fb0-ade4-831a5dc61747
-BRIDGE | DEBUG | 11:28:22 | 70.65 | Found Object to modify over transmission, object guid: 55c5bfe0-0115-4a7c-b0cf-7bf809b1b8a3
-BRIDGE | TRACE | 11:28:22 | 70.65 | modifyObject() : Moon
-BRIDGE | DEBUG | 11:28:22 | 70.65 | Position: (0.000, 0.000, 0.000), scale: (0.020, 0.020, 0.020), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:22 | 70.65 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.012, 0.010, 0.012)
-BRIDGE | TRACE | 11:28:22 | 71.07 | handleStringMessage, message guid: 0b42bb68-059f-4d86-ae58-5b4a3874f7f3
-BRIDGE | DEBUG | 11:28:22 | 71.07 | Found Object to modify over transmission, object guid: c871d411-5b28-4f6f-8f49-3f75cd7f2143
-BRIDGE | TRACE | 11:28:22 | 71.07 | modifyObject() : earthLabel
-BRIDGE | DEBUG | 11:28:22 | 71.07 | Position: (0.000, 0.000, 0.000), scale: (0.800, 0.800, 0.800), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:23 | 71.07 | Modifying Text: Earth
-BRIDGE | DEBUG | 11:28:23 | 71.07 | Mesh bounding box: Center: (0.001, 0.001, 0.000), Extents: (0.087, 0.030, 0.027)
-BRIDGE | TRACE | 11:28:23 | 71.07 | handleStringMessage, message guid: f7785bb3-9345-4636-957f-1755289d3f47
-BRIDGE | DEBUG | 11:28:23 | 71.07 | Found Object to modify over transmission, object guid: 01604e23-290e-4581-80e1-75827988b212
-BRIDGE | TRACE | 11:28:23 | 71.07 | modifyObject() : earthSizeLabel
-BRIDGE | DEBUG | 11:28:23 | 71.07 | Position: (0.000, 0.000, 0.000), scale: (0.008, 0.008, 0.008), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:23 | 71.07 | Modifying Text: 8000 miles
-BRIDGE | DEBUG | 11:28:23 | 71.07 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.002, 0.000, 0.001)
-BRIDGE | TRACE | 11:28:23 | 71.69 | handleStringMessage, message guid: f4deb743-bd22-4c56-a733-bd40d1e927e5
-BRIDGE | DEBUG | 11:28:23 | 71.69 | Found Object to modify over transmission, object guid: 560015b8-f868-4912-b131-74c0675b027a
-BRIDGE | TRACE | 11:28:23 | 71.69 | modifyObject() : moonLabel
-BRIDGE | DEBUG | 11:28:23 | 71.69 | Position: (0.000, 0.000, 0.000), scale: (0.400, 0.400, 0.400), EulerAngles: (0.000, 253.079, 0.000)
-BRIDGE | DEBUG | 11:28:23 | 71.69 | Modifying Text: The Moon
-BRIDGE | DEBUG | 11:28:23 | 71.69 | Mesh bounding box: Center: (0.000, 0.000, -0.001), Extents: (0.026, 0.015, 0.085)
-BRIDGE | TRACE | 11:28:23 | 71.86 | handleStringMessage, message guid: a8c2c2df-b8bd-4d4f-89c5-b399459da4a0
-BRIDGE | DEBUG | 11:28:23 | 71.86 | Found Object to modify over transmission, object guid: 18df0cd3-bb89-4f6e-884d-39c78811cef9
-BRIDGE | TRACE | 11:28:23 | 71.86 | modifyObject() : moonSizeLabel
-BRIDGE | DEBUG | 11:28:23 | 71.86 | Position: (0.000, 0.000, 0.000), scale: (0.002, 0.002, 0.002), EulerAngles: (0.000, 253.079, 0.000)
-BRIDGE | DEBUG | 11:28:23 | 71.86 | Modifying Text: 2000 miles
-BRIDGE | DEBUG | 11:28:23 | 71.86 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.000, 0.000, 0.000)
-BRIDGE | TRACE | 11:28:24 | 72.47 | handleStringMessage, message guid: 5d3285e0-ba2c-431a-921e-2e826e07b5cf
-BRIDGE | DEBUG | 11:28:24 | 72.47 | Found Object to modify over transmission, object guid: 63975af7-247a-4bcf-b529-2d8d38d54dca
-BRIDGE | TRACE | 11:28:24 | 72.47 | modifyObject() : moonDistanceLabel
-BRIDGE | DEBUG | 11:28:24 | 72.47 | Position: (0.000, 0.000, 0.000), scale: (0.002, 0.002, 0.002), EulerAngles: (0.000, 163.054, 0.000)
-BRIDGE | DEBUG | 11:28:24 | 72.47 | Modifying Text: 240,000 miles
-BRIDGE | DEBUG | 11:28:24 | 72.47 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.001, 0.000, 0.000)
-BRIDGE | TRACE | 11:28:24 | 72.47 | handleStringMessage, message guid: 749c57ab-c001-4758-b469-43797dcdeef7
-BRIDGE | DEBUG | 11:28:24 | 72.47 | Found Object to modify over transmission, object guid: 7275578f-377a-4a9e-9ef5-6d5a69d08784
-BRIDGE | TRACE | 11:28:24 | 72.47 | modifyObject() : taskLabel
-BRIDGE | DEBUG | 11:28:24 | 72.47 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:24 | 72.47 | Modifying Text: Introduction
-BRIDGE | DEBUG | 11:28:24 | 72.47 | Mesh bounding box: Center: (0.001, 0.000, 0.000), Extents: (0.147, 0.023, 0.045)
-BRIDGE | TRACE | 11:28:24 | 73.09 | handleStringMessage, message guid: 9dbbee69-f468-49c5-a79a-9ed323dc9a73
-BRIDGE | DEBUG | 11:28:24 | 73.09 | Found Object to modify over transmission, object guid: 329e1132-d30e-4b9f-850c-8f5515c62a07
-BRIDGE | TRACE | 11:28:25 | 73.09 | modifyObject() : sectionLabel
-BRIDGE | DEBUG | 11:28:25 | 73.09 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:25 | 73.09 | Modifying Text: Sizes and Scales of the Earth and Moon
-BRIDGE | DEBUG | 11:28:25 | 73.09 | Mesh bounding box: Center: (-0.001, 0.000, 0.000), Extents: (0.511, 0.023, 0.156)
-BRIDGE | TRACE | 11:28:25 | 73.09 | handleStringMessage, message guid: ed610caa-ff14-4c38-b584-7acf7c6eac7c
-BRIDGE | DEBUG | 11:28:25 | 73.09 | Found Object to modify over transmission, object guid: cbb92ceb-ddfa-4b88-af99-bd24ab9ca3cd
-BRIDGE | TRACE | 11:28:25 | 73.09 | modifyObject() : brbNextModule
-BRIDGE | DEBUG | 11:28:25 | 73.09 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:25 | 73.09 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:28:25 | 73.67 | handleStringMessage, message guid: a3f30873-8c5d-43b6-b96c-45a24dec33c3
-BRIDGE | DEBUG | 11:28:25 | 73.67 | Found Object to modify over transmission, object guid: 7206be2d-5fe3-4ad8-9bd2-60c0cb99e3ed
-BRIDGE | TRACE | 11:28:25 | 73.67 | modifyObject() : brbNextModuleLabel
-BRIDGE | DEBUG | 11:28:25 | 73.67 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:25 | 73.67 | Modifying Text: Next  Module
-BRIDGE | DEBUG | 11:28:25 | 73.67 | Mesh bounding box: Center: (-0.006, 0.000, -0.001), Extents: (0.065, 0.000, 0.049)
-BRIDGE | TRACE | 11:28:26 | 74.13 | handleStringMessage, message guid: 0c273842-520e-4056-9bea-e25add9aa938
-BRIDGE | DEBUG | 11:28:26 | 74.13 | Found Object to modify over transmission, object guid: a8e83892-c76e-4da2-81ed-d53eff2f2ad7
-BRIDGE | TRACE | 11:28:26 | 74.13 | modifyObject() : brbPreviousModule
-BRIDGE | DEBUG | 11:28:26 | 74.13 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:26 | 74.13 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:28:26 | 74.3 | handleStringMessage, message guid: 2f43b5b0-d5e1-4e34-8e65-3f16363c5d5f
-BRIDGE | DEBUG | 11:28:26 | 74.3 | Found Object to modify over transmission, object guid: 84656fa6-8b03-4823-a5f6-ba8cad978e99
-BRIDGE | TRACE | 11:28:26 | 74.3 | modifyObject() : brbPreviousModuleLabel
-BRIDGE | DEBUG | 11:28:26 | 74.3 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:26 | 74.3 | Modifying Text: Previous   Module
-BRIDGE | DEBUG | 11:28:26 | 74.3 | Mesh bounding box: Center: (-0.001, 0.000, -0.001), Extents: (0.076, 0.000, 0.053)
-BRIDGE | TRACE | 11:28:26 | 74.64 | handleStringMessage, message guid: dda3b84e-4528-4ef3-9ff2-aede1f7f1b62
-BRIDGE | DEBUG | 11:28:26 | 74.64 | Found Object to modify over transmission, object guid: 04f3cfdb-17e1-4863-9f1d-efaceb1c48c3
-BRIDGE | TRACE | 11:28:26 | 74.64 | modifyObject() : brbNextClip
-BRIDGE | DEBUG | 11:28:26 | 74.64 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:26 | 74.64 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:28:26 | 75.07 | handleStringMessage, message guid: 84fe2a9c-52de-4038-bc47-24de86af95ef
-BRIDGE | DEBUG | 11:28:27 | 75.07 | Found Object to modify over transmission, object guid: 46e33dd6-907a-4d0f-8f3c-d18ec52fd423
-BRIDGE | TRACE | 11:28:27 | 75.07 | modifyObject() : brbNextClipLabel
-BRIDGE | DEBUG | 11:28:27 | 75.07 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:27 | 75.07 | Modifying Text: Next
-BRIDGE | DEBUG | 11:28:27 | 75.07 | Mesh bounding box: Center: (-0.002, 0.000, 0.000), Extents: (0.038, 0.000, 0.023)
-BRIDGE | TRACE | 11:28:27 | 75.07 | handleStringMessage, message guid: 6f276131-7540-42c1-b5c7-7301dca61e2a
-BRIDGE | DEBUG | 11:28:27 | 75.07 | Found Object to modify over transmission, object guid: 9e1b6044-90b7-4b83-9b1a-e94b99448f10
-BRIDGE | TRACE | 11:28:27 | 75.07 | modifyObject() : brbPreviousClip
-BRIDGE | DEBUG | 11:28:27 | 75.07 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:27 | 75.07 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:28:27 | 75.65 | handleStringMessage, message guid: b5fb9a6f-0f5f-4260-a831-36679ace6f3d
-BRIDGE | DEBUG | 11:28:27 | 75.65 | Found Object to modify over transmission, object guid: c6a12cf6-41db-42fd-9b95-03f57713cf6e
-BRIDGE | TRACE | 11:28:27 | 75.65 | modifyObject() : brbPreviousClipLabel
-BRIDGE | DEBUG | 11:28:27 | 75.65 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:27 | 75.65 | Modifying Text: Previous
-BRIDGE | DEBUG | 11:28:27 | 75.65 | Mesh bounding box: Center: (-0.001, 0.000, -0.001), Extents: (0.070, 0.000, 0.033)
-BRIDGE | TRACE | 11:28:27 | 76.09 | handleStringMessage, message guid: eff214f2-af80-45fa-a175-eb907a89ae61
-BRIDGE | DEBUG | 11:28:28 | 76.09 | Found Object to modify over transmission, object guid: 7275578f-377a-4a9e-9ef5-6d5a69d08784
-BRIDGE | TRACE | 11:28:28 | 76.09 | modifyObject() : taskLabel
-BRIDGE | DEBUG | 11:28:28 | 76.09 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:28 | 76.09 | Modifying Text: 1 inch= 1000 miles
-BRIDGE | DEBUG | 11:28:28 | 76.09 | Mesh bounding box: Center: (0.001, 0.000, 0.000), Extents: (0.239, 0.023, 0.073)
-BRIDGE | TRACE | 11:28:28 | 76.55 | handleStringMessage, message guid: ff59e18d-acd9-4c74-a7f1-c7976e2c3cd7
-BRIDGE | DEBUG | 11:28:28 | 76.55 | Found Object to modify over transmission, object guid: 9e1b6044-90b7-4b83-9b1a-e94b99448f10
-BRIDGE | TRACE | 11:28:28 | 76.55 | modifyObject() : brbPreviousClip
-BRIDGE | DEBUG | 11:28:28 | 76.55 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | TRACE | 11:28:28 | 76.95 | handleStringMessage, message guid: dab0c587-dd25-4043-bd5d-1cd3a1c58808
-BRIDGE | DEBUG | 11:28:28 | 76.95 | Found Object to modify over transmission, object guid: 04f3cfdb-17e1-4863-9f1d-efaceb1c48c3
-BRIDGE | TRACE | 11:28:28 | 76.95 | modifyObject() : brbNextClip
-BRIDGE | DEBUG | 11:28:28 | 76.95 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | TRACE | 11:28:28 | 76.95 | handleStringMessage, message guid: 57992b99-5fee-4597-b94a-0b7057871174
-BRIDGE | DEBUG | 11:28:28 | 76.95 | Found Object to modify over transmission, object guid: cbb92ceb-ddfa-4b88-af99-bd24ab9ca3cd
-BRIDGE | TRACE | 11:28:29 | 76.95 | modifyObject() : brbNextModule
-BRIDGE | DEBUG | 11:28:29 | 76.95 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-AUDIOHANDLER | TRACE | 11:28:29 | 77.45 | Attempting to play local Audio: moonlab_1_1_0
-AUDIOHANDLER | TRACE | 11:28:29 | 77.45 | Attempting to play local Audio: moonlab_1_1_0
-LABMANAGER | TRACE | 11:28:29 | 77.45 | TransmissionStartLab()
-LABMANAGER | STATE_START | 11:28:29 | 77.45 | Module 0
-LIGHTINGCONTROL | TRACE | 11:28:29 | 77.45 | saveLights()
-LIGHTINGCONTROL | TRACE | 11:28:29 | 77.45 | sunlight()
-LABMANAGER | TRACE | 11:28:29 | 77.45 | TransmissionStartLab()
-LABMANAGER | STATE_START | 11:28:29 | 77.45 | Module 0
-LIGHTINGCONTROL | TRACE | 11:28:29 | 77.45 | saveLights()
-LIGHTINGCONTROL | TRACE | 11:28:29 | 77.45 | sunlight()
-BRIDGE | TRACE | 11:28:29 | 77.45 | handleStringMessage, message guid: 6f1306b6-d6eb-4dcc-854d-e963adac09f5
-BRIDGE | DEBUG | 11:28:29 | 77.45 | Found Object to modify over transmission, object guid: 3c1918c6-09a6-43de-ac6f-27a21cdb2471
-BRIDGE | TRACE | 11:28:29 | 77.45 | modifyObject() : Sun
-BRIDGE | DEBUG | 11:28:29 | 77.45 | Position: (0.000, 0.000, 0.000), scale: (5.000, 5.000, 5.000), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:29 | 77.45 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (3.120, 2.500, 3.120)
-BRIDGE | TRACE | 11:28:30 | 77.92 | handleStringMessage, message guid: 78538c93-d317-4ed1-848a-caf60a6f2e16
-BRIDGE | DEBUG | 11:28:30 | 77.92 | Found Object to modify over transmission, object guid: 1a331f5b-5d39-4c45-bb91-50939aec289f
-BRIDGE | TRACE | 11:28:30 | 77.92 | modifyObject() : Earth
-BRIDGE | DEBUG | 11:28:30 | 77.92 | Position: (0.000, 0.000, 0.000), scale: (0.080, 0.080, 0.080), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:30 | 77.92 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.050, 0.040, 0.050)
-BRIDGE | TRACE | 11:28:30 | 78.33 | handleStringMessage, message guid: 3bc667ce-e5b5-433e-8fec-e11a73930265
-BRIDGE | DEBUG | 11:28:30 | 78.33 | Found Object to modify over transmission, object guid: 55c5bfe0-0115-4a7c-b0cf-7bf809b1b8a3
-BRIDGE | TRACE | 11:28:30 | 78.33 | modifyObject() : Moon
-BRIDGE | DEBUG | 11:28:30 | 78.33 | Position: (0.000, 0.000, 0.000), scale: (0.020, 0.020, 0.020), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:30 | 78.33 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.012, 0.010, 0.012)
-BRIDGE | TRACE | 11:28:30 | 78.69 | handleStringMessage, message guid: 128dcb8b-e033-4ac3-8dac-910e63ef8a94
-BRIDGE | DEBUG | 11:28:30 | 78.69 | Found Object to modify over transmission, object guid: c871d411-5b28-4f6f-8f49-3f75cd7f2143
-BRIDGE | TRACE | 11:28:30 | 78.69 | modifyObject() : earthLabel
-BRIDGE | DEBUG | 11:28:30 | 78.69 | Position: (0.000, 0.000, 0.000), scale: (0.800, 0.800, 0.800), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:30 | 78.69 | Modifying Text: Earth
-BRIDGE | DEBUG | 11:28:30 | 78.69 | Mesh bounding box: Center: (0.001, 0.001, 0.000), Extents: (0.087, 0.030, 0.027)
-BRIDGE | TRACE | 11:28:31 | 78.99 | handleStringMessage, message guid: 155f8124-5953-476e-88ba-024549130724
-BRIDGE | DEBUG | 11:28:31 | 78.99 | Found Object to modify over transmission, object guid: 01604e23-290e-4581-80e1-75827988b212
-BRIDGE | TRACE | 11:28:31 | 78.99 | modifyObject() : earthSizeLabel
-BRIDGE | DEBUG | 11:28:31 | 78.99 | Position: (0.000, 0.000, 0.000), scale: (0.008, 0.008, 0.008), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:31 | 78.99 | Modifying Text: 8000 miles
-BRIDGE | DEBUG | 11:28:31 | 78.99 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.002, 0.000, 0.001)
-BRIDGE | TRACE | 11:28:31 | 79.27 | handleStringMessage, message guid: 89eab74c-e818-46d5-9ac8-64e24d9ca78b
-BRIDGE | DEBUG | 11:28:31 | 79.27 | Found Object to modify over transmission, object guid: 560015b8-f868-4912-b131-74c0675b027a
-BRIDGE | TRACE | 11:28:31 | 79.27 | modifyObject() : moonLabel
-BRIDGE | DEBUG | 11:28:31 | 79.27 | Position: (0.000, 0.000, 0.000), scale: (0.400, 0.400, 0.400), EulerAngles: (0.000, 253.079, 0.000)
-BRIDGE | DEBUG | 11:28:31 | 79.27 | Modifying Text: The Moon
-BRIDGE | DEBUG | 11:28:31 | 79.27 | Mesh bounding box: Center: (0.000, 0.000, -0.001), Extents: (0.026, 0.015, 0.085)
-BRIDGE | TRACE | 11:28:31 | 79.61 | handleStringMessage, message guid: 9fe370a3-6a58-4825-bc34-57a8fba0c92b
-BRIDGE | DEBUG | 11:28:31 | 79.61 | Found Object to modify over transmission, object guid: 18df0cd3-bb89-4f6e-884d-39c78811cef9
-BRIDGE | TRACE | 11:28:31 | 79.61 | modifyObject() : moonSizeLabel
-BRIDGE | DEBUG | 11:28:31 | 79.61 | Position: (0.000, 0.000, 0.000), scale: (0.002, 0.002, 0.002), EulerAngles: (0.000, 253.079, 0.000)
-BRIDGE | DEBUG | 11:28:31 | 79.61 | Modifying Text: 2000 miles
-BRIDGE | DEBUG | 11:28:31 | 79.61 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.000, 0.000, 0.000)
-BRIDGE | TRACE | 11:28:32 | 79.96 | handleStringMessage, message guid: ccbcf410-a497-44f8-832f-40d8be73966e
-BRIDGE | DEBUG | 11:28:32 | 79.96 | Found Object to modify over transmission, object guid: 63975af7-247a-4bcf-b529-2d8d38d54dca
-BRIDGE | TRACE | 11:28:32 | 79.96 | modifyObject() : moonDistanceLabel
-BRIDGE | DEBUG | 11:28:32 | 79.96 | Position: (0.000, 0.000, 0.000), scale: (0.002, 0.002, 0.002), EulerAngles: (0.000, 163.054, 0.000)
-BRIDGE | DEBUG | 11:28:32 | 79.96 | Modifying Text: 240,000 miles
-BRIDGE | DEBUG | 11:28:32 | 79.96 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.001, 0.000, 0.000)
-BRIDGE | TRACE | 11:28:32 | 80.29 | handleStringMessage, message guid: 53878721-403f-479a-91e3-033d235e152b
-BRIDGE | DEBUG | 11:28:32 | 80.29 | Found Object to modify over transmission, object guid: 7275578f-377a-4a9e-9ef5-6d5a69d08784
-BRIDGE | TRACE | 11:28:32 | 80.29 | modifyObject() : taskLabel
-BRIDGE | DEBUG | 11:28:32 | 80.29 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:32 | 80.29 | Modifying Text: Introduction
-BRIDGE | DEBUG | 11:28:32 | 80.29 | Mesh bounding box: Center: (0.001, 0.000, 0.000), Extents: (0.147, 0.023, 0.045)
-BRIDGE | TRACE | 11:28:32 | 80.64 | handleStringMessage, message guid: dc7e402d-cf83-4805-a0ef-488f61bbb9e3
-BRIDGE | DEBUG | 11:28:32 | 80.64 | Found Object to modify over transmission, object guid: 329e1132-d30e-4b9f-850c-8f5515c62a07
-BRIDGE | TRACE | 11:28:32 | 80.64 | modifyObject() : sectionLabel
-BRIDGE | DEBUG | 11:28:32 | 80.64 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:32 | 80.64 | Modifying Text: Sizes and Scales of the Earth and Moon
-BRIDGE | DEBUG | 11:28:32 | 80.64 | Mesh bounding box: Center: (-0.001, 0.000, 0.000), Extents: (0.511, 0.023, 0.156)
-BRIDGE | TRACE | 11:28:33 | 81.08 | handleStringMessage, message guid: 419cfda8-4f8e-4296-a155-1bc7734cbdac
-BRIDGE | DEBUG | 11:28:33 | 81.08 | Found Object to modify over transmission, object guid: cbb92ceb-ddfa-4b88-af99-bd24ab9ca3cd
-BRIDGE | TRACE | 11:28:33 | 81.08 | modifyObject() : brbNextModule
-BRIDGE | DEBUG | 11:28:33 | 81.08 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:33 | 81.08 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:28:33 | 81.33 | handleStringMessage, message guid: ada3e10d-8ed3-42d8-a7e6-079bccdccb16
-BRIDGE | DEBUG | 11:28:33 | 81.33 | Found Object to modify over transmission, object guid: 7206be2d-5fe3-4ad8-9bd2-60c0cb99e3ed
-BRIDGE | TRACE | 11:28:33 | 81.33 | modifyObject() : brbNextModuleLabel
-BRIDGE | DEBUG | 11:28:33 | 81.33 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (89.980, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:33 | 81.33 | Modifying Text: Next  Module
-BRIDGE | DEBUG | 11:28:33 | 81.33 | Mesh bounding box: Center: (-0.006, 0.000, -0.001), Extents: (0.065, 0.000, 0.049)
-BRIDGE | TRACE | 11:28:34 | 81.89 | handleStringMessage, message guid: f326c683-c660-40c8-9cdb-11df1ff65c71
-BRIDGE | DEBUG | 11:28:34 | 81.89 | Found Object to modify over transmission, object guid: a8e83892-c76e-4da2-81ed-d53eff2f2ad7
-BRIDGE | TRACE | 11:28:34 | 81.89 | modifyObject() : brbPreviousModule
-BRIDGE | DEBUG | 11:28:34 | 81.89 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:34 | 81.89 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:28:34 | 82.01 | handleStringMessage, message guid: f9b945c9-b2b3-4d51-8392-51f9f481b0a4
-BRIDGE | DEBUG | 11:28:34 | 82.01 | Found Object to modify over transmission, object guid: 84656fa6-8b03-4823-a5f6-ba8cad978e99
-BRIDGE | TRACE | 11:28:34 | 82.01 | modifyObject() : brbPreviousModuleLabel
-BRIDGE | DEBUG | 11:28:34 | 82.01 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:34 | 82.01 | Modifying Text: Previous   Module
-BRIDGE | DEBUG | 11:28:34 | 82.01 | Mesh bounding box: Center: (-0.001, 0.000, -0.001), Extents: (0.076, 0.000, 0.053)
-BRIDGE | TRACE | 11:28:34 | 82.36 | handleStringMessage, message guid: 3a2a6cf8-7494-4fe6-bf7c-f77795ad44fc
-BRIDGE | DEBUG | 11:28:34 | 82.36 | Found Object to modify over transmission, object guid: 04f3cfdb-17e1-4863-9f1d-efaceb1c48c3
-BRIDGE | TRACE | 11:28:34 | 82.36 | modifyObject() : brbNextClip
-BRIDGE | DEBUG | 11:28:34 | 82.36 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:34 | 82.36 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:28:34 | 82.71 | handleStringMessage, message guid: ddaa09d5-274a-4921-9872-53198274d0d6
-BRIDGE | DEBUG | 11:28:34 | 82.71 | Found Object to modify over transmission, object guid: 46e33dd6-907a-4d0f-8f3c-d18ec52fd423
-BRIDGE | TRACE | 11:28:34 | 82.71 | modifyObject() : brbNextClipLabel
-BRIDGE | DEBUG | 11:28:34 | 82.71 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:34 | 82.71 | Modifying Text: Next
-BRIDGE | DEBUG | 11:28:34 | 82.71 | Mesh bounding box: Center: (-0.002, 0.000, 0.000), Extents: (0.038, 0.000, 0.023)
-BRIDGE | TRACE | 11:28:35 | 83.13 | handleStringMessage, message guid: 0b4fb3cf-75c7-4b2d-8bcd-4bb552b60b78
-BRIDGE | DEBUG | 11:28:35 | 83.13 | Found Object to modify over transmission, object guid: 9e1b6044-90b7-4b83-9b1a-e94b99448f10
-BRIDGE | TRACE | 11:28:35 | 83.13 | modifyObject() : brbPreviousClip
-BRIDGE | DEBUG | 11:28:35 | 83.13 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:35 | 83.13 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
-BRIDGE | TRACE | 11:28:35 | 83.37 | handleStringMessage, message guid: 42a4e460-9ea5-4a54-b32c-c3b6e4755a91
-BRIDGE | DEBUG | 11:28:35 | 83.37 | Found Object to modify over transmission, object guid: c6a12cf6-41db-42fd-9b95-03f57713cf6e
-BRIDGE | TRACE | 11:28:35 | 83.37 | modifyObject() : brbPreviousClipLabel
-BRIDGE | DEBUG | 11:28:35 | 83.37 | Position: (0.000, 0.000, 0.000), scale: (0.360, 0.360, 0.360), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | DEBUG | 11:28:35 | 83.37 | Modifying Text: Previous
-BRIDGE | DEBUG | 11:28:35 | 83.37 | Mesh bounding box: Center: (-0.001, 0.000, -0.001), Extents: (0.070, 0.000, 0.033)
-BRIDGE | TRACE | 11:28:35 | 83.86 | handleStringMessage, message guid: cff7a441-c502-4542-a6bf-ddf78a95292d
-BRIDGE | DEBUG | 11:28:35 | 83.86 | Found Object to modify over transmission, object guid: 7275578f-377a-4a9e-9ef5-6d5a69d08784
-BRIDGE | TRACE | 11:28:36 | 83.86 | modifyObject() : taskLabel
-BRIDGE | DEBUG | 11:28:36 | 83.86 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:36 | 83.86 | Modifying Text: 1 inch= 1000 miles
-BRIDGE | DEBUG | 11:28:36 | 83.86 | Mesh bounding box: Center: (0.001, 0.000, 0.000), Extents: (0.239, 0.023, 0.073)
-BRIDGE | TRACE | 11:28:36 | 84.17 | handleStringMessage, message guid: d5aac55f-c240-4559-956b-92cbe70b085f
-BRIDGE | DEBUG | 11:28:36 | 84.17 | Found Object to modify over transmission, object guid: 9e1b6044-90b7-4b83-9b1a-e94b99448f10
-BRIDGE | TRACE | 11:28:36 | 84.17 | modifyObject() : brbPreviousClip
-BRIDGE | DEBUG | 11:28:36 | 84.17 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | TRACE | 11:28:36 | 84.56 | handleStringMessage, message guid: fca1d2ef-1f59-405a-abec-7428ed9253db
-BRIDGE | DEBUG | 11:28:36 | 84.56 | Found Object to modify over transmission, object guid: 04f3cfdb-17e1-4863-9f1d-efaceb1c48c3
-BRIDGE | TRACE | 11:28:36 | 84.56 | modifyObject() : brbNextClip
-BRIDGE | DEBUG | 11:28:36 | 84.56 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-BRIDGE | TRACE | 11:28:37 | 85.15 | handleStringMessage, message guid: 4e48d750-e876-4758-bcf3-a88b76b9f4e4
-BRIDGE | DEBUG | 11:28:37 | 85.15 | Found Object to modify over transmission, object guid: cbb92ceb-ddfa-4b88-af99-bd24ab9ca3cd
-BRIDGE | TRACE | 11:28:37 | 85.15 | modifyObject() : brbNextModule
-BRIDGE | DEBUG | 11:28:37 | 85.15 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 163.080, 0.000)
-AUDIOHANDLER | TRACE | 11:28:37 | 85.15 | Attempting to play local Audio: moonlab_1_1_0
-AUDIOHANDLER | TRACE | 11:28:37 | 85.15 | Attempting to play local Audio: moonlab_1_1_0
-LABMANAGER | TRACE | 11:28:37 | 85.15 | TransmissionStartLab()
-LABMANAGER | STATE_START | 11:28:37 | 85.15 | Module 0
-LIGHTINGCONTROL | TRACE | 11:28:37 | 85.15 | saveLights()
-LIGHTINGCONTROL | TRACE | 11:28:37 | 85.15 | sunlight()
-LABMANAGER | TRACE | 11:28:37 | 85.15 | TransmissionStartLab()
-LABMANAGER | STATE_START | 11:28:37 | 85.15 | Module 0
-LIGHTINGCONTROL | TRACE | 11:28:37 | 85.15 | saveLights()
-LIGHTINGCONTROL | TRACE | 11:28:37 | 85.15 | sunlight()
-BRIDGE | TRACE | 11:28:37 | 85.66 | handleStringMessage, message guid: 5f457ba0-380d-4a88-918c-97628dfc84ff
-BRIDGE | DEBUG | 11:28:37 | 85.66 | Found Object to modify over transmission, object guid: 3c1918c6-09a6-43de-ac6f-27a21cdb2471
-BRIDGE | TRACE | 11:28:37 | 85.66 | modifyObject() : Sun
-BRIDGE | DEBUG | 11:28:37 | 85.66 | Position: (0.000, 0.000, 0.000), scale: (5.000, 5.000, 5.000), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:37 | 85.66 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (3.120, 2.500, 3.120)
-BRIDGE | TRACE | 11:28:38 | 85.91 | handleStringMessage, message guid: 7669838d-2028-40fd-a799-f2c6be46845a
-BRIDGE | DEBUG | 11:28:38 | 85.91 | Found Object to modify over transmission, object guid: 1a331f5b-5d39-4c45-bb91-50939aec289f
-BRIDGE | TRACE | 11:28:38 | 85.91 | modifyObject() : Earth
-BRIDGE | DEBUG | 11:28:38 | 85.91 | Position: (0.000, 0.000, 0.000), scale: (0.080, 0.080, 0.080), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:38 | 85.91 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.050, 0.040, 0.050)
-BRIDGE | TRACE | 11:28:38 | 86.3 | handleStringMessage, message guid: 47f7ec61-94ba-4ca4-935d-56633eb43b8d
-BRIDGE | DEBUG | 11:28:38 | 86.3 | Found Object to modify over transmission, object guid: 55c5bfe0-0115-4a7c-b0cf-7bf809b1b8a3
-BRIDGE | TRACE | 11:28:38 | 86.3 | modifyObject() : Moon
-BRIDGE | DEBUG | 11:28:38 | 86.3 | Position: (0.000, 0.000, 0.000), scale: (0.020, 0.020, 0.020), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:38 | 86.3 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.012, 0.010, 0.012)
-BRIDGE | TRACE | 11:28:38 | 86.69 | handleStringMessage, message guid: 106c9631-04ce-4763-bc1f-6e696538bad6
-BRIDGE | DEBUG | 11:28:38 | 86.69 | Found Object to modify over transmission, object guid: c871d411-5b28-4f6f-8f49-3f75cd7f2143
-BRIDGE | TRACE | 11:28:38 | 86.69 | modifyObject() : earthLabel
-BRIDGE | DEBUG | 11:28:38 | 86.69 | Position: (0.000, 0.000, 0.000), scale: (0.800, 0.800, 0.800), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:38 | 86.69 | Modifying Text: Earth
-BRIDGE | DEBUG | 11:28:38 | 86.69 | Mesh bounding box: Center: (0.001, 0.001, 0.000), Extents: (0.087, 0.030, 0.027)
-BRIDGE | TRACE | 11:28:39 | 87.05 | handleStringMessage, message guid: e5681d35-c018-4f3c-9d89-48ce4503f81f
-BRIDGE | DEBUG | 11:28:39 | 87.05 | Found Object to modify over transmission, object guid: 01604e23-290e-4581-80e1-75827988b212
-BRIDGE | TRACE | 11:28:39 | 87.05 | modifyObject() : earthSizeLabel
-BRIDGE | DEBUG | 11:28:39 | 87.05 | Position: (0.000, 0.000, 0.000), scale: (0.008, 0.008, 0.008), EulerAngles: (0.000, 343.054, 0.000)
-BRIDGE | DEBUG | 11:28:39 | 87.05 | Modifying Text: 8000 miles
-BRIDGE | DEBUG | 11:28:39 | 87.05 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.002, 0.000, 0.001)
-BRIDGE | TRACE | 11:28:39 | 87.35 | handleStringMessage, message guid: 9fa2c47f-9ac1-4c64-8916-53bdc9ad571b
-BRIDGE | DEBUG | 11:28:39 | 87.35 | Found Object to modify over transmission, object guid: 560015b8-f868-4912-b131-74c0675b027a
-BRIDGE | TRACE | 11:28:39 | 87.35 | modifyObject() : moonLabel
-BRIDGE | DEBUG | 11:28:39 | 87.35 | Position: (0.000, 0.000, 0.000), scale: (0.400, 0.400, 0.400), EulerAngles: (0.000, 253.079, 0.000)
-BRIDGE | DEBUG | 11:28:39 | 87.35 | Modifying Text: The Moon
-BRIDGE | DEBUG | 11:28:39 | 87.35 | Mesh bounding box: Center: (0.000, 0.000, -0.001), Extents: (0.026, 0.015, 0.085)
-BRIDGE | TRACE | 11:28:39 | 87.84 | handleStringMessage, message guid: 5e618a67-8aaf-41e8-bf3c-27647edfb438
-BRIDGE | DEBUG | 11:28:39 | 87.84 | Found Object to modify over transmission, object guid: 18df0cd3-bb89-4f6e-884d-39c78811cef9
-BRIDGE | TRACE | 11:28:40 | 87.84 | modifyObject() : moonSizeLabel
-BRIDGE | DEBUG | 11:28:40 | 87.84 | Position: (0.000, 0.000, 0.000), scale: (0.002, 0.002, 0.002), EulerAngles: (0.000, 253.079, 0.000)
-BRIDGE | DEBUG | 11:28:40 | 87.84 | Modifying Text: 2000 miles
-BRIDGE | DEBUG | 11:28:40 | 87.84 | Mesh bounding box: Center: (0.000, 0.000, 0.000), Extents: (0.000, 0.000, 0.000)
+BRIDGE | TRACE | 11:06:35 | 3.76 | Creating Bridge Instance
+LOGINMANAGER | STATE_START | 11:06:35 | 3.76 | Introduction
+LOGINMANAGER | TRACE | 11:06:35 | 3.76 | ToggleControllerRendering()
+DOWNLOADUTILITY | TRACE | 11:06:35 | 3.76 | Found local file $/documents/C2/login/All_Labs.json, Not downloading
+LOGINMANAGER | TRACE | 11:06:35 | 3.76 | ParseLabs()
+LOGINMANAGER | DEBUG | 11:06:35 | 3.76 | Finished parsing labs:Moon Lab, 
+LOGINMANAGER | TRACE | 11:06:35 | 3.76 | SetupIntroAnimation()
+DOWNLOADUTILITY | TRACE | 11:06:35 | 3.76 | Starting download of file $/documents/C2/login/pin_ids.csv from url: https://cyberlearnar.cs.mtsu.edu/show_uploaded/pin_ids.csv
+DOWNLOADUTILITY | DEBUG | 11:06:35 | 3.76 | Inside download coroutine, URL: https://cyberlearnar.cs.mtsu.edu/show_uploaded/pin_ids.csv, path: /documents/C2/login/pin_ids.csv
+LOGGER | CONNECT | 11:06:35 | 0 | Connect called at 03/15/2024 11:06:35
+LOGGER | TRACE | 11:06:35 | 0 | Saving files to persistent data path: /documents/C2/Logs/03-15-2024_11-06.txt
+LOGGER | TRACE | 11:06:35 | 0 | Sync with transform log 3.757655
+DOWNLOADUTILITY | TRACE | 11:06:36 | 0.55 | Successfully downloaded /documents/C2/login/pin_ids.csv
+AUTHENTICATE | TRACE | 11:06:36 | 0.55 | ParseCSV()
+AUTHENTICATE | DEBUG | 11:06:45 | 0.55 | CSVs Parsed
+LOGINMANAGER | TRACE | 11:06:57 | 11.68 | ConfirmTarget1()
+LOGINMANAGER | STATE_START | 11:06:57 | 11.68 | Pin Entry
+LOGINMANAGER | TRACE | 11:06:57 | 11.68 | ToggleControllerRendering()
+LOGINMANAGER | TRACE | 11:07:00 | 14.71 | GuestLogin()
+LOGINMANAGER | STATE_START | 11:07:00 | 14.71 | Authentication
+LABLOGGER | INITIALIZE | 11:07:00 | 14.71 | Log file for student: Guest_Guest,  M00000000.
+LOGINMANAGER | DEBUG | 11:07:00 | 14.71 | Student authenticated: Guest Guest, M00000000
+LOGINMANAGER | STATE_START | 11:07:00 | 14.71 | Lab Selection
+LOGINMANAGER | TRACE | 11:07:00 | 14.71 | GenerateLabListUI()
+LOGINMANAGER | TRACE | 11:07:19 | 33.73 | LabSelected()
+LOGINMANAGER | DEBUG | 11:07:19 | 33.73 | Lab Selected: 1, Moon Lab
+LOGINMANAGER | STATE_START | 11:07:19 | 33.73 | Lab Initiation
+DOWNLOADUTILITY | TRACE | 11:07:19 | 33.73 | Starting to extract file: /documents/C2/lab_resources/FullTransmissionLab.zip
+DOWNLOADUTILITY | DEBUG | 11:07:19 | 33.73 | Number of entries to extract: 64
+DOWNLOADUTILITY | DEBUG | 11:07:19 | 33.73 | Extracting file: basketball.wav
+DOWNLOADUTILITY | DEBUG | 11:07:19 | 33.73 | Extracting file: bigearthmoon.wav
+DOWNLOADUTILITY | DEBUG | 11:07:19 | 33.73 | Extracting file: Grab.wav
+DOWNLOADUTILITY | DEBUG | 11:07:19 | 33.73 | Extracting file: introduction.wav
+DOWNLOADUTILITY | DEBUG | 11:07:19 | 33.73 | Extracting file: labintro.wav
+DOWNLOADUTILITY | DEBUG | 11:07:19 | 33.73 | Extracting file: mixkit-game-bonus-reached-2065.wav
+DOWNLOADUTILITY | DEBUG | 11:07:19 | 33.73 | Extracting file: moonlab_1_1_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:19 | 33.73 | Extracting file: moonlab_1_10_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:19 | 33.73 | Extracting file: moonlab_1_11_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:19 | 33.73 | Extracting file: moonlab_1_2_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:20 | 33.73 | Extracting file: moonlab_1_3_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:20 | 33.73 | Extracting file: moonlab_1_4_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:20 | 33.73 | Extracting file: moonlab_1_5_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:20 | 33.73 | Extracting file: moonlab_1_6_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:20 | 33.73 | Extracting file: moonlab_1_7_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:20 | 33.73 | Extracting file: moonlab_1_7_notused.wav
+DOWNLOADUTILITY | DEBUG | 11:07:20 | 33.73 | Extracting file: moonlab_1_8_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:20 | 33.73 | Extracting file: moonlab_1_9_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:20 | 33.73 | Extracting file: moonlab_2_0_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:20 | 33.73 | Extracting file: moonlab_2_1_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:20 | 33.73 | Extracting file: moonlab_2_10_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:20 | 33.73 | Extracting file: moonlab_2_11_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:20 | 33.73 | Extracting file: moonlab_2_2_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:21 | 33.73 | Extracting file: moonlab_2_20_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:21 | 33.73 | Extracting file: moonlab_2_3_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:21 | 33.73 | Extracting file: moonlab_2_4_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:21 | 33.73 | Extracting file: moonlab_2_5_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:21 | 33.73 | Extracting file: moonlab_2_6_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:21 | 33.73 | Extracting file: moonlab_2_7_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:21 | 33.73 | Extracting file: moonlab_2_8_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:21 | 33.73 | Extracting file: moonlab_2_9_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:21 | 33.73 | Extracting file: moonlab_3_0_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:21 | 33.73 | Extracting file: moonlab_3_1_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:21 | 33.73 | Extracting file: moonlab_4_0_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:21 | 33.73 | Extracting file: moonlab_5_0_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:21 | 33.73 | Extracting file: moonlab_6_0_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:22 | 33.73 | Extracting file: moonlab_7_0_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:22 | 33.73 | Extracting file: moonlab_7_1_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:22 | 33.73 | Extracting file: moonlab_7_2_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:22 | 33.73 | Extracting file: moonlab_7_3_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:22 | 33.73 | Extracting file: moonlab_7_4_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:22 | 33.73 | Extracting file: moonlab_7_5_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:22 | 33.73 | Extracting file: moonlab_7_6_0.wav
+DOWNLOADUTILITY | DEBUG | 11:07:22 | 33.73 | Extracting file: newfinalie.wav
+DOWNLOADUTILITY | DEBUG | 11:07:22 | 33.73 | Extracting file: not_in_order1.wav
+DOWNLOADUTILITY | DEBUG | 11:07:22 | 33.73 | Extracting file: not_in_order2.wav
+DOWNLOADUTILITY | DEBUG | 11:07:22 | 33.73 | Extracting file: not_in_order3.wav
+DOWNLOADUTILITY | DEBUG | 11:07:22 | 33.73 | Extracting file: Release.wav
+DOWNLOADUTILITY | DEBUG | 11:07:22 | 33.73 | Extracting file: seeing the moon.wav
+DOWNLOADUTILITY | DEBUG | 11:07:22 | 33.73 | Extracting file: sorting_instructions.wav
+DOWNLOADUTILITY | DEBUG | 11:07:22 | 33.73 | Extracting file: sort-nicejob.wav
+DOWNLOADUTILITY | DEBUG | 11:07:23 | 33.73 | Extracting file: startbasketball.mp3
+DOWNLOADUTILITY | DEBUG | 11:07:23 | 33.73 | Extracting file: startsim.wav
+DOWNLOADUTILITY | DEBUG | 11:07:23 | 33.73 | Extracting file: starttinyearthmoons.wav
+DOWNLOADUTILITY | DEBUG | 11:07:23 | 33.73 | Extracting file: Test55.mp3
+DOWNLOADUTILITY | DEBUG | 11:07:23 | 33.73 | Extracting file: tinyearthmoon.wav
+DOWNLOADUTILITY | DEBUG | 11:07:23 | 33.73 | Extracting file: Full_Lab_Transmission.json
+DOWNLOADUTILITY | DEBUG | 11:07:23 | 33.73 | Extracting file: 2k_earth_daymap.jpg
+DOWNLOADUTILITY | DEBUG | 11:07:23 | 33.73 | Extracting file: 2k_moon.jpg
+DOWNLOADUTILITY | DEBUG | 11:07:23 | 33.73 | Extracting file: 2k_sun.jpg
+DOWNLOADUTILITY | DEBUG | 11:07:24 | 33.73 | Extracting file: balldimpled.png
+LOGINMANAGER | DEBUG | 11:07:24 | 33.73 | Checking file Full_Lab_Transmission.json, in Directory /documents/C2/lab_resources/FullTransmissionLab
+MEDIACATALOGUE | DEBUG | 11:07:24 | 33.73 | Started Initializing Media Catlogue, 60 resources to load
+MEDIACATALOGUE | DEBUG | 11:07:24 | 33.73 | Started loading file: basketball.wav
+MEDIACATALOGUE | DEBUG | 11:07:24 | 34.08 | Started loading file: bigearthmoon.wav
+MEDIACATALOGUE | DEBUG | 11:07:24 | 34.13 | Started loading file: Grab.wav
+MEDIACATALOGUE | DEBUG | 11:07:24 | 34.15 | Started loading file: introduction.wav
+MEDIACATALOGUE | DEBUG | 11:07:24 | 34.16 | Started loading file: labintro.wav
+MEDIACATALOGUE | DEBUG | 11:07:24 | 34.18 | Started loading file: newfinalie.wav
+MEDIACATALOGUE | DEBUG | 11:07:24 | 34.2 | Started loading file: not_in_order1.wav
+MEDIACATALOGUE | DEBUG | 11:07:24 | 34.22 | Started loading file: not_in_order2.wav
+MEDIACATALOGUE | DEBUG | 11:07:24 | 34.23 | Started loading file: not_in_order3.wav
+MEDIACATALOGUE | DEBUG | 11:07:24 | 34.25 | Started loading file: Release.wav
+MEDIACATALOGUE | DEBUG | 11:07:24 | 34.27 | Started loading file: seeing the moon.wav
+MEDIACATALOGUE | DEBUG | 11:07:24 | 34.32 | Started loading file: sorting_instructions.wav
+MEDIACATALOGUE | DEBUG | 11:07:24 | 34.36 | Started loading file: sort-nicejob.wav
+MEDIACATALOGUE | DEBUG | 11:07:24 | 34.38 | Started loading file: startbasketball.mp3
+MEDIACATALOGUE | DEBUG | 11:07:24 | 34.39 | Started loading file: startsim.wav
+MEDIACATALOGUE | DEBUG | 11:07:24 | 34.48 | Started loading file: starttinyearthmoons.wav
+MEDIACATALOGUE | DEBUG | 11:07:24 | 34.51 | Started loading file: Test55.mp3
+MEDIACATALOGUE | DEBUG | 11:07:30 | 34.61 | Started loading file: tinyearthmoon.wav
+MEDIACATALOGUE | DEBUG | 11:07:30 | 34.96 | Started loading file: mixkit-game-bonus-reached-2065.wav
+MEDIACATALOGUE | DEBUG | 11:07:30 | 34.98 | Started loading file: moonlab_1_1_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:30 | 35 | Started loading file: moonlab_1_10_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:30 | 35.02 | Started loading file: moonlab_1_11_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:30 | 35.05 | Started loading file: moonlab_1_2_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:30 | 35.09 | Started loading file: moonlab_1_3_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:30 | 35.12 | Started loading file: moonlab_1_4_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:30 | 35.16 | Started loading file: moonlab_1_5_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:30 | 35.19 | Started loading file: moonlab_1_6_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:30 | 35.22 | Started loading file: moonlab_1_7_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:30 | 35.26 | Started loading file: moonlab_1_7_notused.wav
+MEDIACATALOGUE | DEBUG | 11:07:30 | 35.28 | Started loading file: moonlab_1_8_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:30 | 35.3 | Started loading file: moonlab_1_9_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:30 | 35.33 | Started loading file: moonlab_2_0_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:30 | 35.37 | Started loading file: moonlab_2_1_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:30 | 35.41 | Started loading file: moonlab_2_10_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:30 | 35.42 | Started loading file: moonlab_2_11_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:30 | 35.44 | Started loading file: moonlab_2_2_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:31 | 35.47 | Started loading file: moonlab_2_20_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:31 | 35.5 | Started loading file: moonlab_2_3_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:31 | 35.53 | Started loading file: moonlab_2_4_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:31 | 35.56 | Started loading file: moonlab_2_5_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:31 | 35.58 | Started loading file: moonlab_2_6_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:31 | 35.6 | Started loading file: moonlab_2_7_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:31 | 35.61 | Started loading file: moonlab_2_8_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:31 | 35.63 | Started loading file: moonlab_2_9_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:31 | 35.65 | Started loading file: moonlab_3_0_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:31 | 35.68 | Started loading file: moonlab_3_1_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:31 | 35.72 | Started loading file: moonlab_4_0_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:31 | 35.75 | Started loading file: moonlab_5_0_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:31 | 35.79 | Started loading file: moonlab_6_0_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:31 | 35.83 | Started loading file: moonlab_7_0_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:31 | 35.85 | Started loading file: moonlab_7_1_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:31 | 35.86 | Started loading file: moonlab_7_2_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:31 | 35.88 | Started loading file: moonlab_7_3_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:31 | 35.9 | Started loading file: moonlab_7_4_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:31 | 35.91 | Started loading file: moonlab_7_5_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:31 | 35.93 | Started loading file: moonlab_7_6_0.wav
+MEDIACATALOGUE | DEBUG | 11:07:31 | 35.95 | Started loading file: 2k_earth_daymap.jpg
+MEDIACATALOGUE | DEBUG | 11:07:31 | 36.22 | Started loading file: 2k_moon.jpg
+MEDIACATALOGUE | DEBUG | 11:07:32 | 36.53 | Started loading file: 2k_sun.jpg
+MEDIACATALOGUE | DEBUG | 11:07:32 | 36.81 | Started loading file: balldimpled.png
+LOGINMANAGER | TRACE | 11:07:32 | 36.88 | InitializeLabManager()
+LABMANAGER | TRACE | 11:07:32 | 36.88 | Initialize()
+LABMANAGER | TRACE | 11:07:32 | 36.88 | setTransmissionUI(Wait)
+BRIDGE | TRACE | 11:07:32 | 36.88 | ConnectToTransmission()
+LABMANAGER | DEBUG | 11:07:32 | 36.88 | Our Address: 192.168.18.154
+LABMANAGER | TRACE | 11:07:34 | 38.89 | setTransmissionUI(Peer)
+LABMANAGER | TRACE | 11:07:45 | 50.38 | TransmissionStartLab()
+LABMANAGER | STATE_START | 11:07:45 | 50.38 | Module 0
+LIGHTINGCONTROL | TRACE | 11:07:45 | 50.38 | saveLights()
+LIGHTINGCONTROL | TRACE | 11:07:46 | 50.38 | sunlight()
+LABMANAGER | TRACE | 11:07:46 | 50.38 | TransmissionStartLab()
+LABMANAGER | STATE_START | 11:07:46 | 50.38 | Module 0
+LIGHTINGCONTROL | TRACE | 11:07:46 | 50.38 | saveLights()
+LIGHTINGCONTROL | TRACE | 11:07:46 | 50.38 | sunlight()
+BRIDGE | TRACE | 11:07:46 | 50.76 | handleStringMessage, message guid: 474b9ec4-3e42-4d72-a90d-bbe26f51c9bc
+BRIDGE | DEBUG | 11:07:46 | 50.76 | Found Object to modify over transmission, object guid: 481c99fe-b30f-4843-9ecb-f49a73b14916
+BRIDGE | TRACE | 11:07:46 | 50.76 | initializeObject() : Sun
+BRIDGE | DEBUG | 11:07:46 | 50.76 | Setting object Sun parent to [CURRENT_LAB]
+BRIDGE | TRACE | 11:07:46 | 50.76 | modifyObject() : Sun
+BRIDGE | DEBUG | 11:07:46 | 50.76 | Position: (-12.375, 0.167, -15.060), scale: (5.000, 5.000, 5.000), EulerAngles: (0.000, 310.523, 0.000)
+BRIDGE | DEBUG | 11:07:46 | 50.76 | Mesh bounding box: Center: (-12.375, 0.167, -15.060), Extents: (3.525, 2.500, 3.525)
+BRIDGE | TRACE | 11:07:46 | 51.2 | handleStringMessage, message guid: 0dc698ca-ac26-4abf-8f6c-bd8e90d6d4bb
+BRIDGE | DEBUG | 11:07:46 | 51.2 | Found Object to modify over transmission, object guid: f7e9c123-d54c-4948-9581-755afcb72e96
+BRIDGE | TRACE | 11:07:46 | 51.2 | initializeObject() : Earth
+BRIDGE | DEBUG | 11:07:46 | 51.2 | Setting object Earth parent to [CURRENT_LAB]
+BRIDGE | TRACE | 11:07:46 | 51.2 | modifyObject() : Earth
+BRIDGE | DEBUG | 11:07:46 | 51.2 | Position: (-0.329, 0.330, 0.787), scale: (0.080, 0.080, 0.080), EulerAngles: (0.000, 310.523, 0.000)
+BRIDGE | DEBUG | 11:07:46 | 51.2 | Mesh bounding box: Center: (-0.329, 0.330, 0.787), Extents: (0.056, 0.040, 0.056)
+BRIDGE | TRACE | 11:07:47 | 51.7 | handleStringMessage, message guid: e9195816-b319-468b-8c81-549974906e08
+BRIDGE | DEBUG | 11:07:47 | 51.7 | Found Object to modify over transmission, object guid: 147e92b6-a6eb-44a8-ad07-1e5927a0af41
+BRIDGE | TRACE | 11:07:47 | 51.7 | initializeObject() : Moon
+BRIDGE | DEBUG | 11:07:47 | 51.7 | Setting object Moon parent to [CURRENT_LAB]
+BRIDGE | TRACE | 11:07:47 | 51.7 | modifyObject() : Moon
+BRIDGE | DEBUG | 11:07:47 | 51.7 | Position: (1.230, 0.330, 2.612), scale: (0.020, 0.020, 0.020), EulerAngles: (0.000, 310.523, 0.000)
+BRIDGE | DEBUG | 11:07:47 | 51.7 | Mesh bounding box: Center: (1.230, 0.330, 2.612), Extents: (0.014, 0.010, 0.014)
+BRIDGE | TRACE | 11:07:47 | 52.25 | handleStringMessage, message guid: e030f855-d023-4fcc-a26c-58262c894604
+BRIDGE | DEBUG | 11:07:47 | 52.25 | Found Object to modify over transmission, object guid: 7d16ecf5-b556-430f-a445-9f9370b10a4e
+BRIDGE | TRACE | 11:07:47 | 52.25 | initializeObject() : earthLabel
+BRIDGE | DEBUG | 11:07:47 | 52.25 | Setting object earthLabel parent to Earth
+BRIDGE | TRACE | 11:07:47 | 52.25 | modifyObject() : earthLabel
+BRIDGE | DEBUG | 11:07:47 | 52.25 | Position: (0.812, 2.330, -0.187), scale: (10.000, 10.000, 10.000), EulerAngles: (0.000, 310.523, 0.000)
+BRIDGE | DEBUG | 11:07:47 | 52.25 | Modifying Text: Earth
+BRIDGE | DEBUG | 11:07:47 | 52.25 | Mesh bounding box: Center: (0.820, 2.338, -0.178), Extents: (0.742, 0.381, 0.868)
+BRIDGE | TRACE | 11:07:48 | 52.73 | handleStringMessage, message guid: 3c23a291-afd2-4883-aa1d-772f262ecfa9
+BRIDGE | DEBUG | 11:07:48 | 52.73 | Found Object to modify over transmission, object guid: d6247ab1-2562-4156-aa4f-dbe5db0f7e19
+BRIDGE | TRACE | 11:07:48 | 52.73 | initializeObject() : earthSizeLabel
+BRIDGE | DEBUG | 11:07:48 | 52.73 | Setting object earthSizeLabel parent to Earth
+BRIDGE | TRACE | 11:07:48 | 52.73 | modifyObject() : earthSizeLabel
+BRIDGE | DEBUG | 11:07:48 | 52.73 | Position: (0.812, -1.670, -0.187), scale: (0.100, 0.100, 0.100), EulerAngles: (0.000, 310.523, 0.000)
+BRIDGE | DEBUG | 11:07:48 | 52.73 | Modifying Text: 8000 miles
+BRIDGE | DEBUG | 11:07:48 | 52.73 | Mesh bounding box: Center: (0.812, -1.670, -0.187), Extents: (0.016, 0.004, 0.018)
+BRIDGE | TRACE | 11:07:48 | 53.14 | handleStringMessage, message guid: 87669163-1f32-4e8f-8cac-d49f6e6ba8c7
+BRIDGE | DEBUG | 11:07:48 | 53.14 | Found Object to modify over transmission, object guid: 9b90ec7b-b580-4efe-acbb-684d4c476a3e
+BRIDGE | TRACE | 11:07:48 | 53.14 | initializeObject() : moonLabel
+BRIDGE | DEBUG | 11:07:48 | 53.14 | Setting object moonLabel parent to Moon
+BRIDGE | TRACE | 11:07:48 | 53.14 | modifyObject() : moonLabel
+BRIDGE | DEBUG | 11:07:48 | 53.14 | Position: (0.411, 2.195, -0.095), scale: (20.000, 20.000, 20.000), EulerAngles: (0.000, 220.559, 0.000)
+BRIDGE | DEBUG | 11:07:48 | 53.14 | Modifying Text: The Moon
+BRIDGE | DEBUG | 11:07:48 | 53.14 | Mesh bounding box: Center: (0.446, 2.211, -0.125), Extents: (3.388, 0.762, 2.900)
+BRIDGE | TRACE | 11:07:49 | 54.06 | handleStringMessage, message guid: f23e79d6-0603-4311-aeb7-39d9acd611b4
+BRIDGE | DEBUG | 11:07:49 | 54.06 | Found Object to modify over transmission, object guid: bbbf72a8-e869-4879-8a37-0f5be7c2e612
+BRIDGE | TRACE | 11:07:49 | 54.06 | initializeObject() : moonSizeLabel
+BRIDGE | DEBUG | 11:07:49 | 54.06 | Setting object moonSizeLabel parent to Moon
+BRIDGE | TRACE | 11:07:49 | 54.06 | modifyObject() : moonSizeLabel
+BRIDGE | DEBUG | 11:07:49 | 54.06 | Position: (0.812, -3.670, -0.187), scale: (0.100, 0.100, 0.100), EulerAngles: (0.000, 220.559, 0.000)
+BRIDGE | DEBUG | 11:07:49 | 54.06 | Modifying Text: 2000 miles
+BRIDGE | DEBUG | 11:07:49 | 54.06 | Mesh bounding box: Center: (0.812, -3.670, -0.187), Extents: (0.018, 0.004, 0.016)
+BRIDGE | TRACE | 11:07:49 | 54.06 | handleStringMessage, message guid: 0ce6ab78-ff18-4843-8d62-b5da8789a906
+BRIDGE | DEBUG | 11:07:49 | 54.06 | Found Object to modify over transmission, object guid: 2f234095-59c4-4bdd-b18b-ac723eeb0ac2
+BRIDGE | TRACE | 11:07:49 | 54.06 | initializeObject() : moonDistanceLabel
+BRIDGE | DEBUG | 11:07:49 | 54.06 | Setting object moonDistanceLabel parent to Moon
+BRIDGE | TRACE | 11:07:49 | 54.06 | modifyObject() : moonDistanceLabel
+BRIDGE | DEBUG | 11:07:49 | 54.06 | Position: (30.041, 0.330, 34.027), scale: (0.100, 0.100, 0.100), EulerAngles: (0.000, 130.523, 0.000)
+BRIDGE | DEBUG | 11:07:49 | 54.06 | Modifying Text: 240,000 miles
+BRIDGE | DEBUG | 11:07:49 | 54.06 | Mesh bounding box: Center: (30.041, 0.329, 34.027), Extents: (0.050, 0.011, 0.059)
+BRIDGE | TRACE | 11:07:49 | 54.43 | handleStringMessage, message guid: 3024162b-c383-4b49-98f0-9b5c69d6c8f2
+BRIDGE | DEBUG | 11:07:49 | 54.43 | Found Object to modify over transmission, object guid: 2634d5be-c06e-419f-8b5a-531cb7d55b9e
+BRIDGE | TRACE | 11:07:49 | 54.43 | initializeObject() : taskLabel
+BRIDGE | DEBUG | 11:07:50 | 54.43 | Setting object taskLabel parent to [CURRENT_LAB]
+BRIDGE | TRACE | 11:07:50 | 54.43 | modifyObject() : taskLabel
+BRIDGE | DEBUG | 11:07:50 | 54.43 | Position: (-0.546, 0.466, 0.719), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 310.523, 0.000)
+BRIDGE | DEBUG | 11:07:50 | 54.43 | Modifying Text: Introduction
+BRIDGE | DEBUG | 11:07:50 | 54.43 | Mesh bounding box: Center: (-0.545, 0.466, 0.720), Extents: (0.100, 0.023, 0.117)
+BRIDGE | TRACE | 11:07:50 | 54.96 | handleStringMessage, message guid: 0211c29b-256e-41d0-a255-981b965d3628
+BRIDGE | DEBUG | 11:07:50 | 54.96 | Found Object to modify over transmission, object guid: 7706493e-7ec7-4042-815c-c0377d448de8
+BRIDGE | TRACE | 11:07:50 | 54.96 | initializeObject() : sectionLabel
+BRIDGE | DEBUG | 11:07:50 | 54.96 | Setting object sectionLabel parent to [CURRENT_LAB]
+BRIDGE | TRACE | 11:07:50 | 54.96 | modifyObject() : sectionLabel
+BRIDGE | DEBUG | 11:07:50 | 54.96 | Position: (-1.090, 1.080, 1.436), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 310.523, 0.000)
+BRIDGE | DEBUG | 11:07:50 | 54.96 | Modifying Text: Sizes and Scales of the Earth and Moon
+BRIDGE | DEBUG | 11:07:50 | 54.96 | Mesh bounding box: Center: (-1.090, 1.081, 1.436), Extents: (0.347, 0.023, 0.406)
+BRIDGE | TRACE | 11:07:50 | 55.33 | handleStringMessage, message guid: d3bad803-52ab-4270-ba54-1a8a5aa666ba
+BRIDGE | DEBUG | 11:07:50 | 55.33 | Found Object to modify over transmission, object guid: 99f606a9-3d5e-4643-a564-0c7b413723b0
+BRIDGE | TRACE | 11:07:50 | 55.33 | initializeObject() : brbNextModule
+BRIDGE | DEBUG | 11:07:50 | 55.33 | Setting object brbNextModule parent to sectionLabel
+BRIDGE | TRACE | 11:07:50 | 55.33 | modifyObject() : brbNextModule
+BRIDGE | DEBUG | 11:07:50 | 55.33 | Position: (0.959, 0.199, 0.437), scale: (1.000, 1.000, 1.000), EulerAngles: (90.000, 130.559, 0.000)
+BRIDGE | DEBUG | 11:07:50 | 55.33 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
+BRIDGE | TRACE | 11:07:51 | 56.16 | handleStringMessage, message guid: 8a6c7712-c72c-46a3-865c-ee9af5a77b7e
+BRIDGE | DEBUG | 11:07:51 | 56.16 | Found Object to modify over transmission, object guid: 3b83d169-5a4b-4146-a689-56c0eeb9fac6
+BRIDGE | TRACE | 11:07:51 | 56.16 | initializeObject() : brbNextModuleLabel
+BRIDGE | DEBUG | 11:07:51 | 56.16 | Setting object brbNextModuleLabel parent to brbNextModule
+BRIDGE | TRACE | 11:07:51 | 56.16 | modifyObject() : brbNextModuleLabel
+BRIDGE | DEBUG | 11:07:51 | 56.16 | Position: (0.002, 0.001, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 130.559, 0.000)
+BRIDGE | DEBUG | 11:07:51 | 56.16 | Modifying Text: Next  Module
+BRIDGE | DEBUG | 11:07:51 | 56.16 | Mesh bounding box: Center: (-0.005, 0.001, -0.007), Extents: (0.105, 0.000, 0.110)
+BRIDGE | TRACE | 11:07:51 | 56.16 | handleStringMessage, message guid: df3388f8-c9f0-4d72-a8a2-99754fd07861
+BRIDGE | DEBUG | 11:07:51 | 56.16 | Found Object to modify over transmission, object guid: b47b76d7-2dcf-40b0-b753-8a3de8f5ebfa
+BRIDGE | TRACE | 11:07:51 | 56.16 | initializeObject() : brbPreviousModule
+BRIDGE | DEBUG | 11:07:51 | 56.16 | Setting object brbPreviousModule parent to sectionLabel
+BRIDGE | TRACE | 11:07:51 | 56.16 | modifyObject() : brbPreviousModule
+BRIDGE | DEBUG | 11:07:51 | 56.16 | Position: (0.032, 0.330, -1.100), scale: (1.000, 1.000, 1.000), EulerAngles: (90.000, 130.559, 0.000)
+BRIDGE | DEBUG | 11:07:51 | 56.16 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
+BRIDGE | TRACE | 11:07:52 | 56.64 | handleStringMessage, message guid: c4ebee14-e093-47e3-9449-acbefd1c47dc
+BRIDGE | DEBUG | 11:07:52 | 56.64 | Found Object to modify over transmission, object guid: 02d3a264-0edc-4171-9272-0cb267fe8832
+BRIDGE | TRACE | 11:07:52 | 56.64 | initializeObject() : brbPreviousModuleLabel
+BRIDGE | DEBUG | 11:07:52 | 56.64 | Setting object brbPreviousModuleLabel parent to brbPreviousModule
+BRIDGE | TRACE | 11:07:52 | 56.64 | modifyObject() : brbPreviousModuleLabel
+BRIDGE | DEBUG | 11:07:52 | 56.64 | Position: (0.348, 0.161, -0.050), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 130.559, 0.000)
+BRIDGE | DEBUG | 11:07:52 | 56.64 | Modifying Text: Previous   Module
+BRIDGE | DEBUG | 11:07:52 | 56.64 | Mesh bounding box: Center: (0.347, 0.161, -0.052), Extents: (0.118, 0.000, 0.124)
+BRIDGE | TRACE | 11:07:52 | 57.08 | handleStringMessage, message guid: 4cafeb2b-e30e-49e0-b885-e69722c04ba8
+BRIDGE | DEBUG | 11:07:52 | 57.08 | Found Object to modify over transmission, object guid: eb3ff90c-4162-4a64-9d9e-33e5375c83c9
+BRIDGE | TRACE | 11:07:52 | 57.08 | initializeObject() : brbNextClip
+BRIDGE | DEBUG | 11:07:52 | 57.08 | Setting object brbNextClip parent to taskLabel
+BRIDGE | TRACE | 11:07:52 | 57.08 | modifyObject() : brbNextClip
+BRIDGE | DEBUG | 11:07:52 | 57.08 | Position: (0.725, 0.164, 0.284), scale: (1.000, 1.000, 1.000), EulerAngles: (90.000, 130.559, 0.000)
+BRIDGE | DEBUG | 11:07:52 | 57.08 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
+BRIDGE | TRACE | 11:07:53 | 57.52 | handleStringMessage, message guid: 2f7887ac-9ba7-4a24-80ee-b99568e86c19
+BRIDGE | DEBUG | 11:07:53 | 57.52 | Found Object to modify over transmission, object guid: c5b1e9f9-3e32-4d95-bcf9-fb7bcd3c7e28
+BRIDGE | TRACE | 11:07:53 | 57.52 | initializeObject() : brbNextClipLabel
+BRIDGE | DEBUG | 11:07:53 | 57.52 | Setting object brbNextClipLabel parent to brbNextClip
+BRIDGE | TRACE | 11:07:53 | 57.52 | modifyObject() : brbNextClipLabel
+BRIDGE | DEBUG | 11:07:53 | 57.52 | Position: (0.359, 0.162, -0.060), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 130.559, 0.000)
+BRIDGE | DEBUG | 11:07:53 | 57.52 | Modifying Text: Next
+BRIDGE | DEBUG | 11:07:53 | 57.52 | Mesh bounding box: Center: (0.357, 0.162, -0.061), Extents: (0.056, 0.000, 0.060)
+BRIDGE | TRACE | 11:07:53 | 58.03 | handleStringMessage, message guid: e13c2e28-522d-4c14-9420-42887bbabff9
+BRIDGE | DEBUG | 11:07:53 | 58.03 | Found Object to modify over transmission, object guid: eb23af94-ced9-4a9e-84b4-63b82b86622d
+BRIDGE | TRACE | 11:07:53 | 58.03 | initializeObject() : brbPreviousClip
+BRIDGE | DEBUG | 11:07:53 | 58.03 | Setting object brbPreviousClip parent to taskLabel
+BRIDGE | TRACE | 11:07:53 | 58.03 | modifyObject() : brbPreviousClip
+BRIDGE | DEBUG | 11:07:53 | 58.03 | Position: (0.162, 0.330, -0.948), scale: (1.000, 1.000, 1.000), EulerAngles: (90.000, 130.559, 0.000)
+BRIDGE | DEBUG | 11:07:53 | 58.03 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
+BRIDGE | TRACE | 11:07:53 | 58.36 | handleStringMessage, message guid: d38a3e8f-984a-4bb8-a469-d13cddd4cfd5
+BRIDGE | DEBUG | 11:07:53 | 58.36 | Found Object to modify over transmission, object guid: f027c633-117c-48fd-b164-e644edc6ef0d
+BRIDGE | TRACE | 11:07:53 | 58.36 | initializeObject() : brbPreviousClipLabel
+BRIDGE | DEBUG | 11:07:53 | 58.36 | Setting object brbPreviousClipLabel parent to brbPreviousClip
+BRIDGE | TRACE | 11:07:53 | 58.36 | modifyObject() : brbPreviousClipLabel
+BRIDGE | DEBUG | 11:07:53 | 58.36 | Position: (0.366, 0.164, -0.061), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 130.559, 0.000)
+BRIDGE | DEBUG | 11:07:53 | 58.36 | Modifying Text: Previous
+BRIDGE | DEBUG | 11:07:54 | 58.36 | Mesh bounding box: Center: (0.365, 0.164, -0.062), Extents: (0.092, 0.000, 0.102)
+BRIDGE | TRACE | 11:07:54 | 58.85 | handleStringMessage, message guid: 35b99162-97e7-4d95-be8b-15738362f8f3
+BRIDGE | DEBUG | 11:07:54 | 58.85 | Found Object to modify over transmission, object guid: 2634d5be-c06e-419f-8b5a-531cb7d55b9e
+BRIDGE | TRACE | 11:07:54 | 58.85 | modifyObject() : taskLabel
+BRIDGE | DEBUG | 11:07:54 | 58.85 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 310.523, 0.000)
+BRIDGE | DEBUG | 11:07:54 | 58.85 | Modifying Text: 1 inch= 1000 miles
+BRIDGE | DEBUG | 11:07:54 | 58.85 | Mesh bounding box: Center: (0.001, 0.000, 0.001), Extents: (0.162, 0.023, 0.190)
+BRIDGE | TRACE | 11:07:54 | 59.24 | handleStringMessage, message guid: b572cd8d-5ccf-495a-9487-34f8dd8ca66b
+BRIDGE | DEBUG | 11:07:54 | 59.24 | Found Object to modify over transmission, object guid: eb23af94-ced9-4a9e-84b4-63b82b86622d
+BRIDGE | TRACE | 11:07:54 | 59.24 | modifyObject() : brbPreviousClip
+BRIDGE | DEBUG | 11:07:54 | 59.24 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 130.559, 0.000)
+BRIDGE | TRACE | 11:07:55 | 59.67 | handleStringMessage, message guid: 63f3a7b7-829a-444c-bc14-9114b182dcbf
+BRIDGE | DEBUG | 11:07:55 | 59.67 | Found Object to modify over transmission, object guid: eb3ff90c-4162-4a64-9d9e-33e5375c83c9
+BRIDGE | TRACE | 11:07:55 | 59.67 | modifyObject() : brbNextClip
+BRIDGE | DEBUG | 11:07:55 | 59.67 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 130.559, 0.000)
+BRIDGE | TRACE | 11:07:55 | 59.77 | handleStringMessage, message guid: ed6216de-2607-4b95-a81b-948037e875ed
+BRIDGE | DEBUG | 11:07:55 | 59.77 | Found Object to modify over transmission, object guid: 99f606a9-3d5e-4643-a564-0c7b413723b0
+BRIDGE | TRACE | 11:07:55 | 59.77 | modifyObject() : brbNextModule
+BRIDGE | DEBUG | 11:07:55 | 59.77 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 130.559, 0.000)
+AUDIOHANDLER | TRACE | 11:07:55 | 59.95 | Attempting to play local Audio: moonlab_1_1_0
+AUDIOHANDLER | TRACE | 11:07:55 | 59.95 | Attempting to play local Audio: moonlab_1_1_0
+BRIDGE | TRACE | 11:10:43 | 228.46 | handleStringMessage, message guid: 25df09ab-1004-41d4-9421-aef6e62d44d1
+BRIDGE | DEBUG | 11:10:44 | 228.46 | Found Object to modify over transmission, object guid: 2634d5be-c06e-419f-8b5a-531cb7d55b9e
+BRIDGE | TRACE | 11:10:44 | 228.46 | modifyObject() : taskLabel
+BRIDGE | DEBUG | 11:10:44 | 228.46 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 310.524, 0.000)
+BRIDGE | DEBUG | 11:10:44 | 228.46 | Modifying Text: 1 inch= 1000 miles
+BRIDGE | DEBUG | 11:10:44 | 228.46 | Mesh bounding box: Center: (0.001, 0.000, 0.001), Extents: (0.162, 0.023, 0.190)
+BRIDGE | TRACE | 11:10:44 | 228.89 | handleStringMessage, message guid: f9192848-9c04-4858-b3d5-7840bb27327c
+BRIDGE | DEBUG | 11:10:44 | 228.89 | Found Object to modify over transmission, object guid: d6247ab1-2562-4156-aa4f-dbe5db0f7e19
+BRIDGE | TRACE | 11:10:44 | 228.89 | modifyObject() : earthSizeLabel
+BRIDGE | DEBUG | 11:10:44 | 228.89 | Position: (0.491, -0.050, 1.486), scale: (0.008, 0.008, 0.008), EulerAngles: (0.000, 141.366, 0.000)
+BRIDGE | DEBUG | 11:10:44 | 228.89 | Mesh bounding box: Center: (0.491, -0.050, 1.485), Extents: (0.002, 0.000, 0.001)
+BRIDGE | TRACE | 11:10:44 | 229.34 | handleStringMessage, message guid: 35ebfedc-081b-4960-9530-834d666b2480
+BRIDGE | DEBUG | 11:10:44 | 229.34 | Found Object to modify over transmission, object guid: eb23af94-ced9-4a9e-84b4-63b82b86622d
+BRIDGE | TRACE | 11:10:44 | 229.34 | modifyObject() : brbPreviousClip
+BRIDGE | DEBUG | 11:10:44 | 229.34 | Position: (-0.449, 0.529, 2.421), scale: (0.006, 0.006, 0.006), EulerAngles: (90.000, 171.273, 0.000)
+BRIDGE | TRACE | 11:10:45 | 229.7 | handleStringMessage, message guid: 5c8e2733-9b0f-47e4-9b45-8504e6640cb6
+BRIDGE | DEBUG | 11:10:45 | 229.7 | Found Object to modify over transmission, object guid: eb3ff90c-4162-4a64-9d9e-33e5375c83c9
+BRIDGE | TRACE | 11:10:45 | 229.7 | modifyObject() : brbNextClip
+BRIDGE | DEBUG | 11:10:45 | 229.7 | Position: (0.738, 0.529, 2.603), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 171.273, 0.000)
+BRIDGE | TRACE | 11:10:45 | 230.05 | handleStringMessage, message guid: 0c328bd5-867b-4bb2-8d74-f70eb8e7fc2b
+BRIDGE | DEBUG | 11:10:45 | 230.05 | Found Object to modify over transmission, object guid: 99f606a9-3d5e-4643-a564-0c7b413723b0
+BRIDGE | TRACE | 11:10:45 | 230.05 | modifyObject() : brbNextModule
+BRIDGE | DEBUG | 11:10:45 | 230.05 | Position: (0.856, 0.679, 2.621), scale: (0.006, 0.006, 0.006), EulerAngles: (90.000, 171.273, 0.000)
+AUDIOHANDLER | TRACE | 11:10:45 | 230.3 | Attempting to play local Audio: moonlab_1_2_0
+AUDIOHANDLER | TRACE | 11:10:45 | 230.3 | Attempting to play local Audio: moonlab_1_2_0
+MAGICLEAPTOOLS.POINTERRECEIVER | EVENT | 11:11:22 | 266.95 | Earth Targetted
+MAGICLEAPTOOLS.POINTERRECEIVER | EVENT | 11:11:22 | 267.01 | Earth UnTargetted
+MAGICLEAPTOOLS.POINTERRECEIVER | EVENT | 11:11:23 | 268.29 | Earth Targetted
+MAGICLEAPTOOLS.POINTERRECEIVER | EVENT | 11:11:23 | 268.37 | Earth UnTargetted
+BRIDGE | TRACE | 11:11:38 | 283.4 | handleStringMessage, message guid: b56d30d4-e3b7-4549-935d-3399570df5e2
+BRIDGE | DEBUG | 11:11:38 | 283.4 | Found Object to modify over transmission, object guid: 2634d5be-c06e-419f-8b5a-531cb7d55b9e
+BRIDGE | TRACE | 11:11:38 | 283.4 | modifyObject() : taskLabel
+BRIDGE | DEBUG | 11:11:38 | 283.4 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 310.524, 0.000)
+BRIDGE | DEBUG | 11:11:38 | 283.4 | Modifying Text: 1 inch= 1000 miles
+BRIDGE | DEBUG | 11:11:39 | 283.4 | Mesh bounding box: Center: (0.001, 0.000, 0.001), Extents: (0.162, 0.023, 0.190)
+BRIDGE | TRACE | 11:11:39 | 283.82 | handleStringMessage, message guid: 3d991713-e713-4d8f-89a6-a5098aee7f98
+BRIDGE | DEBUG | 11:11:39 | 283.82 | Found Object to modify over transmission, object guid: eb23af94-ced9-4a9e-84b4-63b82b86622d
+BRIDGE | TRACE | 11:11:39 | 283.82 | modifyObject() : brbPreviousClip
+BRIDGE | DEBUG | 11:11:39 | 283.82 | Position: (-0.449, 0.529, 2.421), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 171.273, 0.000)
+BRIDGE | TRACE | 11:11:39 | 284.19 | handleStringMessage, message guid: 5de8be4a-f252-4b36-a541-ccddacfb8078
+BRIDGE | DEBUG | 11:11:39 | 284.19 | Found Object to modify over transmission, object guid: eb3ff90c-4162-4a64-9d9e-33e5375c83c9
+BRIDGE | TRACE | 11:11:39 | 284.19 | modifyObject() : brbNextClip
+BRIDGE | DEBUG | 11:11:39 | 284.19 | Position: (0.738, 0.529, 2.603), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 171.273, 0.000)
+BRIDGE | TRACE | 11:11:40 | 284.56 | handleStringMessage, message guid: 802c48bb-26a2-4a01-8ced-934dce43701a
+BRIDGE | DEBUG | 11:11:40 | 284.56 | Found Object to modify over transmission, object guid: 99f606a9-3d5e-4643-a564-0c7b413723b0
+BRIDGE | TRACE | 11:11:40 | 284.56 | modifyObject() : brbNextModule
+BRIDGE | DEBUG | 11:11:40 | 284.56 | Position: (0.856, 0.679, 2.621), scale: (0.006, 0.006, 0.006), EulerAngles: (90.000, 171.273, 0.000)
+AUDIOHANDLER | TRACE | 11:11:40 | 284.79 | Attempting to play local Audio: moonlab_1_1_0
+AUDIOHANDLER | TRACE | 11:11:40 | 284.79 | Attempting to play local Audio: moonlab_1_1_0
+BRIDGE | TRACE | 11:11:50 | 294.7 | handleStringMessage, message guid: 408b0bb6-66d1-4d46-93f5-2175e1445a6d
+BRIDGE | DEBUG | 11:11:50 | 294.7 | Found Object to modify over transmission, object guid: 43ffc0a1-1147-4d0f-91c3-57c5bbde5a6b
+BRIDGE | TRACE | 11:11:50 | 294.7 | initializeObject() : Sun
+BRIDGE | DEBUG | 11:11:50 | 294.7 | Setting object Sun parent to [CURRENT_LAB]
+BRIDGE | TRACE | 11:11:50 | 294.7 | modifyObject() : Sun
+BRIDGE | DEBUG | 11:11:50 | 294.7 | Position: (-24.521, 0.330, -29.840), scale: (5.000, 5.000, 5.000), EulerAngles: (0.000, 310.523, 0.000)
+BRIDGE | DEBUG | 11:11:50 | 294.7 | Mesh bounding box: Center: (-24.521, 0.330, -29.840), Extents: (3.525, 2.500, 3.525)
+BRIDGE | TRACE | 11:11:50 | 294.86 | handleStringMessage, message guid: 4d3ec40b-bbde-4eb9-9aba-b751cb4cae12
+BRIDGE | DEBUG | 11:11:50 | 294.86 | Found Object to modify over transmission, object guid: 7b6dbd5d-d233-4e6a-9de9-410b7595e19e
+BRIDGE | TRACE | 11:11:50 | 294.86 | initializeObject() : Earth
+BRIDGE | DEBUG | 11:11:50 | 294.86 | Setting object Earth parent to [CURRENT_LAB]
+BRIDGE | TRACE | 11:11:50 | 294.86 | modifyObject() : Earth
+BRIDGE | DEBUG | 11:11:50 | 294.86 | Position: (-0.329, 0.330, 0.787), scale: (0.080, 0.080, 0.080), EulerAngles: (0.000, 310.523, 0.000)
+BRIDGE | DEBUG | 11:11:50 | 294.86 | Mesh bounding box: Center: (-0.329, 0.330, 0.787), Extents: (0.056, 0.040, 0.056)
+BRIDGE | TRACE | 11:11:50 | 295.04 | handleStringMessage, message guid: 49464c4a-0694-4f22-b9d2-f1992a244182
+BRIDGE | DEBUG | 11:11:50 | 295.04 | Found Object to modify over transmission, object guid: 444c86ef-b930-4018-b777-fb2c8763cac7
+BRIDGE | TRACE | 11:11:50 | 295.04 | initializeObject() : Moon
+BRIDGE | DEBUG | 11:11:50 | 295.04 | Setting object Moon parent to [CURRENT_LAB]
+BRIDGE | TRACE | 11:11:50 | 295.04 | modifyObject() : Moon
+BRIDGE | DEBUG | 11:11:50 | 295.04 | Position: (1.230, 0.330, 2.612), scale: (0.020, 0.020, 0.020), EulerAngles: (0.000, 310.523, 0.000)
+BRIDGE | DEBUG | 11:11:50 | 295.04 | Mesh bounding box: Center: (1.230, 0.330, 2.612), Extents: (0.014, 0.010, 0.014)
+BRIDGE | TRACE | 11:11:50 | 295.22 | handleStringMessage, message guid: eec1f493-223b-4114-b771-15c9f528f697
+BRIDGE | DEBUG | 11:11:50 | 295.22 | Found Object to modify over transmission, object guid: 34cc483a-43e8-4c1b-ad86-b0ef54f660a1
+BRIDGE | TRACE | 11:11:50 | 295.22 | initializeObject() : earthLabel
+BRIDGE | DEBUG | 11:11:50 | 295.22 | Setting object earthLabel parent to Earth
+BRIDGE | TRACE | 11:11:50 | 295.22 | modifyObject() : earthLabel
+BRIDGE | DEBUG | 11:11:50 | 295.22 | Position: (0.812, 2.330, -0.187), scale: (10.000, 10.000, 10.000), EulerAngles: (0.000, 310.523, 0.000)
+BRIDGE | DEBUG | 11:11:50 | 295.22 | Modifying Text: Earth
+BRIDGE | DEBUG | 11:11:50 | 295.22 | Mesh bounding box: Center: (0.820, 2.338, -0.178), Extents: (0.742, 0.381, 0.868)
+BRIDGE | TRACE | 11:11:50 | 295.38 | handleStringMessage, message guid: 82e30a89-d24d-4140-aaf7-53b24fd5b97a
+BRIDGE | DEBUG | 11:11:50 | 295.38 | Found Object to modify over transmission, object guid: 669afae1-575b-4a89-a2c0-b46ab1c320f6
+BRIDGE | TRACE | 11:11:50 | 295.38 | initializeObject() : earthSizeLabel
+BRIDGE | DEBUG | 11:11:50 | 295.38 | Setting object earthSizeLabel parent to Earth
+BRIDGE | TRACE | 11:11:50 | 295.38 | modifyObject() : earthSizeLabel
+BRIDGE | DEBUG | 11:11:50 | 295.38 | Position: (0.812, -1.670, -0.187), scale: (0.100, 0.100, 0.100), EulerAngles: (0.000, 310.523, 0.000)
+BRIDGE | DEBUG | 11:11:51 | 295.38 | Modifying Text: 8000 miles
+BRIDGE | DEBUG | 11:11:51 | 295.38 | Mesh bounding box: Center: (0.812, -1.670, -0.187), Extents: (0.016, 0.004, 0.018)
+BRIDGE | TRACE | 11:11:51 | 295.54 | handleStringMessage, message guid: 6fbf2f7b-eb56-4c65-adda-f90f75192645
+BRIDGE | DEBUG | 11:11:51 | 295.54 | Found Object to modify over transmission, object guid: 8cf93f54-5f9a-4ce3-8708-0d9e52622fe8
+BRIDGE | TRACE | 11:11:51 | 295.54 | initializeObject() : moonLabel
+BRIDGE | DEBUG | 11:11:51 | 295.54 | Setting object moonLabel parent to Moon
+BRIDGE | TRACE | 11:11:51 | 295.54 | modifyObject() : moonLabel
+BRIDGE | DEBUG | 11:11:51 | 295.54 | Position: (0.812, 4.330, -0.187), scale: (20.000, 20.000, 20.000), EulerAngles: (0.000, 220.559, 0.000)
+BRIDGE | DEBUG | 11:11:51 | 295.54 | Modifying Text: The Moon
+BRIDGE | DEBUG | 11:11:51 | 295.54 | Mesh bounding box: Center: (0.846, 4.346, -0.217), Extents: (3.388, 0.762, 2.900)
+BRIDGE | TRACE | 11:11:51 | 295.71 | handleStringMessage, message guid: a39bb952-49d3-447b-acc7-e2e15954149f
+BRIDGE | DEBUG | 11:11:51 | 295.71 | Found Object to modify over transmission, object guid: 421ed146-66ae-463a-8ecf-d56e62abbedd
+BRIDGE | TRACE | 11:11:51 | 295.71 | initializeObject() : moonSizeLabel
+BRIDGE | DEBUG | 11:11:51 | 295.71 | Setting object moonSizeLabel parent to Moon
+BRIDGE | TRACE | 11:11:51 | 295.71 | modifyObject() : moonSizeLabel
+BRIDGE | DEBUG | 11:11:51 | 295.71 | Position: (0.812, -3.670, -0.187), scale: (0.100, 0.100, 0.100), EulerAngles: (0.000, 220.559, 0.000)
+BRIDGE | DEBUG | 11:11:51 | 295.71 | Modifying Text: 2000 miles
+BRIDGE | DEBUG | 11:11:51 | 295.71 | Mesh bounding box: Center: (0.812, -3.670, -0.187), Extents: (0.018, 0.004, 0.016)
+BRIDGE | TRACE | 11:11:51 | 295.86 | handleStringMessage, message guid: 151f6305-8f67-44d8-aefd-c6e8ccc2f55e
+BRIDGE | DEBUG | 11:11:51 | 295.86 | Found Object to modify over transmission, object guid: 53ffe29f-4c21-40d4-ac90-b23055c6af85
+BRIDGE | TRACE | 11:11:51 | 295.86 | initializeObject() : moonDistanceLabel
+BRIDGE | DEBUG | 11:11:51 | 295.86 | Setting object moonDistanceLabel parent to Moon
+BRIDGE | TRACE | 11:11:51 | 295.86 | modifyObject() : moonDistanceLabel
+BRIDGE | DEBUG | 11:11:51 | 295.86 | Position: (30.041, 0.330, 34.027), scale: (0.100, 0.100, 0.100), EulerAngles: (0.000, 130.523, 0.000)
+BRIDGE | DEBUG | 11:11:51 | 295.86 | Modifying Text: 240,000 miles
+BRIDGE | DEBUG | 11:11:51 | 295.86 | Mesh bounding box: Center: (30.041, 0.329, 34.027), Extents: (0.050, 0.011, 0.059)
+BRIDGE | TRACE | 11:11:51 | 296.03 | handleStringMessage, message guid: 4909e9fc-2646-46a9-805b-eb6741ec5705
+BRIDGE | DEBUG | 11:11:51 | 296.03 | Found Object to modify over transmission, object guid: 5f67377b-9115-4e66-a318-54b35241f530
+BRIDGE | TRACE | 11:11:51 | 296.03 | initializeObject() : taskLabel
+BRIDGE | DEBUG | 11:11:51 | 296.03 | Setting object taskLabel parent to [CURRENT_LAB]
+BRIDGE | TRACE | 11:11:51 | 296.03 | modifyObject() : taskLabel
+BRIDGE | DEBUG | 11:11:51 | 296.03 | Position: (-0.067, 0.057, 0.088), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 310.523, 0.000)
+BRIDGE | DEBUG | 11:11:51 | 296.03 | Modifying Text: Introduction
+BRIDGE | DEBUG | 11:11:51 | 296.03 | Mesh bounding box: Center: (-0.067, 0.058, 0.089), Extents: (0.100, 0.023, 0.117)
+BRIDGE | TRACE | 11:11:51 | 296.2 | handleStringMessage, message guid: 3cb4ba8e-bea4-45e8-b6d1-6d136b730b70
+BRIDGE | DEBUG | 11:11:51 | 296.2 | Found Object to modify over transmission, object guid: 429f7d4e-1f81-4e55-bfb1-a611933836e6
+BRIDGE | TRACE | 11:11:51 | 296.2 | initializeObject() : sectionLabel
+BRIDGE | DEBUG | 11:11:51 | 296.2 | Setting object sectionLabel parent to [CURRENT_LAB]
+BRIDGE | TRACE | 11:11:51 | 296.2 | modifyObject() : sectionLabel
+BRIDGE | DEBUG | 11:11:51 | 296.2 | Position: (-1.090, 1.080, 1.436), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 310.523, 0.000)
+BRIDGE | DEBUG | 11:11:51 | 296.2 | Modifying Text: Sizes and Scales of the Earth and Moon
+BRIDGE | DEBUG | 11:11:51 | 296.2 | Mesh bounding box: Center: (-1.090, 1.081, 1.436), Extents: (0.347, 0.023, 0.406)
+BRIDGE | TRACE | 11:11:51 | 296.36 | handleStringMessage, message guid: 4a704443-8dcc-4713-b258-c3f3f308abbd
+BRIDGE | DEBUG | 11:11:51 | 296.36 | Found Object to modify over transmission, object guid: 17790dc8-ed26-4804-8586-be250d2cb50f
+BRIDGE | TRACE | 11:11:51 | 296.36 | initializeObject() : brbNextModule
+BRIDGE | DEBUG | 11:11:51 | 296.36 | Setting object brbNextModule parent to sectionLabel
+BRIDGE | TRACE | 11:11:51 | 296.36 | modifyObject() : brbNextModule
+BRIDGE | DEBUG | 11:11:51 | 296.36 | Position: (1.591, 0.330, 0.725), scale: (1.000, 1.000, 1.000), EulerAngles: (90.000, 130.559, 0.000)
+BRIDGE | DEBUG | 11:11:51 | 296.36 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
+BRIDGE | TRACE | 11:11:52 | 296.54 | handleStringMessage, message guid: 9f656419-3c48-4f5a-9923-694cce294963
+BRIDGE | DEBUG | 11:11:52 | 296.54 | Found Object to modify over transmission, object guid: b13c0cdc-969d-4619-b60d-46f562ad1a5c
+BRIDGE | TRACE | 11:11:52 | 296.54 | initializeObject() : brbNextModuleLabel
+BRIDGE | DEBUG | 11:11:52 | 296.54 | Setting object brbNextModuleLabel parent to brbNextModule
+BRIDGE | TRACE | 11:11:52 | 296.54 | modifyObject() : brbNextModuleLabel
+BRIDGE | DEBUG | 11:11:52 | 296.54 | Position: (0.713, 0.330, -0.103), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 130.559, 0.000)
+BRIDGE | DEBUG | 11:11:52 | 296.54 | Modifying Text: Next  Module
+BRIDGE | DEBUG | 11:11:52 | 296.54 | Mesh bounding box: Center: (0.706, 0.330, -0.110), Extents: (0.105, 0.000, 0.110)
+BRIDGE | TRACE | 11:11:52 | 296.71 | handleStringMessage, message guid: fec7cf04-a480-45c2-86a7-9088269fa8e8
+BRIDGE | DEBUG | 11:11:52 | 296.71 | Found Object to modify over transmission, object guid: 275a3a87-9a9a-4196-b201-a0a0fcb69d6f
+BRIDGE | TRACE | 11:11:52 | 296.71 | initializeObject() : brbPreviousModule
+BRIDGE | DEBUG | 11:11:52 | 296.71 | Setting object brbPreviousModule parent to sectionLabel
+BRIDGE | TRACE | 11:11:52 | 296.71 | modifyObject() : brbPreviousModule
+BRIDGE | DEBUG | 11:11:52 | 296.71 | Position: (0.026, 0.263, -0.874), scale: (1.000, 1.000, 1.000), EulerAngles: (90.000, 130.559, 0.000)
+BRIDGE | DEBUG | 11:11:52 | 296.71 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
+BRIDGE | TRACE | 11:11:52 | 296.86 | handleStringMessage, message guid: cbc96740-4797-4ee0-b1a3-528437e5111b
+BRIDGE | DEBUG | 11:11:52 | 296.86 | Found Object to modify over transmission, object guid: bdea615f-916a-4bfb-bb53-5ff49453ef9f
+BRIDGE | TRACE | 11:11:52 | 296.86 | initializeObject() : brbPreviousModuleLabel
+BRIDGE | DEBUG | 11:11:52 | 296.86 | Setting object brbPreviousModuleLabel parent to brbPreviousModule
+BRIDGE | TRACE | 11:11:52 | 296.86 | modifyObject() : brbPreviousModuleLabel
+BRIDGE | DEBUG | 11:11:52 | 296.86 | Position: (0.713, 0.330, -0.103), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 130.559, 0.000)
+BRIDGE | DEBUG | 11:11:52 | 296.86 | Modifying Text: Previous   Module
+BRIDGE | DEBUG | 11:11:52 | 296.86 | Mesh bounding box: Center: (0.712, 0.330, -0.105), Extents: (0.118, 0.000, 0.124)
+BRIDGE | TRACE | 11:11:52 | 297.04 | handleStringMessage, message guid: 9207a702-7060-4f1d-8d8d-6bfe2fc11fab
+BRIDGE | DEBUG | 11:11:52 | 297.04 | Found Object to modify over transmission, object guid: 39073e02-6ff1-4fe4-920b-a288225cb209
+BRIDGE | TRACE | 11:11:52 | 297.04 | initializeObject() : brbNextClip
+BRIDGE | DEBUG | 11:11:52 | 297.04 | Setting object brbNextClip parent to taskLabel
+BRIDGE | TRACE | 11:11:52 | 297.04 | modifyObject() : brbNextClip
+BRIDGE | DEBUG | 11:11:52 | 297.04 | Position: (1.461, 0.330, 0.573), scale: (1.000, 1.000, 1.000), EulerAngles: (90.000, 130.559, 0.000)
+BRIDGE | DEBUG | 11:11:52 | 297.04 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
+BRIDGE | TRACE | 11:11:52 | 297.21 | handleStringMessage, message guid: 38c3e850-b303-436f-bfff-8f09bb04d821
+BRIDGE | DEBUG | 11:11:52 | 297.21 | Found Object to modify over transmission, object guid: e2a6d80b-048e-47b8-ba5a-25ba2fc02f4e
+BRIDGE | TRACE | 11:11:52 | 297.21 | initializeObject() : brbNextClipLabel
+BRIDGE | DEBUG | 11:11:52 | 297.21 | Setting object brbNextClipLabel parent to brbNextClip
+BRIDGE | TRACE | 11:11:52 | 297.21 | modifyObject() : brbNextClipLabel
+BRIDGE | DEBUG | 11:11:52 | 297.21 | Position: (0.735, 0.330, -0.122), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 130.559, 0.000)
+BRIDGE | DEBUG | 11:11:52 | 297.21 | Modifying Text: Next
+BRIDGE | DEBUG | 11:11:52 | 297.21 | Mesh bounding box: Center: (0.733, 0.330, -0.124), Extents: (0.056, 0.000, 0.060)
+BRIDGE | TRACE | 11:11:52 | 297.38 | handleStringMessage, message guid: fbfa8c47-bb30-413c-a9bf-18792be50007
+BRIDGE | DEBUG | 11:11:52 | 297.38 | Found Object to modify over transmission, object guid: 48313004-df83-4234-bf89-366682ac6577
+BRIDGE | TRACE | 11:11:52 | 297.38 | initializeObject() : brbPreviousClip
+BRIDGE | DEBUG | 11:11:52 | 297.38 | Setting object brbPreviousClip parent to taskLabel
+BRIDGE | TRACE | 11:11:52 | 297.38 | modifyObject() : brbPreviousClip
+BRIDGE | DEBUG | 11:11:52 | 297.38 | Position: (0.162, 0.330, -0.948), scale: (1.000, 1.000, 1.000), EulerAngles: (90.000, 130.559, 0.000)
+BRIDGE | DEBUG | 11:11:53 | 297.38 |  Adding component: {"name": "demoButtonActions", "callBackObjects": ["demoModule"]}
+BRIDGE | TRACE | 11:11:53 | 297.56 | handleStringMessage, message guid: b287c3d0-8fc8-4324-b9ad-2c562206000c
+BRIDGE | DEBUG | 11:11:53 | 297.56 | Found Object to modify over transmission, object guid: d4e25da8-efa7-43a2-9e42-05a4c3aac249
+BRIDGE | TRACE | 11:11:53 | 297.56 | initializeObject() : brbPreviousClipLabel
+BRIDGE | DEBUG | 11:11:53 | 297.56 | Setting object brbPreviousClipLabel parent to brbPreviousClip
+BRIDGE | TRACE | 11:11:53 | 297.56 | modifyObject() : brbPreviousClipLabel
+BRIDGE | DEBUG | 11:11:53 | 297.56 | Position: (0.735, 0.330, -0.122), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 130.559, 0.000)
+BRIDGE | DEBUG | 11:11:53 | 297.56 | Modifying Text: Previous
+BRIDGE | DEBUG | 11:11:53 | 297.56 | Mesh bounding box: Center: (0.734, 0.330, -0.124), Extents: (0.092, 0.000, 0.102)
+BRIDGE | TRACE | 11:11:53 | 297.74 | handleStringMessage, message guid: ad3c4708-eb02-4291-a857-5dce45273a58
+BRIDGE | DEBUG | 11:11:53 | 297.74 | Found Object to modify over transmission, object guid: 5f67377b-9115-4e66-a318-54b35241f530
+BRIDGE | TRACE | 11:11:53 | 297.74 | modifyObject() : taskLabel
+BRIDGE | DEBUG | 11:11:53 | 297.74 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (0.000, 310.523, 0.000)
+BRIDGE | DEBUG | 11:11:53 | 297.74 | Modifying Text: 1 inch= 1000 miles
+BRIDGE | DEBUG | 11:11:53 | 297.74 | Mesh bounding box: Center: (0.001, 0.000, 0.001), Extents: (0.162, 0.023, 0.190)
+BRIDGE | TRACE | 11:11:53 | 297.87 | handleStringMessage, message guid: 76e95521-63d7-4b8b-adbc-e79a706496cc
+BRIDGE | DEBUG | 11:11:53 | 297.87 | Found Object to modify over transmission, object guid: 48313004-df83-4234-bf89-366682ac6577
+BRIDGE | TRACE | 11:11:53 | 297.87 | modifyObject() : brbPreviousClip
+BRIDGE | DEBUG | 11:11:53 | 297.87 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 130.559, 0.000)
+BRIDGE | TRACE | 11:11:53 | 298 | handleStringMessage, message guid: 9d83b137-108e-4024-a5c2-7ba74d123478
+BRIDGE | DEBUG | 11:11:53 | 298 | Found Object to modify over transmission, object guid: 39073e02-6ff1-4fe4-920b-a288225cb209
+BRIDGE | TRACE | 11:11:53 | 298 | modifyObject() : brbNextClip
+BRIDGE | DEBUG | 11:11:53 | 298 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 130.559, 0.000)
+BRIDGE | TRACE | 11:11:53 | 298.12 | handleStringMessage, message guid: b6dd4d28-3684-42c8-b709-be7f83031a75
+BRIDGE | DEBUG | 11:11:53 | 298.12 | Found Object to modify over transmission, object guid: 17790dc8-ed26-4804-8586-be250d2cb50f
+BRIDGE | TRACE | 11:11:53 | 298.12 | modifyObject() : brbNextModule
+BRIDGE | DEBUG | 11:11:53 | 298.12 | Position: (0.000, 0.000, 0.000), scale: (0.600, 0.600, 0.600), EulerAngles: (90.000, 130.559, 0.000)
+AUDIOHANDLER | TRACE | 11:11:53 | 298.2 | Attempting to play local Audio: moonlab_1_1_0
+AUDIOHANDLER | TRACE | 11:11:53 | 298.2 | Attempting to play local Audio: moonlab_1_1_0
+MAGICLEAPTOOLS.POINTERRECEIVER | EVENT | 11:12:23 | 328.09 | Earth Targetted
+MAGICLEAPTOOLS.POINTERRECEIVER | EVENT | 11:12:23 | 328.11 | Earth UnTargetted
+LOGINMANAGER | TRACE | 11:12:43 | 347.63 | ExitSelected()
+LOGGER | SUBMIT | 11:12:43 | 347.63 | Application ending after 347.6305 seconds, time is now 11:12

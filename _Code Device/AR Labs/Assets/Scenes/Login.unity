@@ -12596,7 +12596,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   offset: {x: 0, y: 0, z: 1}
   surfaceOffset: 0.07
-  allowedDistance: 1
+  allowedDistance: 0.5
   minimumScale: 0.5
   arrivalSpeed: 7
   flipForward: 0

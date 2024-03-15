@@ -96,6 +96,24 @@ public class AudioHandler : MonoBehaviour
         }
     }
 
+    public void StopAudio()
+    {
+        if (transmissionHost)
+        {
+            MagicLeapTools.Transmission.Send(new MagicLeapTools.RPCMessage("StopAudioLocal"));
+        }
+
+        StopAudioLocal();
+    }
+
+    public void StopAudioLocal()
+    {
+        if (speaker.isPlaying)
+        {
+            speaker.Stop();
+        }
+    }
+
     /// <summary>
     /// Coroutine used to wait on the media catalogue to initialize
     /// </summary>

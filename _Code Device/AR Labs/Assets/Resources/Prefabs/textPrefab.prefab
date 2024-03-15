@@ -183,7 +183,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4df325599c129541b666e09bde34c30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motionSource: {fileID: 0}
+  motionSource: {fileID: 8807304999592186326}
   smoothTime: 0.04
   sendFrameRate: 24
   remotePrefab: {fileID: 0}

@@ -12,30 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4df325599c129541b666e09bde34c30, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  motionSource: {fileID: 0}
-  smoothTime: 0.04
-  sendFrameRate: 24
-  remotePrefab: {fileID: 0}
-  ownershipLocked: 1
-  resourceFileName: 
-  creator: 
-  guid: 
-  localPosition: {x: 0, y: 0, z: 0}
-  rotationOffset: {x: 0, y: 0, z: 0, w: 0}
-  targetScale: {x: 0, y: 0, z: 0}
---- !u!114 &9160989363904618997
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1274545037564365233}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e4df325599c129541b666e09bde34c30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  motionSource: {fileID: 0}
+  motionSource: {fileID: 2876478744767511458}
   smoothTime: 0.04
   sendFrameRate: 24
   remotePrefab: {fileID: 0}
@@ -119,6 +96,12 @@ PrefabInstance:
 --- !u!1 &1274545037564365233 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2106876170301823322, guid: 05af89a8d837df44db9473521b43055d,
+    type: 3}
+  m_PrefabInstance: {fileID: 904439863805317355}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2876478744767511458 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3127320505598978889, guid: 05af89a8d837df44db9473521b43055d,
     type: 3}
   m_PrefabInstance: {fileID: 904439863805317355}
   m_PrefabAsset: {fileID: 0}

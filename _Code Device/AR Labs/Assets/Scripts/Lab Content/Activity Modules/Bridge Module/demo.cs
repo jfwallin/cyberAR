@@ -122,6 +122,9 @@ namespace demoRoutines
             // Protecting against multiple module change events?
             if (callBackActive == false)
                 FindObjectOfType<LabManager>().ModuleComplete();
+
+            // Stop any audio playing 
+            AudioHandler.Instance.StopAudio();
         }
 
         // Transmission RPC call methods
