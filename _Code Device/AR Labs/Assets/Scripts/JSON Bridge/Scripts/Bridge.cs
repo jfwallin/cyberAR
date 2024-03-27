@@ -31,6 +31,17 @@ public class Bridge
         }
     }
 
+    private Transform _anchor_t;
+    private Transform anchor_transform
+    {
+        get
+        {
+            if (_anchor_t == null)
+                _anchor_t = GameObject.Find("[ANCHOR]").transform;
+            return _anchor_t;
+        }
+    }
+
     private string msgParts;         // Holds pieces of large messages still being sent
     private bool transmissionEnabled = false; // Flag marking if Transmission has been setup
     [SerializeField]
@@ -230,7 +241,10 @@ public class Bridge
         if (TransmissionObject.Exists(guid))
         {
             LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.DEBUG, $"Found Object to modify over transmission, object guid: {guid}");
+            // Report object position after a delay
             GameObject go = TransmissionObject.Get(guid).gameObject;
+            IEnumerator pos_report = DelayedPositionReport(guid, go.transform);
+            Transmission.Instance.StartCoroutine(pos_report);
             if (initialize)
                 initializeObject(go, objInfo, false);
             else // Modify
@@ -409,9 +423,8 @@ public class Bridge
                 myObject.transform.localEulerAngles = obj.eulerAngles;
         }
         LabLogger.Instance.InfoLog( this.GetType().ToString(), LabLogger.LogTag.DEBUG,
-            $"Position: {myObject.transform.position.ToString("F3")}, scale: {myObject.transform.lossyScale.ToString("F3")}, EulerAngles: {myObject.transform.eulerAngles.ToString("F3")}");
+            $"Position: {anchor_transform.InverseTransformPoint(myObject.transform.position)}, scale: {myObject.transform.lossyScale.ToString("F3")}, EulerAngles: {myObject.transform.eulerAngles.ToString("F3")}");
         
-
         // Add custom scripted components to the object
         if (obj.componentsToAdd != null)
         {
@@ -617,5 +630,10 @@ public class Bridge
         }
     }
 
+    private IEnumerator DelayedPositionReport(string guid, Transform obj_transform)
+    {
+        yield return new WaitForSeconds(5.0f);
+        LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.DEBUG, $"Delayed Position Report GUID: {guid} : {anchor_transform.InverseTransformPoint(obj_transform.position)}");
+    }
     #endregion Coroutines
 }
