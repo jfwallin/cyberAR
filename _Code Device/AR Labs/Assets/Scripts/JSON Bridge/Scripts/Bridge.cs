@@ -423,7 +423,7 @@ public class Bridge
                 myObject.transform.localEulerAngles = obj.eulerAngles;
         }
         LabLogger.Instance.InfoLog( this.GetType().ToString(), LabLogger.LogTag.DEBUG,
-            $"Position: {anchor_transform.InverseTransformPoint(myObject.transform.position)}, scale: {myObject.transform.lossyScale.ToString("F3")}, EulerAngles: {myObject.transform.eulerAngles.ToString("F3")}");
+            $"Position: {anchor_transform.InverseTransformPoint(myObject.transform.position).ToString("F3")}, scale: {myObject.transform.lossyScale.ToString("F3")}, EulerAngles: {myObject.transform.eulerAngles.ToString("F3")}");
         
         // Add custom scripted components to the object
         if (obj.componentsToAdd != null)
@@ -633,7 +633,7 @@ public class Bridge
     private IEnumerator DelayedPositionReport(string guid, Transform obj_transform)
     {
         yield return new WaitForSeconds(5.0f);
-        LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.DEBUG, $"Delayed Position Report GUID: {guid} : {anchor_transform.InverseTransformPoint(obj_transform.position)}");
+        LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.DEBUG, $"Delayed Position Report GUID: {guid} : {anchor_transform.InverseTransformPoint(obj_transform.position).ToString("F3")}");
     }
     #endregion Coroutines
 }

@@ -154,6 +154,14 @@ public class demoSequence : MonoBehaviour
                     bridge.MakeObject(objectMods as ObjectInfo);
             }
         }
+        TransmissionObject.SynchronizeAll();
+        StartCoroutine(DelayedSynchronize());
+    }
+
+    IEnumerator DelayedSynchronize()
+    {
+        yield return new WaitForSeconds(3.0f);
+        TransmissionObject.SynchronizeAll();
     }
 
     // Waits for an audio clip to play
