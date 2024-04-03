@@ -31,6 +31,7 @@ public class LoginManager : MonoBehaviour
     public GameObject placementProp;   //Shown during the placement phase to identify the anchor point
     public GameObject anchor;          //Root transform of anchored content.
     public MagicLeap.Core.MLImageTrackerBehavior tracker1;
+    public GameObject placementUI;
 
     [Header("Login UI")]
     public GameObject loginUI;         //UI panel for login
@@ -202,7 +203,9 @@ public class LoginManager : MonoBehaviour
         {
             case state.placement:
                 {
+                    logger.InfoLog(entity, LabLogger.LogTag.STATE_START, "Placement");
                     introAnimation.SetActive(false);
+                    placementUI.SetActive(true);
                     placed = false;
                     tracker1.OnTargetFound += OnTarget1Found;
                     tracker1.OnTargetUpdated += OnTarget1Updated;
@@ -210,7 +213,6 @@ public class LoginManager : MonoBehaviour
                     tracker1.enabled = true;
                     break;
 
-                    logger.InfoLog(entity, LabLogger.LogTag.STATE_START, "Placement");
                     HidePointer();
                     // Hide the intro animation
                     // introAnimation.gameObject.transform.GetChild(0).gameObject.SetActive(false);
@@ -382,6 +384,7 @@ public class LoginManager : MonoBehaviour
         tracker1.OnTargetLost -= OnTarget1Lost;
         tracker1.enabled = false;
         placed = true;
+        placementUI.SetActive(false);
         if (Debug.isDebugBuild && skipLoginAndDownload)
             ChangeStateTo(state.lab_initiation);
         else
