@@ -32,6 +32,8 @@ public class LoginManager : MonoBehaviour
     public GameObject anchor;          //Root transform of anchored content.
     public MagicLeap.Core.MLImageTrackerBehavior tracker1;
     public GameObject placementUI;
+    public GameObject placementLoading;
+    public GameObject placementCheckmark;
 
     [Header("Login UI")]
     public GameObject loginUI;         //UI panel for login
@@ -211,28 +213,6 @@ public class LoginManager : MonoBehaviour
                     tracker1.OnTargetUpdated += OnTarget1Updated;
                     tracker1.OnTargetLost += OnTarget1Lost;
                     tracker1.enabled = true;
-                    break;
-
-                    HidePointer();
-                    // Hide the intro animation
-                    // introAnimation.gameObject.transform.GetChild(0).gameObject.SetActive(false);
-                    introAnimation.SetActive(false);
-
-                    // Clear out lab list ,in case placement was looped to from lab selection
-                    foreach (GameObject go in uiLabList)
-                        Destroy(go);
-
-                    // Enable placement object and set flag to not placed
-                    placementProp.SetActive(true);
-                    placed = false;
-                    // Start coroutine to move the lab anchor object
-                    StartCoroutine(AlignUIWithController());
-                    // Start audio instruction playback
-                    placementProp.GetComponent<AudioSource>()?.Play();
-                    // Bind the place function to the trigger
-                    controller.GetComponent<ControlInput>().OnTriggerDown.AddListener(Place);
-                    
-                    // WE NOW WAIT UNTIL A TRIGGER PRESS TO GO ON TO pin_entry
                     break;
                 }
             case state.pin_entry:
@@ -727,6 +707,10 @@ public class LoginManager : MonoBehaviour
         placementProp.transform.eulerAngles = new Vector3(0, result.Rotation.eulerAngles.y, 0);
         placementProp.SetActive(true);
         controller.GetComponent<ControlInput>().OnTriggerDown.AddListener(ConfirmTarget1);
+        // Play Audio saying to pull the trigger
+        // Change image to checkmark
+        placementLoading.SetActive(false);
+        placementCheckmark.SetActive(true);
     }
 
     private void OnTarget1Updated(MLImageTracker.Target target, MLImageTracker.Target.Result result)
@@ -739,6 +723,9 @@ public class LoginManager : MonoBehaviour
     {
         placementProp.SetActive(false);
         controller.GetComponent<ControlInput>().OnTriggerDown.RemoveListener(ConfirmTarget1);
+        // change back to loading screen
+        placementLoading.SetActive(true);
+        placementCheckmark.SetActive(false);
     }
 
     /// <summary>
