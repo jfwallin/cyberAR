@@ -119,7 +119,7 @@ public class LabManager : MonoBehaviour
     public void TransmissionStartLab()
     {
         LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.TRACE, "TransmissionStartLab()");
-        StopCoroutine("CheckForPeers");
+        StopCoroutine(CheckForPeers());
         transmissionStartLabButton.onClick.RemoveAllListeners();
         // Disconnect and close UI
         transmissionStartLabButton.onClick.RemoveAllListeners();
@@ -290,9 +290,11 @@ public class LabManager : MonoBehaviour
         while(true)
         {
             int initNumPeers = Transmission.Instance.Peers.Length;
+            LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.DEBUG, $"CheckforPeers : {initNumPeers} peers");
             if (initNumPeers > 0)
             {
                 peerCountText.text = initNumPeers.ToString();
+                LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.DEBUG, $"Oldest Peer : {Transmission.Instance.OldestPeer}, Me : {NetworkUtilities.MyAddress}");
                 if (Transmission.Instance.OldestPeer != NetworkUtilities.MyAddress) // Not sure if this works
                 {
                     transmissionHost = false;
