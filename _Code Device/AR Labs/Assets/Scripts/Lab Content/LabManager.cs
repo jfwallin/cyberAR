@@ -119,7 +119,7 @@ public class LabManager : MonoBehaviour
     public void TransmissionStartLab()
     {
         LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.TRACE, "TransmissionStartLab()");
-        StopCoroutine(CheckForPeers());
+        StopCoroutine("CheckForPeers");
         transmissionStartLabButton.onClick.RemoveAllListeners();
         // Disconnect and close UI
         transmissionStartLabButton.onClick.RemoveAllListeners();

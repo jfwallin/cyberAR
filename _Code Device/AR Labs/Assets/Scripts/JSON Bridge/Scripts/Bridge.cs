@@ -616,7 +616,7 @@ public class Bridge
             yield return new WaitForSecondsRealtime(1.0f);
             deltaTime += 1.0f;
 
-            LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.TRACE, $"Rechecking for transmission object after {deltaTime}s");
+            LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.TRACE, $"Rechecking for transmission object guid: {guid}, after {deltaTime}s");
 
             if (TransmissionObject.Exists(guid))
             {

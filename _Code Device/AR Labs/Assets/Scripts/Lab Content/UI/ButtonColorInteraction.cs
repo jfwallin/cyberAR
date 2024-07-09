@@ -1,7 +1,7 @@
 using UnityEngine;
 using MagicLeapTools;
 
-public class ButtonInteraction : MonoBehaviour
+public class ButtonColorInteraction : MonoBehaviour
 {
     public Color hoverColor = Color.yellow;
     public Color pressColor = Color.red;

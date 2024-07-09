@@ -98,7 +98,8 @@ public class DownloadUtility : MonoBehaviour
             else // There is no local file
             {
                 logger.InfoLog(entity, LabLogger.LogTag.TRACE, $"Could not find local file ${path}, Trying to download from {url}");
-                callback.Invoke(-1); // Local file does not exist
+                StartCoroutine(downloadRoutine(url, path, callback));
+                // callback.Invoke(-1); // Local file does not exist
             }
         }
     }
