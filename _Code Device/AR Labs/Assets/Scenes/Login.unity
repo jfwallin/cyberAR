@@ -3481,8 +3481,7 @@ MonoBehaviour:
   bufferSize: 4096
   appKey: 6900875598
   privateKey: 
-  rpcTargets:
-  - {fileID: 636720211}
+  rpcTargets: []
   sharedOrigin:
     position: {x: 0, y: 0, z: 0}
     rotation: {x: 0, y: 0, z: 0, w: 0}

@@ -173,7 +173,7 @@ namespace MagicLeapTools
         private const float HeartbeatInterval = 2;
         private const float ReliableResendInterval = .5f;
         private const float MaxResendDuration = 7;
-        private const float StalePeerTimeout = 8;
+        private const float StalePeerTimeout = 20;
         private const float OldestIdentifierTimeout = 3;
         private static bool _receiveThreadAlive;
         private static ConcurrentBag<string> _receivedMessages = new ConcurrentBag<string>(); //do we need to be concerned about the constant growth of this?

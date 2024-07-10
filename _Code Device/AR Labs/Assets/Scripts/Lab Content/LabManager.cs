@@ -27,6 +27,7 @@ public class LabManager : MonoBehaviour
 
     private bool transmissionLab = false;
     private bool transmissionHost;
+    private bool transmissionLabStarted = false;
     private Bridge bridge;
     private LabLogger logger; // Easy reference to the logger object
     private string entity;    // String of this class name, used when logging
@@ -88,7 +89,7 @@ public class LabManager : MonoBehaviour
             LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.DEBUG, $"Our Address: {NetworkUtilities.MyAddress}");
 
             // Check if we already have peers  NOT SURE IF WE NEED THIS ANYMORE
-            StartCoroutine("CheckForPeers");
+            StartCoroutine(CheckForPeers());
 
             // Set Shared origin
             Pose newOrigin = new Pose(transform.position, transform.rotation);
@@ -118,8 +119,18 @@ public class LabManager : MonoBehaviour
     /// </summary>
     public void TransmissionStartLab()
     {
+        // Catch if it is called twice for some reason
+        if(transmissionLabStarted)
+        {
+            LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.ERROR, "Tried to start lab twice");
+            return;
+        }
+
+        // Stop all coroutines
+        StopAllCoroutines();
+
+        transmissionLabStarted = true;
         LabLogger.Instance.InfoLog(entity, LabLogger.LogTag.TRACE, "TransmissionStartLab()");
-        StopCoroutine("CheckForPeers");
         transmissionStartLabButton.onClick.RemoveAllListeners();
         // Disconnect and close UI
         transmissionStartLabButton.onClick.RemoveAllListeners();
@@ -208,6 +219,10 @@ public class LabManager : MonoBehaviour
     /// </summary>
     private void EndLab()
     {
+        // Reset start of transmission lab bool if necessary
+        if (transmissionLab && transmissionLabStarted)
+            transmissionLabStarted = false;
+
         // Get rid of current module objects and references
         Destroy(currentModuleObject);
         currentModuleScript = null;
@@ -235,7 +250,9 @@ public class LabManager : MonoBehaviour
             // Start the lab by sending message to all known peers
             // Since this does not include ourselves, we must also call it explicitly here.
             Transmission.Send(new RPCMessage("TransmissionStartLab", "", "", TransmissionAudience.KnownPeers));
-            TransmissionStartLab();
+
+            // TransmissionStartLab();
+            StartCoroutine(HostDelayStart());
         }
     }
 
@@ -310,6 +327,12 @@ public class LabManager : MonoBehaviour
             }
             yield return new WaitForSeconds(2.0f);
         }
+    }
+
+    IEnumerator HostDelayStart()
+    {
+        yield return new WaitForSeconds(5.0f);
+        TransmissionStartLab();
     }
     #endregion Coroutines
 }
