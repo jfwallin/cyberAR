@@ -138,6 +138,7 @@ public class Bridge
     /// <param name="data">JSON list of objects to delete</param>
     public void CleanUp(string data)
     {
+        LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.TRACE, "CleanUp()");
         ObjectInfoCollection info = JsonUtility.FromJson<ObjectInfoCollection>(data);
         foreach (ObjectInfo obj in info.objects)
         {

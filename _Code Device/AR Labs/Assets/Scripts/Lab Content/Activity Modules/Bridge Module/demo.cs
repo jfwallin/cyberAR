@@ -76,6 +76,7 @@ namespace demoRoutines
 
         public override void EndOfModule()
         {
+            LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.TRACE, "EndOfModule()");
             // Undo Lighting changes
             if (moduleData.restoreLights)
             {
