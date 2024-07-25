@@ -99,9 +99,25 @@ namespace MagicLeapTools
             StartCoroutine("ShareTransformStatus");
         }
 
+        private void OnDisable()
+        {
+            if (gameObject.activeSelf)
+            {
+                LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.DEBUG,
+                    $"Transmission Object [{gameObject.name}] Parent Deactivated, Self is still enabled");
+            }
+            else
+            {
+                LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.DEBUG,
+                    $"Transmission Object [{gameObject.name}] is disabled, (Not because of parent)");
+            }
+        }
         //Deint:
         private void OnDestroy()
         {
+            LabLogger.Instance.InfoLog(this.GetType().ToString(), LabLogger.LogTag.DEBUG,
+                $"Transmission Object [{gameObject.name}] destroyed");
+
             StopAllCoroutines();
             
             //remove from catalog:

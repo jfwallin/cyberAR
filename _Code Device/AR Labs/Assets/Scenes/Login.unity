@@ -5218,10 +5218,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1da823422228d9249b370f716c67750a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 2800000, guid: edcd24815d0314639a6ad2bebbdd4c4e, type: 3}
+  image: {fileID: 2800000, guid: 756f7760fefb80b4eaf86702476a85ec, type: 3}
   isStationary: 1
   autoUpdate: 0
-  longerDimensionInSceneUnits: 0.267
+  longerDimensionInSceneUnits: 0.23
 --- !u!1 &1145454128
 GameObject:
   m_ObjectHideFlags: 0

@@ -247,7 +247,9 @@ public class Bridge
             IEnumerator pos_report = DelayedPositionReport(guid, go.transform);
             Transmission.Instance.StartCoroutine(pos_report);
             if (initialize)
+            {
                 initializeObject(go, objInfo, false);
+            }
             else // Modify
                 modifyObject(go, objInfo, false);
             return;
