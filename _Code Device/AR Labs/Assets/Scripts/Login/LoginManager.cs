@@ -47,6 +47,7 @@ public class LoginManager : MonoBehaviour
     public GameObject labOptions;      //UI containing list of labs that are clicked to select
     public GameObject labTemp;         //Used to clone and make new lab selection buttons
     public GameObject labStarter;      //The object holding
+    public GameObject labLoadingUI;
 
     // Private Variables
     [Header("Other Necessary Components")]
@@ -316,6 +317,7 @@ public class LoginManager : MonoBehaviour
                                 LabZipDownloadedAndExtracted,
                                 !forceDownloads);
                         }
+                        labLoadingUI.SetActive(true);
                     }
 
                     // WAIT FOR THE LABJSON TO DOWNLOAD
@@ -654,6 +656,7 @@ public class LoginManager : MonoBehaviour
     private IEnumerator AwaitMediaCatalogueInitialization(MediaCatalogue mc, LabDataObject labData)
     {
         yield return new WaitUntil(() => mc.DoneLoadingAssets);
+        labLoadingUI.SetActive(false);
         InitializeLabManager(labData);
         ChangeStateTo(state.lab_running);
     }
